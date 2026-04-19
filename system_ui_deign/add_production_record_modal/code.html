@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#fafaf5",
+              "on-error-container": "#93000a",
+              "secondary-container": "#fec330",
+              "surface-dim": "#dadad5",
+              "surface-container-low": "#f4f4ef",
+              "primary-fixed-dim": "#91d78a",
+              "on-tertiary-fixed": "#002107",
+              "inverse-surface": "#2f312e",
+              "on-tertiary": "#ffffff",
+              "on-primary": "#ffffff",
+              "surface-tint": "#2a6b2c",
+              "on-primary-container": "#cbffc2",
+              "surface-variant": "#e3e3de",
+              "surface": "#fafaf5",
+              "on-surface": "#1a1c19",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-high": "#e8e8e3",
+              "on-error": "#ffffff",
+              "primary-container": "#3a7b3a",
+              "tertiary-fixed": "#abf4ac",
+              "tertiary": "#1d622b",
+              "on-background": "#1a1c19",
+              "secondary": "#795900",
+              "on-surface-variant": "#40493d",
+              "on-primary-fixed": "#002203",
+              "error": "#ba1a1a",
+              "primary-fixed": "#acf4a4",
+              "on-tertiary-container": "#c7ffc5",
+              "secondary-fixed-dim": "#f8bd2a",
+              "outline-variant": "#bfcaba",
+              "tertiary-container": "#387b41",
+              "tertiary-fixed-dim": "#90d792",
+              "on-secondary-fixed": "#261a00",
+              "background": "#fafaf5",
+              "secondary-fixed": "#ffdfa0",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#0c5216",
+              "surface-container-highest": "#e3e3de",
+              "inverse-primary": "#91d78a",
+              "primary": "#206223",
+              "inverse-on-surface": "#f1f1ec",
+              "on-secondary-container": "#6f5100",
+              "outline": "#707a6c",
+              "on-tertiary-fixed-variant": "#07521d",
+              "surface-container": "#eeeee9",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#5c4300"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body { font-family: 'Work Sans', sans-serif; }
+      h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-hidden">
+<!-- Background Content (Simulated Production Overview Screen) -->
+<div class="fixed inset-0 flex blur-sm grayscale-[0.2]">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-40 bg-[#f4f4ef] dark:bg-zinc-900 flex flex-col py-8 gap-y-6">
+<div class="px-8 mb-4">
+<div class="font-['Manrope'] font-black text-[#206223] dark:text-[#acf4a4] text-2xl">JUKAM</div>
+<div class="font-['Work_Sans'] text-xs font-medium tracking-widest uppercase text-zinc-500">Modern Agrarian</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="text-zinc-600 dark:text-zinc-400 mx-4 px-4 py-3 flex items-center gap-4 transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Work_Sans'] text-sm font-medium tracking-wide uppercase">Dashboard</span>
+</div>
+<div class="text-zinc-600 dark:text-zinc-400 mx-4 px-4 py-3 flex items-center gap-4 transition-all">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-['Work_Sans'] text-sm font-medium tracking-wide uppercase">Animals</span>
+</div>
+<div class="bg-[#acf4a4] text-[#002203] rounded-full mx-4 px-4 py-3 flex items-center gap-4 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">opacity</span>
+<span class="font-['Work_Sans'] text-sm font-bold tracking-wide uppercase">Production</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 p-8">
+<header class="flex justify-between items-center mb-10">
+<h1 class="text-3xl font-extrabold tracking-tight text-primary">Production Overview</h1>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high"></div>
+</div>
+</header>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-48 bg-surface-container-lowest rounded-xl shadow-sm p-6"></div>
+<div class="h-48 bg-surface-container-lowest rounded-xl shadow-sm p-6"></div>
+<div class="h-48 bg-surface-container-lowest rounded-xl shadow-sm p-6"></div>
+<div class="col-span-2 h-96 bg-surface-container-lowest rounded-xl shadow-sm p-6"></div>
+<div class="h-96 bg-surface-container-lowest rounded-xl shadow-sm p-6"></div>
+</div>
+</main>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-50 bg-on-surface/20 backdrop-blur-xl flex items-center justify-center p-4">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0_24px_48px_rgb(26,28,25,0.12)] overflow-hidden flex flex-col md:flex-row">
+<!-- Left Side: Visual/Accent Panel -->
+<div class="hidden md:flex md:w-1/3 bg-primary-container relative overflow-hidden flex-col justify-end p-8 text-on-primary-container">
+<img alt="Milk production detail" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" data-alt="Close-up of fresh milk being poured into a steel container with soft morning sunlight and organic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWYay2dAtgu9xa0cC7XHBoyLorrppNJnEDC87419jVwrXOuhrHN4gativtGDkL8vovTxAdvFJ8RoZk-13FMH8pV48AES7ZcijJVDm_M2cXUT-ckly2MTSre8UpfE_ShR8ddhZFUTzk5OQ72Z5Xgx6WTMBpfjQMWzEWDhFuWh_leuerland9hZnrU19nc-6ojbH3E5u7EIX3SqB7xFFSrYyWC2woNzllWaZsTaAeik0PWpVJKHvm-N1_cGqXcd5g3LOjMCEACgO7jLZ"/>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<h2 class="text-2xl font-bold font-headline leading-tight">New Production Log</h2>
+<p class="text-sm opacity-80 mt-2 font-body">Record precise daily yields to maintain your herd's performance data.</p>
+</div>
+</div>
+<!-- Right Side: Form Content -->
+<div class="flex-1 p-8 lg:p-10">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-xs font-bold tracking-[0.15em] text-secondary uppercase mb-1">Entry Details</h3>
+<p class="text-on-surface-variant text-sm">Fill in the required fields for the milking session.</p>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-1 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6">
+<!-- Milking Schedule -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-3">Milking Schedule</label>
+<div class="grid grid-cols-3 gap-3">
+<label class="relative flex items-center justify-center p-3 border border-outline-variant/30 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input checked="" class="peer sr-only" name="schedule" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant">3 AM</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg transition-all"></div>
+</label>
+<label class="relative flex items-center justify-center p-3 border border-outline-variant/30 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="peer sr-only" name="schedule" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant">11 AM</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg transition-all"></div>
+</label>
+<label class="relative flex items-center justify-center p-3 border border-outline-variant/30 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all group">
+<input class="peer sr-only" name="schedule" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant">4 PM</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg transition-all"></div>
+</label>
+</div>
+</div>
+<!-- Animal Selection -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Animal Selection</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-primary text-sm font-medium">
+<option>Select from herd...</option>
+<option>JK-402 (Bessie)</option>
+<option>JK-405 (Molly)</option>
+<option>JK-410 (Luna)</option>
+<option>JK-412 (Daisy)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Production Details Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Quantity (Litres)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium" placeholder="0.00" step="0.1" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-on-surface-variant/60">L</span>
+</div>
+</div>
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Milk Density (kg/L)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium" placeholder="1.030" step="0.001" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-on-surface-variant/60">kg/L</span>
+</div>
+</div>
+</div>
+<!-- Narration -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Narration</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium resize-none" placeholder="Add any observations or notes..." rows="3"></textarea>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/10">
+<button class="flex-1 py-3 px-6 rounded-lg text-primary font-bold text-sm hover:bg-primary/5 transition-colors" type="button">
+                            Cancel
+                        </button>
+<button class="flex-[2] py-3 px-6 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all active:scale-[0.98]" type="submit">
+                            Save Record
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Top Navigation Anchor (Simulated) -->
+<header class="fixed top-0 w-full z-30 bg-[#fafaf5]/60 dark:bg-zinc-950/60 backdrop-blur-md px-6 py-3 flex justify-between items-center blur-sm">
+<div class="font-['Manrope'] font-bold text-lg tracking-tight text-[#206223]">JUKAM Dairy</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-zinc-500">notifications</span>
+<div class="w-8 h-8 rounded-full bg-zinc-200"></div>
+</div>
+</header>
+</body></html>

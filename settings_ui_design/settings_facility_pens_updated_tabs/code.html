@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#dadad5",
+                      "surface-container-highest": "#e3e3de",
+                      "on-tertiary-fixed-variant": "#07521d",
+                      "on-secondary-container": "#6f5100",
+                      "surface-bright": "#fafaf5",
+                      "on-secondary-fixed": "#261a00",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e8e3",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#1a1c19",
+                      "tertiary-fixed-dim": "#90d792",
+                      "on-primary-fixed-variant": "#0c5216",
+                      "on-primary-container": "#cbffc2",
+                      "primary-container": "#3a7b3a",
+                      "on-tertiary-container": "#c7ffc5",
+                      "secondary-fixed": "#ffdfa0",
+                      "on-secondary-fixed-variant": "#5c4300",
+                      "inverse-primary": "#91d78a",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#eeeee9",
+                      "primary": "#206223",
+                      "on-tertiary-fixed": "#002107",
+                      "outline-variant": "#bfcaba",
+                      "on-error-container": "#93000a",
+                      "surface-variant": "#e3e3de",
+                      "on-background": "#1a1c19",
+                      "background": "#fafaf5",
+                      "surface-container-low": "#f4f4ef",
+                      "secondary-container": "#fec330",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#002203",
+                      "primary-fixed-dim": "#91d78a",
+                      "outline": "#707a6c",
+                      "inverse-on-surface": "#f1f1ec",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#abf4ac",
+                      "on-surface-variant": "#40493d",
+                      "surface-tint": "#2a6b2c",
+                      "secondary-fixed-dim": "#f8bd2a",
+                      "inverse-surface": "#2f312e",
+                      "surface": "#fafaf5",
+                      "tertiary": "#1d622b",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#795900",
+                      "tertiary-container": "#387b41",
+                      "primary-fixed": "#acf4a4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Work Sans"],
+                      "label": ["Work Sans"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="hidden md:flex flex-col gap-6 py-8 h-screen w-72 bg-[#f4f4ef] dark:bg-stone-800 shadow-[24px_0_48px_rgba(26,28,25,0.04)] fixed left-0 top-0 z-40">
+<div class="px-8 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+<img alt="Green Pastures" data-alt="minimalist organic logo showing a stylized green leaf and sun icon on a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKggz-pe6jwO9lua4e8pIjAWkctje9uQFMiW3DVA60D2DjcctFjD_0LGqSMVY_mpE-sDw_TG1QeZeYn3nLuKukwOD6mRQ6X8_dalNKVNKp0dBpiKpcb8Qnnwgb5dge3UWZDswkTpSAai_9vZwdF5qDEYj9Bxrx3IAtjMDjedcbmkcgmj1wVa3saQ-gtMcfpyYJFIdTdi_-wWBA1-2VbQuyf-bFYpbaFPczpm1Ax9O7DcFVa95mbr6PGXyPQFjOge-GE5-75hdvv35O"/>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#206223] leading-tight">Green Pastures</h2>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Dairy Management v2.4</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-['Work_Sans'] text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="font-['Work_Sans'] text-sm tracking-wide">Livestock</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-['Work_Sans'] text-sm tracking-wide">Facilities</span>
+</a>
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-['Work_Sans'] text-sm tracking-wide">Inventory</span>
+</a>
+<!-- Active State: System Settings -->
+<a class="bg-[#acf4a4] text-[#002203] rounded-full mx-4 px-6 py-3 font-semibold flex items-center gap-4 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings_suggest" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span class="font-['Work_Sans'] text-sm tracking-wide">System Settings</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-4 rounded-xl font-bold shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-transform">
+                Quick Log
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 min-h-screen flex flex-col">
+<!-- TopAppBar Shell -->
+<header class="bg-[#fafaf5]/60 dark:bg-stone-900/60 backdrop-blur-xl flex justify-between items-center w-full px-8 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-extrabold text-[#206223] dark:text-[#acf4a4] tracking-tighter font-['Manrope']">JUKAM Dairy</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 w-64 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Search facilities..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-[#206223] hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-[#206223] hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden lg:block">
+<p class="text-xs font-bold text-on-surface">Manager Profile</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Site Admin</p>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-fixed overflow-hidden">
+<img alt="Manager Profile" data-alt="professional portrait of a middle-aged farm manager with a kind expression, soft natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALyWQ2fwf1a6go-npbfM7sWLjHKengjv39Zzy8xYwWNl51IHblYaIGjAsUqxqy4blxv2Lye1qlz-vNBHKQsbeR6JtQvLjZIvxNp2TFofzQGT6lcrO3SY_Z7cKSWDB5YOZvEZuiARH5-wztO4m637Zt9srDON5aFf8XbZx1Q7hMHaNKNhqAa4-XxOLKCQ4piKjRy64ploAh0ADWE9L24girFJBdtiykuHD3dDx4RGhT-nvedM3VqCPh5zlh0XPypC_p33YMkDIi6A7s"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Settings Content -->
+<div class="p-8 lg:p-12 max-w-7xl w-full mx-auto">
+<div class="mb-10">
+<p class="font-['Work_Sans'] text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mb-2">Configure</p>
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight mb-2">System Settings</h2>
+</div>
+<!-- Tab Navigation (Updated to match SCREEN_199 style) -->
+<div class="flex gap-10 border-b border-outline-variant/20 overflow-x-auto pb-px mb-12">
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                General
+            </button>
+<button class="pb-4 text-[#206223] font-bold font-['Work_Sans'] text-sm relative whitespace-nowrap">
+                Facility Pens
+                <span class="absolute bottom-0 left-0 w-full h-1 bg-[#206223] rounded-t-full"></span>
+</button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                Feed Rations
+            </button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                Milking Units
+            </button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                Staff Access
+            </button>
+</div>
+<!-- Facility Pens Section (Asymmetric Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Main Table Area -->
+<div class="lg:col-span-9 bg-surface-container-lowest rounded-xl p-8 shadow-sm overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface">Active Facility Pens</h3>
+<p class="text-sm text-on-surface-variant">Manage housing capacity and pen assignments.</p>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">filter_list</span>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center border border-outline-variant/30 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto -mx-8">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Pen Name</th>
+<th class="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Type</th>
+<th class="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Capacity</th>
+<th class="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 font-bold text-on-surface">North Barn P1</td>
+<td class="px-8 py-5 text-sm">Dry Cow Housing</td>
+<td class="px-8 py-5 text-sm font-medium">45 / 50</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                            OPTIMAL
+                                        </span>
+</td>
+<td class="px-8 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 font-bold text-on-surface">West Wing P4</td>
+<td class="px-8 py-5 text-sm">Maternity Pen</td>
+<td class="px-8 py-5 text-sm font-medium">12 / 15</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-fixed text-on-tertiary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                            OPTIMAL
+                                        </span>
+</td>
+<td class="px-8 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 font-bold text-on-surface">East Paddock 2</td>
+<td class="px-8 py-5 text-sm">Open Grazing</td>
+<td class="px-8 py-5 text-sm font-medium">82 / 80</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-fixed text-on-secondary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            AT CAPACITY
+                                        </span>
+</td>
+<td class="px-8 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 font-bold text-on-surface">Quarantine Unit</td>
+<td class="px-8 py-5 text-sm">Isolation</td>
+<td class="px-8 py-5 text-sm font-medium">2 / 10</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold bg-surface-container-highest text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                            UNDERUTILIZED
+                                        </span>
+</td>
+<td class="px-8 py-5">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-10 flex justify-end">
+<button class="inline-flex items-center gap-3 bg-[#2E7D32] text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+                            Add Pen
+                        </button>
+</div>
+</div>
+<!-- Contextual Sidebar (Bento Card) -->
+<div class="lg:col-span-3 flex flex-col gap-6">
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+<h4 class="text-sm font-black uppercase tracking-widest mb-4 opacity-80">Infrastructure Stats</h4>
+<div class="space-y-4">
+<div>
+<p class="text-2xl font-black">15</p>
+<p class="text-[10px] uppercase font-bold tracking-tight opacity-70">Total Facility Pens</p>
+</div>
+<div class="h-1 w-full bg-on-primary-container/20 rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-container w-[82%] rounded-full"></div>
+</div>
+<p class="text-[10px] font-medium leading-relaxed">82% of current facility capacity is utilized. Consider expanding West Wing P6.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<h4 class="text-sm font-black uppercase tracking-widest mb-4 text-on-surface-variant">Facility Map</h4>
+<div class="aspect-square bg-surface-container rounded-lg relative flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img alt="Farm Map" class="w-full h-full object-cover grayscale opacity-50 contrast-125" data-alt="blueprint styled architectural map of a modern dairy farm layout showing rectangular pens and irrigation lines" data-location="Nanyuki, Kenya" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgriLQ8YYv2Zv51kKib4MeMUERqswpJFMdr_87S5WCPSr9qoVUPYJUiHs1ie4o9yUcIW8oiWfZcKG8pmXSEZgRW0wew962r00kNU0ziQuzYcU-HwXw8fk01aknzVlrRJAgbt5gU8LPI7tNLlLSYs4qVGIlycFdbJLn8lqpm48SWVMLX_WDKF2MxrfaIYJM5554eJpS_h_mCeConUTGXD6C4Soq81HAuE_ZPTPhDoy8Pkws1l0X2OluAFt7MYdnVB8LWar-WeXql88r"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+<button class="absolute bottom-4 left-4 right-4 bg-surface-container-lowest py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest shadow-sm">View Full Layout</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-[#fafaf5]/80 backdrop-blur-xl flex justify-around items-center py-3 px-4 z-50 shadow-[0_-8px_24px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="text-[10px] font-medium">Livestock</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="settings_suggest" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span class="text-[10px] font-bold">Settings</span>
+</button>
+</nav>
+</body></html>

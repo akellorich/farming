@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Finance Overview</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-secondary-fixed-variant": "#5c4300",
+                "on-primary-fixed-variant": "#0c5216",
+                "surface-dim": "#dadad5",
+                "on-tertiary-container": "#c7ffc5",
+                "primary": "#206223",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed": "#261a00",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "on-tertiary-fixed-variant": "#07521d",
+                "secondary-container": "#fec330",
+                "inverse-primary": "#91d78a",
+                "secondary-fixed": "#ffdfa0",
+                "outline-variant": "#bfcaba",
+                "on-background": "#1a1c19",
+                "surface-container-low": "#f4f4ef",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#002107",
+                "tertiary": "#1d622b",
+                "surface-container-highest": "#e3e3de",
+                "on-tertiary": "#ffffff",
+                "surface-tint": "#2a6b2c",
+                "surface-container-high": "#e8e8e3",
+                "outline": "#707a6c",
+                "tertiary-fixed": "#abf4ac",
+                "tertiary-container": "#387b41",
+                "inverse-on-surface": "#f1f1ec",
+                "on-primary-fixed": "#002203",
+                "on-primary-container": "#cbffc2",
+                "on-error-container": "#93000a",
+                "secondary": "#795900",
+                "on-secondary-container": "#6f5100",
+                "surface-variant": "#e3e3de",
+                "on-primary": "#ffffff",
+                "background": "#fafaf5",
+                "surface": "#fafaf5",
+                "inverse-surface": "#2f312e",
+                "primary-fixed": "#acf4a4",
+                "primary-fixed-dim": "#91d78a",
+                "surface-container": "#eeeee9",
+                "on-surface": "#1a1c19",
+                "surface-bright": "#fafaf5",
+                "error": "#ba1a1a",
+                "primary-container": "#3a7b3a",
+                "on-surface-variant": "#40493d",
+                "secondary-fixed-dim": "#f8bd2a",
+                "tertiary-fixed-dim": "#90d792",
+                "warning": "#e67e22"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Work Sans"],
+                "label": ["Work Sans"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, h4, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-zinc-50 dark:bg-zinc-900 flex flex-col py-6 px-4 gap-y-2 z-40">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+</div>
+<div>
+<h1 class="text-xl font-extrabold text-green-900 dark:text-green-100 leading-none">JUKAM Dairy</h1>
+<p class="text-xs font-medium text-zinc-500 uppercase tracking-widest mt-1">Modern Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="pets">pets</span>
+<span>Animals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="opacity">opacity</span>
+<span>Production</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="grass">grass</span>
+<span>Feeding</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="medical_services">medical_services</span>
+<span>Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="group">group</span>
+<span>Users Manager</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-100 rounded-full font-bold transition-all shadow-sm" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="assessment">assessment</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-zinc-600 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 rounded-full transition-all group" href="#">
+<span class="material-symbols-outlined text-zinc-400 group-hover:text-primary" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<div class="pt-6 border-t border-zinc-200 dark:border-zinc-800">
+<div class="flex items-center gap-3 px-2">
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3M22XuTyzPGBs6ntGTj-PSFE3lNSI5-gOdIEW1nKq52P3PWkmI8gVKq8YGSjSHdzv_QnyIdZogZQBquEgzKPN7iwCLwk36Ugy_gEXNxgNgIi79aQZSPE5eoKm3wujDg4cy0pqby8PdyLyATz-SCPwr-t7V3IXZLkukk22iSLSWPgq3nMhpFCTq8B3aBEhiPu2yVpj5T_eu754hkuUwkxkp15qAX_HIiXxvUNzAsRonuYvWBOBADxe38GDYVW8ob4Bskk3qyDm_xP_"/>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-zinc-900 dark:text-white leading-none">James Kamau</span>
+<span class="text-[10px] text-zinc-500 font-medium uppercase tracking-tighter mt-1">General Manager</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar Component -->
+<header class="fixed top-0 right-0 left-64 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-md z-30 shadow-sm dark:shadow-none h-16 flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<h2 class="text-lg font-bold tracking-tight brand-font">Finance Overview</h2>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" data-icon="search">search</span>
+<input class="bg-zinc-100 dark:bg-zinc-800 border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Search transactions..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen">
+<!-- Header Actions Row -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-3xl font-extrabold text-on-surface tracking-tight mb-1">Fiscal Performance</h3>
+<p class="text-on-surface-variant font-medium text-sm">Comprehensive tracking of revenue, expenses, and asset valuation.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-zinc-100 hover:bg-zinc-200 text-on-surface font-semibold rounded-md transition-all text-sm">
+<span>Actions</span>
+<span class="material-symbols-outlined text-sm" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-md shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all text-sm">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Record Transaction</span>
+</button>
+</div>
+</div>
+<!-- 1. Financial Position Summary -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Total Revenue -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Total Revenues</p>
+<h4 class="text-2xl font-extrabold text-on-surface">KES 1.2M</h4>
+<div class="mt-2 flex items-center gap-1.5 text-green-700 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>+8.4% this qtr</span>
+</div>
+</div>
+<!-- Total Expenses -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Total Expenses</p>
+<h4 class="text-2xl font-extrabold text-on-surface">KES 450K</h4>
+<div class="mt-2 flex items-center gap-1.5 text-secondary text-xs font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+<span>37.5% burn rate</span>
+</div>
+</div>
+<!-- Total Assets -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Total Assets</p>
+<h4 class="text-2xl font-extrabold text-on-surface">KES 8.5M</h4>
+<p class="text-[10px] text-zinc-400 mt-2 font-medium uppercase">Property &amp; Biological</p>
+</div>
+<!-- Total Liabilities -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Total Liabilities</p>
+<h4 class="text-2xl font-extrabold text-on-surface">KES 2.1M</h4>
+<div class="mt-2 flex items-center gap-1.5 text-zinc-500 text-xs font-semibold">
+<span class="material-symbols-outlined text-sm" data-icon="account_balance">account_balance</span>
+<span>Loans &amp; Payables</span>
+</div>
+</div>
+</div>
+<!-- 2. Overdue Invoices Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+<!-- Overdue Customer Invoices (Receivables) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="p-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-warning" data-icon="assignment_late">assignment_late</span>
+<h4 class="font-extrabold text-on-surface">Overdue Receivables</h4>
+</div>
+<span class="bg-warning/10 text-warning px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Action Required</span>
+</div>
+<div class="p-0">
+<table class="w-full text-left text-sm">
+<thead class="bg-zinc-50 text-[10px] uppercase tracking-widest text-zinc-400">
+<tr>
+<th class="px-6 py-3">Customer Name</th>
+<th class="px-6 py-3">Amount (KES)</th>
+<th class="px-6 py-3 text-right">Overdue</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-100">
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">Inooro Dairy Coop</td>
+<td class="px-6 py-4 font-medium">85,200.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">12 Days</td>
+</tr>
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">FreshMilk Retailers</td>
+<td class="px-6 py-4 font-medium">22,450.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">8 Days</td>
+</tr>
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">Zea Distribution</td>
+<td class="px-6 py-4 font-medium">11,900.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">5 Days</td>
+</tr>
+</tbody>
+</table>
+<div class="p-3 border-t border-zinc-100 text-center">
+<button class="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">View All Receivables</button>
+</div>
+</div>
+</div>
+<!-- Overdue Supplier Invoices (Payables) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="p-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-warning" data-icon="error">error</span>
+<h4 class="font-extrabold text-on-surface">Overdue Payables</h4>
+</div>
+<span class="bg-warning/10 text-warning px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Critical</span>
+</div>
+<div class="p-0">
+<table class="w-full text-left text-sm">
+<thead class="bg-zinc-50 text-[10px] uppercase tracking-widest text-zinc-400">
+<tr>
+<th class="px-6 py-3">Supplier Name</th>
+<th class="px-6 py-3">Amount (KES)</th>
+<th class="px-6 py-3 text-right">Overdue</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-zinc-100">
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">Nyeri Millers Ltd</td>
+<td class="px-6 py-4 font-medium">142,000.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">15 Days</td>
+</tr>
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">VetCare Pharmacies</td>
+<td class="px-6 py-4 font-medium">8,500.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">7 Days</td>
+</tr>
+<tr class="hover:bg-zinc-50/30 transition-colors">
+<td class="px-6 py-4 font-bold text-on-surface">Total Energy Farm</td>
+<td class="px-6 py-4 font-medium">35,400.00</td>
+<td class="px-6 py-4 text-right text-warning font-bold">3 Days</td>
+</tr>
+</tbody>
+</table>
+<div class="p-3 border-t border-zinc-100 text-center">
+<button class="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">View All Payables</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Recent Transactions -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="p-6 border-b border-surface-container-low flex justify-between items-center">
+<h4 class="text-xl font-extrabold text-on-surface tracking-tight">Recent Transactions</h4>
+<div class="flex gap-2">
+<button class="p-2 rounded-md hover:bg-zinc-100 transition-colors text-zinc-500">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 rounded-md hover:bg-zinc-100 transition-colors text-zinc-500">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant text-[11px] uppercase tracking-widest font-bold">
+<tr>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Description</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4 text-right">Amount</th>
+<th class="px-6 py-4 text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low font-body text-sm">
+<!-- Transaction 1 -->
+<tr class="hover:bg-zinc-50/50 transition-colors">
+<td class="px-6 py-4 font-medium text-on-surface">May 28, 2024</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Milk Sale - Bulk Delivery</span>
+<span class="text-xs text-on-surface-variant">Inooro Dairy Cooperative</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-extrabold rounded-full uppercase tracking-tighter">Income</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] text-zinc-400 mr-1">KES</span>
+<span class="font-bold text-green-700">42,500.00</span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex justify-center items-center gap-1.5 text-zinc-600 font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span>Completed</span>
+</div>
+</td>
+</tr>
+<!-- Transaction 2 -->
+<tr class="hover:bg-zinc-50/50 transition-colors">
+<td class="px-6 py-4 font-medium text-on-surface">May 27, 2024</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Feed Purchase - Maize Germ</span>
+<span class="text-xs text-on-surface-variant">Nyeri Millers Ltd</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-extrabold rounded-full uppercase tracking-tighter">Expense</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] text-zinc-400 mr-1">KES</span>
+<span class="font-bold text-secondary">15,200.00</span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex justify-center items-center gap-1.5 text-zinc-600 font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span>Completed</span>
+</div>
+</td>
+</tr>
+<!-- Transaction 3 -->
+<tr class="hover:bg-zinc-50/50 transition-colors">
+<td class="px-6 py-4 font-medium text-on-surface">May 26, 2024</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Veterinary Services</span>
+<span class="text-xs text-on-surface-variant">Annual Vaccination Drive</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-extrabold rounded-full uppercase tracking-tighter">Expense</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] text-zinc-400 mr-1">KES</span>
+<span class="font-bold text-secondary">8,450.00</span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex justify-center items-center gap-1.5 text-zinc-400 font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-zinc-300"></span>
+<span>Pending</span>
+</div>
+</td>
+</tr>
+<!-- Transaction 4 -->
+<tr class="hover:bg-zinc-50/50 transition-colors">
+<td class="px-6 py-4 font-medium text-on-surface">May 25, 2024</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Milk Sale - Farm Shop</span>
+<span class="text-xs text-on-surface-variant">Daily Retail Transactions</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-extrabold rounded-full uppercase tracking-tighter">Income</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-[10px] text-zinc-400 mr-1">KES</span>
+<span class="font-bold text-green-700">12,100.00</span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex justify-center items-center gap-1.5 text-zinc-600 font-bold text-xs">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span>Completed</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-zinc-50 flex justify-center border-t border-zinc-100">
+<button class="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">View Full History</button>
+</div>
+</div>
+</main>
+<!-- Asymmetrical Detail Decorator -->
+<div class="fixed bottom-8 right-8 pointer-events-none opacity-20">
+<span class="material-symbols-outlined text-[120px] text-primary select-none" data-icon="nature">nature</span>
+</div>
+</body></html>

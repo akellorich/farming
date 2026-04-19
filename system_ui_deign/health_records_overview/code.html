@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Health Records</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#795900",
+              "inverse-surface": "#2f312e",
+              "on-secondary-fixed": "#261a00",
+              "tertiary-fixed": "#abf4ac",
+              "surface-container-highest": "#e3e3de",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "primary-container": "#3a7b3a",
+              "tertiary-container": "#387b41",
+              "primary-fixed-dim": "#91d78a",
+              "surface-container": "#eeeee9",
+              "on-surface": "#1a1c19",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#91d78a",
+              "tertiary-fixed-dim": "#90d792",
+              "surface": "#fafaf5",
+              "primary-fixed": "#acf4a4",
+              "on-tertiary-fixed-variant": "#07521d",
+              "on-tertiary-container": "#c7ffc5",
+              "on-primary-fixed": "#002203",
+              "surface-bright": "#fafaf5",
+              "outline-variant": "#bfcaba",
+              "on-surface-variant": "#40493d",
+              "secondary-container": "#fec330",
+              "primary": "#206223",
+              "on-secondary-fixed-variant": "#5c4300",
+              "on-primary-fixed-variant": "#0c5216",
+              "surface-variant": "#e3e3de",
+              "surface-tint": "#2a6b2c",
+              "outline": "#707a6c",
+              "background": "#fafaf5",
+              "on-primary-container": "#cbffc2",
+              "secondary-fixed-dim": "#f8bd2a",
+              "inverse-on-surface": "#f1f1ec",
+              "surface-container-high": "#e8e8e3",
+              "tertiary": "#1d622b",
+              "on-secondary-container": "#6f5100",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#002107",
+              "on-background": "#1a1c19",
+              "surface-container-low": "#f4f4ef",
+              "surface-dim": "#dadad5",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#ffdfa0",
+              "on-tertiary": "#ffffff",
+              "on-error-container": "#93000a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"],
+              "manrope": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .botanical-shadow {
+            box-shadow: 0 10px 24px -8px rgba(32, 98, 35, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body overflow-x-hidden">
+<!-- SideNavBar (Copied from SCREEN_28 with 'Health' as active) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 space-y-4">
+<div class="px-6 mb-8">
+<h1 class="text-2xl font-black text-green-900 dark:text-green-500 font-manrope">JUKAM Dairy</h1>
+<p class="font-manrope font-semibold text-[10px] tracking-wider uppercase text-slate-500 dark:text-slate-400">Modern Agrarian</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-1">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span>Animals</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span>Production</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+<span>Feeding</span>
+</a>
+<!-- Health is Active -->
+<a class="flex items-center gap-4 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-200 rounded-full px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Health</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Users Manager</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto px-2 pb-2">
+<div class="relative group">
+<button class="w-full flex items-center gap-3 bg-surface-container-lowest rounded-xl p-3 botanical-shadow hover:bg-primary-fixed/30 transition-all">
+<img alt="James Kamau" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I"/>
+<div class="text-left overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">James Kamau</p>
+<p class="font-label text-[10px] uppercase tracking-tighter opacity-60">General Manager</p>
+</div>
+</button>
+<div class="absolute bottom-full left-0 mb-2 w-full bg-surface-container-lowest rounded-xl botanical-shadow opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all p-2 z-50">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="account_circle">account_circle</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Profile</span>
+</a>
+<div class="h-px bg-outline-variant/20 my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error-container text-error rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Logout</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar (Copied style from SCREEN_28) -->
+<header class="fixed top-0 w-full z-40 backdrop-blur-md bg-surface dark:bg-slate-900/60 shadow-sm dark:shadow-none max-w-[calc(100%-16rem)] flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400 font-manrope font-bold">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="text-lg tracking-tight">Health Records</span>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-xl text-sm font-semibold shadow-sm hover:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Log Health Check</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-24 pb-12 px-8 max-w-[1600px] mx-auto">
+<!-- Header Section -->
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h1 class="text-3xl font-extrabold text-on-surface tracking-tight">Health Records</h1>
+<p class="text-on-surface-variant">Livestock wellness and clinical history for JUKAM Dairy</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant block mb-1">Current Status</span>
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                        Optimal Herd Health
+                    </div>
+</div>
+</div>
+<!-- Health Dashboard Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-primary bg-primary-fixed/30 p-2 rounded-lg">medical_services</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Clinical</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-1">Active Treatments</p>
+<h3 class="text-2xl font-extrabold text-on-surface">12 <span class="text-sm font-medium text-on-surface-variant">animals</span></h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed/30 p-2 rounded-lg">vaccines</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Prevention</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-1">Vaccination Coverage</p>
+<h3 class="text-2xl font-extrabold text-on-surface">98.2%</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-error bg-error-container p-2 rounded-lg">emergency_home</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Quarantine</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-1">Quarantine Cases</p>
+<h3 class="text-2xl font-extrabold text-on-surface">03 <span class="text-sm font-medium text-on-surface-variant">animals</span></h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-tertiary bg-tertiary-fixed/30 p-2 rounded-lg">event</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Logistics</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-1">Next Vet Visit</p>
+<h3 class="text-2xl font-extrabold text-on-surface text-tertiary">Oct 28, 2023</h3>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Recent Health Incidents Table Section -->
+<div class="lg:w-2/3">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-5 flex justify-between items-center border-b border-surface-container">
+<h2 class="font-headline font-bold text-lg">Recent Health Incidents</h2>
+<button class="text-primary text-xs font-bold uppercase tracking-widest hover:underline">View All Records</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Animal ID</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Name</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Date</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Condition</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Treatment</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-mono text-sm">JK-012</td>
+<td class="px-6 py-4 font-bold text-sm">Daisy</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 14, 2023</td>
+<td class="px-6 py-4 text-sm font-medium">Mastitis</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant italic">Antibiotics Course</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-fixed text-on-secondary-fixed-variant">Recovering</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-mono text-sm">JK-045</td>
+<td class="px-6 py-4 font-bold text-sm">Bessie</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 12, 2023</td>
+<td class="px-6 py-4 text-sm font-medium">Lameness</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant italic">Hoof Trimming</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-fixed text-on-tertiary-fixed-variant">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-mono text-sm">JK-008</td>
+<td class="px-6 py-4 font-bold text-sm">Luna</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 10, 2023</td>
+<td class="px-6 py-4 text-sm font-medium">Low Intake</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant italic">Vitamin Boost</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-fixed text-on-tertiary-fixed-variant">Completed</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-mono text-sm">JK-021</td>
+<td class="px-6 py-4 font-bold text-sm">Goldie</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 09, 2023</td>
+<td class="px-6 py-4 text-sm font-medium">Fever</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant italic">Isolation &amp; Fluids</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-fixed text-on-secondary-fixed-variant">Recovering</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 font-mono text-sm">JK-099</td>
+<td class="px-6 py-4 font-bold text-sm">Molly</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Oct 05, 2023</td>
+<td class="px-6 py-4 text-sm font-medium">Post-Natal Check</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant italic">Routine Review</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-fixed text-on-tertiary-fixed-variant">Completed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Surveillance / Alerts Panel -->
+<div class="lg:w-1/3 flex flex-col gap-6">
+<!-- Health Alerts -->
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-error">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+<h2 class="font-headline font-bold text-lg text-on-surface">Critical Alerts</h2>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-error uppercase mb-1">Sudden Yield Drop</p>
+<p class="text-sm font-medium mb-1">Cows in Pen 4 (JK-015, JK-016)</p>
+<p class="text-xs text-on-surface-variant">Multiple animals showing 15% drop in morning yield. Possible environmental stress.</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-secondary uppercase mb-1">Heat Observation</p>
+<p class="text-sm font-medium mb-1">Animal JK-022 (Pearl)</p>
+<p class="text-xs text-on-surface-variant">Activity sensors indicate peak estrus cycle. Schedule insemination.</p>
+</div>
+</div>
+</div>
+<!-- Upcoming Vaccinations -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<h2 class="font-headline font-bold text-lg mb-4 flex items-center justify-between">
+                            Upcoming
+                            <span class="material-symbols-outlined text-stone-300">notifications_active</span>
+</h2>
+<div class="space-y-4">
+<div class="flex items-start gap-4 pb-4 border-b border-surface-container">
+<div class="bg-tertiary-container/20 text-tertiary-container p-2 rounded-lg text-center min-w-[50px]">
+<span class="block text-xs font-bold uppercase">Oct</span>
+<span class="block text-xl font-black">19</span>
+</div>
+<div>
+<p class="text-sm font-bold">FMD &amp; LSD Vaccination</p>
+<p class="text-xs text-on-surface-variant">Herd B - 42 Animals</p>
+</div>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-surface-container">
+<div class="bg-surface-container text-on-surface-variant p-2 rounded-lg text-center min-w-[50px]">
+<span class="block text-xs font-bold uppercase">Oct</span>
+<span class="block text-xl font-black">22</span>
+</div>
+<div>
+<p class="text-sm font-bold">Deworming Schedule - All Pens</p>
+<p class="text-xs text-on-surface-variant">Calves Group - 18 Animals</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-surface-container text-on-surface-variant p-2 rounded-lg text-center min-w-[50px]">
+<span class="block text-xs font-bold uppercase">Oct</span>
+<span class="block text-xl font-black">28</span>
+</div>
+<div>
+<p class="text-sm font-bold">Annual Vet Inspection</p>
+<p class="text-xs text-on-surface-variant">Full Site Review - Dr. Miller</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border border-outline-variant/30 rounded-xl text-sm font-bold text-primary hover:bg-primary/5 transition-colors">
+                            Manage Schedule
+                        </button>
+</div>
+<!-- Herd Health Overview Image - REMOVED -->
+</div>
+</div>
+</div>
+</main>
+</body></html>

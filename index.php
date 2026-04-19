@@ -1,0 +1,146 @@
+<?php
+/**
+ * Dairy Management System - Login Screen
+ * File: index.php
+ */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Jukam Dairy and Poultry Farm</title>
+    
+    <!-- Local Assets -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/all.css"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Local Fonts & Styles -->
+    <link rel="stylesheet" href="css/alert.css"> <!-- Custom Alert Styles -->
+    <link rel="stylesheet" href="css/login.css"> <!-- Page Specific Styles -->
+</head>
+<body>
+
+<main class="login-container">
+    <!-- Left Section -->
+    <section class="brand-section">
+        <div class="brand-overlay"></div>
+        <div class="brand-content">
+            <div class="glass-effect d-flex align-items-center">
+                <span class="material-symbols-outlined mr-2" style="font-size: 1.6rem; color: var(--primary);">grass</span>
+                <span class="brand-logo-text h5 mb-0">Jukam Dairy and Poultry Farm</span>
+            </div>
+            
+            <div class="mb-5" style="max-width: 440px;">
+                <h2 class="tagline-h2" style="font-size: 2rem;">Nurturing Growth, Sustaining Excellence.</h2>
+                <p class="tagline-p" style="font-size: 1rem;">The Modern Agrarian Portal for precision livestock management and supply chain transparency.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Right Section -->
+    <section class="form-section">
+        <div class="asymmetric-shape d-none d-md-block"></div>
+        
+        <div class="form-wrapper">
+            <div class="form-header text-center">
+                <img src="images/logo.png" alt="Logo">
+                <h1 style="font-size: 1.8rem;">Dairy Management Portal</h1>
+                <p class="mb-5">Enter your credentials to manage your herd assets.</p>
+            </div>
+
+            <div id="alert-container"></div>
+
+            <form id="loginForm" class="mt-4">
+                <div class="form-group mb-4">
+                    <label for="email">Email Address</label>
+                    <div class="input-group-custom">
+                        <input type="email" id="email" name="email" placeholder="manager@jukamdairy.com" required>
+                        <span class="material-symbols-outlined icon">mail</span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="password">Password</label>
+                    <div class="input-group-custom">
+                        <input type="password" id="password" name="password" placeholder="••••••••••••" required>
+                        <span class="material-symbols-outlined icon">lock</span>
+                        <span class="material-symbols-outlined password-toggle" id="togglePassword">visibility</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberMe">
+                        <label class="custom-control-label text-muted" for="rememberMe" style="text-transform: none; font-size: 0.85rem;">Remember Me</label>
+                    </div>
+                    <a href="#" class="font-weight-bold" style="color: var(--primary); font-size: 0.85rem;">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-signin">
+                    <span>Sign In</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </form>
+
+            <div class="text-center mt-5 pt-3 border-top" style="border-color: rgba(0,0,0,0.05) !important;">
+                <p class="text-muted small font-weight-medium">
+                    Don't have an account? <a href="#" class="font-weight-bold" style="color: var(--primary);">Contact Admin</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="decorative-bottom">
+            <span class="material-symbols-outlined text-success">eco</span>
+            <span>Sustainable Management Systems</span>
+        </div>
+    </section>
+</main>
+
+<!-- Scripts -->
+<script src="plugins/jquery-3.6.1.js"></script>
+<script src="plugins/popper.js"></script>
+<script src="plugins/bootstrap.js"></script>
+<script src="plugins/alert.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Password visibility toggle
+    $('#togglePassword').on('click', function() {
+        const passwordInput = $('#password');
+        const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+        passwordInput.attr('type', type);
+        $(this).text(type === 'password' ? 'visibility' : 'visibility_off');
+    });
+
+    // Form Submission
+    $('#loginForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        const email = $('#email').val().trim();
+        const password = $('#password').val().trim();
+        const alertContainer = $('#alert-container');
+
+        // Clear previous alerts
+        alertContainer.empty();
+
+        // Basic Validation
+        if (!email || !password) {
+            alertContainer.html(showAlert('danger', 'Please provide both email and password.'));
+            return;
+        }
+
+        // Show Processing
+        alertContainer.html(showAlert('processing', 'Authenticating your credentials, please wait...'));
+
+        // Simulate API call
+        setTimeout(function() {
+            // This is where you'd perform the AJAX request to backend
+            // Success or Failure simulation
+            alertContainer.html(showAlert('warning', 'Login functionality is being integrated. Check back shortly.'));
+        }, 1500);
+    });
+});
+</script>
+
+</body>
+</html>

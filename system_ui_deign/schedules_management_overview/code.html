@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Schedules Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#acf4a4",
+                        "outline": "#707a6c",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#2a6b2c",
+                        "primary": "#206223",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "inverse-primary": "#91d78a",
+                        "surface-container-low": "#f4f4ef",
+                        "on-secondary-fixed": "#261a00",
+                        "on-background": "#1a1c19",
+                        "tertiary-fixed": "#abf4ac",
+                        "outline-variant": "#bfcaba",
+                        "on-primary-fixed": "#002203",
+                        "inverse-surface": "#2f312e",
+                        "surface-dim": "#dadad5",
+                        "on-tertiary-fixed": "#002107",
+                        "primary-container": "#3a7b3a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#387b41",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#795900",
+                        "on-primary-container": "#cbffc2",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-tertiary-container": "#c7ffc5",
+                        "on-surface": "#1a1c19",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e3de",
+                        "surface-container": "#eeeee9",
+                        "surface-bright": "#fafaf5",
+                        "on-surface-variant": "#40493d",
+                        "on-secondary-container": "#6f5100",
+                        "tertiary": "#1d622b",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fec330",
+                        "background": "#fafaf5",
+                        "surface-container-high": "#e8e8e3",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "tertiary-fixed-dim": "#90d792",
+                        "primary-fixed-dim": "#91d78a",
+                        "surface-container-highest": "#e3e3de",
+                        "surface": "#fafaf5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; background-color: #fafaf5; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar (Execution from JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-stone-100 dark:bg-stone-900 flex flex-col p-6 z-50">
+<div class="mb-10">
+<h1 class="text-xl font-bold text-green-900 dark:text-green-50 font-headline">JUKAM Dairy</h1>
+<p class="text-xs font-label uppercase tracking-[0.05em] text-stone-500 mt-1">Modern Management</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Nav Items Mapped from JSON -->
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label uppercase text-xs tracking-wider">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="font-label uppercase text-xs tracking-wider">Animals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="opacity">opacity</span>
+<span class="font-label uppercase text-xs tracking-wider">Production</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+<span class="font-label uppercase text-xs tracking-wider">Feeding</span>
+</a>
+<!-- HEALTH Active State Logic (Mapping Schedules Management to Health context) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-green-100 dark:bg-green-900 text-green-950 dark:text-green-50 rounded-full font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-label uppercase text-xs tracking-wider">Health</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label uppercase text-xs tracking-wider">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="group_manage">group</span>
+<span class="font-label uppercase text-xs tracking-wider">Users Manager</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label uppercase text-xs tracking-wider">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 font-medium hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label uppercase text-xs tracking-wider">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-200/50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of James Kamau, a middle-aged Kenyan farmer with a friendly smile wearing professional agrarian attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQZ-7SS3mV44VIldXm125uFeSYeS0ye_rWOSGr9JiHh38hkqRVO6lc9Oyk5VNebfwrF5cTI0yc5P46L_z-K_gfeEm3oa8F1-JEHQYcsAajlWFvzuFah8WuzH72CuyQ3DNjy6AHaM9tmWZe05JS1AHORlfseSepr_k_olIoFM8oIXdRfFROafKYA-DH1XQAKR9bsJsDmr5bJGEzxoxKLS8IyowoFKtF_jeJNisS8ITnILw62q2o1Pm5Ydy58Equ3DClDF_BL6f7AsKz"/>
+</div>
+<div>
+<p class="text-sm font-bold text-stone-900">James Kamau</p>
+<p class="text-[10px] font-label uppercase text-stone-500 tracking-wider">Farm Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar (Execution from JSON & Design System) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md flex justify-between items-center px-8 border-b border-stone-200/20 dark:border-stone-800/20">
+<h2 class="text-lg font-bold text-stone-900 dark:text-stone-50 font-headline">Schedules Management</h2>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search logs..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-stone-500">
+<button class="hover:text-green-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-green-800 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-10">
+<!-- Header Actions Area -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h3 class="text-4xl font-extrabold font-headline text-on-surface tracking-tight">Active Rosters</h3>
+<p class="text-on-surface-variant font-body mt-2">Manage clinical protocols and herd health timelines.</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-3 rounded-md font-semibold flex items-center gap-2 shadow-lg shadow-primary/10 hover:-translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+<span>+ Add Schedule</span>
+</button>
+</div>
+<!-- Bento Layout for Controls & Filters -->
+<div class="grid grid-cols-12 gap-6 mb-8">
+<!-- View Toggle Switch -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container-low p-1.5 rounded-xl flex items-center">
+<button class="flex-1 py-3 px-6 rounded-lg bg-surface-container-lowest shadow-sm text-primary font-bold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="vaccines">vaccines</span>
+                    Vaccination
+                </button>
+<button class="flex-1 py-3 px-6 rounded-lg text-on-surface-variant font-medium hover:bg-white/50 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+                    Deworming
+                </button>
+</div>
+<!-- Stats Highlight (Asymmetric Pattern) -->
+<div class="col-span-12 lg:col-span-7 flex gap-4">
+<div class="flex-1 bg-tertiary-fixed p-5 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 bg-on-tertiary-fixed rounded-full flex items-center justify-center text-tertiary-fixed">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-tertiary-fixed-variant">Completed This Month</p>
+<p class="text-2xl font-bold font-headline text-on-tertiary-fixed">142 Animals</p>
+</div>
+</div>
+<div class="flex-1 bg-secondary-fixed p-5 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 bg-on-secondary-fixed rounded-full flex items-center justify-center text-secondary-fixed">
+<span class="material-symbols-outlined" data-icon="event_upcoming">event_upcoming</span>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-secondary-fixed-variant">Pending Schedules</p>
+<p class="text-2xl font-bold font-headline text-on-secondary-fixed">28 Upcoming</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Data Table Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-outline-variant/10">
+<div class="px-8 py-6 flex justify-between items-center border-b border-surface-container">
+<h4 class="font-headline font-bold text-xl text-on-surface">Vaccination Registry</h4>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors"><span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors"><span class="material-symbols-outlined text-on-surface-variant" data-icon="download">download</span></button>
+</div>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 font-label uppercase text-[10px] tracking-widest text-on-surface-variant">Scheduled Date</th>
+<th class="px-8 py-4 font-label uppercase text-[10px] tracking-widest text-on-surface-variant">Disease / Protocol</th>
+<th class="px-8 py-4 font-label uppercase text-[10px] tracking-widest text-on-surface-variant">Animals Expected</th>
+<th class="px-8 py-4 font-label uppercase text-[10px] tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-4 font-label uppercase text-[10px] tracking-widest text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Oct 24, 2023</span>
+<span class="text-xs text-on-surface-variant">Tuesday • 08:00 AM</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-medium text-on-surface">FMD (Foot &amp; Mouth)</span>
+</div>
+</td>
+<td class="px-8 py-5 font-body">48 Cows</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="done_all">done_all</span> Completed
+                            </span>
+</td>
+<td class="px-8 py-5">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-primary text-lg" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-secondary text-lg" data-icon="visibility">visibility</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-lg"><span class="material-symbols-outlined text-error text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Oct 30, 2023</span>
+<span class="text-xs text-on-surface-variant">Monday • 07:30 AM</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-medium text-on-surface">LSD (Lumpy Skin Disease)</span>
+</div>
+</td>
+<td class="px-8 py-5 font-body">112 Heifers</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> Upcoming
+                            </span>
+</td>
+<td class="px-8 py-5">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-primary text-lg" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-secondary text-lg" data-icon="visibility">visibility</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-lg"><span class="material-symbols-outlined text-error text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Nov 05, 2023</span>
+<span class="text-xs text-on-surface-variant">Sunday • 09:00 AM</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-medium text-on-surface">Anthrax Booster</span>
+</div>
+</td>
+<td class="px-8 py-5 font-body">65 Adults</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-xs font-semibold">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> Upcoming
+                            </span>
+</td>
+<td class="px-8 py-5">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-primary text-lg" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined text-secondary text-lg" data-icon="visibility">visibility</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-lg"><span class="material-symbols-outlined text-error text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-4 bg-surface-container-low/30 flex justify-between items-center">
+<span class="text-xs font-label text-on-surface-variant uppercase tracking-wider">Showing 3 of 12 scheduled events</span>
+<div class="flex items-center gap-4">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<span class="text-xs font-bold text-on-surface">1</span>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Pro-tip Section (Modern Agrarian Detail) -->
+<div class="mt-8 flex gap-8">
+<div class="flex-1 bg-primary text-on-primary p-8 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<h5 class="text-xl font-headline font-bold mb-2">Protocol Insight</h5>
+<p class="text-primary-fixed/80 text-sm leading-relaxed max-w-lg">Remember to monitor the Jersey herd specifically after the Anthrax booster. Previous logs indicate slight drop in milk production 48 hours post-vaccination.</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-10" data-icon="tips_and_updates">tips_and_updates</span>
+</div>
+<div class="w-80 bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<h5 class="font-label uppercase text-[10px] tracking-[0.2em] mb-4 text-secondary">Next Priority</h5>
+<div class="flex items-start gap-4">
+<div class="bg-surface-container-lowest p-3 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="inventory">inventory</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Check Valbazen Stock</p>
+<p class="text-xs text-on-surface-variant">Deworming starts in 5 days. Current inventory shows 12L available.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

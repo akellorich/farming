@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy | Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c19",
+                        "secondary-fixed": "#ffdfa0",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#acf4a4",
+                        "on-secondary": "#ffffff",
+                        "background": "#fafaf5",
+                        "surface-container-highest": "#e3e3de",
+                        "on-secondary-fixed": "#261a00",
+                        "inverse-primary": "#91d78a",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "inverse-surface": "#2f312e",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#002203",
+                        "primary-container": "#3a7b3a",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-dim": "#dadad5",
+                        "on-surface-variant": "#40493d",
+                        "surface-container-low": "#f4f4ef",
+                        "on-secondary-container": "#6f5100",
+                        "surface-tint": "#2a6b2c",
+                        "on-primary-container": "#cbffc2",
+                        "surface": "#fafaf5",
+                        "tertiary": "#1d622b",
+                        "on-tertiary-fixed": "#002107",
+                        "secondary-container": "#fec330",
+                        "error-container": "#ffdad6",
+                        "outline": "#707a6c",
+                        "surface-variant": "#e3e3de",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#c7ffc5",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-background": "#1a1c19",
+                        "surface-container-high": "#e8e8e3",
+                        "surface-container": "#eeeee9",
+                        "secondary": "#795900",
+                        "inverse-on-surface": "#f1f1ec",
+                        "tertiary-container": "#387b41",
+                        "outline-variant": "#bfcaba",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#206223",
+                        "surface-bright": "#fafaf5",
+                        "tertiary-fixed": "#abf4ac"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"],
+                        "manrope": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .botanical-shadow {
+            box-shadow: 0 10px 24px -8px rgba(32, 98, 35, 0.08);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 space-y-4">
+<div class="px-6 mb-8">
+<h1 class="text-2xl font-black text-green-900 dark:text-green-500 font-manrope">JUKAM Dairy</h1>
+<p class="font-manrope font-semibold text-[10px] tracking-wider uppercase text-slate-500 dark:text-slate-400">Modern Agrarian</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-1">
+<a class="flex items-center gap-4 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-200 rounded-full px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span>Animals</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span>Production</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+<span>Feeding</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Health</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Users Manager</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto px-2 pb-2">
+<div class="relative group">
+<button class="w-full flex items-center gap-3 bg-surface-container-lowest rounded-xl p-3 botanical-shadow hover:bg-primary-fixed/30 transition-all">
+<img alt="James Kamau" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I"/>
+<div class="text-left overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">James Kamau</p>
+<p class="font-label text-[10px] uppercase tracking-tighter opacity-60">General Manager</p>
+</div>
+</button>
+<!-- Popup Menu -->
+<div class="absolute bottom-full left-0 mb-2 w-full bg-surface-container-lowest rounded-xl botanical-shadow opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all p-2 z-50">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="account_circle">account_circle</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Profile</span>
+</a>
+<div class="h-px bg-outline-variant/20 my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error-container text-error rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Logout</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 backdrop-blur-md bg-surface dark:bg-slate-900/60 shadow-sm dark:shadow-none ml-64 max-w-[calc(100%-16rem)] flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400 font-manrope font-bold">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-lg tracking-tight">Dashboard</span>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-20 pb-12 px-8">
+<!-- Hero Summary Section -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- Summary Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl botanical-shadow relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="cruelty_free">cruelty_free</span>
+</div>
+<p class="font-label text-xs uppercase tracking-wider text-on-surface-variant mb-1">Total Animals</p>
+<div class="flex items-end gap-2">
+<h3 class="font-headline text-3xl font-extrabold text-primary">1,248</h3>
+<span class="text-tertiary text-xs font-bold mb-1">+12%</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold">84% Healthy</span>
+</div>
+</div>
+<!-- Summary Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl botanical-shadow relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="water_drop">water_drop</span>
+</div>
+<p class="font-label text-xs uppercase tracking-wider text-on-surface-variant mb-1">Daily Yield</p>
+<div class="flex items-end gap-2">
+<h3 class="font-headline text-3xl font-extrabold text-primary">8,420</h3>
+<span class="text-on-surface-variant text-xs mb-1 font-medium">Liters</span>
+</div>
+<div class="mt-4">
+<div class="flex justify-between items-center text-[10px] mb-1 font-bold font-label uppercase">
+<span>Daily Goal</span>
+<span>92%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-low rounded-full">
+<div class="h-full bg-primary-container rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<!-- Summary Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl botanical-shadow relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="warning">warning</span>
+</div>
+<p class="font-label text-xs uppercase tracking-wider text-on-surface-variant mb-1">Stock Alerts</p>
+<div class="flex items-end gap-2">
+<h3 class="font-headline text-3xl font-extrabold text-secondary">04</h3>
+<span class="text-on-surface-variant text-xs mb-1 font-medium">Low items</span>
+</div>
+<div class="mt-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center border-2 border-white"><span class="material-symbols-outlined text-xs" data-icon="restaurant">restaurant</span></div>
+<div class="w-6 h-6 rounded-full bg-secondary-fixed flex items-center justify-center border-2 border-white"><span class="material-symbols-outlined text-xs" data-icon="medical_services">medical_services</span></div>
+<div class="w-6 h-6 rounded-full bg-surface-container-low flex items-center justify-center border-2 border-white text-[8px] font-bold">+2</div>
+</div>
+</div>
+</div>
+<!-- Summary Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl botanical-shadow relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-8xl" data-icon="emergency_home">emergency_home</span>
+</div>
+<p class="font-label text-xs uppercase tracking-wider text-on-surface-variant mb-1">Health Incidents</p>
+<div class="flex items-end gap-2">
+<h3 class="font-headline text-3xl font-extrabold text-error">02</h3>
+<span class="text-on-surface-variant text-xs mb-1 font-medium">New today</span>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-[10px] text-error font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="emergency">emergency</span> Urgent attention required
+                </span>
+</div>
+</div>
+</section>
+<!-- Main Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Production Trends (Large Card) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl botanical-shadow flex flex-col">
+<div class="flex justify-between items-center mb-8 shrink-0">
+<div>
+<h4 class="font-headline text-xl font-bold">Production Trends</h4>
+<p class="font-body text-sm text-on-surface-variant">Milk yield comparison across week cycles</p>
+</div>
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-bold font-label uppercase bg-white rounded-md shadow-sm text-primary">Yield</button>
+<button class="px-4 py-1.5 text-xs font-bold font-label uppercase text-on-surface-variant hover:text-primary transition-colors">Quality</button>
+</div>
+</div>
+<!-- Visual Bar Chart -->
+<div class="flex-1 min-h-[300px] flex items-end gap-4 px-2 pt-10">
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[60%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.2k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Mon</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[75%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">8.1k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Tue</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[65%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.5k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Wed</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary-container rounded-t-lg transition-all hover:opacity-90 h-[92%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">8.4k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-primary">Thu</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[70%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.8k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Fri</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[50%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">6.2k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Sat</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-3 group h-full">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[55%] relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">6.5k</div>
+</div>
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant">Sun</span>
+</div>
+</div>
+</div>
+<!-- Recent Activity (Narrow Column) -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<h4 class="font-headline text-xl font-bold mb-6">Recent Activity</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="mt-1 w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-on-tertiary-fixed" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Morning Milking Complete</p>
+<p class="text-xs text-on-surface-variant">Sector B successfully processed 320 cows.</p>
+<p class="text-[10px] font-label uppercase mt-1 opacity-50">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-on-secondary-fixed" data-icon="medication">medication</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Health Check Logged</p>
+<p class="text-xs text-on-surface-variant">Cow #2481 scheduled for vet visit (Mastitis).</p>
+<p class="text-[10px] font-label uppercase mt-1 opacity-50">4 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-on-primary-fixed" data-icon="shopping_cart">shopping_cart</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Inventory Update</p>
+<p class="text-xs text-on-surface-variant">500kg Premium Feed delivered to Silo 1.</p>
+<p class="text-[10px] font-label uppercase mt-1 opacity-50">Yesterday</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="mt-1 w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="person_add">person_add</span>
+</div>
+<div>
+<p class="text-sm font-semibold">New Staff Onboarded</p>
+<p class="text-xs text-on-surface-variant">David M. added to Milking Team Alpha.</p>
+<p class="text-[10px] font-label uppercase mt-1 opacity-50">Oct 24, 2023</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 border border-outline-variant/30 rounded-md font-label text-xs uppercase tracking-widest text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+                View All Activity
+            </button>
+</div>
+</div>
+<!-- Lower Section: Inventory & Health Details -->
+<section class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Low Stock Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl botanical-shadow">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-headline text-lg font-bold">Low Stock Inventory</h4>
+<span class="material-symbols-outlined text-secondary" data-icon="inventory">inventory</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-background rounded-lg">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="grain">grain</span>
+<div>
+<p class="text-sm font-bold">Protein Supplement A</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-label">Feed Stock</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-error">120 kg</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-label">Critical Level</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-background rounded-lg">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary" data-icon="vaccines">vaccines</span>
+<div>
+<p class="text-sm font-bold">Antibiotic Vaccine (V2)</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-label">Medical</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-secondary">42 Units</p>
+<p class="text-[10px] text-on-surface-variant uppercase font-label">Reorder Soon</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Health Status Bento Item -->
+<div class="bg-primary/5 rounded-xl p-8 border border-primary/10 relative overflow-hidden">
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<h4 class="font-headline text-lg font-bold text-primary mb-2">Health Surveillance</h4>
+<p class="text-sm text-on-surface-variant max-w-xs">Real-time monitoring of herd vitals and scheduled veterinarian inspections.</p>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg">
+<p class="text-2xl font-bold font-headline text-primary">98.2%</p>
+<p class="text-[10px] font-label uppercase font-bold text-on-surface-variant">Vaccination Rate</p>
+</div>
+<div class="bg-white/80 backdrop-blur-sm p-4 rounded-lg">
+<p class="text-2xl font-bold font-headline text-secondary">03</p>
+<p class="text-[10px] font-label uppercase font-bold text-on-surface-variant">Active Quarantines</p>
+</div>
+</div>
+</div>
+<!-- Background visual decoration -->
+<div class="absolute right-0 bottom-0 w-48 h-48 opacity-10 -rotate-12 translate-x-12 translate-y-12">
+<span class="material-symbols-outlined text-[160px]" data-icon="cruelty_free">cruelty_free</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

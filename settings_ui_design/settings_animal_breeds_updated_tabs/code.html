@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - System Settings</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#dadad5",
+                      "surface-container-highest": "#e3e3de",
+                      "on-tertiary-fixed-variant": "#07521d",
+                      "on-secondary-container": "#6f5100",
+                      "surface-bright": "#fafaf5",
+                      "on-secondary-fixed": "#261a00",
+                      "on-primary": "#ffffff",
+                      "surface-container-high": "#e8e8e3",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#1a1c19",
+                      "tertiary-fixed-dim": "#90d792",
+                      "on-primary-fixed-variant": "#0c5216",
+                      "on-primary-container": "#cbffc2",
+                      "primary-container": "#3a7b3a",
+                      "on-tertiary-container": "#c7ffc5",
+                      "secondary-fixed": "#ffdfa0",
+                      "on-secondary-fixed-variant": "#5c4300",
+                      "inverse-primary": "#91d78a",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#eeeee9",
+                      "primary": "#206223",
+                      "on-tertiary-fixed": "#002107",
+                      "outline-variant": "#bfcaba",
+                      "on-error-container": "#93000a",
+                      "surface-variant": "#e3e3de",
+                      "on-background": "#1a1c19",
+                      "background": "#fafaf5",
+                      "surface-container-low": "#f4f4ef",
+                      "secondary-container": "#fec330",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#002203",
+                      "primary-fixed-dim": "#91d78a",
+                      "outline": "#707a6c",
+                      "inverse-on-surface": "#f1f1ec",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#abf4ac",
+                      "on-surface-variant": "#40493d",
+                      "surface-tint": "#2a6b2c",
+                      "secondary-fixed-dim": "#f8bd2a",
+                      "inverse-surface": "#2f312e",
+                      "surface": "#fafaf5",
+                      "tertiary": "#1d622b",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#795900",
+                      "tertiary-container": "#387b41",
+                      "primary-fixed": "#acf4a4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Work Sans"],
+                      "label": ["Work Sans"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface flex overflow-hidden h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col gap-6 py-8 h-full bg-[#f4f4ef] dark:bg-stone-800 w-72 shadow-[24px_0_48px_rgba(26,28,25,0.04)] z-40">
+<div class="px-8 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-[#206223] font-headline tracking-tighter">Green Pastures</h2>
+<p class="text-[10px] uppercase tracking-[0.1em] text-on-surface-variant font-medium">Dairy Management v2.4</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard -->
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1 duration-200 font-['Work_Sans'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Dashboard</span>
+</a>
+<!-- Livestock -->
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1 duration-200 font-['Work_Sans'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span>Livestock</span>
+</a>
+<!-- Facilities -->
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1 duration-200 font-['Work_Sans'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined">domain</span>
+<span>Facilities</span>
+</a>
+<!-- Inventory -->
+<a class="text-stone-700 dark:text-stone-300 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all hover:translate-x-1 duration-200 font-['Work_Sans'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span>Inventory</span>
+</a>
+<!-- System Settings - ACTIVE -->
+<a class="bg-[#acf4a4] text-[#002203] rounded-full mx-4 px-6 py-3 font-semibold flex items-center gap-4 hover:translate-x-1 transition-transform duration-200 font-['Work_Sans'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span>System Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl hover:-translate-y-0.5 transition-all">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span>Quick Log</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto bg-background relative">
+<!-- TopAppBar Component -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 py-4 bg-[#fafaf5]/60 dark:bg-stone-900/60 backdrop-blur-xl no-border bg-gradient-to-b from-[#fafaf5] to-transparent">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-extrabold text-[#206223] dark:text-[#acf4a4] tracking-tighter font-['Manrope']">JUKAM Dairy</h1>
+<div class="h-6 w-[1px] bg-outline-variant/30 hidden md:block"></div>
+<div class="hidden md:flex gap-6 items-center">
+<span class="text-stone-600 dark:text-stone-400 font-medium font-['Work_Sans'] text-sm">System Settings</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant/60">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search parameters..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-stone-600 hover:text-[#206223] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-600 hover:text-[#206223] transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/20">
+<img alt="Manager Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up portrait of a professional farm manager with a confident expression in a bright natural light environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzzk8rpO2UK7WGAHAP6lAR2FNxSdll-xE16cbgwNgBSk43H5qOdm4ub_qu4CgWGk9AWlqQYLJKvGlib2gHKUiXxduEFJ-VfBv9H5z1jAIb7hZWhTBangLWQrKi6LAFDePXfu62gm-suOontbxHeRm5-j600E0x5-rqD_FcnEnYEWP_xMf6Qp0QauUHphCsuTxM4HFo9ayhcUnSpcRxIM2N6rK6hJApOnm_441yZLaK6aTcxWMfaLwrir44OfJv1cU-Rh02JaphXqiq"/>
+</div>
+</div>
+</header>
+<!-- Settings Content -->
+<div class="px-8 pt-8 pb-12 max-w-7xl w-full mx-auto">
+<div class="mb-10">
+<p class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mb-2">Configure</p>
+<h2 class="font-headline text-4xl font-extrabold text-on-surface tracking-tight">System Settings</h2>
+</div>
+<!-- Tabbed Interface -->
+<div class="flex flex-col gap-8">
+<!-- Navigation Tabs - Updated Style -->
+<div class="flex gap-10 border-b border-outline-variant/20 overflow-x-auto pb-0">
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                        General Config
+                    </button>
+<button class="pb-4 text-[#206223] font-bold font-['Work_Sans'] text-sm relative whitespace-nowrap">
+                        Animal Breeds
+                        <span class="absolute bottom-0 left-0 w-full h-[3px] bg-[#206223] rounded-t-sm"></span>
+</button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                        Feed Formulas
+                    </button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                        Staff Permissions
+                    </button>
+<button class="pb-4 text-stone-600 font-medium font-['Work_Sans'] text-sm hover:text-[#206223] transition-all relative whitespace-nowrap">
+                        API Integrations
+                    </button>
+</div>
+<!-- Bento Grid Layout for Settings Context -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Sidebar Context/Info -->
+<div class="lg:col-span-3 space-y-6">
+<div class="bg-surface-container-low rounded-xl p-6">
+<h3 class="font-headline font-bold text-primary text-lg mb-3">Genetic Management</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                Manage the biological taxonomy of your livestock. Efficiency metrics are calculated based on feed-to-milk conversion ratios.
+                            </p>
+</div>
+<div class="bg-primary-container/10 border border-primary/10 rounded-xl p-6">
+<h4 class="font-label text-[10px] font-black uppercase tracking-widest text-primary mb-2">Quick Stat</h4>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-headline font-extrabold text-primary">84%</span>
+<span class="text-xs font-bold text-tertiary">Avg. Efficiency</span>
+</div>
+</div>
+</div>
+<!-- Main Table Content -->
+<div class="lg:col-span-9 bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden border border-outline-variant/10">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/30">
+<th class="px-6 py-5 font-label text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-bold">Breed Name</th>
+<th class="px-6 py-5 font-label text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-bold">Total Count</th>
+<th class="px-6 py-5 font-label text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-bold text-center">Efficiency</th>
+<th class="px-6 py-5 font-label text-[10px] uppercase tracking-[0.15em] text-on-surface-variant font-bold">Health Index</th>
+<th class="px-6 py-5"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-headline font-bold text-on-surface text-base">Holstein Friesian</span>
+</div>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface-variant">124 head</td>
+<td class="px-6 py-6">
+<div class="flex items-center justify-center gap-3">
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 92%"></div>
+</div>
+<span class="text-xs font-bold text-primary">92%</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-tertiary-fixed text-on-tertiary-fixed-variant">Optimal</span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">energy_savings_leaf</span>
+</div>
+<span class="font-headline font-bold text-on-surface text-base">Jersey</span>
+</div>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface-variant">86 head</td>
+<td class="px-6 py-6">
+<div class="flex items-center justify-center gap-3">
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 78%"></div>
+</div>
+<span class="text-xs font-bold text-primary">78%</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-tertiary-fixed text-on-tertiary-fixed-variant">Optimal</span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+</div>
+<span class="font-headline font-bold text-on-surface text-base">Brown Swiss</span>
+</div>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface-variant">42 head</td>
+<td class="px-6 py-6">
+<div class="flex items-center justify-center gap-3">
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 65%"></div>
+</div>
+<span class="text-xs font-bold text-secondary">65%</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-secondary-fixed text-on-secondary-fixed-variant">Attention</span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">nature</span>
+</div>
+<span class="font-headline font-bold text-on-surface text-base">Guernsey</span>
+</div>
+</td>
+<td class="px-6 py-6 font-medium text-on-surface-variant">18 head</td>
+<td class="px-6 py-6">
+<div class="flex items-center justify-center gap-3">
+<div class="w-24 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 84%"></div>
+</div>
+<span class="text-xs font-bold text-primary">84%</span>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-tertiary-fixed text-on-tertiary-fixed-variant">Optimal</span>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Action Section -->
+<div class="px-6 py-12 bg-surface-container-low/10 flex flex-col items-center justify-center border-t border-outline-variant/10">
+<div class="text-center mb-8 max-w-sm">
+<p class="text-sm text-on-surface-variant leading-relaxed">Don't see a specific breed? You can add new genetic profiles to track their specific yield and health requirements.</p>
+</div>
+<button class="group flex items-center gap-2 bg-[#206223] hover:bg-[#1a4d1b] text-white px-10 py-4 rounded-xl font-headline font-bold transition-all shadow-md hover:shadow-lg active:scale-95">
+<span class="material-symbols-outlined text-xl">add</span>
+                                Add Breed
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="absolute bottom-0 right-0 -z-10 opacity-5 pointer-events-none">
+<img alt="Decorative pattern" class="w-[600px] grayscale brightness-50" data-alt="Abstract macro shot of organic leaf veins with complex fractal patterns and soft green lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDPM0zIKpwrf4UyAm4Wq5kGrAVm1fHMtTKpdaW-QLzxQUCCuA2rUFD0v-L-vVE61tOPAyvyoTUwcZIht1CgOUG6mxmcb6W8BUBTuyw46aotreejofJLsLcYcqzY2nGLSzM5soy7GetKhaRBqbqZPx1Jeq8sdfQsboWS3g4ou1l_gZBQH6A6GtKwwY2wdYDKQsFHnwpKKCIIju7jhtvszjA6ud5VW-GvBdNrHtHv6w1nmBHTOIbsp6UtmB1pgVUCpN6x1ZT8Mew5XeQ"/>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-nav bg-white/80 border-t border-outline-variant/10 px-6 py-4 flex justify-between items-center z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">pets</span>
+<span class="text-[10px] font-bold">Livestock</span>
+</button>
+<button class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center -translate-y-6 shadow-xl border-4 border-background">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">domain</span>
+<span class="text-[10px] font-bold">Facilities</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span class="text-[10px] font-bold">Settings</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Inventory Item - JUKAM Dairy</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed-variant": "#5c4300",
+              "on-primary": "#ffffff",
+              "secondary": "#795900",
+              "on-primary-container": "#cbffc2",
+              "on-tertiary-fixed-variant": "#07521d",
+              "on-tertiary-fixed": "#002107",
+              "on-background": "#1a1c19",
+              "inverse-surface": "#2f312e",
+              "primary-container": "#3a7b3a",
+              "on-primary-fixed-variant": "#0c5216",
+              "tertiary-fixed-dim": "#90d792",
+              "tertiary-container": "#387b41",
+              "error": "#ba1a1a",
+              "surface-container-highest": "#e3e3de",
+              "surface-container-high": "#e8e8e3",
+              "surface-dim": "#dadad5",
+              "on-secondary-fixed": "#261a00",
+              "surface-container-low": "#f4f4ef",
+              "secondary-fixed-dim": "#f8bd2a",
+              "on-primary-fixed": "#002203",
+              "background": "#fafaf5",
+              "surface-container": "#eeeee9",
+              "primary-fixed": "#acf4a4",
+              "error-container": "#ffdad6",
+              "on-secondary": "#ffffff",
+              "secondary-container": "#fec330",
+              "inverse-on-surface": "#f1f1ec",
+              "primary-fixed-dim": "#91d78a",
+              "on-tertiary-container": "#c7ffc5",
+              "outline-variant": "#bfcaba",
+              "primary": "#206223",
+              "surface": "#fafaf5",
+              "on-tertiary": "#ffffff",
+              "on-secondary-container": "#6f5100",
+              "on-error": "#ffffff",
+              "surface-variant": "#e3e3de",
+              "surface-tint": "#2a6b2c",
+              "on-surface-variant": "#40493d",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#abf4ac",
+              "inverse-primary": "#91d78a",
+              "secondary-fixed": "#ffdfa0",
+              "outline": "#707a6c",
+              "tertiary": "#1d622b",
+              "on-surface": "#1a1c19",
+              "surface-bright": "#fafaf5",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-focus:focus {
+            outline: none;
+            border-bottom: 2px solid #206223;
+        }
+        body {
+            background-color: #fafaf5;
+            font-family: 'Work Sans', sans-serif;
+            color: #1a1c19;
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- Blurred Background Content (Inventory Management Screen Simulation) -->
+<div class="fixed inset-0 z-0 flex blur-md saturate-50 opacity-60">
+<!-- Side Navigation -->
+<aside class="h-screen w-64 bg-stone-50 flex flex-col py-6 shrink-0 border-r border-outline-variant/10">
+<div class="px-8 mb-10">
+<h1 class="font-manrope font-extrabold text-green-900 text-xl tracking-tight">JUKAM Management</h1>
+<p class="text-xs font-medium text-stone-500 uppercase tracking-widest">Modern Agrarian</p>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="text-stone-600 mx-4 px-4 py-3 flex items-center gap-3">
+<span class="material-symbols-outlined">dashboard</span> Overview
+                </div>
+<div class="text-stone-600 mx-4 px-4 py-3 flex items-center gap-3">
+<span class="material-symbols-outlined">pets</span> Livestock
+                </div>
+<div class="bg-green-100 text-green-900 rounded-full mx-4 px-4 py-3 flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span> Inventory
+                </div>
+</nav>
+</aside>
+<!-- Main Content Overlay -->
+<main class="flex-1 p-8">
+<header class="flex justify-between items-center mb-8">
+<h2 class="font-headline font-bold text-3xl text-green-800">Inventory</h2>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest"></div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest"></div>
+</div>
+</header>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="col-span-3 h-96 bg-white rounded-xl shadow-sm"></div>
+</div>
+</main>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-on-background/20 backdrop-blur-sm p-4 md:p-6">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-2xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden border border-outline-variant/20">
+<!-- Left Side: Brand Sidebar -->
+<div class="md:w-5/12 relative bg-primary-container overflow-hidden flex flex-col justify-end">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-60" data-alt="close-up of golden cereal grains and organic dairy feed in a rustic barn setting with soft warm sun rays filtering through" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1wiIMYCi-klEQoWsqSBfgi3mDMxW-EEPUMLptaIbiG8uvLsGvaNiov55cuGNDCyFxmlX17rW-PK8mDq6jf0NR6zDUCTNhxANs_uN4mWk1pOuK96OF9qHvJyWwJhujqN6EVSHWoDQgyL0k6XHUo09b9425HlkRfAGqycr6als85_ebO0Gp_I4dr3jDaUbTqr7odhsPga-jy5Qcbi2XN6QgCIjW5yrJFflr2ZS61nCVTMsXzENwrmbKLTeBWjGLE8uoi5I0s9RRq1nd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+<div class="relative z-10 p-8 md:p-12 space-y-4">
+<div class="bg-secondary-container/20 w-fit p-3 rounded-full mb-4">
+<span class="material-symbols-outlined text-secondary-container text-3xl" style="font-variation-settings: 'FILL' 1;">add_shopping_cart</span>
+</div>
+<h3 class="font-headline font-bold text-3xl text-on-primary-container">New Inventory Item</h3>
+<p class="font-body text-on-primary/80 leading-relaxed max-w-sm">
+                        Add new items to your stock. Track reorder levels and unit prices for efficient resource management.
+                    </p>
+<div class="pt-8 flex items-center gap-2">
+<div class="h-1 w-8 bg-primary-fixed rounded-full"></div>
+<div class="h-1 w-2 bg-primary-fixed/40 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Right Side: Form Area -->
+<div class="md:w-7/12 p-8 md:p-10 overflow-y-auto max-h-[921px]">
+<form class="space-y-6"><!-- Top Section: Category & Name -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Select Category</label>
+<div class="relative">
+<select class="w-full border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm cursor-pointer appearance-none bg-[#f9f9f5] border-stone-100" style="background-color: #f9f9f5; border-color: #f1f1eb;">
+<option>Dairy Meal</option>
+<option>Medical Supplies</option>
+<option>Mineral Licks</option>
+<option>Silage</option>
+<option>Equipment</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Item Name</label>
+<input class="w-full border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm placeholder:text-stone-400 bg-[#f9f9f5] border-stone-100" placeholder="e.g., Maize Germ" style="background-color: #f9f9f5; border-color: #f1f1eb;" type="text"/>
+</div>
+</div>
+<!-- Middle Section: Code & Toggle -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Item Code</label>
+<input class="w-full border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm font-mono tracking-tight bg-[#f9f9f5] border-stone-100" placeholder="JKM-INV-001" style="background-color: #f9f9f5; border-color: #f1f1eb;" type="text"/>
+</div>
+<div class="flex items-center gap-3 py-2">
+<button class="w-10 h-6 bg-primary rounded-full relative transition-colors duration-200 focus:outline-none" role="switch" type="button">
+<span class="absolute left-1 top-1 bg-on-primary w-4 h-4 rounded-full transition-transform translate-x-4"></span>
+</button>
+<span class="font-body text-xs text-on-surface-variant font-medium">Auto-generate from category</span>
+</div>
+</div>
+<!-- Bottom Section: Pricing & Units -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Unit Price</label>
+<div class="relative flex items-center">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 font-medium text-xs">KES</span>
+<input class="w-full border rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm bg-[#f9f9f5] border-stone-100" placeholder="0.00" style="background-color: #f9f9f5; border-color: #f1f1eb;" type="number"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Reorder Level</label>
+<div class="relative flex items-center">
+<input class="w-full border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm pr-12 bg-[#f9f9f5] border-stone-100" placeholder="50" style="background-color: #f9f9f5; border-color: #f1f1eb;" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 text-[10px] font-bold uppercase">Kg</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Unit of Measure</label>
+<div class="relative">
+<select class="w-full border rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm cursor-pointer appearance-none bg-[#f9f9f5] border-stone-100" style="background-color: #f9f9f5; border-color: #f1f1eb;">
+<option>Kg</option>
+<option>Litre</option>
+<option>Bag</option>
+<option>Pcs</option>
+<option>Tonne</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Textarea Section -->
+<div class="space-y-1.5">
+<label class="font-label text-xs tracking-wider font-bold text-on-surface-variant">Notes / Description</label>
+<textarea class="w-full border rounded-lg p-4 focus:ring-2 focus:ring-primary transition-all font-body text-sm resize-none placeholder:text-stone-400 bg-[#f9f9f5] border-stone-100" placeholder="Enter specifications, vendor details or handling instructions..." rows="3" style="background-color: #f9f9f5; border-color: #f1f1eb;"></textarea>
+</div>
+<!-- Action Buttons -->
+<div class="pt-8 flex justify-end items-center gap-6 border-t border-outline-variant/10">
+<button class="px-6 py-2.5 font-body text-sm font-bold text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+    Cancel
+  </button>
+<button class="px-8 py-3 bg-primary text-on-primary font-body text-sm font-bold rounded-lg shadow-lg hover:bg-primary/90 transition-all" type="submit">
+    Save Item
+  </button>
+</div></form>
+</div>
+</div>
+</div>
+</body></html>

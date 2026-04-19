@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Account Category | JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fafaf5",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eeeee9",
+                        "on-surface": "#1a1c19",
+                        "tertiary-fixed-dim": "#90d792",
+                        "primary-container": "#3a7b3a",
+                        "on-surface-variant": "#40493d",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-primary-fixed": "#002203",
+                        "primary-fixed": "#acf4a4",
+                        "surface": "#fafaf5",
+                        "inverse-surface": "#2f312e",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-primary-container": "#cbffc2",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e3de",
+                        "on-primary": "#ffffff",
+                        "background": "#fafaf5",
+                        "secondary": "#795900",
+                        "on-secondary-container": "#6f5100",
+                        "surface-container-low": "#f4f4ef",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1a1c19",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "secondary-fixed": "#ffdfa0",
+                        "outline-variant": "#bfcaba",
+                        "secondary-container": "#fec330",
+                        "inverse-primary": "#91d78a",
+                        "outline": "#707a6c",
+                        "surface-tint": "#2a6b2c",
+                        "surface-container-high": "#e8e8e3",
+                        "tertiary-container": "#387b41",
+                        "tertiary-fixed": "#abf4ac",
+                        "tertiary": "#1d622b",
+                        "surface-container-highest": "#e3e3de",
+                        "on-tertiary-fixed": "#002107",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#c7ffc5",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-dim": "#dadad5",
+                        "on-error": "#ffffff",
+                        "primary": "#206223",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#261a00",
+                        "on-secondary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased overflow-hidden">
+<div class="flex h-screen w-full relative">
+<!-- SideNavBar Component (Background Context) -->
+<aside class="hidden md:flex flex-col h-screen sticky top-0 bg-stone-100 dark:bg-stone-900 h-full w-64 border-r-0 font-['Work_Sans'] font-medium">
+<div class="p-6">
+<div class="font-['Manrope'] font-bold text-xl text-green-900 dark:text-green-100 mb-8">JUKAM Dairy</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined">agriculture</span>
+<span>Livestock</span>
+</div>
+<!-- ACTIVE STATE: Finance -->
+<div class="flex items-center gap-3 bg-green-200 dark:bg-green-800/50 text-green-950 dark:text-green-100 rounded-full px-4 py-3 mx-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span>Finance</span>
+</div>
+<div class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</div>
+<div class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reports</span>
+</div>
+</div>
+</div>
+<div class="mt-auto p-6 border-t border-stone-200/20">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="close-up portrait of a professional farm manager with a friendly expression and natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3KxCLDPnzCNcpDufUalGLe2HLPR4jKXmmI00eiQZDWhg_mJl-B8UBkKul1jrKcM_YC9cv6cOQvXwJGMY2pfaE5Vr9RzydWT2yc_KPWY5rwx2TJzQ_IaYkDwRDhfJ0eVCpVL5QGsOY5ZqgGHLynUJ8Vg1icJSUVfTW7dcEh8PIf0ZqT2UMqTwC1PkQdfljE1GmMKvdZqOIZoRXdyXrUC0xTFs5bCY9tCOIcru38sS0uHYro5D4U9mYc-5r59q8UUINkjSIiXaUrZ-P"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Manager Avatar</p>
+<p class="text-xs text-on-surface-variant">Admin Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area (Blurred Background Context) -->
+<main class="flex-1 overflow-hidden filter blur-sm">
+<!-- TopAppBar Context -->
+<header class="flex justify-between items-center px-6 w-full w-full h-16 sticky top-0 z-50 bg-white/60 dark:bg-stone-950/60 backdrop-blur-md border-b border-stone-200/20 shadow-sm font-['Manrope'] font-semibold">
+<h1 class="font-['Manrope'] font-extrabold text-2xl text-green-900 dark:text-green-100">Financial Management</h1>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex gap-8">
+<span class="text-stone-500">Accounts</span>
+<span class="text-green-800 border-b-2 border-green-800">Transactions</span>
+<span class="text-stone-500">Budgets</span>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-stone-500">notifications</span>
+<span class="material-symbols-outlined text-stone-500">settings</span>
+</div>
+</div>
+</header>
+<!-- Chart of Accounts Dummy Background -->
+<div class="p-8 space-y-8">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-3xl font-headline font-extrabold text-on-surface">Chart of Accounts</h2>
+<p class="text-on-surface-variant">General Ledger Categories</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-md font-bold shadow-lg">New Account</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-2">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Total Assets</p>
+<p class="text-4xl font-headline font-bold text-primary">$452,300</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-2">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Liabilities</p>
+<p class="text-4xl font-headline font-bold text-secondary">$128,900</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm space-y-2">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Equity</p>
+<p class="text-4xl font-headline font-bold text-tertiary">$323,400</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="p-4 font-label text-xs uppercase tracking-wider text-on-surface-variant">Code</th>
+<th class="p-4 font-label text-xs uppercase tracking-wider text-on-surface-variant">Category</th>
+<th class="p-4 font-label text-xs uppercase tracking-wider text-on-surface-variant">Type</th>
+<th class="p-4 font-label text-xs uppercase tracking-wider text-on-surface-variant">Balance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant/20">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-mono">1000</td>
+<td class="p-4 font-bold">Current Assets</td>
+<td class="p-4">Asset</td>
+<td class="p-4 text-right">$145,000</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4 font-mono">2000</td>
+<td class="p-4 font-bold">Fixed Assets</td>
+<td class="p-4">Asset</td>
+<td class="p-4 text-right">$207,300</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-on-surface/20 backdrop-blur-md">
+<!-- Modal Container -->
+<div class="bg-white w-full max-w-3xl overflow-hidden shadow-2xl flex rounded-2xl relative">
+<!-- Left Column (Sidebar) -->
+<div class="hidden md:flex flex-col w-1/3 relative bg-primary overflow-hidden">
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="lush green agricultural pasture at sunrise with rolling hills and soft golden mist over the grass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9nxjDCU8wJwv0yfokJFsoYA_fmcYT2Q9d39g74kXZM1uHx_2AiwLJlHV7hEdJahiL2SjnshsHEmz05sPFEFOjensKnHUzNHwbnabbAXzYy0gix-5B3oUdXNyhJzTpLFzHfpaiWVJEaOKQjX639Muh91tdwbyMSWO42ff3kAIKALMHGXTzAP0FhLCEXWZ5sL7f_wBdTdQ3MtVwkMDaEskXB111bljVI1zvO6K22qmkePxmFpAqGRGxQ1clNQIoDA3Z-RiJMs2RsGx6"/>
+</div>
+<div class="relative z-10 p-8 flex flex-col h-full justify-between text-white">
+<div>
+<div class="font-headline font-extrabold text-2xl tracking-tighter mb-2">JUKAM</div>
+<p class="text-sm font-light opacity-80 leading-relaxed font-body">Adding a new fiscal anchor to your dairy's financial structure.</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/20">
+<span class="material-symbols-outlined text-4xl mb-2">account_balance</span>
+<p class="text-xs uppercase tracking-[0.2em] font-label font-bold">Finance Module</p>
+<p class="text-lg font-headline font-bold">Asset Categorization</p>
+</div>
+</div>
+</div>
+<!-- Right Column (Form) -->
+<div class="flex-1 flex flex-col bg-white">
+<!-- Form Header -->
+<div class="p-8 pb-4">
+<h2 class="text-2xl font-headline font-extrabold text-primary tracking-tight">Add New Account Category</h2>
+<p class="text-on-surface-variant text-sm mt-1">Define range and hierarchy for the General Ledger.</p>
+</div>
+<!-- Form Content -->
+<div class="p-8 pt-4 flex-1 space-y-6">
+<div class="grid grid-cols-1 gap-6">
+<!-- Category Name -->
+<div class="space-y-1.5">
+<label class="block font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Category Name</label>
+<input class="w-full px-4 py-3 bg-surface-bright border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-stone-400 rounded-full" placeholder="e.g., Current Assets" type="text"/>
+</div>
+<!-- Category Code & Logic -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="block font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Category Code</label>
+<input class="w-full px-4 py-3 bg-surface-bright border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-stone-400 rounded-full" placeholder="1000" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Parent Group</label>
+<select class="w-full px-4 py-3 bg-surface-bright border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all rounded-full">
+<option>Assets</option>
+<option>Liabilities</option>
+<option>Equity</option>
+<option>Revenue</option>
+</select>
+</div>
+</div>
+<!-- Range Logic -->
+<div class="flex items-center justify-between mb-4">
+<label class="flex items-center cursor-pointer gap-3">
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-stone-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</div>
+<span class="font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Auto-generate Account Number</span>
+</label>
+</div><div class="pt-4 border-t border-surface-variant/30">
+<p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-4">Account Number Range</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="block font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Starting Number</label>
+<input class="w-full px-4 py-3 bg-surface-bright border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-stone-400 rounded-full" placeholder="1100" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="block font-headline font-bold text-xs uppercase tracking-wider text-on-surface">Ending Number</label>
+<input class="w-full px-4 py-3 bg-surface-bright border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-stone-400 rounded-full" placeholder="1999" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="p-6 bg-surface-container-low flex items-center justify-end gap-4 border-t border-outline-variant/20">
+<button class="text-on-surface-variant font-headline font-bold text-sm px-4 py-2 hover:text-on-surface transition-colors">Cancel</button>
+<button class="bg-gradient-to-tr from-primary to-primary-container text-white px-8 py-3 font-headline font-bold text-sm shadow-md hover:-translate-y-0.5 transition-all active:scale-95 rounded-full">Save Category</button>
+</div>
+</div>
+<!-- Close Button -->
+<button class="absolute top-4 right-4 p-2 text-on-surface-variant hover:text-primary transition-colors z-20"><span class="material-symbols-outlined">close</span></button></div>
+</div>
+</div>
+</body></html>

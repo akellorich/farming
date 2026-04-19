@@ -1,0 +1,607 @@
+/**
+ * Jukam Farm - Production Overview (High-Fidelity V2)
+ * Matches the specific provided design specification.
+ */
+
+/* Layout & Grid Integration */
+.prod-header-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Expanded to 5 for Total Cows Milked */
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1600px) {
+    .prod-header-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .prod-header-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.prod-stat-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+/* Variant 1: Dark Green (Total Yield) */
+.stat-card-dark {
+    background-color: #206223; /* Original Botanical Green */
+    color: white;
+}
+
+.stat-card-dark .prod-stats-label { color: rgba(255,255,255,0.7); font-size: 0.65rem; }
+.stat-card-dark .prod-stats-value { color: white; font-size: 1.75rem; margin: 0.25rem 0; }
+.stat-card-dark .trend-pill {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.65rem;
+    display: inline-block;
+}
+
+/* Variant 2: Gold (Average Density) */
+.stat-card-gold {
+    background-color: #ffca40;
+    color: #422a00;
+}
+
+.stat-card-gold .prod-stats-value { color: #261a00; font-size: 1.75rem; }
+.stat-card-gold .quality-tag {
+    background: rgba(0,0,0,0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 800;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Progress bar inside cards */
+.prod-progress-minimal {
+    height: 4px;
+    background: #f1f5f9;
+    border-radius: 99px;
+    width: 100%;
+}
+
+.prod-progress-minimal-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 99px;
+}
+
+/* Middle Layout: Chart & Alerts */
+.prod-middle-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container-card, .alerts-container-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.prod-stats-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.05rem;
+}
+
+.prod-stats-value {
+    font-size: 1.75rem !important;
+}
+
+.chart-container-card h5, .alerts-container-card h5, .log-table-container h5 {
+    font-size: 0.9rem !important;
+    letter-spacing: 0.01rem;
+}
+
+.chart-container-card p.text-muted, .alerts-container-card p.text-muted, .log-table-container p.text-muted {
+    font-size: 0.6rem !important;
+    opacity: 0.8;
+}
+
+.main-content h2.font-headline {
+    font-size: 1.25rem !important;
+}
+
+/* Alerts List Styling */
+.yield-alert-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    background-color: #fff8f8;
+    border-left: 4px solid #ba1a1a;
+}
+
+.yield-alert-item.warning { background-color: #fefce8; border-left-color: #a16207; }
+.yield-alert-item.info { background-color: #f8fafc; border-left-color: #64748b; }
+
+.alert-cow-id { font-weight: 400; font-size: 0.9rem; margin-bottom: 2px; }
+.alert-reason { font-size: 0.7rem; color: #64748b; }
+.alert-drop { color: #ba1a1a; font-weight: 400; font-size: 1.1rem; }
+
+/* Table Overrides */
+.log-table-container {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.log-session-pill {
+    padding: 0.25rem 0.85rem;
+    border-radius: 2rem;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+}
+
+.pill-morning { background-color: #dcfce7; color: #166534; }
+.pill-evening { background-color: #fefce8; color: #854d0e; }
+
+.log-grade-pill {
+    background-color: #f1f5f9;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 800;
+    font-size: 0.7rem;
+    color: #475569;
+}
+
+.grade-plus { background-color: #dcfce7; color: #166534; }
+
+.collector-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.75rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1200px) {
+    .prod-header-grid { grid-template-columns: repeat(2, 1fr); }
+    .prod-middle-grid { grid-template-columns: 1fr; }
+}
+
+/* Hide FAB when modal is open to prevent overlap */
+body.modal-open #logYieldFAB {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .animal-modal-container {
+        flex-direction: column !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
+        bottom: 0;
+        margin: 0;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-branding-column {
+        width: 100% !important;
+        height: 140px !important;
+        padding: 1rem 1.5rem !important;
+        justify-content: center !important;
+    }
+
+    .modal-branding-column .mb-4 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .modal-branding-column span.material-symbols-outlined {
+        font-size: 1.5rem !important;
+    }
+
+    .modal-branding-column h2 {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .modal-branding-column p {
+        font-size: 0.65rem !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2; /* Standard property for compatibility */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .modal-form-scroll {
+        padding: 1.5rem !important;
+    }
+
+    .schedule-selector-grid {
+        gap: 0.5rem !important;
+    }
+
+    .schedule-card {
+        padding: 0.6rem 0.2rem !important;
+        font-size: 0.7rem !important;
+    }
+
+    .row.no-gutters.mb-5, .row.no-gutters.mb-3 {
+        flex-direction: column !important;
+    }
+
+    .row.no-gutters.mb-3 .col-6 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .modal-footer-actions {
+        padding: 1rem 1.5rem 2rem !important;
+        position: static !important; /* Remove sticky */
+        background: transparent !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    /* Font size reductions for mobile */
+    .modal-section-label {
+        font-size: 0.6rem !important;
+    }
+
+    .form-control-custom, select.form-control-custom, textarea.form-control-custom {
+        font-size: 0.75rem !important;
+        height: 40px !important;
+        border-radius: 2px !important; /* Minimum roundness */
+    }
+
+    .schedule-card {
+        padding: 0.5rem 0.2rem !important;
+        font-size: 0.65rem !important;
+        border-radius: 2px !important; /* Minimum roundness */
+    }
+
+    .modal-branding-column h2 {
+        font-size: 1.05rem !important;
+    }
+
+    .modal-branding-column p {
+        font-size: 0.55rem !important;
+    }
+
+    .btn-register, .btn-link {
+        font-size: 0.8rem !important;
+        padding: 0.6rem 1.5rem !important;
+    }
+
+    .prod-header-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 0.4rem;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+    
+    .prod-stat-card {
+        padding: 0.85rem;
+        min-height: 110px;
+    }
+
+    .prod-middle-grid {
+        gap: 0.75rem;
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+
+    .chart-container-card, .alerts-container-card {
+        padding: 1rem;
+    }
+
+    .prod-stats-value {
+        font-size: 1.15rem !important;
+    }
+
+    .prod-stats-label {
+        font-size: 0.5rem;
+    }
+
+    .main-content h2.font-headline {
+        font-size: 1.1rem !important;
+        margin-left: 0.5rem;
+    }
+
+    .log-table-container { padding: 10px !important; }
+    
+    .table-controls .d-flex {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem;
+    }
+
+    #logDataTable thead th {
+        font-size: 0.6rem !important;
+        padding: 0.5rem 0.4rem !important;
+    }
+
+    #logDataTable td {
+        font-size: 0.65rem !important;
+        white-space: nowrap !important;
+    }
+
+    .container-fluid {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
+
+/* Production Log Modal Extensions (High-Fidelity) */
+.schedule-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.schedule-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 0.75rem 0.5rem;
+    border-radius: 0.4rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #4b5563;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schedule-option input:checked + .schedule-card {
+    border: 2px solid #206223;
+    color: #206223;
+    background-color: #ffffff;
+}
+
+.animal-modal-container input.form-control-custom,
+.animal-modal-container select.form-control-custom,
+.animal-modal-container textarea.form-control-custom {
+    background-color: #f7f9f7 !important;
+    border: 1px solid transparent !important;
+    border-radius: 0.4rem;
+    color: #1f2937;
+    font-weight: 400;
+}
+
+.animal-modal-container input.form-control-custom:focus,
+.animal-modal-container select.form-control-custom:focus,
+.animal-modal-container textarea.form-control-custom:focus {
+    background-color: #ffffff !important;
+    border-color: #206223 !important;
+    box-shadow: 0 0 0 3px rgba(32, 98, 35, 0.08) !important;
+}
+
+.animal-modal-container #saveProductionBtn:hover {
+    background-color: #2d8a31 !important; /* Lighter shade of green */
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(32, 98, 35, 0.4) !important;
+}
+
+.production-data-table-wrapper table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+/* Dark Theme Overrides */
+body.dark-theme .prod-stat-card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .prod-stats-value {
+    color: #f0f6fc !important;
+}
+
+body.dark-theme .prod-stats-label {
+    color: #8b949e !important;
+}
+
+body.dark-theme .chart-container-card,
+body.dark-theme .alerts-container-card,
+body.dark-theme .log-table-container {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+}
+
+body.dark-theme .log-table-container h5,
+body.dark-theme .chart-container-card h5,
+body.dark-theme .alerts-container-card h5 {
+    color: #f0f6fc !important;
+}
+
+body.dark-theme .btn-chart-switcher {
+    background: #0d1117 !important;
+    border-color: #30363d !important;
+    color: #8b949e !important;
+}
+
+body.dark-theme .btn-chart-switcher.active {
+    background: #30363d !important;
+    color: #f0f6fc !important;
+}
+
+body.dark-theme #logDataTable {
+    background-color: transparent;
+}
+
+body.dark-theme #logDataTable thead th {
+    background-color: #0d1117;
+    color: #8b949e !important;
+    border-bottom: 2px solid #30363d;
+}
+
+body.dark-theme #logDataTable tbody tr td {
+    border-bottom: 1px solid #30363d;
+    color: #c9d1d9 !important;
+}
+
+body.dark-theme #logDataTable tbody tr:hover {
+    background-color: #21262d;
+}
+
+body.dark-theme .alert-item-minimal {
+    background-color: #0d1117;
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+body.dark-theme .alert-item-minimal div,
+body.dark-theme .alert-item-minimal div strong {
+    color: #f0f6fc !important;
+}
+
+body.dark-theme .alert-item-minimal .text-danger {
+    color: #ff7b72 !important; /* Brighter red for dark mode */
+}
+
+body.dark-theme .trend-pill {
+    background: rgba(45, 138, 49, 0.15);
+    color: #4ade80;
+}
+
+/* Modal Dark Theme */
+body.dark-theme .animal-modal-container {
+    background-color: #161b22;
+    box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.5);
+    border: 1px solid #30363d;
+}
+
+body.dark-theme .modal-form-column {
+    background-color: #0d1117 !important;
+}
+
+body.dark-theme .form-control-custom,
+body.dark-theme select.form-control-custom,
+body.dark-theme textarea.form-control-custom {
+    background-color: #161b22 !important;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d !important;
+}
+
+body.dark-theme .form-control-custom:focus {
+    background-color: #0d1117 !important;
+    border-color: #206223 !important;
+}
+
+body.dark-theme .schedule-card {
+    background-color: #161b22;
+    border-color: #30363d;
+    color: #8b949e;
+}
+
+body.dark-theme .schedule-option input:checked + .schedule-card {
+    border-color: #206223;
+    color: #f0f6fc;
+    background-color: #206223;
+}
+
+body.dark-theme .modal-section-label {
+    color: #f0f6fc !important;
+}
+
+body.dark-theme .modal-close-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f0f6fc;
+}
+
+body.dark-theme .text-muted {
+    color: #8b949e !important;
+}
+
+body.dark-theme .modal-footer-actions {
+    background-color: #161b22 !important;
+    border-top: 1px solid #30363d !important;
+}
+
+body.dark-theme .btn-link.text-success {
+    color: #4ade80 !important;
+}
+
+body.dark-theme .yield-alert-item {
+    background-color: #0d1117;
+    border-color: #30363d;
+    box-shadow: none;
+}
+
+body.dark-theme .yield-alert-item.warning { background-color: rgba(254, 252, 232, 0.05); border-left-color: #a16207; }
+body.dark-theme .yield-alert-item.info { background-color: rgba(248, 250, 252, 0.05); border-left-color: #64748b; }
+
+body.dark-theme .alert-cow-id { color: #f0f6fc; }
+body.dark-theme .alert-reason { color: #8b949e; }
+body.dark-theme .alert-drop { color: #ff7b72; }
+body.dark-theme .yield-alert-item.warning .alert-drop { color: #ffca40; }
+body.dark-theme .yield-alert-item.info .alert-drop { color: #8b949e; }
+
+body.dark-theme #viewAllHealth {
+    background-color: #161b22 !important;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Log Registry Filters & Buttons Dark Mode */
+body.dark-theme #logShiftFilter,
+body.dark-theme #logDateFilter,
+body.dark-theme #logSearch {
+    background-color: #0d1117 !important;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d !important;
+}
+
+body.dark-theme .input-group-text.bg-light {
+    background-color: #0d1117 !important;
+    border: 1px solid #30363d !important;
+    border-right: none !important;
+}
+
+body.dark-theme #logSearch {
+    border-left: none !important;
+}
+
+body.dark-theme #logDateFilter::placeholder,
+body.dark-theme #logSearch::placeholder {
+    color: #8b949e !important;
+}
+
+body.dark-theme .dt-buttons .btn-secondary {
+    background-color: #0d1117 !important;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d !important;
+    font-size: 0.65rem !important;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+body.dark-theme .dt-buttons .btn-secondary:hover {
+    background-color: #21262d !important;
+    border-color: #8b949e !important;
+}
+
+
+

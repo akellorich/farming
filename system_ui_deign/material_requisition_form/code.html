@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Material Requisition Form - JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#91d78a",
+                        "tertiary-fixed-dim": "#90d792",
+                        "background": "#fafaf5",
+                        "surface-bright": "#fafaf5",
+                        "on-primary-fixed": "#002203",
+                        "surface-container-high": "#e8e8e3",
+                        "surface-tint": "#2a6b2c",
+                        "secondary-container": "#fec330",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-secondary-container": "#6f5100",
+                        "on-tertiary-container": "#c7ffc5",
+                        "surface-container": "#eeeee9",
+                        "surface-dim": "#dadad5",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#002107",
+                        "secondary": "#795900",
+                        "tertiary": "#1d622b",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#acf4a4",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2f312e",
+                        "secondary-fixed": "#ffdfa0",
+                        "surface-variant": "#e3e3de",
+                        "primary": "#206223",
+                        "surface": "#fafaf5",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bfcaba",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "inverse-primary": "#91d78a",
+                        "tertiary-container": "#387b41",
+                        "surface-container-low": "#f4f4ef",
+                        "primary-container": "#3a7b3a",
+                        "on-secondary-fixed": "#261a00",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "outline": "#707a6c",
+                        "tertiary-fixed": "#abf4ac",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1a1c19",
+                        "on-surface-variant": "#40493d",
+                        "on-surface": "#1a1c19",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container-highest": "#e3e3de",
+                        "on-tertiary-fixed-variant": "#07521d"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .print-container { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; border: none !important; }
+            aside { display: none !important; }
+            header { display: none !important; }
+            footer { display: none !important; }
+            @page { margin: 0.8cm; }
+            .document-main-card { border: none !important; padding: 0 !important; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e3e3de; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col items-center">
+<!-- Header (Dashboard Consistent) -->
+<header class="w-full bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-50 no-print">
+<div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-3">
+<img alt="JUKAM Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDdnfTzAyJcCLutrcVwEV5NF3EaItd7c2TzAwxak-jVj357Ylxl3_R2VfwrKBmZ2mVbwsGnaIpZI0NrydlIf8JRP2zt6NFrDIyfPu6RlXPrcj6w0uMaHP11RAAkRHPi5rgFEUV6HOU9aToHkGiq3eSWt3OL_azLq2FyfUpFhw-3lOmdaKBAw4qHKmuZbtg6LKvgtb0PhEE0j7ibnVOgZhAggv5sFnQye6YwZGfinYnQZXUNTpILuVNlSefTexH5BEDITENjCUAfBT3"/>
+<div class="flex flex-col">
+<span class="text-lg font-bold text-primary leading-tight font-headline">JUKAM Dairy</span>
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-label">Official Document Management</span>
+</div>
+</div>
+<div class="hidden xl:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/30 w-80">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-on-surface-variant/60" placeholder="Search documents, IDs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-md text-sm font-semibold hover:opacity-90 transition-all shadow-sm" onclick="window.print()">
+<span class="material-symbols-outlined text-[20px]" data-icon="print">print</span>
+                    Print Document
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 border border-outline-variant text-on-surface rounded-md text-sm font-semibold hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+                    Download PDF
+                </button>
+<div class="w-px h-8 bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img alt="Manager Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFjtfeXSVppEVWoQ2ncg5t4jDNqvmGcDSDiDYE-ihiOGyXx_LHYF9RRB2S-Gy2CIXbljBHlnbcl6vhQL0mIvywNV9iOI5G5sRRo2LuMLD9AaNW4eKXCYT3393QJdgDt42QUwbYPU2XYfz-98AX9h43wLpKTT5F0zRRlHsGZWvDT76VdqmjcPWDcsg1qMRf83KXhsgPiRRI5ll16-yIpAVE6md78yoTb2-SboUpABGzzYqGo6k3QZnjl2ZwGpLvJ5E_Ewi5ZiC1EZ-Q"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="w-full max-w-[1600px] flex flex-1 items-start mx-auto">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-outline-variant/30 h-[calc(100vh-64px)] p-6 hidden lg:flex flex-col no-print sticky top-16">
+<div class="flex flex-col gap-1 mb-8">
+<span class="text-[11px] uppercase tracking-widest text-on-surface-variant font-bold px-3 mb-2">Main Menu</span>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">grid_view</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">pets</span>
+<span class="text-sm font-medium">Animals</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
+<span class="text-sm font-medium">Production</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+<span class="text-sm font-medium">Feeding</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">medical_services</span>
+<span class="text-sm font-medium">Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-all shadow-sm" href="#">
+<span class="material-symbols-outlined text-[22px]">inventory_2</span>
+<span class="text-sm font-bold">Inventory</span>
+</a>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[11px] uppercase tracking-widest text-on-surface-variant font-bold px-3 mb-2">Administration</span>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">manage_accounts</span>
+<span class="text-sm font-medium">Users Manager</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">analytics</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/20">
+<div class="flex items-center gap-3 p-2 rounded-xl bg-surface-container-low">
+<img alt="James Kamau" class="w-10 h-10 rounded-lg object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFjtfeXSVppEVWoQ2ncg5t4jDNqvmGcDSDiDYE-ihiOGyXx_LHYF9RRB2S-Gy2CIXbljBHlnbcl6vhQL0mIvywNV9iOI5G5sRRo2LuMLD9AaNW4eKXCYT3393QJdgDt42QUwbYPU2XYfz-98AX9h43wLpKTT5F0zRRlHsGZWvDT76VdqmjcPWDcsg1qMRf83KXhsgPiRRI5ll16-yIpAVE6md78yoTb2-SboUpABGzzYqGo6k3QZnjl2ZwGpLvJ5E_Ewi5ZiC1EZ-Q"/>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-bold truncate">James Kamau</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">General Manager</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-4 lg:p-8 print-container flex flex-col items-center bg-surface-container-lowest">
+<!-- Form Container -->
+<div class="document-main-card w-full max-w-5xl bg-white border border-outline-variant/40 rounded-2xl shadow-xl print:shadow-none print:border-none print:p-0 flex flex-col gap-6 p-8 md:p-10">
+<!-- Header -->
+<div class="flex items-start justify-between border-b-2 border-primary/10 pb-4">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[28px]">inventory</span>
+<h1 class="font-headline font-extrabold text-3xl tracking-tight text-on-surface leading-none uppercase">Material Requisition Form</h1>
+</div>
+<p class="font-label uppercase tracking-[0.3em] text-on-surface-variant text-[10px] pl-1">Internal Stock Transfer &amp; Procurement Authorization</p>
+</div>
+<div class="text-right flex flex-col gap-0.5">
+<span class="text-[9px] uppercase tracking-widest text-on-surface-variant">Document Status</span>
+<span class="px-2 py-0.5 bg-secondary-container/20 text-on-secondary-container rounded text-[10px] font-bold uppercase tracking-wider border border-secondary-container/30">Pending Approval</span>
+</div>
+</div>
+<!-- Request Details Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-low/50 p-3 rounded-xl flex flex-col gap-0.5 border border-outline-variant/10">
+<span class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant">Date of Issue</span>
+<span class="font-headline font-bold text-on-surface text-sm">October 24, 2024</span>
+</div>
+<div class="bg-surface-container-low/50 p-3 rounded-xl flex flex-col gap-0.5 border border-outline-variant/10">
+<span class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant">Requisition ID</span>
+<span class="font-headline font-bold text-primary text-sm">REQ-2024-089</span>
+</div>
+<div class="bg-surface-container-low/50 p-3 rounded-xl flex flex-col gap-0.5 border border-outline-variant/10">
+<span class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant">Issuing Department</span>
+<span class="font-headline font-bold text-on-surface text-sm">Nutrition Lab</span>
+</div>
+<div class="bg-secondary-container/5 p-3 rounded-xl flex flex-col gap-0.5 border border-secondary-container/20">
+<span class="font-label text-[9px] uppercase tracking-widest text-on-surface-variant">Target Batch ID</span>
+<span class="font-headline font-bold text-on-secondary-container text-sm">BT-9902</span>
+</div>
+</div>
+<!-- Formulation Banner -->
+<div class="relative overflow-hidden bg-primary rounded-xl p-6 text-on-primary shadow-md">
+<div class="absolute top-[-40%] right-[-5%] opacity-10">
+<span class="material-symbols-outlined text-[180px]" data-icon="grass">grass</span>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<span class="font-label text-[10px] uppercase tracking-[0.25em] opacity-80">Feed Formulation Profile</span>
+<h2 class="font-headline font-extrabold text-2xl">High Yield Mix A2 (Premium)</h2>
+<div class="flex items-center gap-3 mt-1">
+<span class="px-1.5 py-0.5 bg-white/20 rounded text-[9px] font-bold uppercase">Lactating Cows</span>
+<span class="px-1.5 py-0.5 bg-white/20 rounded text-[9px] font-bold uppercase">Daily Cycle</span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-xl border border-white/20 shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="livestock">pets</span>
+<div class="flex flex-col">
+<span class="font-headline font-extrabold text-2xl leading-none">450</span>
+<span class="font-label text-[9px] uppercase tracking-widest opacity-80 mt-0.5">Active Livestock</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Ingredients Table -->
+<div class="flex flex-col gap-3">
+<div class="flex items-end justify-between px-1">
+<h3 class="font-headline font-bold text-lg flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-md text-xl">list_alt</span>
+                            Required Ingredients Specification
+                        </h3>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">Consumption per 24hr Cycle</span>
+</div>
+<div class="overflow-hidden border border-outline-variant/30 rounded-xl shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container text-on-surface-variant border-b border-outline-variant/30">
+<tr>
+<th class="px-6 py-3 font-label text-[11px] uppercase tracking-widest font-bold">Ingredient Description</th>
+<th class="px-6 py-3 font-label text-[11px] uppercase tracking-widest font-bold text-right w-48">Quantity (KG)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-3">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface text-sm">Premium Corn Silage</span>
+<span class="text-[10px] text-on-surface-variant">Moisture: 30-35%, PH: 3.8-4.2</span>
+</div>
+</td>
+<td class="px-6 py-3 text-right font-headline font-extrabold text-lg text-on-surface">1,200.00</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-3">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface text-sm">Soybean Meal (48%)</span>
+<span class="text-[10px] text-on-surface-variant">Crude Protein: Min 48%</span>
+</div>
+</td>
+<td class="px-6 py-3 text-right font-headline font-extrabold text-lg text-on-surface">350.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-3">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface text-sm">Cottonseed Cake</span>
+<span class="text-[10px] text-on-surface-variant">Expeller Pressed, Grade 1</span>
+</div>
+</td>
+<td class="px-6 py-3 text-right font-headline font-extrabold text-lg text-on-surface">180.00</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-3">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface text-sm">Calcium Carbonate</span>
+<span class="text-[10px] text-on-surface-variant">Fine Powder, Purity 98%+</span>
+</div>
+</td>
+<td class="px-6 py-3 text-right font-headline font-extrabold text-lg text-on-surface">312.50</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-3">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface text-sm">Vitamin-Mineral Premix</span>
+<span class="text-[10px] text-on-surface-variant">High-Performance Supp.</span>
+</div>
+</td>
+<td class="px-6 py-3 text-right font-headline font-extrabold text-lg text-on-surface">12.50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Total Weight Section -->
+<div class="flex justify-end">
+<div class="w-full md:w-5/12 bg-surface-container p-4 rounded-xl border-l-8 border-primary flex flex-col gap-0.5 items-end shadow-sm">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Total Gross Weight Requested</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-headline font-black text-3xl text-primary leading-none">2,055.00</span>
+<span class="font-headline font-bold text-base text-primary/70">KG</span>
+</div>
+<div class="w-full h-px bg-outline-variant/30 my-2"></div>
+<span class="font-body text-[9px] text-on-surface-variant italic">Authorized for dispatch from central stores.</span>
+</div>
+</div>
+<!-- Approval Section -->
+<div class="border-t border-outline-variant/20 pt-6">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">draw</span>
+                        Authorization &amp; Authentication
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Signature 1 -->
+<div class="flex flex-col gap-4">
+<div class="border-b border-on-surface/20 h-12 relative">
+<span class="absolute bottom-[-18px] left-0 font-label text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">Signature / Stamp</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Full Name</span>
+<div class="font-body border-b border-outline-variant/20 py-0.5 text-xs text-on-surface-variant">_____________________</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Date</span>
+<div class="font-body font-medium border-b border-outline-variant/20 py-0.5 text-xs">October 24, 2024</div>
+</div>
+</div>
+<div class="bg-surface-container-low px-3 py-1.5 rounded-lg border-l-4 border-primary">
+<span class="font-headline font-bold text-[10px] uppercase tracking-widest text-primary">Requested By</span>
+<p class="text-[10px] text-on-surface font-bold mt-0.5">Section Supervisor</p>
+</div>
+</div>
+<!-- Signature 2 -->
+<div class="flex flex-col gap-4">
+<div class="border-b border-on-surface/20 h-12 relative">
+<span class="absolute bottom-[-18px] left-0 font-label text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">Signature / Stamp</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Full Name</span>
+<div class="font-body border-b border-outline-variant/20 py-0.5 text-xs text-on-surface-variant">_____________________</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Date</span>
+<div class="font-body font-medium border-b border-outline-variant/20 py-0.5 text-xs">October 24, 2024</div>
+</div>
+</div>
+<div class="bg-surface-container-low px-3 py-1.5 rounded-lg border-l-4 border-primary">
+<span class="font-headline font-bold text-[10px] uppercase tracking-widest text-primary">Verified By</span>
+<p class="text-[10px] text-on-surface font-bold mt-0.5">Inventory Manager</p>
+</div>
+</div>
+<!-- Signature 3 -->
+<div class="flex flex-col gap-4">
+<div class="border-b border-primary/40 h-12 relative">
+<span class="absolute bottom-[-18px] left-0 font-label text-[9px] uppercase tracking-widest text-on-surface-variant font-bold">Official Seal / Sign</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Full Name</span>
+<div class="font-body border-b border-outline-variant/20 py-0.5 text-xs text-on-surface-variant">_____________________</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-[9px] uppercase text-on-surface-variant/70 font-bold">Date</span>
+<div class="font-body font-medium border-b border-outline-variant/20 py-0.5 text-xs">October 24, 2024</div>
+</div>
+</div>
+<div class="bg-primary px-3 py-1.5 rounded-lg border-l-4 border-secondary-fixed shadow-sm">
+<span class="font-headline font-bold text-[10px] uppercase tracking-widest text-on-primary opacity-90">Approved By</span>
+<p class="text-[10px] text-on-primary font-bold mt-0.5">Farm Manager</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Document Footer -->
+<div class="mt-4 border-t border-outline-variant/30 pt-4 text-[9px] text-on-surface-variant/70 uppercase tracking-widest leading-relaxed flex items-center justify-between">
+<div class="max-w-xl">
+                        Controlled document. Modifications must be recorded by the Manager. 
+                        White: Accounts, Yellow: Store, Blue: Dept.
+                    </div>
+<div class="font-bold">Printed: October 24, 2024</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="bg-zinc-50 dark:bg-zinc-900 w-full border-t border-zinc-200 dark:border-zinc-800 mt-auto px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4 no-print">
+<div class="flex items-center gap-4">
+<img alt="JUKAM Logo" class="h-5 opacity-50 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDdnfTzAyJcCLutrcVwEV5NF3EaItd7c2TzAwxak-jVj357Ylxl3_R2VfwrKBmZ2mVbwsGnaIpZI0NrydlIf8JRP2zt6NFrDIyfPu6RlXPrcj6w0uMaHP11RAAkRHPi5rgFEUV6HOU9aToHkGiq3eSWt3OL_azLq2FyfUpFhw-3lOmdaKBAw4qHKmuZbtg6LKvgtb0PhEE0j7ibnVOgZhAggv5sFnQye6YwZGfinYnQZXUNTpILuVNlSefTexH5BEDITENjCUAfBT3"/>
+<p class="font-work-sans text-[9px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">© 2024 JUKAM Dairy | Official Document v2.4</p>
+</div>
+<div class="flex gap-6">
+<a class="font-work-sans text-[9px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-work-sans text-[9px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-work-sans text-[9px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-primary transition-colors" href="#">Status</a>
+</div>
+</footer>
+</body></html>

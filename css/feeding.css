@@ -1,0 +1,271 @@
+/**
+ * Jukam Farm - Feeding Overview Specific Styles
+ */
+
+.feeding-header-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+    .feeding-header-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.feeding-stat-card {
+    background-color: var(--surface-container-lowest);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+}
+
+.feeding-schedule-card {
+    background-color: var(--surface-container-lowest);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.feeding-table thead th {
+    background-color: var(--surface-container-low);
+    padding: 0.65rem 1rem; /* Tightened */
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--on-surface-variant);
+    font-weight: 700;
+    border-bottom: none;
+}
+
+.feeding-table tbody td {
+    padding: 0.85rem 1rem; /* Tightened */
+    border-bottom: 1px solid var(--surface-container-low);
+    font-size: 0.8rem;
+}
+
+/* Pagination Styles */
+.pagination-arrow {
+    background: var(--surface-container-low);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--on-surface);
+    transition: all 0.2s;
+}
+
+.pagination-arrow:hover:not(:disabled) {
+    background: var(--primary);
+    color: white;
+}
+
+.pagination-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-btn {
+    background: transparent;
+    border: 1px solid var(--surface-container-low);
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--on-surface);
+    transition: all 0.2s;
+}
+
+.page-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.page-btn:hover:not(.active) {
+    background: var(--surface-container-low);
+}
+
+.dataTables_filter, .dataTables_info, .dataTables_paginate {
+    display: none !important;
+}
+
+.feeding-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Badges */
+.feeding-status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Utilities for missing gap support in BS4 */
+.gap-2 { gap: 0.5rem !important; }
+.gap-3 { gap: 1rem !important; }
+.gap-4 { gap: 1.5rem !important; }
+
+.status-completed {
+    background-color: var(--tertiary-fixed);
+    color: var(--on-tertiary-fixed);
+}
+
+.status-pending {
+    background-color: #fef9c3;
+    color: #854d0e;
+}
+
+body.dark-theme .status-pending {
+    background-color: rgba(254, 249, 195, 0.15);
+    color: #fde047;
+}
+
+/* Ration Composition */
+.ration-composition-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 576px) {
+    .ration-composition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.ration-item-card {
+    background-color: var(--surface-container-low);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+}
+
+/* Stock Alerts */
+.stock-alert-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.stock-alert-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.bg-error-subtle {
+    background-color: #fff8f8 !important;
+    border-color: #fee2e2 !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fffcf0 !important;
+    border-color: #fef3c7 !important;
+}
+
+.stock-icon-container {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+}
+
+.chart-container-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Consumption Chart */
+.consumption-chart-container {
+    height: 160px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.consumption-bar {
+    width: 100%;
+    background-color: var(--primary-fixed-dim);
+    border-radius: 2px 2px 0 0;
+    transition: height 0.3s ease;
+}
+
+.consumption-bar.active {
+    background-color: var(--primary);
+}
+
+/* Promo Card */
+.feeding-promo-card {
+    background: linear-gradient(135deg, var(--primary), var(--primary-container));
+    padding: 1.5rem;
+    border-radius: 1rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.promo-icon-bg {
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    font-size: 6rem;
+    opacity: 0.15;
+    transform: rotate(-15deg);
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .feeding-stat-card,
+body.dark-theme .feeding-schedule-card,
+body.dark-theme .chart-container-card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+}
+
+body.dark-theme .feeding-table thead th {
+    background-color: #0d1117;
+    color: #8b949e;
+}
+
+body.dark-theme .feeding-table tbody td {
+    border-bottom-color: #30363d;
+    color: #c9d1d9;
+}
+
+body.dark-theme .ration-item-card {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+}
+
+body.dark-theme .stock-alert-item {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+}
+
+body.dark-theme .consumption-bar {
+    background-color: #30363d;
+}
+
+body.dark-theme .consumption-bar.active {
+    background-color: var(--primary);
+}

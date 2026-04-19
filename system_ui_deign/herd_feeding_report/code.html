@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Herd Feeding Report - JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#261a00",
+                        "primary-fixed": "#acf4a4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "on-secondary-container": "#6f5100",
+                        "inverse-on-surface": "#f1f1ec",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeee9",
+                        "outline": "#707a6c",
+                        "on-surface": "#1a1c19",
+                        "secondary": "#795900",
+                        "surface-bright": "#fafaf5",
+                        "outline-variant": "#bfcaba",
+                        "tertiary": "#1d622b",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-tertiary-fixed": "#002107",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "secondary-container": "#fec330",
+                        "primary-container": "#3a7b3a",
+                        "on-tertiary-container": "#c7ffc5",
+                        "surface-container-highest": "#e3e3de",
+                        "on-surface-variant": "#40493d",
+                        "surface-variant": "#e3e3de",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1a1c19",
+                        "tertiary-fixed": "#abf4ac",
+                        "secondary-fixed": "#ffdfa0",
+                        "surface-container-high": "#e8e8e3",
+                        "tertiary-container": "#387b41",
+                        "inverse-surface": "#2f312e",
+                        "surface": "#fafaf5",
+                        "surface-dim": "#dadad5",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "background": "#fafaf5",
+                        "surface-tint": "#2a6b2c",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#91d78a",
+                        "inverse-primary": "#91d78a",
+                        "on-primary-fixed": "#002203",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container-low": "#f4f4ef",
+                        "primary": "#206223"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"],
+                        "manrope": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .botanical-shadow {
+            box-shadow: 0 10px 24px -8px rgba(32, 98, 35, 0.08);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 space-y-4">
+<div class="px-6 mb-8">
+<h1 class="text-2xl font-black text-green-900 dark:text-green-500 font-manrope">JUKAM Dairy</h1>
+<p class="font-manrope font-semibold text-[10px] tracking-wider uppercase text-slate-500 dark:text-slate-400">Modern Agrarian</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-1">
+<!-- Dashboard Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Animals Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span>Animals</span>
+</a>
+<!-- Production Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span>Production</span>
+</a>
+<!-- Feeding Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+<span>Feeding</span>
+</a>
+<!-- Health Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Health</span>
+</a>
+<!-- Inventory Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<!-- Users Manager Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Users Manager</span>
+</a>
+<!-- Settings Tab -->
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<!-- Reports Tab (Active) -->
+<a class="flex items-center gap-4 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-200 rounded-full px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto px-2 pb-2">
+<div class="relative group">
+<button class="w-full flex items-center gap-3 bg-surface-container-lowest rounded-xl p-3 botanical-shadow hover:bg-primary-fixed/30 transition-all">
+<img alt="James Kamau" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I"/>
+<div class="text-left overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">James Kamau</p>
+<p class="font-label text-[10px] uppercase tracking-tighter opacity-60">General Manager</p>
+</div>
+</button>
+<!-- Popup Menu -->
+<div class="absolute bottom-full left-0 mb-2 w-full bg-surface-container-lowest rounded-xl botanical-shadow opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all p-2 z-50">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="account_circle">account_circle</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Profile</span>
+</a>
+<div class="h-px bg-outline-variant/20 my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error-container text-error rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Logout</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-40 backdrop-blur-md bg-surface dark:bg-slate-900/60 shadow-sm dark:shadow-none ml-64 max-w-[calc(100%-16rem)] flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400 font-manrope font-bold">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-lg tracking-tight">Herd Feeding Report</span>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search parameters..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-1.5 bg-primary text-on-primary rounded-full text-sm font-semibold hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+            Export PDF
+        </button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen pt-20">
+<!-- Content Area -->
+<div class="px-8 pb-12">
+<!-- Bento Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+<!-- Total Consumed -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border-l-4 border-primary">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Total Consumed</span>
+<span class="material-symbols-outlined text-primary text-xl">scale</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-surface">1,240 <span class="text-sm font-normal text-on-surface-variant">kg</span></div>
+<div class="mt-2 text-xs text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+                    2.4% vs last week
+                </div>
+</div>
+<!-- Avg Consumption/Animal -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Avg / Animal</span>
+<span class="material-symbols-outlined text-tertiary text-xl">nutrition</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-surface">18.5 <span class="text-sm font-normal text-on-surface-variant">kg/d</span></div>
+<div class="mt-2 text-xs text-stone-500 flex items-center gap-1">
+                    Target: 19.0 kg/d
+                </div>
+</div>
+<!-- Silage Stock -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Silage Stock</span>
+<span class="material-symbols-outlined text-secondary text-xl">inventory</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-surface">42 <span class="text-sm font-normal text-on-surface-variant">tons</span></div>
+<div class="mt-2 w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 65%;"></div>
+</div>
+</div>
+<!-- Feeding Efficiency -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label text-xs uppercase tracking-wider text-on-surface-variant font-semibold">Efficiency</span>
+<span class="material-symbols-outlined text-primary text-xl">electric_bolt</span>
+</div>
+<div class="text-3xl font-headline font-bold text-on-surface">94.2 <span class="text-sm font-normal text-on-surface-variant">%</span></div>
+<div class="mt-2 text-xs text-primary flex items-center gap-1">
+                    Optimal range
+                </div>
+</div>
+<!-- Low Stock Alerts -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border-l-4 border-error">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label text-xs uppercase tracking-wider text-error font-bold">Stock Alerts</span>
+<span class="material-symbols-outlined text-error text-xl">warning</span>
+</div>
+<div class="text-3xl font-headline font-bold text-error">02 <span class="text-sm font-normal text-on-surface-variant">items</span></div>
+<div class="mt-2 text-xs text-error font-medium">Cotton Seed, Pellets</div>
+</div>
+</div>
+<!-- Asymmetric Data Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-start">
+<!-- Product Distribution Chart (Left 1/3) -->
+<div class="bg-surface-container-low rounded-xl p-6 h-full flex flex-col justify-center items-center">
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-bold mb-8 self-start">Product Distribution</h3>
+<!-- Donut Chart Representation (CSS Only) -->
+<div class="relative w-48 h-48 rounded-full flex items-center justify-center" style="background: conic-gradient(#206223 0% 45%, #795900 45% 65%, #387b41 65% 85%, #fec330 85% 100%); box-shadow: inset 0 0 20px rgba(0,0,0,0.05);">
+<div class="absolute w-32 h-32 bg-surface-container-low rounded-full flex flex-col items-center justify-center">
+<span class="text-sm font-headline font-bold text-on-surface">Feed Mix</span>
+<span class="text-xs text-stone-500">Relative %</span>
+</div>
+</div>
+<!-- Clean minimalist key without a "legend" box -->
+<div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 w-full">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium text-on-surface-variant">Silage</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="text-xs font-medium text-on-surface-variant">Maize Germ</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary-container"></div>
+<span class="text-xs font-medium text-on-surface-variant">Cotton Seed</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="text-xs font-medium text-on-surface-variant">Pellets</span>
+</div>
+</div>
+</div>
+<!-- Herd Category Breakdown Table (Right 2/3) -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-6 shadow-sm overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-bold">Herd Category Breakdown</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-container text-xs rounded-lg font-medium hover:bg-surface-container-high transition-colors">Daily</button>
+<button class="px-3 py-1 text-xs rounded-lg font-medium text-stone-500">Weekly</button>
+</div>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-4 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant first:rounded-l-lg">Category</th>
+<th class="px-4 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Count</th>
+<th class="px-4 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Daily Intake (kg)</th>
+<th class="px-4 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Efficiency</th>
+<th class="px-4 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant last:rounded-r-lg text-right">Trend</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-4 py-4 font-semibold text-primary">High Yielders</td>
+<td class="px-4 py-4 text-stone-600">42</td>
+<td class="px-4 py-4 font-medium">24.5</td>
+<td class="px-4 py-4">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Optimal</span>
+</td>
+<td class="px-4 py-4 text-right">
+<span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-4 py-4 font-semibold text-primary">Medium Yielders</td>
+<td class="px-4 py-4 text-stone-600">68</td>
+<td class="px-4 py-4 font-medium">18.2</td>
+<td class="px-4 py-4">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Optimal</span>
+</td>
+<td class="px-4 py-4 text-right text-stone-400">
+<span class="material-symbols-outlined text-sm">horizontal_rule</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-4 py-4 font-semibold text-primary">Low Yielders</td>
+<td class="px-4 py-4 text-stone-600">24</td>
+<td class="px-4 py-4 font-medium">14.0</td>
+<td class="px-4 py-4">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold rounded-full uppercase">Review</span>
+</td>
+<td class="px-4 py-4 text-right">
+<span class="material-symbols-outlined text-error text-sm">trending_down</span>
+</td>
+</tr>
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-4 py-4 font-semibold text-primary">Heifers</td>
+<td class="px-4 py-4 text-stone-600">35</td>
+<td class="px-4 py-4 font-medium">12.5</td>
+<td class="px-4 py-4">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Optimal</span>
+</td>
+<td class="px-4 py-4 text-right">
+<span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-4 py-4 font-semibold text-primary">Calves</td>
+<td class="px-4 py-4 text-stone-600">18</td>
+<td class="px-4 py-4 font-medium">6.2</td>
+<td class="px-4 py-4">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Optimal</span>
+</td>
+<td class="px-4 py-4 text-right">
+<span class="material-symbols-outlined text-sm">horizontal_rule</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Feeding Schedule & Shift Comparison -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex items-center gap-4 mb-10">
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-bold">Shift Schedule Comparison</h3>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+<!-- 3 AM Shift -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4">
+<span class="material-symbols-outlined text-2xl">wb_twilight</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-1">03:00 AM Shift</h4>
+<p class="text-xs text-stone-500 mb-4 uppercase tracking-tighter">Early Morning Boost</p>
+<div class="text-2xl font-headline font-bold text-primary">450kg</div>
+<p class="text-xs mt-2 text-stone-600">36.3% of Daily Total</p>
+<div class="mt-4 flex gap-1 w-full max-w-[120px]">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full opacity-30"></div>
+</div>
+</div>
+<!-- 11 AM Shift -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-4">
+<span class="material-symbols-outlined text-2xl">sunny</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-1">11:00 AM Shift</h4>
+<p class="text-xs text-stone-500 mb-4 uppercase tracking-tighter">Midday Maintenance</p>
+<div class="text-2xl font-headline font-bold text-secondary">380kg</div>
+<p class="text-xs mt-2 text-stone-600">30.6% of Daily Total</p>
+<div class="mt-4 flex gap-1 w-full max-w-[120px]">
+<div class="h-1 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1 flex-1 bg-secondary rounded-full"></div>
+</div>
+</div>
+<!-- 4 PM Shift -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mb-4">
+<span class="material-symbols-outlined text-2xl">nights_stay</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-1">04:00 PM Shift</h4>
+<p class="text-xs text-stone-500 mb-4 uppercase tracking-tighter">Evening Ration</p>
+<div class="text-2xl font-headline font-bold text-tertiary">410kg</div>
+<p class="text-xs mt-2 text-stone-600">33.1% of Daily Total</p>
+<div class="mt-4 flex gap-1 w-full max-w-[120px]">
+<div class="h-1 flex-1 bg-tertiary rounded-full"></div>
+<div class="h-1 flex-1 bg-tertiary rounded-full"></div>
+<div class="h-1 flex-1 bg-tertiary rounded-full opacity-30"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Details -->
+<div class="mt-10 flex justify-between items-center text-stone-400 text-[10px] uppercase tracking-[0.2em]">
+<div>Report ID: #FEED-2023-11-24-01</div>
+<div>Generated: Nov 24, 2023 | 05:42 PM</div>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</body></html>

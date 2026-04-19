@@ -1,0 +1,828 @@
+/* 
+ * Report Generation Specific Styles 
+ * Botanical Design System
+ */
+
+:root {
+    --report-card-bg: var(--surface-container-lowest);
+    --report-card-border: rgba(0,0,0,0.08);
+}
+
+.report-page-title {
+    color: var(--on-surface);
+    font-size: 1.25rem !important; /* Considerably reduced from 2rem+ */
+    letter-spacing: -0.01em;
+}
+
+.section-label-caps {
+    font-size: 0.85rem; /* Increased from 0.75rem */
+    letter-spacing: 0.15em;
+    color: var(--on-surface-variant);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Report Selection Grid */
+.report-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.report-type-card {
+    background-color: var(--surface-container-lowest);
+    border: 1.5px solid var(--report-card-border);
+    border-radius: 0.5rem; /* Reduced roundedness */
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.report-type-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border-color: var(--primary);
+}
+
+.report-type-card.active-selection {
+    border-color: var(--primary);
+    background-color: rgba(32, 98, 35, 0.03);
+    box-shadow: 0 4px 15px rgba(32, 98, 35, 0.1);
+}
+
+.report-section-header .material-symbols-outlined,
+.report-history-card .material-symbols-outlined,
+.report-config-card .material-symbols-outlined,
+.report-icon,
+.fmt-selector-card span:first-child,
+.selection-check .material-symbols-outlined {
+    color: var(--primary) !important;
+}
+
+.report-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.report-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--on-surface);
+}
+
+.report-desc {
+    font-size: 0.7rem;
+    color: var(--on-surface-variant);
+}
+
+.selection-check {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+/* History Table */
+.report-history-card {
+    background-color: var(--surface-container-lowest);
+    border-radius: 0.75rem; /* Reduced roundedness */
+    border: 1px solid var(--report-card-border);
+}
+
+.report-history-card .table-responsive {
+    overflow-x: hidden !important; /* Force hide the horizontal scrollbar */
+}
+
+.report-history-table {
+    width: 100%;
+}
+
+.report-history-table thead th {
+    font-size: 0.65rem; /* Dialed down */
+    letter-spacing: 0.05em; /* Dialed down */
+    color: var(--on-surface-variant);
+    font-weight: 600; /* Reduced weight */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1rem 0;
+    text-transform: none; /* Title Case from HTML */
+}
+
+.report-history-table tbody td {
+    vertical-align: middle;
+    padding: 1.1rem 0; /* Tightened */
+    font-size: 0.8rem; /* Reduced */
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+#recentlyGeneratedTable_wrapper .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+#recentlyGeneratedTable {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.badge-format {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.badge-format.pdf { background: rgba(32, 98, 35, 0.1); color: var(--primary); }
+.badge-format.xlsx { background: rgba(121, 89, 0, 0.1); color: var(--secondary); }
+
+.badge-status {
+    padding: 0.3rem 0.6rem;
+    border-radius: 2rem;
+    font-size: 0.65rem;
+    font-weight: 400; /* Normalized weight */
+}
+
+.badge-status.complete { background: #acf4a4; color: #002203; }
+.badge-status.processing { background: #ffdfa0; color: #5c4300; }
+
+.btn-action-icon {
+    background: none;
+    border: none;
+    color: var(--primary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s;
+}
+
+.btn-action-icon:hover {
+    background: rgba(32, 98, 35, 0.05);
+}
+
+.spin-icon {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Configuration Side Panel */
+.report-config-card {
+    background-color: rgba(244, 244, 239, 0.4);
+    border-radius: 0.75rem; /* Reduced roundedness */
+    border: 1.2px solid var(--report-card-border);
+    backdrop-filter: blur(10px);
+}
+
+.config-section-label {
+    font-size: 0.75rem; /* Increased from 0.65rem */
+    font-weight: 400; /* Removed boldness */
+    text-transform: none; /* Changed to Title Case per user request */
+    letter-spacing: 0.12em;
+    color: var(--on-surface-variant);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.input-tiny-label {
+    font-size: 0.75rem; /* Further increased from 0.65rem */
+    font-weight: 500; /* Reduced */
+    color: var(--on-surface-variant);
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.config-input {
+    background-color: var(--surface-container-lowest);
+    border: 1px solid var(--report-card-border);
+    border-radius: 0.4rem; /* Considerably reduced roundedness */
+    font-size: 0.75rem; /* Reduced */
+    padding: 0.65rem 1rem; /* Slightly reduced height via padding */
+    height: auto !important;
+    min-height: 44px; /* Recalibrated density */
+    font-weight: 400;
+}
+
+.fmt-selector-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0.25rem; /* Reduced padding for 4-column fit */
+    border-radius: 0.5rem; /* Reduced roundedness */
+    background: var(--surface-container-lowest);
+    border: 1.5px solid var(--report-card-border);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 0; /* Allow shrinking */
+}
+
+.fmt-selector-card span:first-child {
+    font-size: 1rem !important; /* Slightly smaller icon */
+}
+
+.fmt-selector-card span:last-child {
+    font-size: 0.55rem; /* Reduced font for single row fit */
+    font-weight: 400; /* Removed boldness */
+    margin-top: 0.25rem;
+    white-space: nowrap;
+}
+
+.fmt-radio:checked + .fmt-selector-card {
+    border-color: var(--primary);
+    background: rgba(32, 98, 35, 0.05);
+    box-shadow: 0 0 0 3px rgba(32, 98, 35, 0.1);
+}
+
+.btn-generate-report {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 1rem;
+    font-weight: 400; /* Removed boldness per user request */
+    letter-spacing: 0.05em;
+    font-size: 0.95rem; /* Increased font size */
+    padding: 0.7rem 1.5rem !important; /* Reduced vertical padding */
+    display: flex !important; /* Overriding possible btn-block display: block */
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    box-shadow: 0 8px 16px rgba(32, 98, 35, 0.1);
+    transition: all 0.3s;
+    color: white;
+}
+
+.btn-generate-report span {
+    color: white !important;
+    font-size: 1.4rem !important;
+    font-family: 'Material Symbols Outlined' !important;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-generate-report:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(32, 98, 35, 0.2);
+    background-color: #1a521c;
+}
+
+/* Automation Card */
+.automation-insight-card {
+    background-color: #1d622b;
+    border-radius: 1.25rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(29, 98, 43, 0.2);
+}
+
+.insight-icon-bg {
+    width: 2.5rem; /* Reduced */
+    height: 2.5rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insight-title {
+    font-weight: 400; /* Removed boldness */
+    font-size: 1rem; /* Reduced */
+}
+
+.insight-desc {
+    font-size: 0.75rem; /* Reduced */
+    opacity: 0.9;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.btn-automation {
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.65rem; /* Reduced */
+    font-weight: 400; /* Removed boldness */
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    background: rgba(251, 255, 164, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.bg-watermark {
+    position: absolute;
+    bottom: -30px;
+    right: -20px;
+    font-size: 15rem;
+    opacity: 0.04;
+    pointer-events: none;
+}
+
+/* jQuery UI Datepicker Customization */
+.ui-datepicker {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.75rem !important; /* Smaller font for high-density feel */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--report-card-border);
+}
+
+.ui-datepicker-header {
+    background: var(--surface-container-low);
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.ui-datepicker-title {
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.ui-datepicker th {
+    font-weight: 700;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+}
+
+.ui-datepicker td span, 
+.ui-datepicker td a {
+    padding: 0.4rem !important;
+    text-align: center;
+}
+
+.ui-datepicker-current-day .ui-state-active {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    border-radius: 0.25rem;
+}
+
+/* Mobile Overrides for Report Selection Grid */
+@media (max-width: 767.98px) {
+    .report-page-title {
+        font-size: 1rem !important; /* Scaled down headline */
+    }
+
+    .context-title {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.15rem !important;
+    }
+
+    .report-selection-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem;
+    }
+
+    .report-type-card {
+        padding: 0.6rem 0.4rem;
+        text-align: center;
+        border-radius: 0.4rem;
+        min-height: 85px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .report-icon {
+        font-size: 1.25rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .report-name {
+        font-size: 0.62rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 0.2rem !important;
+    }
+
+    .report-desc {
+        display: block !important; /* Restore description as requested */
+        font-size: 0.52rem;
+        line-height: 1.1;
+        opacity: 0.7;
+    }
+
+    .selection-check {
+        top: 0.2rem;
+        right: 0.2rem;
+    }
+
+    .selection-check span {
+        font-size: 0.7rem;
+    }
+
+    /* DataTable Mobile Fixes */
+    .report-history-table td, .report-history-table th {
+        padding: 0.75rem 0.25rem !important;
+        font-size: 0.7rem !important;
+    }
+
+    .btn-generate-report {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.7rem !important;
+        gap: 0.5rem !important;
+    }
+
+    .section-label-caps {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.1em !important;
+    }
+}
+
+/* DataTables Global Styler */
+.dataTables_wrapper .dataTables_filter input {
+    background-color: var(--surface-container-low);
+    border: 1px solid var(--report-card-border) !important;
+    border-radius: 4px !important;
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    color: var(--on-surface);
+}
+
+.dataTables_wrapper .dataTables_info {
+    font-size: 0.75rem !important;
+    font-weight: 600;
+    color: #8c98a5 !important; /* Muted gray for info as requested */
+    padding-top: 1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* Reduced flex gap to handle manually via margin */
+    padding-top: 1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
+    margin-left: 0.75rem !important; /* Increased explicit spacing as requested */
+    border: none !important;
+    background: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 4px 10px rgba(32, 98, 35, 0.3);
+    z-index: 10;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-link {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important; /* Circular buttons as requested */
+    border: 1px solid transparent;
+    background: none;
+    color: #8c98a5;
+    font-size: 0.75rem;
+    font-weight: 500; /* Reduced weight as requested */
+    transition: all 0.25s;
+    padding: 0 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item.previous .page-link,
+.dataTables_wrapper .dataTables_paginate .page-item.next .page-link {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: var(--primary);
+}
+
+.dataTables_wrapper .dataTables_paginate .page-item.disabled .page-link {
+    background: #fdfdfd;
+    color: #e0e0e0;
+    opacity: 0.6;
+}
+
+.dataTables_wrapper .dataTables_paginate .page-link:hover:not(.active) {
+    background: #f0f4f0;
+    color: var(--primary);
+    border-color: #d1e7d1;
+}
+
+/* Priority Download Button */
+.btn-priority-action {
+    background: none !important; /* Removed background as requested */
+    color: var(--primary) !important; /* Show icon as green as requested */
+    border: none;
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none !important; /* Removed shadow */
+    padding: 0;
+}
+
+.btn-priority-action:hover {
+    transform: scale(1.1);
+    color: #1a521c !important; /* Slightly darker green on hover */
+}
+
+.btn-priority-action span {
+    font-size: 1.25rem !important;
+    color: var(--primary) !important;
+    font-variation-settings: 'FILL' 0 !important; /* Enforced open/outline style */
+}
+
+/* Strategic Layout Grid */
+.reports-strategic-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced gap */
+}
+
+@media (min-width: 1200px) {
+    .reports-strategic-grid {
+        display: grid;
+        grid-template-columns: 8fr 4fr;
+        grid-template-areas: 
+            "selection config"
+            "history config"
+            "history automation";
+        align-items: start;
+        gap: 1.25rem; /* Further reduced gap from 2rem */
+    }
+
+    .selection-area { grid-area: selection; }
+    .config-area { grid-area: config; width: 100%; position: sticky; top: 1.5rem; }
+    .history-area { grid-area: history; }
+    .automation-mobile-area { display: none; }
+}
+
+/* Dark Theme Support */
+body.dark-theme .ui-datepicker {
+    background-color: #161b22;
+    border-color: #30363d;
+    color: #c9d1d9;
+}
+
+body.dark-theme .ui-datepicker-header {
+    background-color: #0d1117;
+}
+
+body.dark-theme .ui-state-default {
+    background-color: #1c2128;
+    border-color: #30363d;
+    color: #c9d1d9;
+}
+
+body.dark-theme .report-history-card,
+body.dark-theme .report-type-card,
+body.dark-theme .config-input,
+body.dark-theme .fmt-selector-card {
+    background-color: #161b22 !important;
+    border-color: #30363d !important;
+}
+
+body.dark-theme .report-config-card {
+    background-color: rgba(22, 27, 34, 0.7) !important;
+    border-color: #30363d !important;
+}
+
+body.dark-theme .report-history-table thead th {
+    border-bottom-color: #30363d;
+}
+
+body.dark-theme .report-history-table tbody td {
+    border-bottom-color: #21262d;
+    color: #c9d1d9 !important;
+}
+
+body.dark-theme .report-type-card.active-selection {
+    background-color: rgba(63, 185, 80, 0.05) !important;
+    border-color: #3fb950 !important;
+}
+
+body.dark-theme .report-icon {
+    color: #3fb950;
+}
+
+body.dark-theme .badge-status.complete {
+    background: #238636;
+    color: #ffffff;
+}
+
+body.dark-theme .badge-status.processing {
+    background: #795900;
+    color: #ffffff;
+}
+.filled-icon {
+    font-variation-settings: 'FILL' 1;
+}
+
+/* --- Users Manager Specific Styles --- */
+/* --- Vaccination Report Specific Styles --- */
+.report-document-surface {
+    background: white;
+    padding: 1.5rem 2rem; /* Reduced from 3rem */
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 40px rgba(32, 98, 35, 0.04);
+    min-height: 1000px;
+}
+
+@media (max-width: 1199.98px) {
+    .report-document-surface {
+        padding: 1rem 1.25rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .report-document-surface {
+        padding: 0.75rem;
+        border-radius: 1rem;
+    }
+}
+
+.btn-report-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    color: var(--on-surface-variant);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.btn-report-action:hover {
+    background: var(--surface-container-low);
+    border-color: var(--outline-variant);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+    color: var(--primary);
+}
+
+@media (max-width: 575.98px) {
+    .btn-report-action {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.65rem;
+        gap: 0.35rem;
+    }
+    .btn-report-action .material-symbols-outlined {
+        font-size: 0.9rem;
+    }
+}
+
+.btn-report-action.btn-report-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(32, 98, 35, 0.2);
+}
+
+.btn-report-action.btn-report-outline-green {
+    background: transparent;
+    color: var(--primary);
+    border: none;
+    box-shadow: none;
+}
+
+.btn-report-action.btn-report-outline-green:hover {
+    background: rgba(32, 98, 35, 0.05);
+    color: #1a521c;
+}
+
+.btn-report-action .material-symbols-outlined {
+    font-size: 1.15rem;
+}
+
+.vaccine-rate-svg {
+    transform: rotate(-90deg);
+}
+
+.vaccination-rate-container {
+    position: relative;
+    width: 56px; /* Reduced from 64px */
+    height: 56px;
+}
+
+.vaccination-rate-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem; /* Reduced from 0.85rem */
+    font-weight: 700;
+}
+
+.mini-chart-container {
+    height: 40px;
+    width: 96px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.mini-bar {
+    flex: 1;
+    background-color: var(--primary-container);
+    border-radius: 2px;
+}
+
+.report-log-table th {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem 1.5rem;
+    background: var(--surface-container-low);
+    color: var(--on-surface-variant);
+}
+
+.report-log-table td {
+    padding: 1rem 1.5rem; /* Reduced vertical padding */
+    font-size: 0.75rem; /* Reduced from 0.85rem */
+}
+
+.schedule-item {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid var(--surface-container-high);
+}
+
+.schedule-dot {
+    position: absolute;
+    left: -7px;
+    top: 2px;
+}
+
+.schedule-dot-node {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--surface-container-high);
+}
+
+.stock-alert-box {
+    background: rgba(32, 98, 35, 0.05);
+    border: 1px solid rgba(32, 98, 35, 0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+/* Print Overrides */
+@media print {
+    .report-document-surface {
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Mobile Typography Overrides */
+@media (max-width: 575.98px) {
+    .report-document-surface h1 {
+        font-size: 1.1rem !important;
+    }
+    .report-document-surface h4 {
+        font-size: 0.9rem !important;
+    }
+    .report-document-surface .font-label {
+        font-size: 0.6rem !important;
+    }
+    .report-history-card h2 {
+        font-size: 1.1rem !important;
+    }
+    .report-history-card .stat-label {
+        font-size: 0.55rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .report-log-table th {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.55rem !important;
+    }
+    .report-log-table td {
+        padding: 0.75rem !important;
+        font-size: 0.65rem !important;
+    }
+    .vaccination-rate-container {
+        width: 44px !important;
+        height: 44px !important;
+    }
+    .vaccination-rate-text {
+        font-size: 0.6rem !important;
+    }
+}

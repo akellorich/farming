@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Inventory Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work_Sans:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Work_Sans', sans-serif;
+            background-color: #fafaf5;
+            color: #1a1c19;
+        }
+        .editorial-shadow {
+            box-shadow: 0 24px 48px -12px rgba(26, 28, 25, 0.08);
+        }
+        .heading-font {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#acf4a4",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#91d78a",
+                        "surface-tint": "#2a6b2c",
+                        "on-secondary-container": "#6f5100",
+                        "outline-variant": "#bfcaba",
+                        "surface-dim": "#dadad5",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface": "#fafaf5",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-primary-fixed": "#002203",
+                        "background": "#fafaf5",
+                        "inverse-surface": "#2f312e",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#1d622b",
+                        "primary-container": "#3a7b3a",
+                        "primary": "#206223",
+                        "on-error": "#ffffff",
+                        "on-background": "#1a1c19",
+                        "tertiary-container": "#387b41",
+                        "tertiary-fixed": "#abf4ac",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "secondary-fixed": "#ffdfa0",
+                        "error": "#ba1a1a",
+                        "secondary": "#795900",
+                        "outline": "#707a6c",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f4f4ef",
+                        "surface-variant": "#e3e3de",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface-bright": "#fafaf5",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e3e3de",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#cbffc2",
+                        "on-surface": "#1a1c19",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-container-high": "#e8e8e3",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#40493d",
+                        "on-secondary-fixed": "#261a00",
+                        "surface-container": "#eeeee9",
+                        "secondary-container": "#fec330",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "on-tertiary-container": "#c7ffc5"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Work Sans", "sans-serif"],
+                        "label": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen font-body">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-stone-100 dark:bg-stone-950 flex flex-col py-6 space-y-2 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div>
+<h1 class="font-headline font-extrabold text-green-900 dark:text-green-50 leading-tight">JUKAM Dairy</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-bold font-label">Modern Agrarian</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+                Animals
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+                Production
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+                Feeding
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+                Health
+            </a>
+<a class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-100 rounded-full px-4 py-3 mx-2 flex items-center gap-3 font-label text-sm font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                Inventory
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+                Users Manager
+            </a>
+<a class="text-stone-600 dark:text-stone-400 px-4 py-3 mx-2 flex items-center gap-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all duration-150 scale-95 active:scale-100 font-label text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                Reports
+            </a>
+</nav>
+<div class="px-2 pt-4 border-t border-stone-200 dark:border-stone-800">
+<div class="p-4 bg-surface-container-lowest rounded-xl mx-2 flex items-center gap-3 editorial-shadow">
+<img alt="James Kamau Avatar" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxD9xd4bpfrONZP02cwpTbVK323N6fgyfUPp70edBXUaWB4j8dvbKkPOBn35c7CccNtw9XFVQBw8TxfsYYUzurHuOpFtwwLUp20MJqbRWwmwOSv5bwmmsyEqiNBIcYaiSfxpEgDtAz5HgkzP9wdbIn4Swsd6lxcigo-4pdCjG-TJwRj2DS0xpL3PsWpouTLiQyJ2voC2bLa9XU8fRQNztzj2_-8uTyR-lhkbYF1X9GSYBbzMRuyBkGuFEqNsg1mAqO4a1uEwJoQuM"/>
+<div class="overflow-hidden">
+<p class="font-bold text-sm text-on-surface truncate font-label">James Kamau</p>
+<p class="text-xs text-on-surface-variant truncate font-label">General Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-grow flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-40 bg-white/60 dark:bg-stone-900/60 backdrop-blur-md flex justify-between items-center px-8 py-4 shadow-sm shadow-stone-200/50 dark:shadow-none">
+<div class="flex items-center gap-6 flex-grow">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<h2 class="font-headline font-bold text-xl tracking-tight text-green-900 dark:text-green-50">Inventory Management</h2>
+</div>
+<div class="relative max-w-md w-full ml-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant font-body" placeholder="Search farm assets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors text-stone-500">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors text-stone-500">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-stone-200 mx-1"></div>
+<img alt="James Kamau Avatar" class="w-10 h-10 rounded-full object-cover border-2 border-primary/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxD9xd4bpfrONZP02cwpTbVK323N6fgyfUPp70edBXUaWB4j8dvbKkPOBn35c7CccNtw9XFVQBw8TxfsYYUzurHuOpFtwwLUp20MJqbRWwmwOSv5bwmmsyEqiNBIcYaiSfxpEgDtAz5HgkzP9wdbIn4Swsd6lxcigo-4pdCjG-TJwRj2DS0xpL3PsWpouTLiQyJ2voC2bLa9XU8fRQNztzj2_-8uTyR-lhkbYF1X9GSYBbzMRuyBkGuFEqNsg1mAqO4a1uEwJoQuM"/>
+</div>
+</header>
+<section class="p-8 space-y-10 max-w-7xl mx-auto w-full">
+<!-- Page Header Actions -->
+<div class="flex justify-between items-end">
+<div>
+<span class="text-xs uppercase tracking-[0.2em] font-bold text-secondary font-label">Overview</span>
+<h3 class="text-4xl font-extrabold text-on-surface font-headline tracking-tight">Farm Assets</h3>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-md shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-semibold group font-body">
+<span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">add</span>
+<span>Add New Item</span>
+</button>
+</div>
+<!-- Summary Cards (Reverted to SCREEN_102 Design) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Total Value -->
+<div class="bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden group editorial-shadow">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'opsz' 48;">payments</span>
+</div>
+<p class="text-xs uppercase tracking-wider font-semibold text-on-surface-variant font-label mb-2">Total Inventory Value</p>
+<h4 class="text-4xl font-bold font-headline text-on-surface">KES 4.28M</h4>
+<div class="mt-4 flex items-center gap-2 text-primary font-medium text-sm font-body">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>12% vs last month</span>
+</div>
+</div>
+<!-- Low Stock -->
+<div class="bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden group editorial-shadow">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'opsz' 48;">warning</span>
+</div>
+<p class="text-xs uppercase tracking-wider font-semibold text-on-surface-variant font-label mb-2">Low Stock Items</p>
+<h4 class="text-4xl font-bold font-headline text-secondary">08</h4>
+<div class="mt-4 flex items-center gap-2 text-secondary font-medium text-sm font-body">
+<span class="material-symbols-outlined text-xs">error</span>
+<span>Needs reorder</span>
+</div>
+</div>
+<!-- Categories -->
+<div class="bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden group editorial-shadow">
+<div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'opsz' 48;">category</span>
+</div>
+<p class="text-xs uppercase tracking-wider font-semibold text-on-surface-variant font-label mb-2">Categories Count</p>
+<h4 class="text-4xl font-bold font-headline text-on-surface">14</h4>
+<div class="mt-4 flex items-center gap-2 text-stone-500 font-medium text-sm font-body">
+<span class="material-symbols-outlined text-xs">list_alt</span>
+<span>Active segments</span>
+</div>
+</div>
+</section>
+<!-- Browse by Category -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="font-headline font-bold text-lg text-on-surface">Browse by Category</h4>
+<button class="text-primary text-sm font-semibold flex items-center gap-1 hover:underline font-body">
+                        View All Categories <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-6"><!-- Animal Feed -->
+<div class="bg-emerald-50 dark:bg-emerald-900/10 p-6 rounded-xl border border-transparent hover:border-emerald-200 transition-all cursor-pointer group editorial-shadow">
+<div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-emerald-700">grass</span>
+</div>
+<h6 class="font-bold font-headline mb-1 text-emerald-900 dark:text-emerald-100">Animal Feed</h6>
+<p class="text-xs text-emerald-700/70 dark:text-emerald-300/70 font-body">124 Items</p>
+</div>
+<!-- Health & Meds -->
+<div class="bg-orange-50 dark:bg-orange-900/10 p-6 rounded-xl border border-transparent hover:border-orange-200 transition-all cursor-pointer group editorial-shadow">
+<div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-orange-700">medical_services</span>
+</div>
+<h6 class="font-bold font-headline mb-1 text-orange-900 dark:text-orange-100">Health &amp; Meds</h6>
+<p class="text-xs text-orange-700/70 dark:text-orange-300/70 font-body">86 Items</p>
+</div>
+<!-- Equipment -->
+<div class="bg-slate-50 dark:bg-slate-800/20 p-6 rounded-xl border border-transparent hover:border-slate-200 transition-all cursor-pointer group editorial-shadow">
+<div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-slate-700">precision_manufacturing</span>
+</div>
+<h6 class="font-bold font-headline mb-1 text-slate-900 dark:text-slate-100">Equipment</h6>
+<p class="text-xs text-slate-700/70 dark:text-slate-300/70 font-body">42 Items</p>
+</div>
+<!-- Maintenance -->
+<div class="bg-amber-50/50 dark:bg-amber-900/10 p-6 rounded-xl border border-transparent hover:border-amber-200 transition-all cursor-pointer group editorial-shadow">
+<div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-amber-800">construction</span>
+</div>
+<h6 class="font-bold font-headline mb-1 text-amber-900 dark:text-amber-100">Maintenance</h6>
+<p class="text-xs text-amber-800/70 dark:text-amber-300/70 font-body">215 Items</p>
+</div></div>
+</div>
+<!-- Stock Inventory List Table -->
+<div class="bg-surface-container-lowest rounded-xl editorial-shadow overflow-hidden">
+<div class="px-8 py-6 flex items-center justify-between bg-surface-container-low/30 border-b border-surface-container">
+<h4 class="font-headline font-bold text-lg text-on-surface">Stock Inventory List</h4>
+<div class="flex items-center gap-4">
+<div class="flex bg-surface-container p-1 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-bold bg-white text-primary rounded shadow-sm font-label">All Items</button>
+<button class="px-4 py-1.5 text-xs font-bold text-outline hover:text-primary transition-colors font-label">Low Stock</button>
+</div>
+<button class="bg-primary text-white text-xs font-bold px-6 py-2 rounded-md hover:-translate-y-0.5 transition-transform editorial-shadow flex items-center gap-2 font-body">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                            Add Asset
+                        </button>
+</div>
+</div>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 font-label text-[10px] font-extrabold text-outline uppercase tracking-widest">Item Name</th>
+<th class="px-8 py-4 font-label text-[10px] font-extrabold text-outline uppercase tracking-widest w-48">Category</th>
+<th class="px-8 py-4 font-label text-[10px] font-extrabold text-outline uppercase tracking-widest">Stock Level</th>
+<th class="px-8 py-4 font-label text-[10px] font-extrabold text-outline uppercase tracking-widest text-right">Unit Price</th>
+<th class="px-8 py-4 font-label text-[10px] font-extrabold text-outline uppercase tracking-widest text-right">Total Value</th>
+<th class="px-8 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<p class="font-bold text-sm text-on-surface font-body">Dairy Pellets 18%</p>
+<p class="text-xs text-outline font-body">SKU: FEED-DP-001</p>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-wrap gap-1">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold font-label">Animal</span>
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold font-label">Feed</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-semibold font-body">1,250 KG</span>
+<div class="w-24 h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-primary w-[80%] rounded-full"></div>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>85.00
+                                </td>
+<td class="px-8 py-5 text-sm font-bold text-primary text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>106,250
+                                </td>
+<td class="px-8 py-5 text-right relative">
+<button class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button><div class="absolute right-8 top-12 w-48 bg-white dark:bg-stone-900 rounded-xl shadow-2xl border border-stone-100 dark:border-stone-800 z-50 overflow-hidden editorial-shadow py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+<button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors font-body">
+<span class="material-symbols-outlined text-stone-400 text-lg">edit</span>
+        Edit Item
+    </button>
+<button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors font-body">
+<span class="material-symbols-outlined text-stone-400 text-lg">shopping_cart</span>
+        Reorder Stock
+    </button>
+<div class="h-[1px] bg-stone-100 dark:bg-stone-800 my-1 mx-2"></div>
+<button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors font-body">
+<span class="material-symbols-outlined text-stone-400 text-lg">description</span>
+        View Statement
+    </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<p class="font-bold text-sm text-on-surface font-body">Foot &amp; Mouth Vaccine</p>
+<p class="text-xs text-outline font-body">SKU: MED-FMV-22</p>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-[10px] font-bold font-label">Medical</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-semibold text-secondary font-body">15 Vials</span>
+<div class="w-24 h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-secondary w-[15%] rounded-full"></div>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>1,200.00
+                                </td>
+<td class="px-8 py-5 text-sm font-bold text-primary text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>18,000
+                                </td>
+<td class="px-8 py-5 text-right relative">
+<button class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<p class="font-bold text-sm text-on-surface font-body">Tractor Filters Set</p>
+<p class="text-xs text-outline font-body">SKU: MNT-TF-08</p>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-bold font-label">Equipment</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-semibold font-body">4 Units</span>
+<div class="w-24 h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-tertiary w-[40%] rounded-full"></div>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>4,500.00
+                                </td>
+<td class="px-8 py-5 text-sm font-bold text-primary text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>18,000
+                                </td>
+<td class="px-8 py-5 text-right relative">
+<button class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/20 transition-colors group border-b-0">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<p class="font-bold text-sm text-on-surface font-body">Disinfectant Solution</p>
+<p class="text-xs text-outline font-body">SKU: HYG-DS-01</p>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-stone-200 text-stone-700 text-[10px] font-bold font-label">Hygiene</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col gap-1.5">
+<span class="text-sm font-semibold font-body">20 Liters</span>
+<div class="w-24 h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-primary w-[65%] rounded-full"></div>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm font-medium text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>320.00
+                                </td>
+<td class="px-8 py-5 text-sm font-bold text-primary text-right font-body">
+<span class="text-[10px] text-outline uppercase font-bold mr-1 font-label">KES</span>6,400
+                                </td>
+<td class="px-8 py-5 text-right relative">
+<button class="p-2 rounded-full hover:bg-stone-100 text-stone-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-4 bg-surface-container-low/30 border-t border-stone-100 flex items-center justify-between">
+<p class="text-xs text-outline font-medium font-body">Showing 4 of 248 items</p>
+<div class="flex gap-2">
+<button class="p-2 rounded hover:bg-stone-200 text-stone-500 disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 rounded hover:bg-stone-200 text-stone-500">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

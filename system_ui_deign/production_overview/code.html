@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Production Overview | JUKAM Dairy</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#93000a",
+              "surface-container-high": "#e8e8e3",
+              "surface-container-highest": "#e3e3de",
+              "error-container": "#ffdad6",
+              "on-tertiary-fixed": "#002107",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#f8bd2a",
+              "on-tertiary-container": "#c7ffc5",
+              "tertiary": "#1d622b",
+              "surface-variant": "#e3e3de",
+              "outline-variant": "#bfcaba",
+              "error": "#ba1a1a",
+              "inverse-surface": "#2f312e",
+              "on-primary-container": "#cbffc2",
+              "on-primary": "#ffffff",
+              "secondary": "#795900",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary": "#ffffff",
+              "inverse-primary": "#91d78a",
+              "surface": "#fafaf5",
+              "secondary-container": "#fec330",
+              "inverse-on-surface": "#f1f1ec",
+              "on-primary-fixed": "#002203",
+              "primary-fixed-dim": "#91d78a",
+              "primary-container": "#3a7b3a",
+              "surface-tint": "#2a6b2c",
+              "on-secondary-fixed": "#261a00",
+              "tertiary-fixed-dim": "#90d792",
+              "tertiary-container": "#387b41",
+              "on-tertiary": "#ffffff",
+              "primary-fixed": "#acf4a4",
+              "on-tertiary-fixed-variant": "#07521d",
+              "surface-dim": "#dadad5",
+              "on-primary-fixed-variant": "#0c5216",
+              "on-secondary-container": "#6f5100",
+              "secondary-fixed": "#ffdfa0",
+              "on-background": "#1a1c19",
+              "background": "#fafaf5",
+              "on-surface": "#1a1c19",
+              "surface-container": "#eeeee9",
+              "outline": "#707a6c",
+              "tertiary-fixed": "#abf4ac",
+              "primary": "#206223",
+              "on-surface-variant": "#40493d",
+              "surface-container-low": "#f4f4ef",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-bright": "#fafaf5"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Work Sans", "sans-serif"],
+              "label": ["Work Sans", "sans-serif"],
+              "manrope": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+      }
+      .botanical-shadow {
+        box-shadow: 0 10px 24px -8px rgba(32, 98, 35, 0.08);
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+      }
+      body {
+        font-family: 'Work Sans', sans-serif;
+        background-color: #fafaf5;
+        color: #1a1c19;
+      }
+      h1, h2, h3, h4 {
+        font-family: 'Manrope', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface overflow-x-hidden">
+<!-- SideNavBar from SCREEN_24 -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 space-y-4">
+<div class="px-6 mb-8">
+<h1 class="text-2xl font-black text-green-900 dark:text-green-500 font-manrope">JUKAM Dairy</h1>
+<p class="font-manrope font-semibold text-[10px] tracking-wider uppercase text-slate-500 dark:text-slate-400">Modern Agrarian</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-1">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span>Animals</span>
+</a>
+<!-- ACTIVE MENU ITEM -->
+<a class="flex items-center gap-4 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-200 rounded-full px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span>Production</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+<span>Feeding</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Health</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Users Manager</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto px-2 pb-2">
+<div class="relative group">
+<button class="w-full flex items-center gap-3 bg-surface-container-lowest rounded-xl p-3 botanical-shadow hover:bg-primary-fixed/30 transition-all">
+<img alt="James Kamau" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I"/>
+<div class="text-left overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">James Kamau</p>
+<p class="font-label text-[10px] uppercase tracking-tighter opacity-60">General Manager</p>
+</div>
+</button>
+<!-- Popup Menu from SCREEN_24 -->
+<div class="absolute bottom-full left-0 mb-2 w-full bg-surface-container-lowest rounded-xl botanical-shadow opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all p-2 z-50">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="account_circle">account_circle</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Profile</span>
+</a>
+<div class="h-px bg-outline-variant/20 my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error-container text-error rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span class="font-manrope text-[10px] uppercase font-semibold tracking-wider">Logout</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar from SCREEN_24 with update title -->
+<header class="fixed top-0 w-full z-40 backdrop-blur-md bg-surface dark:bg-slate-900/60 shadow-sm dark:shadow-none ml-64 max-w-[calc(100%-16rem)] flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400 font-manrope font-bold">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+<span class="text-lg tracking-tight">Production Overview</span>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area (Retained from Source) -->
+<main class="ml-64 pt-24 pb-12 px-8">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Hero Stats Row (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Total Yield Today -->
+<div class="bg-primary text-on-primary p-6 rounded-xl relative overflow-hidden flex flex-col justify-between min-h-[160px] shadow-lg">
+<div class="z-10">
+<span class="text-xs font-label font-semibold uppercase tracking-widest opacity-80">Total Yield (Today)</span>
+<h3 class="text-4xl font-headline font-extrabold mt-2">1,248 L</h3>
+<p class="text-xs mt-2 font-medium bg-white/20 inline-block px-2 py-1 rounded-full">+4.2% from yesterday</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-10">water_drop</span>
+</div>
+<!-- Avg Yield per Cow -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div>
+<span class="text-xs font-label font-semibold uppercase tracking-widest text-on-surface-variant">Avg. Yield per Cow</span>
+<h3 class="text-3xl font-headline font-bold text-on-surface mt-2">26.4 L</h3>
+</div>
+<div class="flex items-center gap-2 mt-4">
+<div class="h-1.5 flex-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[78%]"></div>
+</div>
+<span class="text-[10px] font-bold text-tertiary">Optimal</span>
+</div>
+</div>
+<!-- Bulk Tank Level -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div>
+<span class="text-xs font-label font-semibold uppercase tracking-widest text-on-surface-variant">Bulk Tank Level</span>
+<h3 class="text-3xl font-headline font-bold text-on-surface mt-2">72%</h3>
+</div>
+<div class="mt-4 flex items-end justify-between">
+<span class="text-xs text-on-surface-variant">3,600 / 5,000 L</span>
+<span class="material-symbols-outlined text-secondary">storage</span>
+</div>
+</div>
+<!-- Average Density -->
+<div class="bg-secondary-container text-on-secondary-container p-6 rounded-xl flex flex-col justify-between shadow-sm">
+<div>
+<span class="text-xs font-label font-semibold uppercase tracking-widest opacity-70">Average Density</span>
+<h3 class="text-3xl font-headline font-bold mt-2">1.030 <span class="text-sm">kg/L</span></h3>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-medium uppercase">Quality Grade A</span>
+</div>
+</div>
+</div>
+<!-- Main Production Chart & Reduced Yield Alerts -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Production Trends Line Chart -->
+<div class="lg:col-span-2 bg-surface-container-low p-8 rounded-xl min-h-[400px]">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">Production Trends</h3>
+<p class="text-sm text-on-surface-variant">Daily volume collection over the last 7 days</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-xs font-semibold rounded-md bg-white shadow-sm text-primary">Volume</button>
+<button class="px-3 py-1 text-xs font-semibold rounded-md text-on-surface-variant">Quality</button>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end gap-1">
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[60%] hover:bg-primary/20 transition-all cursor-pointer relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">1,120L</div>
+</div>
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[65%] hover:bg-primary/20 transition-all cursor-pointer"></div>
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[62%] hover:bg-primary/20 transition-all cursor-pointer"></div>
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[75%] hover:bg-primary/20 transition-all cursor-pointer"></div>
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[82%] hover:bg-primary/20 transition-all cursor-pointer"></div>
+<div class="flex-1 bg-primary/10 rounded-t-lg h-[80%] hover:bg-primary/20 transition-all cursor-pointer"></div>
+<div class="flex-1 bg-primary h-[88%] rounded-t-lg shadow-inner"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] font-label font-bold text-stone-400 uppercase tracking-widest">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<!-- Reduced Yield Alerts -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 shadow-sm flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-error">warning</span>
+<h3 class="text-xl font-headline font-bold text-on-surface">Reduced Yield Alerts</h3>
+</div>
+<div class="space-y-4 flex-1">
+<!-- Alert Item -->
+<div class="p-4 rounded-xl bg-error-container/30 border-l-4 border-error flex items-center justify-between">
+<div>
+<p class="text-sm font-headline font-bold text-on-surface">Cow #JK-115</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Health check recommended</p>
+</div>
+<span class="text-error font-bold font-headline">-15%</span>
+</div>
+<!-- Alert Item -->
+<div class="p-4 rounded-xl bg-secondary-container/10 border-l-4 border-secondary flex items-center justify-between">
+<div>
+<p class="text-sm font-headline font-bold text-on-surface">Cow #JK-042</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Feeding cycle mismatch</p>
+</div>
+<span class="text-secondary font-bold font-headline">-10%</span>
+</div>
+<!-- Alert Item -->
+<div class="p-4 rounded-xl bg-stone-100 flex items-center justify-between">
+<div>
+<p class="text-sm font-headline font-bold text-on-surface">Cow #JK-098</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Recovering status</p>
+</div>
+<span class="text-stone-500 font-bold font-headline">-4%</span>
+</div>
+</div>
+<button class="mt-8 w-full py-3 rounded-md bg-stone-100 text-on-surface font-label text-xs font-bold uppercase tracking-widest hover:bg-stone-200 transition-colors">View All Health Alerts</button>
+</div>
+</div>
+<!-- Recent Collection Logs -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="p-6 border-b border-surface-container-high flex items-center justify-between">
+<h3 class="text-lg font-headline font-bold text-on-surface">Recent Collection Logs</h3>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">filter_list</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-md text-xs font-bold font-label uppercase tracking-widest hover:shadow-lg transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                        Log New Collection
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-[10px] font-label font-bold text-on-surface-variant uppercase tracking-[0.15em]">
+<th class="px-6 py-4">Date &amp; Time</th>
+<th class="px-6 py-4">Shift</th>
+<th class="px-6 py-4">Volume (L)</th>
+<th class="px-6 py-4">Temp (°C)</th>
+<th class="px-6 py-4">Grade</th>
+<th class="px-6 py-4">Collector</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-semibold text-on-surface">Oct 24, 2023</div>
+<div class="text-xs text-on-surface-variant">05:30 AM</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase">Morning</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-on-surface">642.5 L</td>
+<td class="px-6 py-4 text-sm text-on-surface">4.2°C</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">Grade A+</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up headshot of a young male agricultural technician smiling warmly outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYcbDd8hg3kgb_qa55u0bVB7paiSk6jbPathtBk25ECLd_DRgOHvwC5E6-t6AxmcYtbJyNH3ewUQ1nZXxkNyoPyJI3LKF1xiZ2DrucKnM6499EVc76B23VL6wU8YHmtNNue1e-hu_aI1IrBwfXEDiOzTLv2cPW0VtA_qwSFtUwxO1HycXcYxqDklYXty6W2RW8XmNu-p2vWZwsZpPtU9AHrDahdLk_yRC7Xs0y_RLd_kqFJCMlRQEnIhnWH5BaArYgDVGjpAkhnijl"/>
+</div>
+<span class="text-xs font-medium text-on-surface">Mark J.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary cursor-pointer transition-colors">more_horiz</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-semibold text-on-surface">Oct 23, 2023</div>
+<div class="text-xs text-on-surface-variant">06:15 PM</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase">Evening</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-on-surface">605.8 L</td>
+<td class="px-6 py-4 text-sm text-on-surface">4.5°C</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">Grade A</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a woman in a workshop setting with warm ambient lighting and soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLzUj-qbfZOhNy2gCvcIvQ1nM7y5odd4heKPs_o0h8hBwy7yhPVa9BS84iH6hu_JWzwNxQZtu3I2ZgYUx8wUygtdzEZ17cgw01PXpQwu-w_6Cy40IuTDDxt5zSMAUWNkrUOALiDzc0B1xgbJLOUuFFtTsyYOxuP9mWErCEj5Ue5DXSsI65rEIRnGnBadgfs1WoS6hd-cSHVtauVuJkIM8QSd8MeJLNikbrMzt9NOP95TBs50EBu82B0Um1EC_uYTBepqmugi791MFq"/>
+</div>
+<span class="text-xs font-medium text-on-surface">Sarah K.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary cursor-pointer transition-colors">more_horiz</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-semibold text-on-surface">Oct 23, 2023</div>
+<div class="text-xs text-on-surface-variant">05:30 AM</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase">Morning</span>
+</td>
+<td class="px-6 py-4 font-headline font-bold text-on-surface">628.0 L</td>
+<td class="px-6 py-4 text-sm text-on-surface">4.1°C</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">Grade A+</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up headshot of a young male agricultural technician smiling warmly outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcISq0iat2jptRIBWWABB4mXds_u0bkFekeUQZ59iBG6Y2k3kn5reng4AONRxPnwTauclQOVMdSCf9LRvwnzCJOYEfV_wyBl0c4aGswV6d3irxa2qyNdNvSsdNNc0Ne9od73l_7Z0TJRZwHMfNeGAV7SGjcU1Fnedf0l1C2OqH7FKQvc6-d6sp99zPvhnZB4HFbCyFodJmUtuydR6x_61Du1mp6OM5W1xMvJdKRunG_vqFRO2HAMqMpO1sFsfj_sxypGHXaE-al2fS"/>
+</div>
+<span class="text-xs font-medium text-on-surface">Mark J.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="material-symbols-outlined text-stone-300 group-hover:text-primary cursor-pointer transition-colors">more_horiz</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low flex justify-center">
+<button class="text-xs font-bold font-label text-primary uppercase tracking-widest hover:underline transition-all">Download Full Monthly Report</button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

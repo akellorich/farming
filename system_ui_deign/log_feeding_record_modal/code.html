@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Log Feeding Record</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#206223",
+              "on-primary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-container": "#6f5100",
+              "primary-container": "#3a7b3a",
+              "surface-container": "#eeeee9",
+              "primary-fixed": "#acf4a4",
+              "on-surface-variant": "#40493d",
+              "tertiary-container": "#387b41",
+              "surface-variant": "#e3e3de",
+              "surface-container-low": "#f4f4ef",
+              "surface": "#fafaf5",
+              "on-tertiary-fixed": "#002107",
+              "on-tertiary": "#ffffff",
+              "surface-bright": "#fafaf5",
+              "inverse-primary": "#91d78a",
+              "secondary-fixed": "#ffdfa0",
+              "tertiary": "#1d622b",
+              "surface-container-highest": "#e3e3de",
+              "on-tertiary-container": "#c7ffc5",
+              "surface-dim": "#dadad5",
+              "on-surface": "#1a1c19",
+              "secondary": "#795900",
+              "outline-variant": "#bfcaba",
+              "background": "#fafaf5",
+              "on-primary-fixed": "#002203",
+              "tertiary-fixed": "#abf4ac",
+              "on-background": "#1a1c19",
+              "outline": "#707a6c",
+              "secondary-container": "#fec330"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background overflow-hidden">
+<!-- Blurred Background Content (Feeding Overview) -->
+<div class="flex h-screen w-full blur-md brightness-90 grayscale-[0.2]">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col justify-between bg-[#f4f4ef] dark:bg-stone-900 py-6 px-4 z-10">
+<div>
+<div class="flex items-center gap-3 px-2 mb-10">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-bold text-xl">J</div>
+<div>
+<h1 class="text-xl font-bold text-[#206223] dark:text-[#acf4a4] tracking-tight">JUKAM Dairy</h1>
+<p class="text-[10px] font-label uppercase tracking-[0.05em] text-on-surface-variant">Modern Agrarian Management</p>
+</div>
+</div>
+<nav class="space-y-1">
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1"><span class="material-symbols-outlined">dashboard</span>Dashboard</div>
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1"><span class="material-symbols-outlined">pets</span>Animals</div>
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1"><span class="material-symbols-outlined">opacity</span>Production</div>
+<!-- ACTIVE TAB: Feeding -->
+<div class="flex items-center gap-4 bg-[#acf4a4] dark:bg-[#206223] text-[#002203] dark:text-[#ffffff] rounded-full px-4 py-3 mx-2 my-1">
+<span class="material-symbols-outlined">grass</span>Feeding
+                </div>
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1"><span class="material-symbols-outlined">medical_services</span>Health</div>
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1"><span class="material-symbols-outlined">inventory_2</span>Inventory</div>
+</nav>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1 hover:bg-stone-200/50 transition-colors duration-200"><span class="material-symbols-outlined">account_circle</span>Profile</div>
+<div class="flex items-center gap-4 text-stone-600 px-4 py-3 mx-2 my-1 hover:bg-stone-200/50 transition-colors duration-200"><span class="material-symbols-outlined">settings</span>Settings</div>
+</div>
+</aside>
+<!-- TopAppBar Component -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#fafaf5]/80 backdrop-blur-md flex justify-between items-center h-16 px-8 ml-64 shadow-[0_4px_24px_-8px_rgba(26,28,25,0.08)]">
+<h2 class="text-2xl font-black text-[#206223] dark:text-[#acf4a4]">Feeding Overview</h2>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-stone-400">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search logs..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">help</span>
+<div class="w-8 h-8 rounded-full bg-stone-200 overflow-hidden">
+<img alt="User Profile Avatar" data-alt="professional portrait of a farm manager wearing a clean cap and vest in a sunlit dairy office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBfI3YbtdAoW6v-i_gGF9zNVhf8vWkuuLVF7Y49LMrR9SGHGuwMZQEZPaNpx4uUSangWWW2hzqqjAJMxXghR34Ctwler2tG8rUoP2GkbFd3bE2EHRlMQ7dLvY5Pb2B7FHsRK7nWyBpb-KDt-aVHOzhTdTElOg93YmaZqcv7hb__dmsLVMfKjN31nOe4SrgBAHq40BRp1SZgOPp422AsEl1U1HU4qG5zDGn-bS0Zr6-L29ELDP91zlihDyTwYR7q9y-ulYu_C4tzFZX"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Dummy -->
+<main class="ml-64 mt-16 p-8 w-full">
+<div class="grid grid-cols-3 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Daily Consumption</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">1,240 <span class="text-lg font-normal">kg</span></h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Feed Efficiency</p>
+<h3 class="text-3xl font-headline font-extrabold text-secondary">88.4<span class="text-lg font-normal">%</span></h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Ration Quality</p>
+<h3 class="text-3xl font-headline font-extrabold text-tertiary">Optimal</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl h-96 w-full p-8 flex items-center justify-center">
+<p class="text-stone-400">Feeding Charts and Logs Content Area</p>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-4xl h-[600px] rounded-xl overflow-hidden flex shadow-[0_24px_48px_-12px_rgba(0,0,0,0.25)]">
+<!-- Left Side: Brand Panel -->
+<div class="w-2/5 relative overflow-hidden flex flex-col justify-end p-10 text-on-primary">
+<div class="absolute inset-0 z-0">
+<img alt="Dairy Pasture" class="w-full h-full object-cover brightness-50" data-alt="close-up of fresh organic green grass and clover in a sun-drenched pasture with soft morning dew and golden light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnrW3dEv0CeNHsn9nHosjgs_yRLf5EV-PafDNrcq8Vu4hDVEPwJBlkfEYCjR_wx3dXwW_l3kQqiGH3T5zckVXNSdTPl8r-8m9rNK-EzcWac7r_mnh8q4C3f3rGQl92KB6nA6Q2BK8BGhPUWAqgyD-ILxCPWTpDopbWBELPVPubqxVsGYj56WnnqXJ_Qj-UlLThi_b61R77De7uR11yQka__ylJJj-bLKOdsjt3P46fwxjMCkoFa9bqqajWSuuU264MLJreQo-PZtz6"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+</div>
+<div class="relative z-10">
+<h2 class="text-4xl font-headline font-black mb-4 leading-tight">New Feeding Log</h2>
+<p class="text-primary-fixed/90 font-body text-lg leading-relaxed">Record daily feed rations to monitor herd nutrition and maximize production efficiency.</p>
+</div>
+</div>
+<!-- Right Side: Form Panel -->
+<div class="w-3/5 flex flex-col overflow-hidden">
+<div class="p-10 pb-0">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-xs font-label font-bold tracking-[0.15em] text-on-surface-variant uppercase">Entry Details</h3>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+</div>
+<form class="flex-grow overflow-y-auto px-10 space-y-6">
+<!-- Feeding Schedule -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-3">Feeding Schedule</label>
+<div class="flex gap-2">
+<button class="flex-1 py-3 px-4 rounded-lg bg-primary text-on-primary font-bold text-sm shadow-md" type="button">3 AM Shift</button>
+<button class="flex-1 py-3 px-4 rounded-lg bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-variant transition-colors border border-outline-variant/20" type="button">11 AM Shift</button>
+<button class="flex-1 py-3 px-4 rounded-lg bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-variant transition-colors border border-outline-variant/20" type="button">4 PM Shift</button>
+</div>
+</div>
+<!-- Pen/Group Selection -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Pen / Animal Group</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface appearance-none focus:ring-2 focus:ring-primary">
+<option disabled="" selected="" value="">Select Pen or Animal Group...</option>
+<option>North Wing - Lactating Cows</option>
+<option>East Pen - Dry Cows</option>
+<option>Nursery - Calves</option>
+<option>Main Paddock - Heifers</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Feed Type -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Feed Type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface appearance-none focus:ring-2 focus:ring-primary">
+<option>TMR Mixed</option>
+<option>Dairy Meal</option>
+<option>Calf Pellets</option>
+<option>Silage</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Quantity -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Quantity (kg)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary pr-12" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-3 text-sm font-label font-bold text-on-surface-variant">kg</span>
+</div>
+</div>
+</div>
+<!-- Notes -->
+<div class="pb-6">
+<label class="block text-sm font-semibold text-on-surface mb-2">Narration / Notes</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary resize-none" placeholder="Add any observations about intake or feed quality..." rows="3"></textarea>
+</div>
+</form>
+<!-- Action Bar -->
+<div class="px-10 py-6 border-t border-outline-variant/10 flex items-center justify-end gap-4 bg-surface-container-lowest">
+<button class="px-6 py-2.5 text-on-surface-variant font-semibold hover:text-on-surface transition-colors">Cancel</button>
+<button class="px-8 py-2.5 bg-primary text-on-primary font-bold rounded-lg shadow-lg hover:bg-primary/90 hover:-translate-y-0.5 transition-all">Save Record</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

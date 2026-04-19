@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#40493d",
+                        "surface-container-low": "#f4f4ef",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-bright": "#fafaf5",
+                        "secondary-container": "#fec330",
+                        "primary-fixed": "#acf4a4",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#261a00",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c19",
+                        "surface-container-highest": "#e3e3de",
+                        "surface": "#fafaf5",
+                        "surface-tint": "#2a6b2c",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#91d78a",
+                        "secondary-fixed": "#ffdfa0",
+                        "tertiary": "#1d622b",
+                        "outline-variant": "#bfcaba",
+                        "surface-dim": "#dadad5",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "outline": "#707a6c",
+                        "background": "#fafaf5",
+                        "on-primary-fixed": "#002203",
+                        "tertiary-container": "#387b41",
+                        "on-secondary-container": "#6f5100",
+                        "surface-container-high": "#e8e8e3",
+                        "on-tertiary-container": "#c7ffc5",
+                        "on-primary-container": "#cbffc2",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#abf4ac",
+                        "on-tertiary-fixed": "#002107",
+                        "on-surface": "#1a1c19",
+                        "inverse-primary": "#91d78a",
+                        "primary-container": "#3a7b3a",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "primary": "#206223",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#90d792",
+                        "surface-variant": "#e3e3de",
+                        "surface-container": "#eeeee9",
+                        "secondary": "#795900"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopAppBar Navigation -->
+<nav class="fixed top-0 w-full z-40 bg-[#fafaf5]/60 dark:bg-stone-900/60 backdrop-blur-lg shadow-[0_4px_24px_rgba(26,28,25,0.08)] flex justify-between items-center px-6 py-3">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold text-green-900 dark:text-green-50 tracking-tighter">JUKAM Dairy</span>
+<div class="hidden md:flex gap-6">
+<a class="text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors px-3 py-1 rounded-full text-sm font-medium" href="#">Dashboard</a>
+<a class="text-green-800 dark:text-green-200 font-bold px-3 py-1 rounded-full text-sm" href="#">Animals</a>
+<a class="text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 transition-colors px-3 py-1 rounded-full text-sm font-medium" href="#">Production</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-stone-200/50 transition-colors">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-stone-200/50 transition-colors">
+<span class="material-symbols-outlined text-stone-600">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-50 bg-[#f4f4ef] dark:bg-stone-800 flex flex-col py-8 gap-y-6">
+<div class="px-8 mb-4">
+<h2 class="font-['Manrope'] font-black text-green-900 dark:text-white text-xl">JUKAM Management</h2>
+<p class="text-xs text-stone-500 font-medium tracking-wide uppercase">Green Pastures Sector</p>
+</div>
+<nav class="flex flex-col">
+<a class="text-stone-600 dark:text-stone-400 mx-4 my-1 flex items-center px-6 py-3 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full transition-all gap-3" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="bg-[#acf4a4] text-[#002203] rounded-full mx-4 my-1 flex items-center px-6 py-3 font-bold gap-3" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-medium text-sm">Animals</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-4 my-1 flex items-center px-6 py-3 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full transition-all gap-3" href="#">
+<span class="material-symbols-outlined">opacity</span>
+<span class="font-medium text-sm">Production</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-4 my-1 flex items-center px-6 py-3 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full transition-all gap-3" href="#">
+<span class="material-symbols-outlined">grass</span>
+<span class="font-medium text-sm">Feeding</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-4 my-1 flex items-center px-6 py-3 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full transition-all gap-3" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="font-medium text-sm">Health</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-4 my-1 flex items-center px-6 py-3 hover:bg-stone-200 dark:hover:bg-stone-700 rounded-full transition-all gap-3" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium text-sm">Inventory</span>
+</a>
+</nav>
+<div class="mt-auto px-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-300 overflow-hidden">
+<img alt="Profile" data-alt="professional portrait of a farm manager with a warm confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP98A3AdCUhUBFxHpLWTQUCHIeUNBQ_TYpxByXM9b493qQLV_tk1SFPnxORgctBt5kY4X87CKB0jBF-JAG4V8mbW6wXgnlgkzl2WBVMr9mSubtK6HMkLJtRtVBkLoENdse5QpydUyOn8Sab3KGjFPWJ2IS3i7jEq1Un0Ksw1W7PnTPclzPjPOmcjWnOy4TwETP25oBOKiyOH1gZaPW4jgqaHnLg7Ge_fc4M9mxrbYTzgjY4fC5V-NKYWESFd_vf5a6_fbD4_OVf0oq"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-background">Alex Morgan</p>
+<p class="text-xs text-stone-500">Head of Operations</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Background (Simulated Dashboard) -->
+<main class="ml-72 pt-20 p-8 min-h-screen">
+<header class="flex justify-between items-end mb-8">
+<div>
+<p class="text-sm font-bold text-primary tracking-widest uppercase mb-1">Livestock Records</p>
+<h1 class="text-4xl font-extrabold text-on-background tracking-tight">Animals Overview</h1>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-md font-bold flex items-center gap-2 shadow-sm hover:-translate-y-0.5 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                Add New Animal
+            </button>
+</header>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-12 gap-6 mb-8">
+<div class="col-span-8 bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<div class="flex justify-between mb-4">
+<h3 class="text-lg font-bold text-on-background">Herd Demographics</h3>
+<span class="text-sm text-stone-500">Last 30 Days</span>
+</div>
+<div class="h-48 flex items-end gap-2">
+<div class="flex-1 bg-primary-fixed rounded-t-lg h-2/3"></div>
+<div class="flex-1 bg-tertiary-fixed rounded-t-lg h-full"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg h-3/4"></div>
+<div class="flex-1 bg-primary-fixed rounded-t-lg h-1/2"></div>
+<div class="flex-1 bg-tertiary-fixed rounded-t-lg h-4/5"></div>
+</div>
+</div>
+<div class="col-span-4 grid grid-rows-2 gap-6">
+<div class="bg-primary-container text-on-primary-container rounded-xl p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-3xl">pets</span>
+<div>
+<p class="text-3xl font-black">248</p>
+<p class="text-sm opacity-80">Total Active Head</p>
+</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container rounded-xl p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-3xl">error_outline</span>
+<div>
+<p class="text-3xl font-black">12</p>
+<p class="text-sm opacity-80">Require Attention</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- ADD NEW ANIMAL MODAL OVERLAY -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 md:p-10">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-stone-900/40 backdrop-blur-md"></div>
+<!-- Modal Container -->
+<div class="relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-full max-h-[850px]">
+<!-- Left Column: Brand Sidebar -->
+<div class="w-full md:w-80 relative overflow-hidden flex flex-col justify-end p-10 text-white shrink-0">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="lush rolling green hills of a dairy farm at sunrise with mist and soft golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBxiKwzccGTHkxacjYv-k2FSEQbSEBbA3lNK1ZYkKevXkj1otVjFQShcXYX2kUroUoJn87O7uTHYEaIFWlwOGp6AnGdg1A8mPhAm2a2C_zHJuuaHluQthWjnyU5cYucEh6YOVpocDsKmvskn6pKMPpEdE3XisiH_u_JwSXOx4frwUD-j5-cmVqCL-vnoGBsHSvHz8JlDxW3ce59mSdQlSfjRfTw4MCjdMZKZcuAOoFFkJCDLEkpMOo5zHseTj9_hUN43eN3P1kpZH_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-green-950/90 via-green-900/40 to-transparent"></div>
+</div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</div>
+<h2 class="text-3xl font-extrabold leading-tight mb-3">Add New Animal</h2>
+<p class="text-green-50/80 font-medium leading-relaxed">Official herd registration for management tracking.</p>
+</div>
+</div>
+<!-- Right Column: Form Area -->
+<div class="flex-1 bg-surface-container-lowest flex flex-col overflow-hidden">
+<div class="flex-1 overflow-y-auto p-8 md:p-12">
+<div class="max-w-2xl mx-auto space-y-10">
+<!-- Registration Source -->
+<section>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Registration Source</label>
+<div class="grid grid-cols-2 gap-4"><label class="relative flex items-center justify-center p-4 border border-primary/20 bg-primary/5 rounded-xl cursor-pointer hover:bg-primary/10 transition-all">
+<input checked="" class="peer sr-only" name="reg_source" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant flex items-center gap-2">
+<span>Born on Farm</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-xl transition-all"></div>
+</label>
+<label class="relative flex items-center justify-center p-4 border border-outline-variant/30 bg-surface-container-low rounded-xl cursor-pointer hover:bg-surface-container-high transition-all">
+<input class="peer sr-only" name="reg_source" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant flex items-center gap-2">
+<span>External Purchase</span>
+</div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-xl transition-all"></div>
+</label></div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Breed Type -->
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Breed Type</label>
+<div class="relative">
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-primary text-sm font-medium">
+<option>Holstein Friesian</option>
+<option>Jersey</option>
+<option>Guernsey</option>
+<option>Ayrshire</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<span class="material-symbols-outlined absolute right-0 top-3 pointer-events-none text-stone-400">expand_more</span>
+</div>
+</div>
+<!-- Animal Code -->
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Animal Code / Tag ID</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="e.g., JK-2024-001" type="text"/>
+</div>
+</div>
+<!-- Designated Name -->
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Designated Name (Optional)</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="e.g., Daisy" type="text"/>
+</div>
+<!-- Lineage Information -->
+<section class="p-6 bg-surface-container-low rounded-xl">
+<h3 class="text-sm font-bold text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">account_tree</span>
+                                Lineage Information
+                            </h3>
+<div>
+<label class="block text-xs font-bold text-stone-500 uppercase tracking-widest mb-2">Select Dam from Herd</label>
+<div class="relative">
+<div class="relative">
+<select class="w-full bg-white/50 border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-primary text-sm font-medium">
+<option>Search by Tag ID or Name...</option>
+<option>JK-2021-042 (Bella)</option>
+<option>JK-2022-015 (Luna)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<span class="material-symbols-outlined absolute right-0 top-2 pointer-events-none text-stone-400 text-sm">chevron_right</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Birth Date -->
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Birth Date</label>
+<div class="relative">
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium" type="date"/>
+</div>
+<span class="material-symbols-outlined absolute right-0 top-3 pointer-events-none text-stone-400">calendar_today</span>
+</div>
+</div>
+<!-- Initial Weight -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Initial Weight</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="0.00" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-on-surface-variant/60 text-xs">KG</span>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Purchase Price</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-10 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="0.00" type="number"/>
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-on-surface-variant/60 text-xs">USD</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="p-8 border-t border-surface-container flex items-center justify-end gap-6 bg-surface-container-lowest">
+<button class="text-stone-500 font-bold hover:text-stone-800 transition-colors px-4 py-2">Discard</button>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-md font-bold shadow-lg hover:shadow-primary/20 hover:-translate-y-1 transition-all">
+                        Register Animal
+                    </button>
+</div>
+</div>
+<!-- Close Button -->
+<button class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high/50 hover:bg-surface-container-high transition-colors z-20">
+<span class="material-symbols-outlined text-stone-600">close</span>
+</button>
+</div>
+</div>
+</body></html>

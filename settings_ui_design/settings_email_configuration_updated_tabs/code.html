@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dadad5",
+                        "surface-container-highest": "#e3e3de",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-secondary-container": "#6f5100",
+                        "surface-bright": "#fafaf5",
+                        "on-secondary-fixed": "#261a00",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e8e8e3",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#1a1c19",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "on-primary-container": "#cbffc2",
+                        "primary-container": "#3a7b3a",
+                        "on-tertiary-container": "#c7ffc5",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "inverse-primary": "#91d78a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeee9",
+                        "primary": "#206223",
+                        "on-tertiary-fixed": "#002107",
+                        "outline-variant": "#bfcaba",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e3e3de",
+                        "on-background": "#1a1c19",
+                        "background": "#fafaf5",
+                        "surface-container-low": "#f4f4ef",
+                        "secondary-container": "#fec330",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#002203",
+                        "primary-fixed-dim": "#91d78a",
+                        "outline": "#707a6c",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#abf4ac",
+                        "on-surface-variant": "#40493d",
+                        "surface-tint": "#2a6b2c",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "inverse-surface": "#2f312e",
+                        "surface": "#fafaf5",
+                        "tertiary": "#1d622b",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#795900",
+                        "tertiary-container": "#387b41",
+                        "primary-fixed": "#acf4a4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(250, 250, 245, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bfcaba; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface flex min-h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-6 py-8 h-screen w-72 bg-surface-container-low border-r border-outline-variant/10 shadow-[24px_0_48px_rgba(26,28,25,0.04)] z-50">
+<div class="px-8 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="agriculture">agriculture</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-primary font-headline leading-none">Green Pastures</h2>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-label mt-1">Dairy Management v2.4</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-stone-700 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-label text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="text-stone-700 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="font-label text-sm tracking-wide">Livestock</span>
+</a>
+<a class="text-stone-700 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-label text-sm tracking-wide">Facilities</span>
+</a>
+<a class="text-stone-700 mx-4 px-6 py-3 flex items-center gap-4 hover:bg-white/50 rounded-full transition-all group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label text-sm tracking-wide">Inventory</span>
+</a>
+<a class="bg-primary-fixed text-on-primary-fixed rounded-full mx-4 px-6 py-3 font-semibold flex items-center gap-4" href="#">
+<span class="material-symbols-outlined" data-icon="settings_suggest" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span class="font-label text-sm tracking-wide">System Settings</span>
+</a>
+</nav>
+<div class="px-8 mt-auto">
+<button class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-bold shadow-lg hover:-translate-y-0.5 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Quick Log
+            </button>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-h-screen relative overflow-y-auto">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-40 glass-header flex justify-between items-center w-full px-8 py-4">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-extrabold text-primary font-headline tracking-tighter">JUKAM Dairy</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-8 mr-8">
+<a class="text-stone-600 font-medium hover:text-primary transition-all duration-300" href="#">Overview</a>
+<a class="text-primary font-bold border-b-2 border-primary" href="#">System Config</a>
+<a class="text-stone-600 font-medium hover:text-primary transition-all duration-300" href="#">User Access</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-stone-600 hover:text-primary transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-stone-600 hover:text-primary transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary/20 p-0.5 ml-2">
+<img alt="Manager Profile" class="w-full h-full rounded-full object-cover" data-alt="Professional portrait of a dairy farm manager wearing a neutral shirt against a blurred rural landscape background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANCs2uZfGGCT1anlpb8YeKFQRTfwqxqQKWb1XaQIaxh_XA5WiJl2mdIWjL5tF3GT9-v7329sJDr5RwmGKhmuo2-Qs6non-ebpgDhTQscKsa5JPTVnkyMGMM4DKm_ZMLrwDzpQ60WHMPco0MQ1Ni8ON0Bk1p_WZST4IBBpku_q0cNjb93wacS94Ex5wWmIAR0LX1wTcZiMe6ll91NKGEsBcmGGPFiI2yf3xa0MVqlEjBzEY5bL8czqRl2PHnDn4qrYIDaZoWDqnahk-"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<section class="p-8 max-w-7xl w-full mx-auto">
+<header class="mb-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-on-surface-variant font-bold font-label text-xs tracking-widest uppercase">Configure</span>
+</div>
+<h2 class="text-4xl font-extrabold text-on-surface font-headline tracking-tight">System Settings</h2>
+</header>
+<!-- Navigation Tabs - Updated to match SCREEN_199 -->
+<div class="flex gap-10 border-b border-outline-variant/20 overflow-x-auto pb-px mb-10">
+<button class="pb-4 text-stone-600 font-medium font-body text-sm hover:text-primary transition-all relative whitespace-nowrap">
+                    General Config
+                </button>
+<button class="pb-4 text-stone-600 font-medium font-body text-sm hover:text-primary transition-all relative whitespace-nowrap">
+                    Database Config
+                </button>
+<button class="pb-4 text-primary font-bold font-body text-sm relative whitespace-nowrap">
+                    Email Configuration
+                    <span class="absolute bottom-0 left-0 w-full h-1 bg-primary rounded-t-full"></span>
+</button>
+<button class="pb-4 text-stone-600 font-medium font-body text-sm hover:text-primary transition-all relative whitespace-nowrap">
+                    IoT Sensors
+                </button>
+<button class="pb-4 text-stone-600 font-medium font-body text-sm hover:text-primary transition-all relative whitespace-nowrap">
+                    Security Policy
+                </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Form Column -->
+<div class="lg:col-span-8 space-y-8">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 bg-tertiary-fixed rounded-xl flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined" data-icon="alternate_email">alternate_email</span>
+</div>
+<div>
+<h3 class="text-xl font-bold font-headline text-on-surface">SMTP Server Configuration</h3>
+<p class="text-sm text-on-surface-variant">Set up your outbound mail gateway and authentication.</p>
+</div>
+</div>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-widest text-on-surface-variant">SMTP Server Address</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 transition-all px-0 py-3 font-medium placeholder-stone-400" type="text" value="smtp.office365.com"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-widest text-on-surface-variant">Server Port</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 transition-all px-0 py-3 font-medium" type="number" value="587"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-widest text-on-surface-variant">User Email</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 transition-all px-0 py-3 font-medium" type="email" value="notifications@jukamdairy.com"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold font-label uppercase tracking-widest text-on-surface-variant">Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 transition-all px-0 py-3 font-medium" type="password" value="••••••••••••"/>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 text-on-surface-variant" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-2 pt-4 flex flex-wrap gap-8 items-center justify-between border-t border-outline-variant/10">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3">
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+<span class="text-sm font-semibold text-on-surface">SSL/TLS Security</span>
+</div>
+<div class="flex items-center gap-4">
+<label class="text-sm font-semibold text-on-surface">Send Mode</label>
+<select class="bg-surface-container-low border-0 text-sm font-bold rounded-lg focus:ring-primary/20 text-primary">
+<option>Direct</option>
+<option selected="">Queue</option>
+</select>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:-translate-y-0.5" type="submit">
+                                    Save Configuration
+                                </button>
+</div>
+</form>
+</div>
+<!-- SMTP Activity Logs -->
+<div class="bg-surface-container-low rounded-xl p-6">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-sm font-bold font-label uppercase tracking-widest text-on-surface-variant">Recent Delivery Status</h4>
+<span class="text-xs text-primary font-bold cursor-pointer">View Full Logs</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+<span class="text-xs font-semibold">Weekly Yield Report Sent</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">2 mins ago</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10 opacity-75">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+<span class="text-xs font-semibold">Inventory Alert: Feed Low</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">1 hour ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Testing Side Column -->
+<div class="lg:col-span-4">
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10 sticky top-24">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="test_speed">speed</span>
+</div>
+<h3 class="font-bold font-headline text-on-surface">Delivery Test</h3>
+</div>
+<p class="text-sm text-on-surface-variant mb-6">Verify your credentials by sending a sample communication to a designated address.</p>
+<div class="space-y-5">
+<div class="space-y-1">
+<label class="text-[10px] font-bold font-label uppercase tracking-widest text-on-surface-variant">Recipient Address</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-sm py-2" placeholder="admin@example.com" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] font-bold font-label uppercase tracking-widest text-on-surface-variant">Subject</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-sm py-2" type="text" value="System Test - Green Pastures"/>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] font-bold font-label uppercase tracking-widest text-on-surface-variant">Message Body</label>
+<textarea class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant/30 focus:border-primary focus:ring-0 text-sm py-2 resize-none" rows="3">This is a diagnostic message from the Green Pastures Dairy Management system to confirm SMTP functionality.</textarea>
+</div>
+<button class="w-full bg-on-surface text-surface py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-on-surface/90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+                                Send Test Email
+                            </button>
+</div>
+<div class="mt-8 p-4 bg-tertiary-fixed/30 rounded-lg flex gap-3 border border-tertiary/10">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="info">info</span>
+<p class="text-[11px] leading-relaxed text-on-tertiary-fixed-variant">Ensure your mail provider allows external application access (App Passwords) if you are using MFA-enabled accounts.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Spacing for Mobile -->
+<div class="h-20 md:hidden"></div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-header flex items-center justify-around py-3 px-6 shadow-[0_-8px_24px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center gap-1 text-stone-600">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="text-[10px] font-bold uppercase font-label">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-600">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="text-[10px] font-bold uppercase font-label">Cows</span>
+</button>
+<button class="w-12 h-12 -mt-10 bg-primary rounded-full flex items-center justify-center text-on-primary shadow-xl ring-4 ring-background">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="settings_suggest" style="font-variation-settings: 'FILL' 1;">settings_suggest</span>
+<span class="text-[10px] font-bold uppercase font-label">Setup</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-600">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold uppercase font-label">Profile</span>
+</button>
+</nav>
+</main>
+<!-- Success Message Overlay -->
+<div class="fixed bottom-8 right-8 pointer-events-none opacity-0 transform translate-y-4">
+<div class="bg-primary-container text-on-primary-container px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+<span class="font-bold">Settings Updated Successfully</span>
+</div>
+</div>
+</body></html>

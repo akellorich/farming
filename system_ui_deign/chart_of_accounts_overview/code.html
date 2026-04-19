@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chart of Accounts | JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#f4f4ef",
+            "background": "#fafaf5",
+            "surface": "#fafaf5",
+            "secondary": "#795900",
+            "on-background": "#1a1c19",
+            "surface-variant": "#e3e3de",
+            "surface-dim": "#dadad5",
+            "surface-container": "#eeeee9",
+            "on-error-container": "#93000a",
+            "inverse-primary": "#91d78a",
+            "inverse-on-surface": "#f1f1ec",
+            "primary-fixed-dim": "#91d78a",
+            "error": "#ba1a1a",
+            "on-primary-container": "#cbffc2",
+            "tertiary-fixed": "#abf4ac",
+            "surface-container-highest": "#e3e3de",
+            "surface-bright": "#fafaf5",
+            "secondary-fixed": "#ffdfa0",
+            "on-tertiary-container": "#c7ffc5",
+            "inverse-surface": "#2f312e",
+            "on-surface-variant": "#40493d",
+            "on-primary-fixed": "#002203",
+            "on-secondary": "#ffffff",
+            "outline": "#707a6c",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#206223",
+            "on-secondary-fixed": "#261a00",
+            "tertiary-container": "#387b41",
+            "tertiary-fixed-dim": "#90d792",
+            "surface-container-high": "#e8e8e3",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1a1c19",
+            "on-tertiary-fixed-variant": "#07521d",
+            "secondary-fixed-dim": "#f8bd2a",
+            "tertiary": "#1d622b",
+            "surface-tint": "#2a6b2c",
+            "on-tertiary-fixed": "#002107",
+            "outline-variant": "#bfcaba",
+            "on-error": "#ffffff",
+            "primary-container": "#3a7b3a",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#acf4a4",
+            "on-secondary-container": "#6f5100",
+            "on-primary-fixed-variant": "#0c5216",
+            "secondary-container": "#fec330",
+            "on-secondary-fixed-variant": "#5c4300"
+          },
+          fontFamily: {
+            "headline": ["Manrope", "sans-serif"],
+            "body": ["Work Sans", "sans-serif"],
+            "label": ["Work Sans", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Work Sans', sans-serif; background-color: #fafaf5; color: #1a1c19; }
+    .font-headline { font-family: 'Manrope', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .scale-95-on-click-transition:active { transform: scale(0.95); transition: transform 0.1s ease; }
+    .tonal-layering-no-lines { border: none ! from design system ; }
+    .glass-effect { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen py-8 bg-stone-100 dark:bg-stone-900 h-full w-72 border-r-0 sticky top-0">
+<div class="px-8 mb-10">
+<h1 class="text-xl font-bold text-green-900 dark:text-green-100 font-headline tracking-tight">JUKAM Dairy</h1>
+<p class="text-[10px] tracking-widest uppercase font-label text-stone-500">Modern Agrarian</p>
+</div>
+<nav class="flex-1 space-y-1 px-4">
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">pets</span>
+<span class="font-medium">Animals</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">opacity</span>
+<span class="font-medium">Production</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">grass</span>
+<span class="font-medium">Feeding</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">medical_services</span>
+<span class="font-medium">Health</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="font-medium">Users Manager</span>
+</a>
+<!-- Active State Logic Applied to Finance -->
+<a class="flex items-center gap-3 bg-green-200 dark:bg-green-800 text-green-950 dark:text-green-50 rounded-full px-6 py-3 font-semibold scale-95-on-click-transition" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="font-medium">Reports</span>
+</a>
+<a class="flex items-center gap-3 text-stone-600 dark:text-stone-400 px-6 py-3 hover:text-green-800 dark:hover:text-green-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-8">
+<div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-surface-container-low transition-all duration-200 hover:bg-surface-container">
+<img alt="James Kamau Profile" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="portrait of a professional Kenyan dairy farm manager in his 40s wearing a clean collared shirt with a soft natural lighting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcVSr3as7LSGTd9MCxmLM0SD-DtQYyANL2c1hkMhsVBpNRDXO9pRkpbtXVg2VyMi5gZOO3STX-fy9FPMrZMLHpAL66lnhsVQ4Hc7Bvn3jN8kvUkefnrqNwBS02UrARPTtnojslemUVd-eJh3SdxXXRTMtCbpAKi7DqYwyNcoSx72nWQGQjAcyoeVHsd57yFcOp56Dz4pis-yLcjZccOEaAs8cm-fHWkrU8MjccuNp0ANzTNMioVW6w8M6brU7voFx4_0hYJtxy-g0R"/>
+<div>
+<p class="text-sm font-bold font-headline leading-none">James Kamau</p>
+<p class="text-[10px] text-stone-500 font-label tracking-tighter">FARM ADMINISTRATOR</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col bg-background">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between px-8 w-full sticky top-0 z-40 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md h-16">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm font-body focus:ring-2 focus:ring-green-500/20" placeholder="Search accounts, codes or balances..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-stone-500 hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 text-stone-500 hover:text-primary transition-colors">settings</button>
+</div>
+</header>
+<div class="px-8 py-8 space-y-8">
+<!-- Title & Actions Hero -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-4xl font-extrabold font-headline text-on-surface tracking-tight">Chart of Accounts</h2>
+<p class="text-on-surface-variant font-body">Financial architecture for JUKAM Dairy Operations</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-background border border-outline-variant/30 text-primary font-semibold rounded-md hover:bg-surface-container-low transition-all scale-95-on-click-transition">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Export Ledger</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-tr from-primary to-primary-container text-on-primary font-semibold rounded-md shadow-sm hover:-translate-y-0.5 transition-all scale-95-on-click-transition">
+<span class="material-symbols-outlined text-lg">add</span>
+<span>Add New Account</span>
+</button>
+</div>
+</section>
+<!-- Bento Grid Summary Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<span class="text-xs font-label text-green-600 bg-green-50 px-2 py-1 rounded-full">+4.2%</span>
+</div>
+<div>
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Total Liquidity</p>
+<h3 class="text-2xl font-bold font-headline mt-1">KES 12,450,200</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-secondary/10 rounded-lg">
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<span class="text-xs font-label text-stone-500 px-2 py-1">Current Period</span>
+</div>
+<div>
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Active Liabilities</p>
+<h3 class="text-2xl font-bold font-headline mt-1 text-on-surface">KES 3,120,450</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-tertiary/10 rounded-lg">
+<span class="material-symbols-outlined text-tertiary">analytics</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Net Equity</p>
+<h3 class="text-2xl font-bold font-headline mt-1">KES 9,329,750</h3>
+</div>
+</div>
+</section>
+<!-- Main Tree Table Content -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50">
+<th class="px-6 py-4 text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant">Code</th>
+<th class="px-6 py-4 text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant">Account Name</th>
+<th class="px-6 py-4 text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant">Category</th>
+<th class="px-6 py-4 text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant text-right">Balance (KES)</th>
+<th class="px-6 py-4 text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant/20">
+<!-- Assets Root -->
+<tr class="bg-white/40 group hover:bg-white transition-colors">
+<td class="px-6 py-4 font-semibold text-primary">1000</td>
+<td class="px-6 py-4 font-bold font-headline flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+                  ASSETS
+                </td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">Root</span></td>
+<td class="px-6 py-4 text-right font-bold">12,450,200.00</td>
+<td class="px-6 py-4 text-center">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Assets Child -->
+<tr class="hover:bg-white/50 transition-colors">
+<td class="px-6 py-3 text-stone-500 text-sm">1100</td>
+<td class="px-6 py-3 pl-12 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                  Current Assets
+                </td>
+<td class="px-6 py-3 text-sm text-on-surface-variant">Assets</td>
+<td class="px-6 py-3 text-right text-sm">4,200,000.00</td>
+<td class="px-6 py-3 text-center"><button class="material-symbols-outlined text-stone-400 text-sm">more_vert</button></td>
+</tr>
+<tr class="hover:bg-white/50 transition-colors">
+<td class="px-6 py-3 text-stone-500 text-sm">1110</td>
+<td class="px-6 py-3 pl-20 flex items-center gap-2 italic text-on-surface-variant">
+                   Petty Cash - Farm Office
+                </td>
+<td class="px-6 py-3 text-sm text-on-surface-variant">Assets</td>
+<td class="px-6 py-3 text-right text-sm">45,000.00</td>
+<td class="px-6 py-3 text-center"><button class="material-symbols-outlined text-stone-400 text-sm">more_vert</button></td>
+</tr>
+<!-- Liabilities Root -->
+<tr class="bg-white/40 group hover:bg-white transition-colors">
+<td class="px-6 py-4 font-semibold text-secondary">2000</td>
+<td class="px-6 py-4 font-bold font-headline flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+                  LIABILITIES
+                </td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase">Root</span></td>
+<td class="px-6 py-4 text-right font-bold">3,120,450.00</td>
+<td class="px-6 py-4 text-center">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-white/50 transition-colors">
+<td class="px-6 py-3 text-stone-500 text-sm">2100</td>
+<td class="px-6 py-3 pl-12 flex items-center gap-2">
+                   Accounts Payable
+                </td>
+<td class="px-6 py-3 text-sm text-on-surface-variant">Liabilities</td>
+<td class="px-6 py-3 text-right text-sm">1,450,000.00</td>
+<td class="px-6 py-3 text-center"><button class="material-symbols-outlined text-stone-400 text-sm">more_vert</button></td>
+</tr>
+<!-- Equity Root -->
+<tr class="bg-white/40 group hover:bg-white transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">3000</td>
+<td class="px-6 py-4 font-bold font-headline flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+                  EQUITY
+                </td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase">Root</span></td>
+<td class="px-6 py-4 text-right font-bold">9,329,750.00</td>
+<td class="px-6 py-4 text-center">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Revenue Root -->
+<tr class="bg-white/40 group hover:bg-white transition-colors">
+<td class="px-6 py-4 font-semibold text-primary">4000</td>
+<td class="px-6 py-4 font-bold font-headline flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+                  REVENUE
+                </td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">Root</span></td>
+<td class="px-6 py-4 text-right font-bold">15,670,000.00</td>
+<td class="px-6 py-4 text-center">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary">more_vert</button>
+</td>
+</tr>
+<!-- Expenses Root -->
+<tr class="bg-white/40 group hover:bg-white transition-colors">
+<td class="px-6 py-4 font-semibold text-error">5000</td>
+<td class="px-6 py-4 font-bold font-headline flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+                  EXPENSES
+                </td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-error-container text-on-error-container text-[10px] font-bold uppercase">Root</span></td>
+<td class="px-6 py-4 text-right font-bold">6,340,250.00</td>
+<td class="px-6 py-4 text-center">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-white/50 transition-colors">
+<td class="px-6 py-3 text-stone-500 text-sm">5100</td>
+<td class="px-6 py-3 pl-12 flex items-center gap-2">
+                   Feed &amp; Nutrition Costs
+                </td>
+<td class="px-6 py-3 text-sm text-on-surface-variant">Expenses</td>
+<td class="px-6 py-3 text-right text-sm">2,100,500.00</td>
+<td class="px-6 py-3 text-center"><button class="material-symbols-outlined text-stone-400 text-sm">more_vert</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Bottom Stats & KPIs -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="flex items-center gap-4 bg-surface-container p-4 rounded-lg">
+<div class="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center text-green-800">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase text-stone-500 tracking-wider">Liquidity Ratio</p>
+<p class="font-bold text-on-surface">2.4 <span class="text-green-600 text-xs">(Healthy)</span></p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-surface-container p-4 rounded-lg">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-800">
+<span class="material-symbols-outlined">balance</span>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase text-stone-500 tracking-wider">Debt-to-Equity</p>
+<p class="font-bold text-on-surface">0.33 <span class="text-blue-600 text-xs">(Optimal)</span></p>
+</div>
+</div>
+<!-- Decorative Spacer -->
+<div class="hidden md:block col-span-2"></div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-auto px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-on-surface-variant border-t border-outline-variant/10">
+<div class="flex items-center gap-6">
+<span class="text-xs font-body font-medium">JUKAM Dairy Management Systems © 2024</span>
+<div class="flex gap-4 text-[10px] font-label uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-[10px] font-label uppercase">Cloud Sync Active</span>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button Contextual Check -->
+<!-- FAB Suppressed for detailed Finance views to avoid clutter -->
+</body></html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy Management - Add New Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#3a7b3a",
+              "on-primary-fixed-variant": "#0c5216",
+              "tertiary-fixed-dim": "#90d792",
+              "tertiary-container": "#387b41",
+              "on-background": "#1a1c19",
+              "inverse-surface": "#2f312e",
+              "on-tertiary-fixed-variant": "#07521d",
+              "on-tertiary-fixed": "#002107",
+              "on-primary-container": "#cbffc2",
+              "secondary": "#795900",
+              "on-primary": "#ffffff",
+              "on-secondary-fixed-variant": "#5c4300",
+              "surface-container-low": "#f4f4ef",
+              "secondary-fixed-dim": "#f8bd2a",
+              "on-primary-fixed": "#002203",
+              "background": "#fafaf5",
+              "on-secondary-fixed": "#261a00",
+              "surface-dim": "#dadad5",
+              "error": "#ba1a1a",
+              "surface-container-highest": "#e3e3de",
+              "surface-container-high": "#e8e8e3",
+              "surface": "#fafaf5",
+              "primary": "#206223",
+              "on-tertiary-container": "#c7ffc5",
+              "outline-variant": "#bfcaba",
+              "primary-fixed-dim": "#91d78a",
+              "secondary-container": "#fec330",
+              "inverse-on-surface": "#f1f1ec",
+              "on-secondary": "#ffffff",
+              "surface-container": "#eeeee9",
+              "primary-fixed": "#acf4a4",
+              "error-container": "#ffdad6",
+              "surface-bright": "#fafaf5",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#ffdfa0",
+              "outline": "#707a6c",
+              "tertiary": "#1d622b",
+              "on-surface": "#1a1c19",
+              "tertiary-fixed": "#abf4ac",
+              "inverse-primary": "#91d78a",
+              "surface-tint": "#2a6b2c",
+              "on-surface-variant": "#40493d",
+              "on-error-container": "#93000a",
+              "surface-variant": "#e3e3de",
+              "on-secondary-container": "#6f5100",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-effect { backdrop-filter: blur(10px); }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Top AppBar (from JSON) -->
+<header class="fixed top-0 w-full flex justify-between items-center px-8 h-16 bg-white/60 backdrop-blur-md z-50">
+<div class="text-xl font-bold tracking-tight text-green-900">JUKAM Dairy Management</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-zinc-600 hover:text-green-800 transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-zinc-600 hover:text-green-800 transition-colors duration-200" href="#">Livestock</a>
+<a class="text-green-900 border-b-2 border-green-800 pb-1" href="#">Financials</a>
+<a class="text-zinc-600 hover:text-green-800 transition-colors duration-200" href="#">Inventory</a>
+</nav>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close-up portrait of a professional male farm manager in a clean linen shirt smiling with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOEbYa3dw5cZkT3B9nyJZb1JBLex6Ifqz3q-4ia-YJwkWk_Z_YAdTuF9myelVEbW7fw1XSTOKlIRHQ8aCztI3qtn_zSEFwwpjCTHjgFyNuFpDsUKg8EZbmnvZwgXoF_LzmlkMRlctzjFAtV55ylVO2qWzUhDYNbOGt-2WHtasOUto32S-EnnLCZYzcbEd1M3psOwOrb8wo3q8FU-SwoWDOvZfTB5gadYgvtumCmRnkgKONPrq6EJ7jALAN3PmzmVg-pgk64daSD4OB"/>
+</div>
+</header>
+<!-- SideNavBar (from JSON) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-zinc-100 flex flex-col py-6 space-y-2 z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div>
+<h3 class="text-lg font-extrabold text-green-900 leading-tight">Green Pastures</h3>
+<p class="text-xs text-on-surface-variant">Financial Sector</p>
+</div>
+</div>
+</div>
+<nav class="flex-1">
+<a class="flex items-center space-x-3 bg-green-100 text-green-900 rounded-full px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-medium">Accounts</span>
+</a>
+<a class="flex items-center space-x-3 text-zinc-600 hover:bg-zinc-200 rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span>Ledger</span>
+</a>
+<a class="flex items-center space-x-3 text-zinc-600 hover:bg-zinc-200 rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center space-x-3 text-zinc-600 hover:bg-zinc-200 rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Budgeting</span>
+</a>
+<a class="flex items-center space-x-3 text-zinc-600 hover:bg-zinc-200 rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">agriculture</span>
+<span>Assets</span>
+</a>
+<a class="flex items-center space-x-3 text-zinc-600 hover:bg-zinc-200 rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Tax</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-semibold flex items-center justify-center space-x-2 shadow-sm">
+<span class="material-symbols-outlined">add</span>
+<span>Add Transaction</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas (Blurred Background) -->
+<main class="ml-64 pt-20 px-8 pb-8 blur-md select-none pointer-events-none">
+<header class="mb-8 flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-headline font-extrabold text-on-surface tracking-tight">Chart of Accounts</h1>
+<p class="text-on-surface-variant text-lg mt-2">Manage your financial structure and ledger groups.</p>
+</div>
+<div class="flex space-x-4">
+<div class="bg-surface-container-low px-4 py-2 rounded-xl flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary">search</span>
+<span class="text-on-surface-variant">Search accounts...</span>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout for Background Content -->
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-xl font-headline font-semibold">General Ledger</h2>
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Fiscal Year 2024</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between p-4 bg-surface-container-low rounded-lg">
+<span class="font-medium">1000 - Assets</span>
+<span class="text-primary font-bold">$142,500.00</span>
+</div>
+<div class="flex justify-between p-4 bg-surface-container-low rounded-lg">
+<span class="font-medium ml-4">1100 - Current Assets</span>
+<span class="text-primary font-bold">$84,200.00</span>
+</div>
+<div class="flex justify-between p-4 bg-background rounded-lg border-l-4 border-primary ml-8">
+<span class="font-medium">1101 - Cash on Hand</span>
+<span class="text-primary font-bold">$12,000.00</span>
+</div>
+</div>
+</div>
+<div class="col-span-4 space-y-6">
+<div class="bg-primary-container text-on-primary-container p-6 rounded-xl">
+<p class="text-sm font-label uppercase tracking-widest opacity-80">Net Worth</p>
+<h2 class="text-3xl font-headline font-bold mt-2">$328,450.00</h2>
+<div class="mt-4 h-1 w-full bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-on-primary-container w-2/3"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<h3 class="text-lg font-headline font-semibold mb-4">Quick Stats</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant">Active Accounts</span>
+<span class="font-bold">42</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant">Pending Sync</span>
+<span class="font-bold text-secondary">3</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+<div class="absolute inset-0 bg-on-background/20 backdrop-blur-sm"></div>
+<!-- Modal Container -->
+<div class="relative bg-surface-container-lowest w-full max-w-4xl h-[600px] rounded-xl shadow-2xl overflow-hidden flex animate-in fade-in zoom-in duration-300">
+<!-- Left Column: Botanical Branding -->
+<div class="w-2/5 relative overflow-hidden hidden md:block">
+<img alt="Lush green dairy pasture at sunrise" class="absolute inset-0 w-full h-full object-cover" data-alt="Wide-angle shot of a rolling green dairy pasture under a soft golden sunrise with morning mist and distant trees" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7vvJ7erBd8MvUEjMbhSeM_VPb7JIlnWHKveA6EeVpnkjPvDFHsJ1VMQntuEQW33GnO8SMU6ZBxpH9ltsQ0uIBPvnTVHlN2L0x9us_G3dRkZzoPiwO-6ykX5LuypPGFaWhsENx19oWyx5b7asdLBxf54CL4UlIiowgu-C5E5SMYRLPcAAmNwSbant0CljpnTOh4kG3x8AxasiHiz01h8nH4ou2cutX6sJSwKM8vzTZKPMcmVOjBHiFUVgjukL58Fn2n7AiJw9MK_We"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-primary/20"></div>
+<div class="absolute bottom-0 left-0 p-8 text-on-primary">
+<div class="mb-4">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<h2 class="text-3xl font-headline font-extrabold leading-tight">JUKAM Finance Module</h2>
+<p class="mt-2 text-on-primary/80 font-body">Building a sustainable financial foundation for your agrarian enterprise.</p>
+<div class="mt-8 flex items-center space-x-2 text-sm font-label uppercase tracking-widest">
+<span class="w-8 h-px bg-on-primary/50"></span>
+<span>Established 2024</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Form -->
+<div class="flex-1 flex flex-col relative">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="p-8 flex-1 overflow-y-auto">
+<header class="mb-8">
+<h2 class="text-2xl font-headline font-bold text-primary">Add New Account</h2>
+<p class="text-on-surface-variant">Enter the details for the new ledger account.</p>
+</header>
+<form class="space-y-6">
+<!-- Two Column Inputs -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-sm font-headline font-bold text-on-surface-variant">Select Account Category</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-primary transition-all">
+<option>Asset</option>
+<option>Liability</option>
+<option>Equity</option>
+<option>Income</option>
+<option>Expense</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-headline font-bold text-on-surface-variant">Select Parent Group</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-primary transition-all">
+<option>Current Assets</option>
+<option>Fixed Assets</option>
+<option>Long Term Liabilities</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-headline font-bold text-on-surface-variant">Account Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary transition-all placeholder:text-outline" placeholder="e.g. Bulk Milk Sales" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-sm font-headline font-bold text-on-surface-variant">Account Code</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary transition-all placeholder:text-outline" placeholder="GL-4001" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-headline font-bold text-on-surface-variant">Account Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary transition-all placeholder:text-outline" placeholder="XXXX-XXXX-XXXX" type="text"/>
+</div>
+</div>
+<!-- Toggles -->
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="flex items-center justify-between bg-surface-container-low p-3 rounded-xl">
+<span class="text-sm font-medium text-on-surface">Is Bank Account</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low p-3 rounded-xl">
+<span class="text-sm font-medium text-on-surface">Allow Overdraft</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</form>
+</div>
+<!-- Modal Footer -->
+<footer class="p-6 border-t border-surface-container-high flex items-center justify-end space-x-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium">Cancel</button>
+<button class="bg-primary hover:bg-primary-container text-on-primary py-2.5 px-6 rounded-md font-bold text-sm shadow-lg hover:-translate-y-0.5 transition-all">
+                        Save Account
+                    </button>
+</footer>
+</div>
+</div>
+</div>
+</body></html>

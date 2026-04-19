@@ -1,0 +1,809 @@
+/**
+ * Jukam Dairy - Schedules Management Styling
+ * File: css/schedules.css
+ */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, var(--primary) 0%, #3a7b3a 100%);
+    --tertiary-fixed: #abf4ac;
+    --on-tertiary-fixed: #002107;
+    --on-tertiary-fixed-variant: #07521d;
+    --secondary-fixed: #ffdfa0;
+    --on-secondary-fixed: #261a00;
+    --on-secondary-fixed-variant: #5c4300;
+}
+
+.schedules-page-title {
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+}
+
+.schedules-page-desc {
+    color: var(--on-surface-variant);
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+/* Bento Header Area */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+}
+
+.view-toggle-container {
+    background-color: var(--surface-container-low);
+    padding: 0.4rem;
+    border-radius: 1rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.view-toggle-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-toggle-btn.active {
+    background-color: white;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.view-toggle-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+/* Stat Cards */
+.stat-card-wide {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    flex: 1;
+    margin-left: 0.75rem;
+}
+
+.stat-card-wide:first-child {
+    margin-left: 0;
+}
+
+.stat-icon-wrapper {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon-wrapper span {
+    font-size: 1.75rem;
+    font-variation-settings: 'FILL' 1;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.35rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.btn-back-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(32, 98, 35, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: all 0.2s;
+    color: var(--primary) !important;
+    text-decoration: none !important;
+}
+
+.btn-back-circle:hover {
+    background-color: var(--primary-light);
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    transform: scale(1.1);
+}
+
+/* Table Card */
+.schedules-card {
+    background-color: var(--surface-container-lowest);
+    border-radius: 1rem;
+    border: 1px solid rgba(184, 196, 184, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.schedules-table thead th {
+    background-color: var(--surface-container-low);
+    padding: 1rem 1.5rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--on-surface-variant);
+    border-bottom: none;
+}
+
+.schedules-table tbody td {
+    padding: 1.25rem 1.5rem;
+    vertical-align: middle;
+    border-top: 1px solid var(--surface-container);
+}
+
+.schedules-table tbody tr:hover {
+    background-color: var(--surface-bright);
+}
+
+.schedule-date-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-date-main {
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.schedule-date-sub {
+    font-size: 0.75rem;
+    color: var(--on-surface-variant);
+}
+
+.protocol-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.protocol-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Insights Section */
+.insight-card {
+    background: var(--primary);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+}
+
+.insight-icon-bg {
+    position: absolute;
+    right: -1rem;
+    bottom: -1rem;
+    font-size: 8rem;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.priority-card {
+    width: 320px;
+    background-color: var(--surface-container-low);
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(184, 196, 184, 0.2);
+}
+
+.priority-icon-wrapper {
+    background-color: white;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    margin-bottom: 1rem;
+    display: table;
+}
+
+/* Row Actions Hover Effect */
+.group .transition-all {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.group:hover .transition-all {
+    opacity: 1 !important;
+}
+
+/* Utility Classes */
+.hover-bg-stone:hover {
+    background-color: var(--surface-container);
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-caret::after {
+    display: none !important;
+}
+
+/* Specific Font weights */
+.font-weight-black {
+    font-weight: 900;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+    .bento-grid {
+        display: flex;
+        flex-direction: column;
+    }
+    .priority-card {
+        width: 100%;
+    }
+    .insights-wrapper {
+        flex-direction: column;
+        gap: 2rem !important;
+    }
+    .stat-card-wide {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+    .stat-icon-wrapper {
+        width: 2rem !important;
+        height: 2rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .stat-icon-wrapper i {
+        font-size: 1rem !important;
+    }
+    .stat-label {
+        font-size: 0.55rem !important;
+        margin-bottom: 0.1rem !important;
+    }
+    .stat-value {
+        font-size: 1rem !important;
+    }
+
+    /* Target mobile font shrinking for all elements EXCEPT stat cards */
+    .schedules-page-title {
+        font-size: 1rem !important;
+    }
+    #registryTitle {
+        font-size: 1rem !important;
+    }
+    .schedules-page-desc {
+        display: none !important;
+    }
+    .header-section-container {
+        gap: 0.5rem !important; /* Reduced gap between icon and title on mobile */
+    }
+    .schedules-table th {
+        font-size: 0.6rem !important;
+        padding: 0.75rem 0.5rem !important;
+    }
+    .schedules-table td {
+        font-size: 0.75rem !important;
+        padding: 0.75rem 0.5rem !important;
+    }
+    .view-toggle-btn {
+        font-size: 0.75rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+    .insight-card h5, .priority-card h5 {
+        font-size: 0.85rem !important;
+    }
+    .insight-card p, .priority-card p {
+        font-size: 0.75rem !important;
+    }
+    .pagination-container span {
+        font-size: 0.6rem !important;
+    }
+    .page-btn {
+        width: 1.75rem !important;
+        height: 1.75rem !important;
+        font-size: 0.7rem !important;
+    }
+}
+/* Circular Pagination Style */
+.pagination-container {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--surface-container-low);
+    background-color: var(--surface-container-lowest);
+}
+
+.page-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    background: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--on-surface-variant);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.page-btn.boundary-btn {
+    border: 1px solid var(--outline-variant);
+    background-color: white;
+}
+
+.page-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
+}
+
+.page-btn:hover:not(.active):not(:disabled) {
+    background-color: var(--surface-container);
+    color: var(--primary);
+    border-color: var(--outline-variant);
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Action Dropdown Item Spacing */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Explicit gap between icon and label */
+}
+
+.dropdown-item i {
+    width: 1.25rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Vaccination Modal Core Styles */
+.v-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none; /* Controlled by JS */
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.v-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 28, 25, 0.4);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+.v-modal-wrapper {
+    position: relative;
+    z-index: 10001;
+    width: 100%;
+    max-width: 900px;
+}
+
+.v-modal-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    min-height: 520px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: vModalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Sidebar Styling */
+.v-modal-sidebar {
+    width: 300px;
+    position: relative;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.v-modal-sidebar-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+}
+
+.v-modal-sidebar-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(1.5);
+}
+
+.v-modal-sidebar-content {
+    position: relative;
+    z-index: 2;
+    padding: 3.5rem 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.v-modal-icon {
+    font-size: 3rem !important;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.v-modal-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.v-modal-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.v-modal-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.6rem 1rem;
+    border-radius: 50px;
+    width: fit-content;
+}
+
+.v-modal-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #fbbf24;
+    border-radius: 50%;
+}
+
+.v-modal-badge-text {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+/* Form Area */
+.v-modal-form-area {
+    flex: 1;
+    padding: 3rem;
+    background-color: #fafaf5;
+}
+
+.v-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 1.5rem;
+}
+
+.v-form-control {
+    background-color: white;
+    border: 1px solid var(--outline-variant);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    height: auto;
+    transition: all 0.2s;
+}
+
+.v-form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(32, 98, 35, 0.1);
+}
+
+/* Sync native picker icons */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.v-input-wrapper {
+    position: relative;
+}
+
+.v-input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--on-surface-variant);
+    pointer-events: none;
+    font-size: 1.25rem !important;
+}
+
+.v-btn-save {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.v-btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(32, 98, 35, 0.2);
+    color: white;
+}
+
+@keyframes vModalIn {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Custom Multi-select for Pens */
+.pen-multiselect {
+    position: relative;
+    user-select: none;
+}
+
+.pen-multiselect-trigger {
+    background-color: white;
+    border: 1px solid var(--outline-variant);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pen-multiselect-trigger:hover {
+    border-color: var(--primary);
+}
+
+.pen-multiselect-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--outline-variant);
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+}
+
+.pen-multiselect-menu.show {
+    display: flex;
+}
+
+.pen-search-wrapper {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.pen-search-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--primary);
+    padding: 0.5rem 0;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.pen-list {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+}
+
+.pen-item {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pen-item:hover {
+    background-color: #f5f5f5;
+}
+
+.pen-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    accent-color: var(--primary); /* Green background with white checkmark */
+}
+
+.pen-item span {
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.pen-footer {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafafa;
+}
+
+.pen-footer-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.pen-footer-btn:hover {
+    background-color: #eee;
+    color: #00bcd4;
+}
+
+@media (max-width: 768px) {
+    .v-modal-overlay {
+        padding: 0.5rem;
+    }
+    .v-modal-container {
+        flex-direction: column;
+        min-height: auto;
+        border-radius: 1rem;
+    }
+    .v-modal-sidebar {
+        width: 100%;
+        height: 120px;
+    }
+    .v-modal-sidebar-content {
+        padding: 1.25rem;
+    }
+    .v-modal-icon { font-size: 1.5rem !important; margin-bottom: 0.25rem; }
+    .v-modal-title { font-size: 1rem !important; margin-bottom: 0.25rem; }
+    .v-modal-desc { display: none; }
+    
+    .v-modal-form-area { 
+        padding: 1.25rem; 
+    }
+
+    .v-modal-header {
+        display: none !important;
+    }
+    
+    /* Absolute Position ONLY the main Close Button for Mobile */
+    .v-modal-container > .close-modal-btn {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        z-index: 10005 !important;
+        background: white !important;
+        border: none !important;
+        width: 32px;
+        height: 32px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        color: #666 !important;
+    }
+
+    /* Prevent footer cancel button from flying to top */
+    .v-modal-footer .close-modal-btn {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+
+    .font-label {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    .v-form-control {
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.8rem !important;
+    }
+    
+    .pen-multiselect-trigger {
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.8rem !important;
+    }
+
+    .v-modal-footer {
+        flex-direction: row !important;
+        justify-content: flex-end !important;
+        gap: 1rem !important;
+    }
+}
+
+/* Base Close Button Logic - Only for the floating X */
+.v-modal-container > .close-modal-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10005;
+    background: transparent;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.v-modal-container > .close-modal-btn:hover {
+    color: #333;
+    transform: rotate(90deg);
+}

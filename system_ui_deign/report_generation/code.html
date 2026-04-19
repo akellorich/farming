@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Report Generation | JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f4f4ef",
+              "on-surface": "#1a1c19",
+              "surface-bright": "#fafaf5",
+              "on-tertiary-fixed-variant": "#07521d",
+              "on-tertiary-fixed": "#002107",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#387b41",
+              "on-error": "#ffffff",
+              "outline": "#707a6c",
+              "on-primary-container": "#cbffc2",
+              "surface-tint": "#2a6b2c",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dadad5",
+              "tertiary-fixed-dim": "#90d792",
+              "primary": "#206223",
+              "tertiary-fixed": "#abf4ac",
+              "on-tertiary-container": "#c7ffc5",
+              "on-secondary-fixed-variant": "#5c4300",
+              "on-primary": "#ffffff",
+              "secondary-fixed": "#ffdfa0",
+              "secondary-container": "#fec330",
+              "inverse-surface": "#2f312e",
+              "surface-container-high": "#e8e8e3",
+              "on-primary-fixed-variant": "#0c5216",
+              "on-surface-variant": "#40493d",
+              "inverse-primary": "#91d78a",
+              "surface": "#fafaf5",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#bfcaba",
+              "primary-fixed": "#acf4a4",
+              "error": "#ba1a1a",
+              "on-primary-fixed": "#002203",
+              "surface-container-lowest": "#ffffff",
+              "primary-container": "#3a7b3a",
+              "surface-container-highest": "#e3e3de",
+              "secondary-fixed-dim": "#f8bd2a",
+              "on-secondary-fixed": "#261a00",
+              "tertiary": "#1d622b",
+              "on-background": "#1a1c19",
+              "surface-variant": "#e3e3de",
+              "surface-container": "#eeeee9",
+              "on-secondary-container": "#6f5100",
+              "primary-fixed-dim": "#91d78a",
+              "background": "#fafaf5",
+              "secondary": "#795900",
+              "inverse-on-surface": "#f1f1ec"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .sidebar-active {
+            background-color: #acf4a4;
+            color: #002203;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-surface-container-lowest border-r border-outline-variant/30 font-work-sans text-sm font-medium tracking-wide py-8 gap-y-2 overflow-y-auto">
+<div class="px-8 mb-10">
+<h1 class="font-manrope font-extrabold text-primary text-xl tracking-tight leading-tight">JUKAM<br/>Management</h1>
+<p class="text-[10px] text-stone-500 uppercase tracking-[0.2em] mt-1 font-bold">Modern Agrarian</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">pets</span>
+                Animals
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">water_drop</span>
+                Production
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">agriculture</span>
+                Feeding
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">monitor_heart</span>
+                Health
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">inventory_2</span>
+                Inventory
+            </a>
+<a class="flex items-center text-on-surface-variant mx-4 py-3 px-4 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl">group_add</span>
+                Users Manager
+            </a>
+<!-- Active Tab -->
+<a class="flex items-center sidebar-active mx-4 py-3 px-4 rounded-lg shadow-sm" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" style="font-variation-settings: 'FILL' 1;">description</span>
+                Reports
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 mx-4">
+<div class="flex items-center gap-3 px-2 mt-2">
+<img alt="James Kamau" class="w-10 h-10 rounded-lg object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbzy_oQnTg5iRHJKmVRTA9wSYX_iIJdFtS--dtzC1B1a1r0DnMMiZuHnBcML3ubkGGCghMcuRm4EsrtG1OQbQlPDuQtoua70z2C05eZfGV47TBNlpgK7JNkNopAtF212neddYKVMP7hLQgnlQwDMMU-QP0bggSmNSCLPvQw773BKndt4aGNa81iqHWnyK5SrqXc7m3oP5bePugdw2tzuY726fJ_JDLPJXkMUpBqzdRo2sMF1ItF9Pn-S__938UEkkmBP7KACj6H2Pn"/>
+<div class="overflow-hidden">
+<p class="font-bold text-sm truncate text-on-surface">James Kamau</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold">Chief Overseer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 flex-1 flex flex-col">
+<!-- Top App Bar / Header -->
+<header class="h-20 bg-surface border-b border-outline-variant/30 px-8 flex items-center justify-between sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<h2 class="text-2xl font-extrabold tracking-tight text-on-surface">Report Generation</h2>
+<p class="text-xs text-on-surface-variant font-medium">Analyze farm performance and health metrics</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-xl">search</span>
+<input class="bg-surface-container border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/60" placeholder="Search reports..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-2 bg-surface-container-lowest py-2 px-4 rounded-lg border border-outline-variant/30 shadow-sm">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+<span class="text-sm font-bold text-on-surface">Oct 24, 2023</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="p-8">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- Left Column: Report Selection -->
+<section class="xl:col-span-8 space-y-8">
+<div>
+<h3 class="label-md font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-6 flex items-center text-xs">
+<span class="material-symbols-outlined mr-2 text-primary text-xl" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+                            1. Report Selection
+                        </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Production Card -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10 relative overflow-hidden">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">water_drop</span>
+<h4 class="font-bold text-lg mb-1">Production</h4>
+<p class="text-xs text-on-surface-variant">Daily, Weekly, Monthly yields</p>
+</button>
+<!-- Health Records -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:shadow-xl shadow-sm border-2 border-primary ring-offset-2 relative">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">monitor_heart</span>
+<h4 class="font-bold text-lg mb-1">Health Records</h4>
+<p class="text-xs text-on-surface-variant">General clinical observations</p>
+<div class="absolute top-4 right-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</button>
+<!-- Vaccination -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">vaccines</span>
+<h4 class="font-bold text-lg mb-1">Vaccination</h4>
+<p class="text-xs text-on-surface-variant">Upcoming and historical logs</p>
+</button>
+<!-- Deworming -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">medication</span>
+<h4 class="font-bold text-lg mb-1">Deworming</h4>
+<p class="text-xs text-on-surface-variant">Treatment cycles and schedules</p>
+</button>
+<!-- Animal Health Card -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">badge</span>
+<h4 class="font-bold text-lg mb-1">Animal Health Card</h4>
+<p class="text-xs text-on-surface-variant">Individual profile statistics</p>
+</button>
+<!-- Birthing Details -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">child_care</span>
+<h4 class="font-bold text-lg mb-1">Birthing Details</h4>
+<p class="text-xs text-on-surface-variant">Calving records and progeny</p>
+</button>
+<!-- Inventory Stock Levels -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">inventory_2</span>
+<h4 class="font-bold text-lg mb-1">Inventory Stock Levels</h4>
+<p class="text-xs text-on-surface-variant">Tracking raw materials and commercial meals</p>
+</button>
+<!-- Feeding Efficiency -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">analytics</span>
+<h4 class="font-bold text-lg mb-1">Feeding Efficiency</h4>
+<p class="text-xs text-on-surface-variant">Analyzing feed consumption vs yield</p>
+</button>
+<!-- Herd Growth Summary -->
+<button class="group p-6 rounded-xl bg-surface-container-lowest text-left transition-all hover:ring-2 hover:ring-primary/20 hover:shadow-xl shadow-sm border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">trending_up</span>
+<h4 class="font-bold text-lg mb-1">Herd Growth Summary</h4>
+<p class="text-xs text-on-surface-variant">Tracking calf development and herd expansion</p>
+</button>
+</div>
+</div>
+<!-- Report History Table -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10">
+<div class="flex justify-between items-center mb-8">
+<h3 class="label-md font-bold uppercase tracking-[0.15em] text-on-surface-variant flex items-center text-xs">
+<span class="material-symbols-outlined mr-2 text-primary text-xl">history</span>
+                                Recently Generated
+                            </h3>
+<button class="text-primary font-bold text-sm hover:underline">Clear History</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="border-b border-outline-variant/20">
+<tr class="text-on-surface-variant/70 text-[11px] font-bold uppercase tracking-widest">
+<th class="pb-4 px-2">Report Name</th>
+<th class="pb-4 px-2">Date Created</th>
+<th class="pb-4 px-2">Format</th>
+<th class="pb-4 px-2">Status</th>
+<th class="pb-4 px-2 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-outline-variant/5 hover:bg-surface-container-low/30 transition-colors">
+<td class="py-5 px-2 font-bold text-on-surface">Monthly_Milk_Yield_Sept</td>
+<td class="py-5 px-2 text-on-surface-variant">Oct 20, 2023</td>
+<td class="py-5 px-2"><span class="bg-primary/10 text-primary px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider">PDF</span></td>
+<td class="py-5 px-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-[#acf4a4]/40 text-[#002203]">
+                                                Complete
+                                            </span>
+</td>
+<td class="py-5 px-2 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">download</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/5 hover:bg-surface-container-low/30 transition-colors">
+<td class="py-5 px-2 font-bold text-on-surface">Herd_Health_Summary</td>
+<td class="py-5 px-2 text-on-surface-variant">Oct 23, 2023</td>
+<td class="py-5 px-2"><span class="bg-secondary/10 text-secondary px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider">XLSX</span></td>
+<td class="py-5 px-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-fixed/40 text-on-secondary-fixed">
+                                                Processing
+                                            </span>
+</td>
+<td class="py-5 px-2 text-right">
+<span class="material-symbols-outlined text-outline-variant animate-spin text-xl">sync</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-5 px-2 font-bold text-on-surface">Vaccination_Audit_Q3</td>
+<td class="py-5 px-2 text-on-surface-variant">Oct 15, 2023</td>
+<td class="py-5 px-2"><span class="bg-primary/10 text-primary px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider">PDF</span></td>
+<td class="py-5 px-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-[#acf4a4]/40 text-[#002203]">
+                                                Complete
+                                            </span>
+</td>
+<td class="py-5 px-2 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-xl">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Right Column: Configuration & CTA -->
+<aside class="xl:col-span-4 space-y-6">
+<div class="bg-surface-container-low/40 p-8 rounded-xl border border-outline-variant/30 shadow-sm">
+<h3 class="label-md font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-8 flex items-center text-xs">
+<span class="material-symbols-outlined mr-2 text-primary text-xl">settings_suggest</span>
+                            2. Configuration
+                        </h3>
+<div class="space-y-8">
+<!-- Date Range -->
+<div>
+<label class="block text-[11px] font-black text-on-surface-variant uppercase tracking-widest mb-4">Reporting Period</label>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<span class="text-[10px] text-on-surface-variant/60 font-bold block mb-1.5 uppercase">From</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 py-2.5 px-3" type="date"/>
+</div>
+<div>
+<span class="text-[10px] text-on-surface-variant/60 font-bold block mb-1.5 uppercase">To</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 py-2.5 px-3" type="date"/>
+</div>
+</div>
+</div>
+<!-- Filter -->
+<div>
+<label class="block text-[11px] font-black text-on-surface-variant uppercase tracking-widest mb-3">Scope (Animal / Pen)</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 py-3 px-4 appearance-none font-medium">
+<option>All Animals (Full Herd)</option>
+<option>North Wing - Pen A</option>
+<option>South Wing - Pen B</option>
+<option>Maternity Ward</option>
+<option>Individual: Cow #1204 (Bessie)</option>
+</select>
+</div>
+<!-- Output Format -->
+<div>
+<label class="block text-[11px] font-black text-on-surface-variant uppercase tracking-widest mb-4">Output Format</label>
+<div class="grid grid-cols-3 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="hidden peer" name="format" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-2 peer-checked:ring-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mb-1 text-xl">picture_as_pdf</span>
+<span class="text-[10px] font-black">PDF</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="hidden peer" name="format" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-2 peer-checked:ring-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mb-1 text-xl">table_view</span>
+<span class="text-[10px] font-black">EXCEL</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="hidden peer" name="format" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/20 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-2 peer-checked:ring-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary mb-1 text-xl">csv</span>
+<span class="text-[10px] font-black">CSV</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Generate Button -->
+<div class="mt-10">
+<button class="w-full py-4 rounded-xl bg-primary text-white font-black text-sm uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-3 hover:-translate-y-1 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-xl">data_exploration</span>
+                                Generate Report
+                            </button>
+<p class="text-center text-[10px] text-on-surface-variant/60 mt-4 px-4 font-bold">
+                                Reports are generated securely and stored in your farm history for 30 days.
+                            </p>
+</div>
+</div>
+<!-- Insight Card -->
+<div class="bg-[#1d622b] p-8 rounded-xl relative overflow-hidden text-white shadow-xl shadow-green-900/10">
+<div class="relative z-10">
+<div class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mb-4 backdrop-blur-sm">
+<span class="material-symbols-outlined text-white">tips_and_updates</span>
+</div>
+<h4 class="font-bold text-lg mb-2">Automate Tasks</h4>
+<p class="text-xs text-white/70 leading-relaxed mb-6 font-medium">You can schedule these reports to be sent automatically to your email every Monday morning.</p>
+<button class="text-[10px] font-black uppercase tracking-widest bg-[#acf4a4]/20 hover:bg-[#acf4a4]/30 py-3 px-6 rounded-lg transition-all backdrop-blur-md border border-white/10">Configure Automations</button>
+</div>
+<div class="absolute -bottom-12 -right-8 opacity-5">
+<span class="material-symbols-outlined text-[180px]">agriculture</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+</body></html>

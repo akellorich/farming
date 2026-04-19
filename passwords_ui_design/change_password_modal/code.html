@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Change Password - JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#795900",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#3a7b3a",
+                        "tertiary-container": "#387b41",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-secondary-fixed": "#261a00",
+                        "on-primary-fixed": "#002203",
+                        "surface-tint": "#2a6b2c",
+                        "tertiary-fixed-dim": "#90d792",
+                        "outline-variant": "#bfcaba",
+                        "on-background": "#1a1c19",
+                        "primary-fixed": "#acf4a4",
+                        "primary": "#206223",
+                        "surface-container-high": "#e8e8e3",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "secondary-container": "#fec330",
+                        "on-tertiary-container": "#c7ffc5",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-dim": "#dadad5",
+                        "inverse-surface": "#2f312e",
+                        "on-surface-variant": "#40493d",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#1d622b",
+                        "surface-bright": "#fafaf5",
+                        "on-tertiary-fixed": "#002107",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "background": "#fafaf5",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1ec",
+                        "surface-container-low": "#f4f4ef",
+                        "tertiary-fixed": "#abf4ac",
+                        "surface": "#fafaf5",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e3e3de",
+                        "on-secondary-container": "#6f5100",
+                        "on-surface": "#1a1c19",
+                        "inverse-primary": "#91d78a",
+                        "outline": "#707a6c",
+                        "surface-container": "#eeeee9",
+                        "on-primary-container": "#cbffc2",
+                        "surface-variant": "#e3e3de",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-sidebar {
+            background: linear-gradient(180deg, rgba(32, 98, 35, 0.9) 0%, rgba(29, 98, 43, 0.8) 100%);
+            backdrop-filter: blur(8px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body">
+<!-- Blurred Background Dashboard Mockup -->
+<div class="fixed inset-0 w-full h-full overflow-hidden blur-md opacity-50 pointer-events-none select-none">
+<!-- SideNavBar placeholder from JSON logic -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-stone-100 py-6 flex flex-col">
+<div class="px-6 mb-8">
+<span class="font-['Manrope'] text-xl font-bold text-green-900">JUKAM Dairy</span>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 bg-green-200 text-green-900 rounded-full px-4 py-3 mx-2">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 text-stone-600 px-4 py-3 mx-2">
+<span class="material-symbols-outlined">pets</span>
+<span>Animals</span>
+</div>
+<div class="flex items-center gap-3 text-stone-600 px-4 py-3 mx-2">
+<span class="material-symbols-outlined">opacity</span>
+<span>Production</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas placeholder -->
+<main class="ml-64 p-8">
+<header class="flex justify-between items-center mb-10">
+<h1 class="font-headline text-3xl font-extrabold tracking-tight text-primary">Dashboard</h1>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container"></div>
+</div>
+</header>
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-2 h-64 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+<div class="h-64 bg-surface-container-low rounded-xl shadow-sm"></div>
+<div class="h-96 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+<div class="h-96 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+<div class="h-96 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+</div>
+</main>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-on-background/40 backdrop-blur-sm p-4">
+<!-- Modal Container -->
+<div class="relative w-full max-w-4xl bg-surface-container-lowest rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[600px]">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 z-50 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+<!-- Left Column: Brand Sidebar -->
+<div class="relative w-full md:w-2/5 h-48 md:h-full overflow-hidden flex items-center justify-center">
+<img alt="Secure digital gate or farm security" class="absolute inset-0 w-full h-full object-cover" data-alt="A heavy, secure iron farm gate at dawn with digital overlay patterns suggesting protection and security" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXSc3ZV1b3nubDd9XMHrag4pea-CuLDBW1Bxx_QzOIJWRPrBFDuVPSDXR9TD96bJMHo4o0SMqKRTCNQDRlOUq0pssbrPDvgCSlPOFbqblacu7PLWdkDAVybtWdrk0QTv0KBhh6AhV1fcwSO6pRDgOOBxYTWn-eRcJG0wlZF9R6waclxPuVdK6WBs9e0O3oFksS-l2EdUwKR-PQTZ3txim1uPO4Wizq78WysLJvhyj-LsmVAhX9sQ5Ia-IbhczjsfNGIHSZCe1XHukS"/>
+<div class="absolute inset-0 glass-sidebar flex flex-col justify-between p-8 text-on-primary">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary font-bold">agriculture</span>
+</div>
+<span class="font-headline text-xl font-extrabold tracking-tight">JUKAM Dairy</span>
+</div>
+<div>
+<h2 class="font-headline leading-tight mb-4 text-2xl font-semibold">GOOD PRACTICE PASSWORD TIPS</h2>
+<div class="space-y-2">
+<ul class="font-body text-xs space-y-1.5 opacity-90 list-disc list-inside">
+<li>Use at least 8 characters</li>
+<li>Mix letters, numbers, and symbols</li>
+<li>Avoid using common words or birthdays</li>
+<li>Use a unique password for this account</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Form Area -->
+<div class="flex-1 p-8 md:p-12 overflow-y-auto bg-surface-bright flex flex-col pb-12"><h2 class="font-headline text-2xl font-extrabold text-on-surface leading-none h-6 flex items-center mb-6">Changing Your Password</h2>
+<!-- Header: Profile -->
+<div class="flex items-center gap-4 mb-10">
+<div class="relative">
+<img alt="James Kamau" class="w-16 h-16 rounded-full object-cover border-2 border-primary-fixed" data-alt="Professional headshot of a middle-aged African man with a friendly smile, clean-shaven, wearing a crisp business casual shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ7DvHFF2EW8pO_zzcEe_-I9ALMoXklASuIcd9rzsXW9BYGXA-cLhUe-RVdU63PxINesyFBVfjkk_djWek4QWoT8UtXfb9a5tyyfvkyxZpFo6RyGTNJXGqCWP3M4RWOac9mWP1S9nO65aXkCD0tIZK-GA4clm8sF_OwqD4yBkPwUJvt_EiCOCEaFA3lo_qWcR2uU8M1b52URYFoj0bTFfQT9dzO3XLLP0eaCDGR0_ItbATkQJq2WcnXcKH_KqL6OaDwWRb29CHL6_U"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-primary rounded-full border-2 border-surface-container-lowest"></div>
+</div>
+<div>
+<h3 class="font-headline text-lg font-bold text-on-surface">James Kamau</h3>
+<p class="font-label text-xs tracking-wider text-on-surface-variant uppercase">General Manager</p>
+</div>
+</div>
+<!-- Form -->
+<div class="flex-1 space-y-6">
+<!-- Current Password -->
+<div class="space-y-1.5">
+<label class="block font-label text-xs font-bold text-on-surface tracking-wide uppercase">Current Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body" placeholder="Enter current password" type="password" value="••••••••••••"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+<!-- New Password -->
+<div class="space-y-1.5">
+<label class="block font-label text-xs font-bold text-on-surface tracking-wide uppercase">New Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body" placeholder="Min. 8 characters" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+<div class="flex gap-1 mt-2">
+<div class="h-1 flex-1 bg-primary-fixed rounded-full"></div>
+<div class="h-1 flex-1 bg-primary-fixed rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container-highest rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container-highest rounded-full"></div>
+</div>
+</div>
+<!-- Confirm New Password -->
+<div class="space-y-1.5">
+<label class="block font-label text-xs font-bold text-on-surface tracking-wide uppercase">Confirm New Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3.5 pr-12 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body" placeholder="Repeat new password" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-10 flex flex-row-reverse items-center gap-6">
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-3 rounded-md font-headline font-bold text-sm shadow-lg shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 transition-all">
+                        Change Password
+                    </button>
+<button class="text-on-surface-variant hover:text-on-surface font-body font-semibold text-sm transition-colors">
+                        Cancel
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

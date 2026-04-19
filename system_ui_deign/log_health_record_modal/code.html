@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Log Health Record - JUKAM Dairy</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Work+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#fafaf5",
+              "surface-container-highest": "#e3e3de",
+              "on-secondary-fixed": "#261a00",
+              "inverse-primary": "#91d78a",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#1a1c19",
+              "secondary-fixed-dim": "#f8bd2a",
+              "secondary-fixed": "#ffdfa0",
+              "on-error": "#ffffff",
+              "primary-fixed": "#acf4a4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#cbffc2",
+              "tertiary": "#1d622b",
+              "surface": "#fafaf5",
+              "on-tertiary-fixed": "#002107",
+              "secondary-container": "#fec330",
+              "error-container": "#ffdad6",
+              "outline": "#707a6c",
+              "on-primary-fixed-variant": "#0c5216",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2f312e",
+              "on-primary-fixed": "#002203",
+              "primary-container": "#3a7b3a",
+              "on-tertiary-fixed-variant": "#07521d",
+              "surface-dim": "#dadad5",
+              "surface-container-low": "#f4f4ef",
+              "on-surface-variant": "#40493d",
+              "on-secondary-container": "#6f5100",
+              "surface-tint": "#2a6b2c",
+              "tertiary-fixed-dim": "#90d792",
+              "on-secondary-fixed-variant": "#5c4300",
+              "primary-fixed-dim": "#91d78a",
+              "on-background": "#1a1c19",
+              "surface-container-high": "#e8e8e3",
+              "surface-variant": "#e3e3de",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#c7ffc5",
+              "tertiary-container": "#387b41",
+              "outline-variant": "#bfcaba",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#abf4ac",
+              "surface-bright": "#fafaf5",
+              "primary": "#2E7D32",
+              "surface-container": "#eeeee9",
+              "secondary": "#795900",
+              "inverse-on-surface": "#f1f1ec"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.75rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-botanical-overlay {
+            background-color: rgba(26, 28, 25, 0.4);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-[#fafaf5] dark:bg-stone-950/60 backdrop-blur-md docked full-width top-0 z-50 flex justify-between items-center w-full px-6 py-3 sticky">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-[#206223] dark:text-[#acf4a4] tracking-tighter font-headline">JUKAM Dairy</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search herd..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-[#206223] dark:text-[#acf4a4] p-2 hover:bg-[#f4f4ef] rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-[#206223] dark:text-[#acf4a4] p-2 hover:bg-[#f4f4ef] rounded-full transition-colors">account_circle</button>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f4f4ef] dark:bg-stone-900 flex flex-col py-6 gap-2 z-40">
+<div class="px-6 mb-8 mt-12">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a professional farm manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsfVE4Cr6iYV9s_WH2-bZKCxOCk-4CAmiZ8zJP6w7VIJJ8z19QqybfXgm3sxFxJCDB0Z-_6W3x8Le_1oikfYoCQbsuK-MY8vqKGYIxOOzJX9upCPc1bc3EypTc_efOMQEX7Vs19p6R85DQiPbqxzmhwFKc4u0L7VaZEUbi4uhaltYcImDdbwIx5YGuz074JjkMxFlzKO7K5ygV8zPuX0lCV-8Nkj6MXNX3HnnoPAIOLJ7GW2dPeXlulxAm1ugIW2CDTKEmkzC7kJmA"/>
+<div>
+<p class="font-headline font-extrabold text-[#206223] text-sm">Green Pastures</p>
+<p class="text-xs text-on-surface-variant">Dairy Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-medium text-sm">Livestock</span>
+</a>
+<a class="flex items-center gap-3 bg-[#acf4a4] dark:bg-[#206223] text-[#002203] dark:text-[#ffffff] rounded-full px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="font-medium text-sm">Health Records</span>
+</a>
+<a class="flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">opacity</span>
+<span class="font-medium text-sm">Milk Yield</span>
+</a>
+<a class="flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 mx-2 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<button class="w-full flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm font-medium">Support</span>
+</button>
+<button class="w-full flex items-center gap-3 text-[#1a1c19] dark:text-stone-400 px-4 py-3 hover:bg-stone-200 dark:hover:bg-stone-800 rounded-full transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area (Background for Modal) -->
+<main class="ml-64 flex-1 p-8">
+<header class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-4xl font-headline font-extrabold text-primary tracking-tight">Health Records Overview</h1>
+<p class="text-on-surface-variant mt-1">Monitoring the vitality and recovery of your herd.</p>
+</div>
+</header>
+<!-- Grid Layout representing existing content -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 opacity-40 grayscale-[20%] pointer-events-none">
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 font-bold">Recent Treatments</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">pets</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">JK-012 (Daisy)</p>
+<p class="text-sm text-on-surface-variant">Mastitis Treatment • Dr. Aris</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-semibold">Recovering</span>
+</div>
+</div>
+</div>
+<div class="bg-primary p-6 rounded-xl text-on-primary">
+<h3 class="font-label text-xs uppercase tracking-widest mb-6 opacity-80 font-bold">Herd Health Index</h3>
+<div class="text-5xl font-headline font-black mb-4">94%</div>
+<div class="h-2 w-full bg-primary-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-[94%]"></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-on-surface/20 backdrop-blur-xl">
+<!-- Log Health Record Modal (Refined to match SCREEN_10 style) -->
+<div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl shadow-[0_24px_48px_rgb(26,28,25,0.12)] overflow-hidden flex flex-col md:flex-row animate-in fade-in zoom-in duration-300">
+<!-- Left Side: Visual Panel -->
+<div class="hidden md:flex md:w-1/3 bg-primary relative overflow-hidden flex-col justify-end p-8 text-on-primary">
+<img alt="Veterinary care" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" data-alt="A clean, sterile environment for veterinary care, possibly showing a close-up of high-quality animal care supplies with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdrMoDI1Eftc1HPLu4Lyz5Sk0AzP4FnjpJXuvIbgfODkvciccmZLXbh8t9eYl-GH9pBnfZDcUuxM8aRG5wOheOELRl-ANyvsk7jMwEaLi67eRVewE7CC6iXTUFeDT1BZGuSrio7tkKL_xgvsRuQs11XnTUNjxOhzo5Oh6LdqLAqgqDPy8Q7wHnwwwI3slf7jsIlV1nRKJZJB7PKlioyRwgfsUcwQxAzElN-szGDl_BYL7eo5UAtr4fgtvGI1CV1KwyfhTMwSYI4_Jv"/>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<h2 class="text-2xl font-bold font-headline leading-tight">New Health Record</h2>
+<p class="text-sm opacity-80 mt-2 font-body">Document treatments and monitor the health status of your livestock.</p>
+</div>
+</div>
+<!-- Right Side: Form Content -->
+<div class="flex-1 p-8 lg:p-10">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-xs font-bold tracking-[0.15em] text-[#795900] uppercase mb-1">Health Log Details</h3>
+<p class="text-on-surface-variant text-sm">Please provide clinical details for this entry.</p>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-high rounded-full p-1 transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6">
+<!-- Animal Selection -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Select Animal from Herd...</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-primary text-sm font-medium">
+<option>JK-012</option>
+<option>JK-045</option>
+<option>JK-089</option>
+<option>JK-112</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<!-- Disease or Condition -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Disease or Condition</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="e.g., Mastitis, Foot Rot" type="text"/>
+</div>
+</div>
+<!-- Medication Administered -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Medication Administered</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40" placeholder="Enter dosage and medication name..." type="text"/>
+</div>
+<!-- Treatment Response / Prognosis -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-2">Treatment Response / Prognosis</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary text-sm font-medium placeholder:text-on-surface-variant/40 resize-none" placeholder="Describe the current state and expected recovery timeline..." rows="3"></textarea>
+</div>
+<!-- Status Toggle (Redesigned as chips/buttons like schedule) -->
+<div>
+<label class="text-[11px] font-bold tracking-widest text-on-surface-variant uppercase block mb-3">Status</label>
+<div class="grid grid-cols-2 gap-3">
+<label class="relative flex items-center justify-center p-3 border border-outline-variant/30 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+<input checked="" class="peer sr-only" name="status" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">sync</span>
+                                    Recovering
+                                </div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg transition-all"></div>
+</label>
+<label class="relative flex items-center justify-center p-3 border border-outline-variant/30 rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+<input class="peer sr-only" name="status" type="radio"/>
+<div class="peer-checked:text-primary peer-checked:font-bold text-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                    Completed
+                                </div>
+<div class="absolute inset-0 border-2 border-transparent peer-checked:border-primary rounded-lg transition-all"></div>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 pt-4 border-t border-outline-variant/10">
+<button class="flex-1 py-3 px-6 rounded-lg text-primary font-bold text-sm hover:bg-primary/5 transition-colors" type="button">
+                            Cancel
+                        </button>
+<button class="flex-[2] py-3 px-6 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:-translate-y-0.5 transition-all active:scale-[0.98]" type="submit">
+                            Save Health Record
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body></html>

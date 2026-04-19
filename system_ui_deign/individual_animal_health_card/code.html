@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#fafaf5",
+              "surface-container-highest": "#e3e3de",
+              "on-secondary-fixed": "#261a00",
+              "inverse-primary": "#91d78a",
+              "on-error-container": "#93000a",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#1a1c19",
+              "secondary-fixed-dim": "#f8bd2a",
+              "secondary-fixed": "#ffdfa0",
+              "on-error": "#ffffff",
+              "primary-fixed": "#acf4a4",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#cbffc2",
+              "tertiary": "#1d622b",
+              "surface": "#fafaf5",
+              "on-tertiary-fixed": "#002107",
+              "secondary-container": "#fec330",
+              "error-container": "#ffdad6",
+              "outline": "#707a6c",
+              "on-primary-fixed-variant": "#0c5216",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#2f312e",
+              "on-primary-fixed": "#002203",
+              "primary-container": "#3a7b3a",
+              "on-tertiary-fixed-variant": "#07521d",
+              "surface-dim": "#dadad5",
+              "surface-container-low": "#f4f4ef",
+              "on-surface-variant": "#40493d",
+              "on-secondary-container": "#6f5100",
+              "surface-tint": "#2a6b2c",
+              "tertiary-fixed-dim": "#90d792",
+              "on-secondary-fixed-variant": "#5c4300",
+              "primary-fixed-dim": "#91d78a",
+              "on-background": "#1a1c19",
+              "surface-container-high": "#e8e8e3",
+              "surface-variant": "#e3e3de",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#c7ffc5",
+              "tertiary-container": "#387b41",
+              "outline-variant": "#bfcaba",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#abf4ac",
+              "surface-bright": "#fafaf5",
+              "primary": "#206223",
+              "surface-container": "#eeeee9",
+              "secondary": "#795900",
+              "inverse-on-surface": "#f1f1ec"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-shadow {
+            box-shadow: 0 4px 24px -2px rgba(26, 28, 25, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- Sidebar Navigation -->
+<aside class="bg-stone-100 dark:bg-stone-900 h-full w-64 fixed left-0 top-0 flex flex-col gap-y-2 py-8 h-full shadow-none z-50">
+<div class="px-6 mb-8">
+<h1 class="text-green-900 dark:text-green-50 text-xl font-bold tracking-tight font-headline">JUKAM Dairy</h1>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Dashboard</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Animals</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="opacity">opacity</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Production</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="Agriculture">agriculture</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Feeding</span>
+</a>
+<!-- Active Tab -->
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Health</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Inventory</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Users Manager</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 mx-2 px-4 py-3 flex items-center gap-3 hover:text-green-800 dark:hover:text-green-200 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm font-medium tracking-wide font-label uppercase">Settings</span>
+</a>
+<a class="bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-100 rounded-full mx-2 px-4 py-3 flex items-center gap-3" href="#"><span class="material-symbols-outlined" data-icon="assessment" style="font-variation-settings: 'FILL' 1;">assessment</span><span class="text-sm font-bold tracking-wide font-label uppercase">Reports</span></a></nav>
+<div class="mt-auto px-6 py-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-stone-200 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of James Kamau, middle aged man with professional friendly expression, clean background, warm studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQzuEwBvFeybfdSSH1aWoYubx1uOMlYvDM1Ik-lzO1KDDTprffLKpkm-r-l3gSpq2eOJenJND-eNvO2Lmyuxnk3pjf-r0S9IWsK8aH_MZp4DeUqPO6jbbgMFfMU1B1mmdmY19wN3TqAGyyIf5LPAMviL52xywEsGnfNtGQ-Ko7QbsATtDhSIoY_INHE6NzOG3_teZ9ZKfIXHfUcQAPDZ1WVGFYbD7fplPkWMPXDfqbs6iEzOWVa8Lo1eq1Axqip1hbId1Uu72uqSnQ"/>
+</div>
+<div>
+<p class="text-sm font-bold font-headline text-on-surface">James Kamau</p>
+<p class="text-xs text-on-surface-variant font-label">GENERAL MANAGER</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-64 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md z-40 flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-4 flex-1">
+<h2 class="text-green-800 dark:text-green-400 font-headline font-semibold text-lg">Animal Health Card</h2>
+<div class="relative w-full max-w-md ml-8">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search records, medications..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 bg-surface-container-low px-3 py-1.5 rounded-full">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Admin Mode</span>
+<span class="material-symbols-outlined text-green-700" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Animal Profile Header Section -->
+<div class="relative bg-surface-container-lowest rounded-xl p-8 bento-shadow flex flex-col md:flex-row items-center gap-8 overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="w-40 h-40 rounded-xl overflow-hidden shadow-sm relative group shrink-0">
+<img class="w-full h-full object-cover" data-alt="close up profile of a Holstein Friesian cow in a sunlit pasture, soft green background, detailed features, high end agricultural photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT6d3mnwJjTkM-xctt0e4A_-a5OZSWabVHV0uIbD_igMm_7E-o9M4pTvfuHK6_dNbVdrQBQd1Ho6DrMHVsPKtP4k8japV3iduqu7COiVknZA1-pamRobIKNERrcHfbzu8zzUDRa7TrRuqVEKIfndxrKtQSdY4HCcUINt-QDQUzGf5a95WFBhM9YPg2d9haWeKc2uWLEfsK_oGzdiUic73CGls0Q32m03x7ognETgM70zT00H6XDghhzbDxzfhvMqBumt_TQpisd2oz"/>
+<div class="absolute bottom-2 right-2 bg-primary text-on-primary text-[10px] px-2 py-0.5 rounded-full font-label tracking-tighter uppercase">Active</div>
+</div>
+<div class="flex-1 space-y-4 text-center md:text-left">
+<div>
+<div class="flex items-center justify-center md:justify-start gap-4 mb-1">
+<h1 class="text-4xl font-extrabold font-headline text-primary tracking-tight">Bessie</h1>
+<span class="bg-surface-container-high px-3 py-1 rounded-md font-mono text-sm text-on-surface-variant border border-outline-variant/30">ID: JK-8821</span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="category">category</span>
+<span class="text-sm font-medium">Holstein Friesian</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="text-sm font-medium">Born: 14 May 2019</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="location_on">location_on</span>
+<span class="text-sm font-medium">Barn Block A, Stall 14</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-3 justify-center md:justify-start">
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-md text-sm font-semibold flex items-center gap-2 hover:-translate-y-0.5 transition-transform bento-shadow">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+                            Print Health Card
+                        </button>
+<div class="relative group">
+<button class="border border-outline-variant/40 text-on-surface px-5 py-2.5 rounded-md text-sm font-semibold flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+                                Actions
+                                <span class="material-symbols-outlined" data-icon="expand_more">expand_more</span>
+</button>
+<!-- Dropdown Mock -->
+<div class="absolute top-full right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant/10 hidden group-hover:block z-10">
+<div class="py-2">
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="picture_as_pdf">picture_as_pdf</span> Export PDF
+                                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="mail">mail</span> Email Record
+                                    </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-surface-container-low transition-colors border-t border-outline-variant/10" href="#">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="edit">edit</span> Edit Profile
+                                    </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hidden lg:flex flex-col items-end gap-2 text-right">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Current Yield</span>
+<div class="text-3xl font-bold font-headline text-primary">32.4 <span class="text-sm font-medium text-on-surface-variant">L/day</span></div>
+<div class="h-8 w-32 flex items-end gap-0.5">
+<div class="flex-1 bg-primary/20 h-3 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-5 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-7 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/30 h-4 rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-8 rounded-t-sm"></div>
+</div>
+</div>
+</div>
+<!-- Health Summary Cards (Asymmetric Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Status -->
+<div class="bg-tertiary-fixed text-on-tertiary-fixed rounded-xl p-6 bento-shadow flex flex-col justify-between">
+<span class="text-xs font-label uppercase tracking-widest opacity-80">General Health Status</span>
+<div class="mt-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-4xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-2xl font-bold font-headline">Excellent</span>
+</div>
+<p class="mt-2 text-xs opacity-70">Last physical exam: 3 days ago</p>
+</div>
+<!-- Incidents -->
+<div class="bg-surface-container-lowest rounded-xl p-6 bento-shadow flex flex-col justify-between">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Total Incidents (YTD)</span>
+<div class="mt-4 text-4xl font-bold font-headline text-on-surface">02</div>
+<div class="mt-2 flex items-center gap-1 text-xs text-green-700">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+<span>-40% from last year</span>
+</div>
+</div>
+<!-- Last Treatment -->
+<div class="bg-surface-container-lowest rounded-xl p-6 bento-shadow flex flex-col justify-between">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Last Treatment Date</span>
+<div class="mt-4 text-xl font-bold font-headline text-on-surface">Sept 12, 2023</div>
+<div class="mt-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></span>
+<span class="text-xs text-on-surface-variant font-medium">Vitamin Supplementation</span>
+</div>
+</div>
+<!-- Vaccination -->
+<div class="bg-secondary-container text-on-secondary-container rounded-xl p-6 bento-shadow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-xs font-label uppercase tracking-widest opacity-80">Vaccination Status</span>
+<span class="material-symbols-outlined opacity-60" data-icon="vaccines">vaccines</span>
+</div>
+<div class="mt-4">
+<span class="text-2xl font-bold font-headline uppercase tracking-tighter">Complete</span>
+<div class="w-full bg-on-secondary-container/10 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-on-secondary-container h-full w-[100%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Health Records Table -->
+<div class="bg-surface-container-lowest rounded-xl bento-shadow overflow-hidden">
+<div class="px-8 py-6 flex justify-between items-center border-b border-outline-variant/10">
+<h3 class="text-lg font-bold font-headline text-primary">Detailed Health Records</h3>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-lg" data-icon="search">search</span>
+<input class="bg-surface-container-low border border-outline-variant/20 rounded-lg pl-10 pr-4 py-1.5 text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none w-48 transition-all focus:w-64" placeholder="Search records..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-md transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-4 text-xs font-label uppercase tracking-widest text-on-surface-variant">Date</th>
+<th class="px-8 py-4 text-xs font-label uppercase tracking-widest text-on-surface-variant">Disease/Condition</th>
+<th class="px-8 py-4 text-xs font-label uppercase tracking-widest text-on-surface-variant">Treatment Plan</th>
+<th class="px-8 py-4 text-xs font-label uppercase tracking-widest text-on-surface-variant">Administrator</th>
+<th class="px-8 py-4 text-xs font-label uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Entry 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5 font-medium text-sm text-on-surface">Sep 12, 2023</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Mild Milk Fever</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Metabolic</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm italic">Calcium Supplement (Oral)</span>
+<span class="text-xs text-on-surface-variant">400g dose, immediate response</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Dr. Sarah Mwangi</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse"></span>
+                                        Recovered
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</td>
+</tr>
+<!-- Entry 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5 font-medium text-sm text-on-surface">June 04, 2023</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Bovine Respiratory Disease</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Infectious</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm italic">Penicillin Course (5 days)</span>
+<span class="text-xs text-on-surface-variant">Managed in isolation unit B</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">James Kamau</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase">
+                                        Recovered
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</td>
+</tr>
+<!-- Entry 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-5 font-medium text-sm text-on-surface">Jan 18, 2023</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Routine Vaccination</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Preventative</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="text-sm italic">Anthrax &amp; Black Quarter</span>
+<span class="text-xs text-on-surface-variant">Annual booster dose</span>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Vet Assist Omari</td>
+<td class="px-8 py-5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase">
+                                        Completed
+                                    </span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-4 bg-surface-container-low/30 border-t border-outline-variant/10 text-right">
+<button class="text-primary text-xs font-bold font-label uppercase tracking-widest hover:underline transition-all">View All Archived Records</button>
+</div>
+</div>
+<!-- Future/Alerts Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-xl bento-shadow border-l-4 border-secondary">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="event_note">event_note</span>
+<div class="space-y-1">
+<h4 class="font-headline font-bold text-on-surface">Next Scheduled Checkup</h4>
+<p class="text-sm text-on-surface-variant">Prenatal screening and routine foot trimming scheduled for October 22nd.</p>
+<div class="pt-4 flex gap-3">
+<button class="text-xs font-bold text-secondary uppercase tracking-wider underline">Reschedule</button>
+<button class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Dismiss</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary p-8 rounded-xl bento-shadow text-on-primary relative overflow-hidden group">
+<!-- Glassmorphism overlay for special notice -->
+<div class="absolute inset-0 bg-white/5 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<h4 class="font-headline font-bold text-lg mb-2">Genetic Health Index</h4>
+<p class="text-sm opacity-80 leading-relaxed max-w-sm">Bessie's health lineage shows high resistance to typical climatic stresses. Recommended for the upcoming elite breeding program cycle.</p>
+<button class="mt-4 bg-on-primary text-primary px-4 py-2 rounded-md text-xs font-bold uppercase tracking-wider hover:bg-secondary-fixed transition-colors">View Pedigree Data</button>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl opacity-10 rotate-12" data-icon="dna">genetics</span>
+</div>
+</div>
+</div>
+</main>
+</body></html>

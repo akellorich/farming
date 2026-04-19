@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New Category | JUKAM Dairy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#dadad5",
+              "on-background": "#1a1c19",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-highest": "#e3e3de",
+              "outline-variant": "#bfcaba",
+              "on-secondary-fixed-variant": "#5c4300",
+              "secondary-fixed-dim": "#f8bd2a",
+              "error": "#ba1a1a",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#ffdfa0",
+              "on-secondary-container": "#6f5100",
+              "surface-container-high": "#e8e8e3",
+              "surface-variant": "#e3e3de",
+              "primary": "#206223",
+              "inverse-surface": "#2f312e",
+              "primary-container": "#3a7b3a",
+              "inverse-on-surface": "#f1f1ec",
+              "on-tertiary-container": "#c7ffc5",
+              "primary-fixed-dim": "#91d78a",
+              "surface-tint": "#2a6b2c",
+              "secondary": "#795900",
+              "background": "#fafaf5",
+              "on-secondary-fixed": "#261a00",
+              "surface-container-low": "#f4f4ef",
+              "outline": "#707a6c",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#40493d",
+              "on-primary-fixed": "#002203",
+              "tertiary-fixed-dim": "#90d792",
+              "tertiary": "#1d622b",
+              "secondary-container": "#fec330",
+              "on-primary-container": "#cbffc2",
+              "surface": "#fafaf5",
+              "on-error-container": "#93000a",
+              "on-error": "#ffffff",
+              "tertiary-container": "#387b41",
+              "primary-fixed": "#acf4a4",
+              "on-surface": "#1a1c19",
+              "tertiary-fixed": "#abf4ac",
+              "on-tertiary-fixed-variant": "#07521d",
+              "on-primary": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#0c5216",
+              "surface-bright": "#fafaf5",
+              "on-tertiary-fixed": "#002107",
+              "inverse-primary": "#91d78a",
+              "surface-container": "#eeeee9"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .botanical-overlay {
+            background: linear-gradient(to bottom, rgba(32, 98, 35, 0.4), rgba(32, 98, 35, 0.8));
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface overflow-hidden">
+<!-- Background Simulation: Inventory Management Screen (Blurred) -->
+<div class="fixed inset-0 z-0 flex flex-col blur-lg opacity-40">
+<!-- TopAppBar -->
+<header class="bg-[#fafaf5]/60 flex justify-between items-center w-full px-6 py-4 z-50">
+<div class="text-2xl font-bold tracking-tight text-green-900 font-manrope">JUKAM Dairy</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+<span class="material-symbols-outlined text-stone-600">settings</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest"></div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- SideNavBar -->
+<aside class="bg-[#f4f4ef] w-64 h-full py-8 space-y-6 flex flex-col">
+<div class="px-8 mb-4">
+<h1 class="text-xl font-bold font-manrope text-green-900">JUKAM</h1>
+<p class="text-xs text-stone-600 uppercase tracking-widest">Modern Agrarian</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="text-stone-600 mx-4 py-3 px-6 flex items-center gap-4"><span class="material-symbols-outlined">dashboard</span>Dashboard</div>
+<div class="text-stone-600 mx-4 py-3 px-6 flex items-center gap-4"><span class="material-symbols-outlined">pets</span>Animals</div>
+<div class="bg-[#acf4a4] text-[#002203] rounded-full mx-4 py-3 px-6 flex items-center gap-4 font-bold"><span class="material-symbols-outlined">inventory_2</span>Inventory</div>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-10 space-y-8">
+<div class="flex justify-between items-end">
+<h2 class="text-4xl font-headline font-extrabold text-primary">Inventory</h2>
+<div class="h-12 w-48 bg-primary rounded-md shadow-lg"></div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-64 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+<div class="h-64 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+<div class="h-64 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+</div>
+<div class="h-96 bg-surface-container-lowest rounded-xl shadow-sm"></div>
+</main>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[60] bg-on-background/20 backdrop-blur-sm flex items-center justify-center p-4">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-4xl h-[600px] rounded-xl overflow-hidden flex shadow-[0_24px_48px_-12px_rgba(0,0,0,0.25)]">
+<!-- Left Side: Botanical Branding -->
+<div class="md:w-5/12 relative bg-primary-container overflow-hidden min-h-[300px]">
+<img alt="serene panoramic view of a lush green pasture with jersey cows grazing under a warm golden sunset with misty hills" class="absolute inset-0 w-full h-full object-cover" data-alt="serene panoramic view of a lush green pasture with jersey cows grazing under a warm golden sunset with misty hills" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCvyN5rI3g7_3NSOFaz4_0kg52_5FdNeiX_tmk9oa37k40WoR6nzqHo0SCucWIVWBBBSqbGF9HllbiNxTmyFPP74qenXMd4FaAvYJzSEKlZYuGZ3PCuVuJqbvQHG3Vw-Dj7Df00-mabrZrfiIc-i6a-9f4sWNVz2HZtOimbsKrhx-dhqbwrAzRjTwkCqB3ip8dapwxeQcepqR5vtPlz06R9PMyWmw8hxcaWLIwLKw1bbPnck_aNmv1Tw1bNV3sh-kBlJ_0mY5cF0Re"/>
+<div class="absolute inset-0 botanical-overlay mix-blend-multiply"></div>
+<div class="relative z-10 h-full p-10 flex flex-col justify-end">
+<span class="material-symbols-outlined text-on-primary text-5xl mb-6">potted_plant</span>
+<h2 class="text-3xl font-headline font-bold text-on-primary leading-tight">New Inventory Category</h2>
+<p class="text-on-primary/80 mt-4 font-body leading-relaxed">Organize your dairy resources with semantic categories. Define prefixes for automated tracking.</p>
+</div>
+</div>
+<!-- Right Side: Form Content -->
+<div class="md:w-7/12 md:p-12 flex flex-col justify-between p-4 md:p-6">
+<div class="pb-0 px-4 pt-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xs font-label font-bold tracking-[0.15em] text-on-surface-variant uppercase">Categorization Module</h3>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+</div>
+<form class="flex-grow overflow-y-auto px-4 space-y-4 mb-4">
+<!-- Category Name -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Category Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary" placeholder="e.g. Concentrated Feed" type="text"/>
+</div>
+<!-- Category Code -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Category Code</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary" placeholder="Select Category Code..." type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- Item Prefix -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Item Prefix</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary" placeholder="FEED-" type="text"/>
+</div>
+<!-- Starting Number -->
+<div>
+<label class="block text-sm font-semibold text-on-surface mb-2">Starting Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary" placeholder="001" type="number"/>
+</div>
+</div>
+<!-- Pad with zeros toggle -->
+<div class="flex items-center gap-3">
+<button class="w-10 h-6 bg-primary rounded-full relative transition-colors duration-200 focus:outline-none" role="switch" type="button">
+<span class="absolute left-1 top-1 bg-on-primary w-4 h-4 rounded-full transition-transform translate-x-4"></span>
+</button>
+<label class="text-sm font-medium text-on-surface-variant">Pad zeros in numbering</label>
+</div>
+</form>
+<!-- Action Bar -->
+<div class="py-6 border-t border-outline-variant/10 flex items-center justify-end gap-4 bg-surface-container-lowest px-4 py-4">
+<button class="px-6 py-2.5 text-on-surface-variant font-semibold hover:text-on-surface transition-colors">Cancel</button>
+<button class="px-8 py-2.5 bg-primary text-on-primary font-bold rounded-lg shadow-lg hover:bg-primary/90 hover:-translate-y-0.5 transition-all">Save Category</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

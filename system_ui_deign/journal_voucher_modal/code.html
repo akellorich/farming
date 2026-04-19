@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Journals Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fafaf5",
+                        "secondary-fixed": "#ffdfa0",
+                        "surface-container-low": "#f4f4ef",
+                        "inverse-primary": "#91d78a",
+                        "secondary": "#795900",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#002203",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#002107",
+                        "primary-container": "#3a7b3a",
+                        "surface": "#fafaf5",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e3de",
+                        "outline": "#707a6c",
+                        "on-primary-container": "#cbffc2",
+                        "inverse-surface": "#2f312e",
+                        "surface-container": "#eeeee9",
+                        "on-secondary-fixed": "#261a00",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#6f5100",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface-dim": "#dadad5",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "primary": "#206223",
+                        "on-background": "#1a1c19",
+                        "surface-container-highest": "#e3e3de",
+                        "tertiary-fixed": "#abf4ac",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-high": "#e8e8e3",
+                        "on-surface-variant": "#40493d",
+                        "surface-tint": "#2a6b2c",
+                        "on-surface": "#1a1c19",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#acf4a4",
+                        "tertiary": "#1d622b",
+                        "tertiary-container": "#387b41",
+                        "tertiary-fixed-dim": "#90d792",
+                        "secondary-container": "#fec330",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-tertiary-container": "#c7ffc5",
+                        "background": "#fafaf5"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(32, 98, 35, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-stone-100 dark:bg-stone-900 flex flex-col py-6">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-green-800 dark:text-green-400 font-headline">JUKAM Dairy</h1>
+<p class="text-xs uppercase tracking-[0.1em] font-label text-stone-500 mt-1">Modern Management</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center text-stone-600 dark:text-stone-400 mx-4 my-1 px-4 py-3 hover:text-green-700 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 mx-4 my-1 px-4 py-3 hover:text-green-700 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">pets</span>
+<span class="font-medium">Livestock</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 mx-4 my-1 px-4 py-3 hover:text-green-700 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">water_drop</span>
+<span class="font-medium">Production</span>
+</a>
+<a class="flex items-center bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-100 rounded-full mx-4 my-1 px-4 py-3 font-semibold" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-medium">Journals</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 mx-4 my-1 px-4 py-3 hover:text-green-700 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<a class="flex items-center text-stone-600 dark:text-stone-400 mx-4 my-1 px-4 py-3 hover:text-green-700 hover:bg-stone-200 dark:hover:bg-stone-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">bar_chart</span>
+<span class="font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-primary to-primary-container text-white py-3 rounded-xl font-headline font-bold shadow-lg shadow-primary/20 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+<span>New Entry</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas (Blurred Background State) -->
+<main class="ml-64 min-h-screen blur-md pointer-events-none">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-40 bg-white/60 dark:bg-stone-950/60 backdrop-blur-md">
+<div class="flex items-center space-x-8">
+<h2 class="text-lg font-black text-green-800 dark:text-green-400 font-headline">Journals Management</h2>
+<nav class="flex space-x-6">
+<a class="text-green-800 dark:text-green-400 border-b-2 border-green-800 font-bold px-1" href="#">All Logs</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-green-700 px-1" href="#">Pending</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-green-700 px-1" href="#">Posted</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-green-700 px-1" href="#">Archived</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20" placeholder="Search journals..." type="text"/>
+</div>
+<button class="p-2 text-stone-600 hover:opacity-80"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-stone-600 hover:opacity-80"><span class="material-symbols-outlined">settings</span></button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-stone-200 ml-2">
+<img alt="Manager Avatar" data-alt="portrait of a professional male farm manager in a casual shirt smiling with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaNCwyu49Slxin-iVY6N417nyFTFcLZDBtFCZRprR4jEKlFwMaotzy0K1n7GY7oAhI4jxJ8S8nV7IN106JI932cRzFG_yDsy6t7sUat6T3VDTIa1oEgh6o8s07yCUtFzf1a_G5W541Zy6qPAQdWMuqOVmCtQfk2rmN49MHBeImZ9b4ZoWb8lzLiLmwHeeBiC9SBCgSpQeKTzSDq5AluseknA0CXJGYJZhjP8UUNSR5aijA6X29mdcYuz8Ft1qz7oW30BAmrpXNFCip"/>
+</div>
+</div>
+</header>
+<!-- Background Dashboard Content -->
+<div class="p-8 grid grid-cols-12 gap-6">
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest p-6 rounded-xl shadow-sm h-64"></div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-6 rounded-xl shadow-sm h-64"></div>
+<div class="col-span-12 bg-surface-container-lowest p-6 rounded-xl shadow-sm h-96"></div>
+</div>
+</main>
+<!-- Modal Backdrop Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/40 backdrop-blur-[2px] p-4">
+<!-- Make Journal Entry Modal -->
+<div class="bg-white dark:bg-stone-900 w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Modal Header -->
+<div class="px-8 py-6 flex justify-between items-center border-b border-outline-variant/10">
+<h3 class="text-2xl font-headline font-bold text-on-surface">Make Journal Entry</h3>
+<button class="p-2 hover:bg-stone-200 rounded-full transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Content -->
+<div class="p-8">
+<!-- Top Form Fields -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8">
+<div class="md:col-span-6">
+<label class="block text-xs font-label uppercase tracking-wider text-on-surface-variant mb-2">Journal Entry Description</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 font-body placeholder:text-stone-400" placeholder="Enter journal description..." type="text"/>
+</div>
+<div class="md:col-span-3">
+<label class="block text-xs font-label uppercase tracking-wider text-on-surface-variant mb-2">Reference Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 font-body placeholder:text-stone-400" placeholder="REF-001" type="text"/>
+</div>
+<div class="md:col-span-3 flex flex-col justify-center">
+<label class="block text-xs font-label uppercase tracking-wider text-on-surface-variant mb-2">Post to GL</label>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer dark:bg-stone-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+<span class="ms-3 text-sm font-medium text-on-surface-variant">Post immediately</span>
+</label>
+</div>
+</div>
+<!-- Add Entry Row -->
+<div class="bg-surface-container-low/40 p-6 rounded-xl border border-primary/20 mb-8">
+<h4 class="text-sm font-label uppercase tracking-widest text-on-surface-variant mb-4 font-semibold">New Entry Line</h4>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+<div class="md:col-span-3">
+<label class="block text-[10px] font-label uppercase tracking-tighter text-on-surface-variant mb-1">GL Account</label>
+<div class="relative">
+<select class="w-full bg-white border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Select Account</option>
+<option>1010 - Cash at Bank</option>
+<option>4010 - Milk Sales Revenue</option>
+<option>5050 - Feed Expenses</option>
+<option>1200 - Inventory (Fodder)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400 text-sm">expand_more</span>
+</div>
+</div>
+<div class="md:col-span-4">
+<label class="block text-[10px] font-label uppercase tracking-tighter text-on-surface-variant mb-1">Narration</label>
+<input class="w-full bg-white border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20" placeholder="Line item details" type="text"/>
+</div>
+<div class="md:col-span-2">
+<label class="block text-[10px] font-label uppercase tracking-tighter text-on-surface-variant mb-1">Debit</label>
+<input class="w-full bg-white border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 text-right" placeholder="0.00" type="number"/>
+</div>
+<div class="md:col-span-2">
+<label class="block text-[10px] font-label uppercase tracking-tighter text-on-surface-variant mb-1">Credit</label>
+<input class="w-full bg-white border-none rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 text-right" placeholder="0.00" type="number"/>
+</div>
+<div class="md:col-span-1">
+<button class="w-full h-[38px] flex items-center justify-center bg-primary text-white rounded-lg hover:opacity-90 transition-opacity active:scale-95 shadow-md shadow-primary/10">
+<span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Entries Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead>
+<tr class="text-xs font-label uppercase tracking-widest text-on-surface-variant border-b border-outline-variant/10">
+<th class="px-4 py-3 font-semibold w-12">#</th>
+<th class="px-4 py-3 font-semibold bg-surface-container-low/50">Account Name</th>
+<th class="px-4 py-3 font-semibold">Narration</th>
+<th class="px-4 py-3 font-semibold text-right bg-surface-container-low/50">Debit</th>
+<th class="px-4 py-3 font-semibold text-right bg-surface-container-low/50">Credit</th>
+<th class="px-4 py-3 font-semibold w-12"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-4">1</td>
+<td class="px-4 py-4 font-medium bg-primary/5">1010 - Cash at Bank</td>
+<td class="px-4 py-4 text-stone-500 italic">Weekly milk collection sales</td>
+<td class="px-4 py-4 text-right font-semibold bg-green-50/30">1,250.00</td>
+<td class="px-4 py-4 text-right text-stone-300 bg-green-50/50">0.00</td>
+<td class="px-4 py-4">
+<button class="text-stone-400 hover:text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-4">2</td>
+<td class="px-4 py-4 font-medium bg-primary/5">4010 - Milk Sales Revenue</td>
+<td class="px-4 py-4 text-stone-500 italic">Weekly milk collection sales</td>
+<td class="px-4 py-4 text-right text-stone-300 bg-green-50/30">0.00</td>
+<td class="px-4 py-4 text-right font-semibold bg-green-50/50">1,250.00</td>
+<td class="px-4 py-4">
+<button class="text-stone-400 hover:text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container-low/30">
+<tr class="border-t-2 border-outline-variant/20">
+<td class="px-4 py-4 text-right font-bold text-xs font-label tracking-widest text-on-surface-variant" colspan="3">TOTALS</td>
+<td class="px-4 py-4 text-right font-bold text-primary">1,250.00</td>
+<td class="px-4 py-4 text-right font-bold text-primary">1,250.00</td>
+<td></td>
+</tr>
+<tr class="text-stone-500">
+<td class="px-4 py-2 text-right font-semibold text-xs font-label" colspan="3">DIFFERENCE</td>
+<td class="px-4 py-2 text-center text-xs font-bold text-green-600 bg-green-50/50" colspan="2">DR / CR Balanced (0.00)</td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-8 py-6 bg-surface-container-high flex justify-end space-x-4">
+<button class="flex items-center space-x-2 px-6 py-3 border border-error/30 text-error bg-white rounded-lg font-headline font-bold hover:bg-error/5 transition-colors active:scale-95">
+<span class="material-symbols-outlined" style="font-size: 20px;">brush</span>
+<span>Clear Form</span>
+</button>
+<button class="flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-primary to-primary-container text-white rounded-lg font-headline font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-95">
+<span class="material-symbols-outlined" style="font-size: 20px;">save</span>
+<span>Save Journal</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

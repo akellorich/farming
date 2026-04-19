@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Material Request - Pasture Prime</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-fixed-variant": "#0c5216",
+            "on-primary-fixed": "#002203",
+            "tertiary-container": "#387b41",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#07521d",
+            "on-secondary-fixed-variant": "#5c4300",
+            "surface-tint": "#2a6b2c",
+            "primary": "#206223",
+            "on-tertiary-fixed": "#002107",
+            "on-error-container": "#93000a",
+            "on-tertiary": "#ffffff",
+            "inverse-primary": "#91d78a",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#40493d",
+            "tertiary": "#1d622b",
+            "on-surface": "#1a1c19",
+            "background": "#fafaf5",
+            "surface-container-low": "#f4f4ef",
+            "surface-container": "#eeeee9",
+            "on-secondary-fixed": "#261a00",
+            "tertiary-fixed-dim": "#90d792",
+            "outline-variant": "#bfcaba",
+            "inverse-on-surface": "#f1f1ec",
+            "on-primary-container": "#cbffc2",
+            "inverse-surface": "#2f312e",
+            "error": "#ba1a1a",
+            "secondary-container": "#fec330",
+            "surface-bright": "#fafaf5",
+            "primary-fixed-dim": "#91d78a",
+            "outline": "#707a6c",
+            "secondary": "#795900",
+            "secondary-fixed": "#ffdfa0",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-container-high": "#e8e8e3",
+            "on-secondary-container": "#6f5100",
+            "on-background": "#1a1c19",
+            "tertiary-fixed": "#abf4ac",
+            "surface-container-highest": "#e3e3de",
+            "surface-dim": "#dadad5",
+            "on-tertiary-container": "#c7ffc5",
+            "surface-variant": "#e3e3de",
+            "surface": "#fafaf5",
+            "secondary-fixed-dim": "#f8bd2a",
+            "on-error": "#ffffff",
+            "primary-container": "#3a7b3a",
+            "primary-fixed": "#acf4a4"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Work Sans"],
+            "label": ["Work Sans"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body { font-family: 'Work Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    .glass-nav {
+      background: rgba(250, 250, 245, 0.8);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<!-- Background Content (Blurred Inventory Screen) -->
+<div class="fixed inset-0 flex flex-col blur-sm grayscale-[0.2] opacity-60 pointer-events-none">
+<!-- TopAppBar Mock -->
+<header class="flex justify-between items-center w-full px-8 h-16 bg-stone-50/80 sticky top-0 z-40">
+<div class="text-lg font-black text-green-900">Pasture Prime</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined">search</span>
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden">
+<!-- SideNav Mock -->
+<aside class="flex flex-col h-screen w-64 p-6 bg-stone-100">
+<nav class="space-y-4">
+<div class="flex items-center gap-3 p-3 text-stone-600"><span class="material-symbols-outlined">dashboard</span> Dashboard</div>
+<div class="flex items-center gap-3 p-3 text-stone-600"><span class="material-symbols-outlined">agriculture</span> Livestock</div>
+<div class="flex items-center gap-3 p-3 bg-green-100 text-green-900 rounded-full font-bold"><span class="material-symbols-outlined">inventory_2</span> Materials</div>
+</nav>
+</aside>
+<!-- Content Area Mock -->
+<section class="flex-1 p-8 space-y-6">
+<div class="flex justify-between items-end">
+<h1 class="text-4xl font-extrabold tracking-tight">Inventory Management</h1>
+</div>
+<div class="grid grid-cols-4 gap-6">
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+<div class="h-32 bg-white rounded-xl shadow-sm"></div>
+</div>
+<div class="w-full h-96 bg-white rounded-xl shadow-sm"></div>
+</section>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-on-surface/20 backdrop-blur-[2px]">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-4xl flex overflow-hidden shadow-2xl rounded-lg h-[640px]">
+<!-- Left Sidebar: Brand & Image -->
+<aside class="relative w-1/3 h-full flex flex-col justify-between overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Pasture background" class="w-full h-full object-cover" data-alt="lush sprawling green dairy pasture at sunrise with morning dew and soft golden sunlight illuminating the blades of grass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo5R_1wNmcQupN7fUf1JwVitvyZGZLJWW5PynkGFLoY8sN0ak5Ndi9AUl1SkZgSStPI7AkCPcrHORlsqFXN0oiWGNsyrCbMXkYPc_z3ltXN7f7XsZD5W6Z1xBrZNgLT6swNAEycSCT85tuCElthTsdvh_776bnEpj1_prnWHsFxcTI9cHsUtAfic-lZ200p7PXWkHHREEfjZO1mJ1a4lwS0p8BB0_uIotwmBCmDvl7pnviGSi_KBMmSS-8JxtTMkVgt7UZSaoG4uJA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 p-10 h-full flex flex-col">
+<div class="mb-auto">
+<div class="text-2xl font-black text-white tracking-tighter mb-1">Pasture Prime</div>
+<div class="text-xs font-bold text-primary-fixed uppercase tracking-widest opacity-80">Batch Feeding Module</div>
+</div>
+<div class="mt-auto text-white">
+<h2 class="text-3xl font-bold leading-tight mb-4">Precision<br/>Feeding Request</h2>
+<p class="text-sm font-light leading-relaxed text-surface-container-low/90">
+              Generate precise material requirements based on your livestock counts and current nutritional formulations.
+            </p>
+</div>
+</div>
+</aside>
+<!-- Right Section: Form -->
+<section class="flex-1 flex flex-col bg-surface-bright">
+<!-- Form Header -->
+<div class="p-8 pb-4 flex justify-between items-start">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">New Production Log</span>
+<h3 class="text-2xl font-extrabold text-on-surface tracking-tight mt-1">Material Request</h3>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Body -->
+<form class="flex-1 px-8 overflow-y-auto space-y-5">
+<!-- Formulation -->
+<div class="space-y-1.5">
+<label class="block text-sm font-bold text-on-surface uppercase tracking-tight">Select Formulation</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary appearance-none">
+<option>High Yield Mix - Premium</option>
+<option>Calf Starter - Early Growth</option>
+<option>Dry Cow Mineral Base</option>
+<option>Transition Diet Stage 2</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Row 1: Animal Count & Feed -->
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-1.5">
+<label class="block text-sm font-bold text-on-surface uppercase tracking-tight">Number of Animals</label>
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary" type="number" value="120"/>
+</div>
+<div class="space-y-1.5">
+<label class="block text-sm font-bold text-on-surface uppercase tracking-tight">Feed per Animal</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary pr-12" type="number" value="12.5"/>
+<span class="absolute right-4 top-3 text-xs font-bold text-outline">KG</span>
+</div>
+</div>
+</div>
+<!-- Calculated Field -->
+<div class="p-4 bg-tertiary-fixed/30 rounded-lg border border-tertiary/10 flex justify-between items-center">
+<div>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-on-tertiary-fixed-variant">Total Material Required</span>
+<span class="text-xl font-extrabold text-primary">1,500.00</span>
+</div>
+<span class="text-sm font-black text-primary opacity-60">KG</span>
+</div>
+<!-- Date Picker -->
+<div class="space-y-1.5">
+<label class="block text-sm font-bold text-on-surface uppercase tracking-tight">Production Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary" type="date" value="2023-10-24"/>
+</div>
+</div>
+<!-- Notes -->
+<div class="space-y-1.5">
+<label class="block text-sm font-bold text-on-surface uppercase tracking-tight">Narration / Notes</label>
+<textarea class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg p-3 text-sm focus:ring-primary focus:border-primary resize-none" placeholder="Add specific batch instructions here..." rows="3"></textarea>
+</div>
+</form>
+<!-- Footer -->
+<div class="p-6 flex items-center justify-end gap-4 border-t border-outline-variant/10">
+<button class="text-xs font-bold text-on-surface-variant hover:text-on-surface transition-colors tracking-tight px-4 py-2 hover:bg-surface-container rounded-lg">
+  Cancel
+</button>
+<button class="bg-primary hover:bg-primary-container text-white px-5 py-2 rounded-lg text-xs font-bold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center gap-2">
+  Generate Request
+  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+</body></html>

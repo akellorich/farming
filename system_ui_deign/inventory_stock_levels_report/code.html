@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Inventory Stock Levels</title>
+<!-- Tailwind CSS with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#6f5100",
+              "surface-dim": "#dadad5",
+              "secondary-fixed-dim": "#f8bd2a",
+              "on-background": "#1a1c19",
+              "on-tertiary-container": "#c7ffc5",
+              "on-surface-variant": "#40493d",
+              "primary-container": "#3a7b3a",
+              "surface-variant": "#e3e3de",
+              "surface-tint": "#2a6b2c",
+              "inverse-surface": "#2f312e",
+              "primary": "#206223",
+              "surface-bright": "#fafaf5",
+              "outline": "#707a6c",
+              "on-error-container": "#93000a",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#bfcaba",
+              "surface-container-high": "#e8e8e3",
+              "on-surface": "#1a1c19",
+              "secondary": "#795900",
+              "secondary-container": "#fec330",
+              "on-primary": "#ffffff",
+              "inverse-primary": "#91d78a",
+              "tertiary-container": "#387b41",
+              "on-secondary-fixed-variant": "#5c4300",
+              "primary-fixed-dim": "#91d78a",
+              "on-error": "#ffffff",
+              "on-primary-fixed": "#002203",
+              "on-secondary-fixed": "#261a00",
+              "surface-container-low": "#f4f4ef",
+              "secondary-fixed": "#ffdfa0",
+              "tertiary-fixed": "#abf4ac",
+              "surface-container-highest": "#e3e3de",
+              "error": "#ba1a1a",
+              "surface-container": "#eeeee9",
+              "surface-container-lowest": "#ffffff",
+              "background": "#fafaf5",
+              "surface": "#fafaf5",
+              "primary-fixed": "#acf4a4",
+              "inverse-on-surface": "#f1f1ec",
+              "tertiary-fixed-dim": "#90d792",
+              "tertiary": "#1d622b",
+              "on-tertiary-fixed": "#002107",
+              "on-primary-fixed-variant": "#0c5216",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#cbffc2",
+              "on-tertiary-fixed-variant": "#07521d",
+              "error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"],
+              "manrope": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .botanical-shadow {
+            box-shadow: 0 10px 24px -8px rgba(32, 98, 35, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface overflow-x-hidden">
+<!-- SideNavBar (Authority: Updated to match SCREEN_88) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 space-y-4 hidden md:flex">
+<div class="px-6 mb-8">
+<h1 class="text-2xl font-black text-green-900 dark:text-green-500 font-manrope">JUKAM Dairy</h1>
+<p class="font-manrope font-semibold text-[10px] tracking-wider uppercase text-slate-500 dark:text-slate-400">Modern Agrarian</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-1">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span>Livestock</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">water_drop</span>
+<span>Production</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Reports (ACTIVE state styling from SCREEN_88) -->
+<a class="flex items-center gap-4 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-200 rounded-full px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span>Reports</span>
+</a>
+<div class="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Users Manager</span>
+</a>
+<a class="flex items-center gap-4 text-slate-600 dark:text-slate-400 px-4 py-3 mx-2 font-manrope font-semibold text-xs tracking-wider uppercase hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- User Profile Section from SCREEN_88 -->
+<div class="mt-auto px-2 pb-2">
+<div class="relative group">
+<button class="w-full flex items-center gap-3 bg-surface-container-lowest rounded-xl p-3 botanical-shadow hover:bg-primary-fixed/30 transition-all">
+<img alt="James Kamau" class="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I"/>
+<div class="text-left overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">James Kamau</p>
+<p class="font-label text-[10px] uppercase tracking-tighter opacity-60">General Manager</p>
+</div>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar (Authority: Updated to match SCREEN_88) -->
+<header class="fixed top-0 right-0 left-0 md:left-64 z-40 backdrop-blur-md bg-surface/60 dark:bg-slate-900/60 shadow-sm dark:shadow-none flex items-center justify-between px-6 py-3">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-green-800 dark:text-green-400 font-manrope font-bold">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-lg tracking-tight">Stock Analysis</span>
+</div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search reports..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors relative scale-95 active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Page Content (Preserved from SCREEN_50) -->
+<div class="mt-20 p-6 md:p-10 space-y-8 max-w-7xl mx-auto w-full">
+<!-- Hero Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="text-secondary font-label text-xs uppercase tracking-[0.2em] font-semibold">Stock Analysis</span>
+<h2 class="font-headline text-4xl font-extrabold text-on-surface mt-2 tracking-tight">Inventory Stock Levels</h2>
+<p class="text-on-surface-variant font-body mt-2 max-w-lg">Comprehensive audit of essential materials, medical supplies, and general farm utility stock.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-md border border-outline-variant/30 text-on-surface font-semibold text-sm hover:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                    Last 30 Days
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-md bg-gradient-to-r from-primary to-primary-container text-on-primary font-semibold text-sm shadow-sm hover:translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Full Report
+                </button>
+</div>
+</div>
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Dairy Meal Raw Materials -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 transition-transform group-hover:scale-110 w-auto"><div class="p-4 text-right">
+<p class="font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Category Share</p>
+<p class="font-headline text-lg font-bold text-primary">58%</p>
+<div class="mt-1 h-1 w-12 ml-auto bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 58%"></div>
+</div>
+</div></div>
+<div class="flex flex-col h-full justify-between gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">grain</span>
+</div>
+<div>
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Dairy Meal Raw Materials</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-3xl font-bold text-on-surface">12.4</span>
+<span class="text-xs font-semibold text-on-surface-variant">TONS</span>
+</div>
+</div>
+<div class="h-1 bg-surface-container-low w-full rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+</div>
+</div>
+<!-- Complete Commercial Meals -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 transition-transform group-hover:scale-110 w-auto"><div class="p-4 text-right">
+<p class="font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Category Share</p>
+<p class="font-headline text-lg font-bold text-secondary">22%</p>
+<div class="mt-1 h-1 w-12 ml-auto bg-secondary/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 22%"></div>
+</div>
+</div></div>
+<div class="flex flex-col h-full justify-between gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">package_2</span>
+</div>
+<div>
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Complete Commercial Meals</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-3xl font-bold text-on-surface">450</span>
+<span class="text-xs font-semibold text-on-surface-variant">BAGS</span>
+</div>
+</div>
+<div class="h-1 bg-surface-container-low w-full rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/3"></div>
+</div>
+</div>
+</div>
+<!-- Medical Supplies -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 transition-transform group-hover:scale-110 w-auto"><div class="p-4 text-right">
+<p class="font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Category Share</p>
+<p class="font-headline text-lg font-bold text-error">12%</p>
+<div class="mt-1 h-1 w-12 ml-auto bg-error/10 rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 12%"></div>
+</div>
+</div></div>
+<div class="flex flex-col h-full justify-between gap-4">
+<div class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<div>
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Medical Supplies</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-3xl font-bold text-on-surface">88</span>
+<span class="text-xs font-semibold text-on-surface-variant">UNITS</span>
+</div>
+</div>
+<div class="h-1 bg-surface-container-low w-full rounded-full overflow-hidden">
+<div class="h-full bg-error w-5/6"></div>
+</div>
+</div>
+</div>
+<!-- General Supplies -->
+<div class="bg-surface-container-lowest p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 transition-transform group-hover:scale-110 w-auto"><div class="p-4 text-right">
+<p class="font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Category Share</p>
+<p class="font-headline text-lg font-bold text-tertiary">8%</p>
+<div class="mt-1 h-1 w-12 ml-auto bg-tertiary/10 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 8%"></div>
+</div>
+</div></div>
+<div class="flex flex-col h-full justify-between gap-4">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">construction</span>
+</div>
+<div>
+<h3 class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">General Supplies</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-3xl font-bold text-on-surface">215</span>
+<span class="text-xs font-semibold text-on-surface-variant">SKUS</span>
+</div>
+</div>
+<div class="h-1 bg-surface-container-low w-full rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-1/2"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Table Section -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="px-8 py-6 border-b border-surface-container flex items-center justify-between">
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Inventory Stock List</h3>
+<p class="text-sm text-on-surface-variant font-body">Real-time status of all managed inventory items.</p>
+</div>
+<div class="flex gap-2">
+<div class="flex border border-outline-variant/30 rounded-md overflow-hidden">
+<button class="px-4 py-2 text-xs font-bold bg-surface-container text-on-surface">ALL</button>
+<button class="px-4 py-2 text-xs font-bold hover:bg-surface-container-low transition-colors">LOW STOCK</button>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Item Name</th>
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Category</th>
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Unit</th>
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-right">Qty in Stock</th>
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-right">Reorder Level</th>
+<th class="text-left py-4 px-8 font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">Crushed Yellow Maize</td>
+<td class="py-5 px-8 text-sm font-body">Dairy Meal Raw Materials</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">Tons</td>
+<td class="py-5 px-8 text-right font-headline font-bold">4.2</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">2.5</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wider">Sufficient</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">High-Protein Dairy Pellets</td>
+<td class="py-5 px-8 text-sm font-body">Complete Commercial Meals</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">50kg Bags</td>
+<td class="py-5 px-8 text-right font-headline font-bold">12</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">20</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-wider">Low Stock</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">Foot and Mouth Vaccines</td>
+<td class="py-5 px-8 text-sm font-body">Medical Supplies</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">Vials</td>
+<td class="py-5 px-8 text-right font-headline font-bold">5</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">10</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-wider">Low Stock</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">Cotton Seed Cake</td>
+<td class="py-5 px-8 text-sm font-body">Dairy Meal Raw Materials</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">Tons</td>
+<td class="py-5 px-8 text-right font-headline font-bold">0.0</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">1.0</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wider">Out of Stock</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">Nitrile Farm Gloves</td>
+<td class="py-5 px-8 text-sm font-body">General Supplies</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">Box (100ct)</td>
+<td class="py-5 px-8 text-right font-headline font-bold">45</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">10</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wider">Sufficient</span>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-5 px-8 font-headline font-bold text-sm">Molasses Liquid</td>
+<td class="py-5 px-8 text-sm font-body">Dairy Meal Raw Materials</td>
+<td class="py-5 px-8 text-xs font-medium text-on-surface-variant">Liters</td>
+<td class="py-5 px-8 text-right font-headline font-bold">1,200</td>
+<td class="py-5 px-8 text-right text-xs text-on-surface-variant">400</td>
+<td class="py-5 px-8 text-center">
+<span class="inline-block px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wider">Sufficient</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-4 bg-surface-container-low flex items-center justify-between text-xs text-on-surface-variant font-medium">
+<span>Showing 6 of 32 items</span>
+<div class="flex gap-4">
+<button class="hover:text-primary">Previous</button>
+<div class="flex gap-2">
+<span class="text-primary font-bold underline">1</span>
+<span class="hover:text-primary cursor-pointer">2</span>
+<span class="hover:text-primary cursor-pointer">3</span>
+</div>
+<button class="hover:text-primary">Next</button>
+</div>
+</div>
+</div>
+<!-- Visual Insight Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 bg-primary/90 text-on-primary rounded-xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+<div class="absolute right-0 top-0 h-full w-1/2 opacity-20 pointer-events-none">
+<img alt="Grains background" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6a0eeyS0vs4gOtNqDsH9jF41RmJUGn_G6s6DABDvmvIZ2l_AQLdzX7oOBijJzvHnyJoyBd5FvNfsub9mhSGO_jTMrEPRTEGc7tawLRhq3qwS9GY-C6CyHtk-x-NLlNV-EeVXq42bDgLKL81ctAi0X-rOlgQhXo4Y_IpdiaiZBDfVTIRg-ycnFHFp7HlvnTVH3avy7K4WXYgMo4VUwhzh2UBrs7LujVr5_GmN_Jei-SXpidqwc6ixM4boJrgRkgzhvfZoioKGuCVZ8"/>
+</div>
+<div class="relative z-10">
+<span class="font-label text-[10px] uppercase tracking-[0.3em] font-bold opacity-80">Inventory Prediction</span>
+<h3 class="font-headline text-3xl font-bold mt-4 leading-tight">Critical reorder window opening for 'Dairy Meal Raw Materials' in 5 days.</h3>
+</div>
+<div class="relative z-10 flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-4xl font-headline font-extrabold">2.4<span class="text-lg font-light ml-1 opacity-70">T/wk</span></span>
+<span class="text-[10px] font-label opacity-70 uppercase mt-1">Consumption Rate</span>
+</div>
+<div class="h-10 w-[1px] bg-white/20"></div>
+<button class="px-6 py-3 bg-white text-primary font-bold rounded-md hover:shadow-xl hover:translate-y-[-2px] transition-all">Generate Purchase Order</button>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col gap-6">
+<h4 class="font-headline font-bold text-lg">Category Distribution</h4>
+<div class="space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant">Raw Materials</span>
+<span class="text-on-surface">58%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 58%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant">Commercial Meals</span>
+<span class="text-on-surface">22%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 22%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant">Medical</span>
+<span class="text-on-surface">12%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 12%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface-variant">General</span>
+<span class="text-on-surface">8%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 8%"></div>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/30 mt-auto">
+<p class="text-[10px] text-on-surface-variant italic">Data updated as of today, 08:45 AM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Decoration -->
+<footer class="mt-auto py-8 px-10 text-center">
+<p class="text-xs text-zinc-400 font-label tracking-widest uppercase">© 2024 JUKAM Dairy Operations • Secure Ledger</p>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Only - Simplified to reflect sidebar menu items) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-zinc-100 flex justify-around items-center py-3 md:hidden z-50">
+<button class="flex flex-col items-center gap-1 text-zinc-400">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-400">
+<span class="material-symbols-outlined text-xl">pets</span>
+<span class="text-[10px] font-medium">Livestock</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span class="text-[10px] font-bold">Reports</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-400">
+<span class="material-symbols-outlined text-xl">inventory_2</span>
+<span class="text-[10px] font-medium">Stock</span>
+</button>
+</nav>
+</body></html>
