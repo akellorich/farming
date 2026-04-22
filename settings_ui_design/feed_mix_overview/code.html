@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JUKAM Dairy - Feed Mix Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#fafaf5",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#0c5216",
+                        "tertiary": "#1d622b",
+                        "background": "#fafaf5",
+                        "secondary-fixed-dim": "#f8bd2a",
+                        "on-tertiary-fixed": "#002107",
+                        "on-tertiary-container": "#c7ffc5",
+                        "on-surface": "#1a1c19",
+                        "primary-fixed-dim": "#91d78a",
+                        "on-primary-fixed": "#002203",
+                        "primary": "#206223",
+                        "inverse-on-surface": "#f1f1ec",
+                        "tertiary-fixed": "#abf4ac",
+                        "tertiary-fixed-dim": "#90d792",
+                        "surface-container-high": "#e8e8e3",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#dadad5",
+                        "surface-tint": "#2a6b2c",
+                        "on-background": "#1a1c19",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#91d78a",
+                        "surface-variant": "#e3e3de",
+                        "secondary-container": "#fec330",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "on-surface-variant": "#40493d",
+                        "primary-container": "#3a7b3a",
+                        "secondary-fixed": "#ffdfa0",
+                        "secondary": "#795900",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#acf4a4",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container-highest": "#e3e3de",
+                        "surface-bright": "#fafaf5",
+                        "tertiary-container": "#387b41",
+                        "surface-container": "#eeeee9",
+                        "outline": "#707a6c",
+                        "inverse-surface": "#2f312e",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#6f5100",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f4f4ef",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "on-secondary-fixed": "#261a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 z-50 bg-[#f4f4ef] dark:bg-stone-900 flex flex-col h-full p-6 space-y-4">
+<div class="mb-8 px-2">
+<h1 class="font-['Manrope'] text-xl font-bold text-[#206223]">JUKAM</h1>
+<p class="text-xs text-on-surface-variant font-['Work_Sans'] tracking-wide">Modern Agrarian</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="text-stone-600 dark:text-stone-400 flex items-center gap-3 px-4 py-3 hover:bg-[#e4e4df] dark:hover:bg-stone-800 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Work_Sans'] tracking-wide">Dashboard</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 flex items-center gap-3 px-4 py-3 hover:bg-[#e4e4df] dark:hover:bg-stone-800 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-['Work_Sans'] tracking-wide">Livestock</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 flex items-center gap-3 px-4 py-3 hover:bg-[#e4e4df] dark:hover:bg-stone-800 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-['Work_Sans'] tracking-wide">Production</span>
+</a>
+<a class="bg-[#acf4a4] text-[#002203] rounded-full font-bold shadow-sm flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Work_Sans'] tracking-wide">Inventory</span>
+</a>
+<a class="text-stone-600 dark:text-stone-400 flex items-center gap-3 px-4 py-3 hover:bg-[#e4e4df] dark:hover:bg-stone-800 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-['Work_Sans'] tracking-wide">Analytics</span>
+</a>
+</nav>
+<button class="mt-auto bg-gradient-to-r from-primary to-primary-container text-white rounded-md py-3 px-4 font-semibold flex items-center justify-center gap-2 hover:-translate-y-0.5 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>New Mix</span>
+</button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 relative min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-64 right-0 z-40 bg-[#fafaf5]/80 dark:bg-stone-950/80 backdrop-blur-md shadow-[0_4px_24px_rgba(26,28,25,0.08)] h-16 flex items-center px-8">
+<div class="flex justify-between items-center w-full max-w-screen-2xl mx-auto">
+<h2 class="font-['Manrope'] text-2xl font-extrabold tracking-tight text-[#206223]">Feed Mix Overview</h2>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search formulations..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-primary-container ml-2">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional farm manager wearing a neutral linen shirt with soft outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtiWZIyz4Mfjla3d8z2lvOZgPvhmas9KakqjoysC2WIMV1956CAuUpvZ_VCoTcIWhrGOg9dtx50tmJpT8EljhNxi4JCaR9DxVtyDvlRnkZPbmP41VDVtdv6w1DdEFy7oJdUtbMCXJqVBlyjzqurOAeUGKiN75px3QFMqZM1xSLt9-hkOvQ9OR1zXwqetDTNWxFIddpZwzjfyvy08L-lqSFGW8Ez9m1EGy1mlqdNxPaTX0ue8g_t81FSbDLoCrZn36SIKrbrP23kzzV"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="mt-16 p-8 flex flex-col gap-8 max-w-screen-2xl mx-auto w-full">
+<!-- Summary Section -->
+<div class="grid grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<p class="text-on-surface-variant text-xs font-bold tracking-widest uppercase mb-1">Total Formulations</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-extrabold text-primary">12</span>
+<span class="text-tertiary text-xs font-medium">+2 this month</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<p class="text-on-surface-variant text-xs font-bold tracking-widest uppercase mb-1">Active Batches</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-extrabold text-secondary">4</span>
+<span class="text-on-surface-variant text-xs">Currently Mixing</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<p class="text-on-surface-variant text-xs font-bold tracking-widest uppercase mb-1">Most Active Ingredient</p>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-extrabold text-primary">Maize Germ</span>
+<span class="text-tertiary text-xs font-bold">45% usage</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<p class="text-on-surface-variant text-xs font-bold tracking-widest uppercase mb-1">Stock Status</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-extrabold text-tertiary">85%</span>
+<span class="text-tertiary text-xs font-medium">Optimal</span>
+</div>
+</div>
+</div>
+<!-- Main Data Grid (Bento Style) -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Formulation List + Action -->
+<div class="col-span-8 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10 overflow-hidden">
+<div class="px-6 py-5 border-b border-surface-container-low flex justify-between items-center">
+<h3 class="font-bold text-lg">Active Formulations</h3>
+<span class="text-xs text-on-surface-variant font-medium">Updated 2h ago</span>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-xs font-bold tracking-widest uppercase text-on-surface-variant">Formulation Name</th>
+<th class="px-6 py-4 text-xs font-bold tracking-widest uppercase text-on-surface-variant">Primary Ingredient</th>
+<th class="px-6 py-4 text-xs font-bold tracking-widest uppercase text-on-surface-variant">Base Qty (KG)</th>
+<th class="px-6 py-4 text-xs font-bold tracking-widest uppercase text-on-surface-variant">Last Mixed</th>
+<th class="px-6 py-4 text-xs font-bold tracking-widest uppercase text-on-surface-variant text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low/30 transition-colors group cursor-pointer bg-primary-fixed/5">
+<td class="px-6 py-5">
+<span class="font-bold text-on-surface block">High Yield Mix A2</span>
+<span class="text-xs text-on-surface-variant">Lactating Cows - Tier 1</span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Maize Germ</td>
+<td class="px-6 py-5 font-semibold text-on-surface">500.0</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Oct 24, 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-xs font-bold">Stable</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<span class="font-bold text-on-surface block">Calf Starter</span>
+<span class="text-xs text-on-surface-variant">Young Stock 0-3M</span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Soya Meal</td>
+<td class="px-6 py-5 font-semibold text-on-surface">150.0</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Oct 22, 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-xs font-bold">Stable</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors group cursor-pointer">
+<td class="px-6 py-5">
+<span class="font-bold text-on-surface block">Dry Cow Ration</span>
+<span class="text-xs text-on-surface-variant">Maintenance Phase</span>
+</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Wheat Bran</td>
+<td class="px-6 py-5 font-semibold text-on-surface">320.0</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Oct 20, 2023</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full text-xs font-bold">Restocking</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-4 rounded-xl font-bold flex items-center gap-3 shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all active:scale-95 w-fit">
+<span class="material-symbols-outlined">add_circle</span>
+                    Create New Feed Mix
+                </button>
+</div>
+<!-- Breakdown & Graph -->
+<div class="col-span-4 flex flex-col gap-8">
+<!-- Ingredient Breakdown -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-bold">Breakdown: High Yield A2</h3>
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Maize Germ</span>
+<span>45%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Cotton Seed</span>
+<span>25%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 25%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Soya Meal</span>
+<span>20%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container" style="width: 20%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-1">
+<span>Premix/Minerals</span>
+<span>10%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-outline" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Production Graph -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-outline-variant/10">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-bold text-sm">Volume (Last 14 Days)</h3>
+<span class="text-xs text-on-surface-variant">Tons</span>
+</div>
+<div class="relative h-24 w-full flex items-end justify-between gap-1">
+<!-- Faked Sparkline bars/path for visual effect -->
+<div class="w-full h-full relative">
+<svg class="w-full h-full" viewbox="0 0 100 40">
+<path d="M0 35 L10 32 L20 38 L30 20 L40 25 L50 15 L60 18 L70 5 L80 12 L90 8 L100 10" fill="none" stroke="#206223" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<path d="M0 35 L10 32 L20 38 L30 20 L40 25 L50 15 L60 18 L70 5 L80 12 L90 8 L100 10 V40 H0 Z" fill="url(#grad)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#206223;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#206223;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">
+<span>Oct 10</span>
+<span>Oct 17</span>
+<span>Today</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Details/Alerts -->
+<div class="grid grid-cols-4 gap-8">
+<div class="bg-primary/5 p-4 rounded-lg flex items-center gap-4 border border-primary/10">
+<div class="bg-primary text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary">Critical Reorder</p>
+<p class="text-xs text-on-surface-variant">Molasses stock &lt; 15%</p>
+</div>
+</div>
+<div class="bg-secondary/5 p-4 rounded-lg flex items-center gap-4 border border-secondary/10">
+<div class="bg-secondary text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">sync</span>
+</div>
+<div>
+<p class="text-xs font-bold text-secondary">In Progress</p>
+<p class="text-xs text-on-surface-variant">Batch #402 - 65%</p>
+</div>
+</div>
+<div class="col-span-2 bg-surface-container p-4 rounded-lg flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="bg-on-surface-variant text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<p class="text-xs font-bold">Last Log Exported</p>
+<p class="text-xs text-on-surface-variant">Oct 24, 2023 - 09:15 AM</p>
+</div>
+</div>
+<button class="text-primary text-xs font-bold hover:underline">View All History</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

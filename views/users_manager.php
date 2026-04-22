@@ -13,14 +13,14 @@ $base_path = '../';
     <title>Users Manager | Jukam Farm</title>
     
     <!-- Local Assets -->
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
     <link rel="stylesheet" href="../css/users.css">
-    <link rel="stylesheet" href="../css/alert.css">
+    <link rel="stylesheet" href="../plugins/alert/alert.css">
     
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
@@ -330,8 +330,9 @@ $base_path = '../';
     <!-- Global Scripts -->
     <script src="../plugins/jquery-3.6.1.js"></script>
     <script src="../plugins/popper.js"></script>
-    <script src="../plugins/bootstrap.js"></script>
+    <script src="../plugins/bootstrap/bootstrap.js"></script>
     <script src="../js/header.js"></script>
+    <script src="../plugins/alert/alert.js"></script>
 
     <!-- Add New User Modal -->
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -488,7 +489,7 @@ $base_path = '../';
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             const table = $('#usersTable').DataTable({
                 "pageLength": 5,
@@ -568,6 +569,6 @@ $base_path = '../';
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 </html>
