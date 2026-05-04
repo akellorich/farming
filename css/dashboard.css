@@ -98,6 +98,17 @@ h1, h2, h3, h4, .font-headline {
     .stats-trend {
         font-size: 8px !important;
     }
+    .health-card-inner {
+        padding: 0.75rem !important;
+    }
+    .health-card-inner h2 {
+        font-size: 1.15rem !important;
+        margin-bottom: 0.15rem !important;
+    }
+    .health-card-inner p {
+        font-size: 7px !important;
+        line-height: 1.1;
+    }
     /* Mobile Sidebar Labels */
     .sidebar.mobile-show .nav-item span:not(.material-symbols-outlined) {
         opacity: 1 !important;
@@ -155,15 +166,30 @@ h1, h2, h3, h4, .font-headline {
 
 .stats-value {
     font-size: 1.875rem;
-    font-weight: 800;
+    font-weight: 500;
     color: var(--primary);
     margin-bottom: 0;
 }
 
 .stats-trend {
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 0.25rem;
+}
+
+.health-card-inner {
+    background-color: var(--surface-container-low);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    transition: transform 0.2s;
+}
+
+.health-card-inner:hover {
+    transform: translateY(-2px);
+}
+
+.health-card-inner h2.font-headline {
+    font-weight: 500;
 }
 
 .progress-custom {
@@ -1016,12 +1042,29 @@ body.dark-theme .lock-btn-outline:hover {
     margin-bottom: 2rem; /* Added bottom margin */
 }
 
+.pass-btn-outline-danger {
+    background: transparent;
+    color: var(--error);
+    border: 1.5px solid var(--error);
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pass-btn-outline-danger:hover {
+    background-color: var(--error);
+    color: white;
+}
+
 .pass-btn-text {
     background: none;
     border: none;
     color: var(--on-surface-variant);
-    font-weight: 500; /* Removed boldness */
-    font-size: 0.875rem;
+    font-weight: 500;
+    font-size: 0.75rem;
     cursor: pointer;
     transition: color 0.2s;
 }
@@ -1034,10 +1077,10 @@ body.dark-theme .lock-btn-outline:hover {
     background: linear-gradient(to right, var(--primary), var(--primary-container));
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
+    padding: 0.625rem 1.5rem;
     border-radius: 0.5rem;
-    font-weight: 500; /* Removed boldness */
-    font-size: 0.875rem;
+    font-weight: 500;
+    font-size: 0.75rem;
     cursor: pointer;
     box-shadow: 0 10px 20px -5px rgba(32, 98, 35, 0.2);
     transition: all 0.2s;
@@ -1091,19 +1134,28 @@ body.dark-theme .password-modal-close:hover {
         flex-direction: column;
     }
     .password-tips-sidebar {
-        width: 100%;
-        height: 200px;
+        display: none;
     }
     .password-form-area {
         width: 100%;
-        padding: 2rem;
+        padding: 2.5rem 1.5rem;
     }
     .password-modal-container {
         height: auto;
-        max-height: 90vh;
+        max-height: 95vh;
+        width: calc(100% - 2rem);
+        margin: 1rem;
     }
-    .sidebar-overlay {
-        padding: 1.5rem;
+    .pass-input {
+        padding-top: 0.65rem !important;
+        padding-bottom: 0.65rem !important;
+    }
+    .form-title {
+        font-size: 1.15rem !important;
+    }
+    .user-summary-row {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1rem !important;
     }
 }
 

@@ -43,7 +43,7 @@
                     <span class="stats-trend text-success mb-2 ml-2">+12%</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">
+                    <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">
                         <span>Herd Health</span>
                         <span class="text-success">84%</span>
                     </div>
@@ -62,7 +62,7 @@
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">Liters</span>
                 </div>
                 <div class="mt-3">
-                    <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">
+                    <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">
                         <span>Daily Goal</span>
                         <span class="text-primary">92%</span>
                     </div>
@@ -84,7 +84,7 @@
                     <div class="d-flex gap-1" style="overflow: visible;">
                         <div class="activity-icon bg-warning text-white border border-white" style="width: 1.5rem; height: 1.5rem; font-size: 10px; margin-right: -8px; position: relative; z-index: 3;"><span class="material-symbols-outlined" style="font-size: 14px;">restaurant</span></div>
                         <div class="activity-icon bg-warning text-white border border-white" style="width: 1.5rem; height: 1.5rem; font-size: 10px; margin-right: -8px; position: relative; z-index: 2;"><span class="material-symbols-outlined" style="font-size: 14px;">medical_services</span></div>
-                        <div class="activity-icon bg-light text-muted border border-white stock-badge-count" style="width: 1.5rem; height: 1.5rem; font-size: 8px; font-weight: 800; position: relative; z-index: 1;">+2</div>
+                        <div class="activity-icon bg-light text-muted border border-white stock-badge-count" style="width: 1.5rem; height: 1.5rem; font-size: 8px; font-weight: 500; position: relative; z-index: 1;">+2</div>
                     </div>
                 </div>
             </div>
@@ -234,24 +234,24 @@
         <!-- Health Surveillance -->
         <div class="col-lg-6 mb-4">
             <div class="stats-card botanical-shadow h-100 p-4">
-                <div class="d-flex justify-content-between align-items-start mb-2">
+                <div class="d-flex justify-content-between align-items-start mb-0 mb-md-2">
                     <div>
                         <h5 class="font-headline font-weight-bold mb-1" style="font-size: 1.1rem;">Health Surveillance</h5>
                         <p class="text-muted small">Real-time monitoring of herd vitals and scheduled veterinarian inspections.</p>
                     </div>
                 </div>
                 
-                <div class="row mt-4">
-                    <div class="col-12 col-md-6 pr-md-2 mb-3 mb-md-0">
-                        <div class="health-card-inner p-4 h-100">
-                            <h2 class="font-headline font-weight-bold text-success mb-2">98.2%</h2>
-                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Vaccination Rate</p>
+                <div class="row mt-2 mt-md-4">
+                    <div class="col-6 col-md-6 pr-1 pr-md-2 mb-0">
+                        <div class="health-card-inner h-100">
+                            <h2 class="font-headline text-success mb-2">98.2%</h2>
+                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">Vaccination Rate</p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 pl-md-2">
-                        <div class="health-card-inner p-4 h-100">
-                            <h2 class="font-headline font-weight-bold text-error mb-2">03</h2>
-                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Active Quarantines</p>
+                    <div class="col-6 col-md-6 pl-1 pl-md-2">
+                        <div class="health-card-inner h-100">
+                            <h2 class="font-headline text-error mb-2">03</h2>
+                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">Active Quarantines</p>
                         </div>
                     </div>
                 </div>

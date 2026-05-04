@@ -436,3 +436,60 @@
   font-weight: 800;
   src: url('../fonts/manrope-v20-latin-800.woff2') format('woff2');
 }
+
+/* --- Global Pagination System (Standardized) --- */
+.pagination-container {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.page-btn {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #475569;
+    cursor: pointer;
+    margin: 0 0.15rem;
+}
+
+.page-btn.active {
+    background-color: #206223 !important;
+    color: white !important;
+    border-radius: 50%; /* Circle for active */
+    box-shadow: 0 4px 10px rgba(32, 98, 35, 0.2);
+}
+
+.page-btn.boundary-btn {
+    background-color: #f1f5f1; /* Light greenish/grey background */
+    color: #1a1c19;
+    border-radius: 0.75rem; /* Rounded Square */
+}
+
+.page-btn.boundary-btn:hover:not(:disabled) {
+    background-color: #e2e8e2;
+}
+
+.page-btn:hover:not(.active):not(:disabled) {
+    color: #206223;
+}
+
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    font-family: 'Manrope', sans-serif;
+    color: #64748b;
+    font-weight: 500;
+}

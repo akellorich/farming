@@ -453,14 +453,14 @@ body.dark-theme .users-table .text-dark {
    ========================================================================== */
 .user-modal-dialog {
     max-width: 900px !important;
-    border-radius: 1.25rem !important;
+    border-radius: 0.75rem !important;
     overflow: hidden !important;
     border: none !important;
 }
 
 .user-modal-content {
     border: none !important;
-    border-radius: 1.25rem !important;
+    border-radius: 0.75rem !important;
     overflow: hidden !important;
     background: var(--surface-container-lowest) !important;
     min-height: 560px;

@@ -49,6 +49,9 @@ $base_path = '../';
 
     <!-- Modular Header -->
     <?php include 'header.php'; ?>
+    <style>
+        #alert-container { top: 100px !important; } /* Move down to clear the Add Animal button */
+    </style>
 
     <!-- Modular Modals (Lock/Password) -->
     <?php include 'modals.php'; ?>
@@ -58,14 +61,14 @@ $base_path = '../';
         <div class="container-fluid pt-1 px-2">
             <!-- Header Section -->
             <div class="row align-items-center mb-3">
-                <div class="col-md-7">
+                <div class="col-7">
                     <span class="stats-label text-muted mb-1 d-block font-headline" style="letter-spacing: 0.15rem; font-size: 0.6rem;">Management Dashboard</span>
                     <h2 class="font-headline font-weight-bold text-on-surface" style="font-size: 1.5rem;">Animals Overview</h2>
                 </div>
-                <div class="col-md-5 d-flex justify-content-md-end">
+                <div class="col-5 d-flex justify-content-end">
                     <button class="btn btn-add-animal botanical-shadow" id="addAnimalBtn">
                         <span class="material-symbols-outlined">add</span>
-                        <span>Add New Animal</span>
+                        <span class="d-none d-sm-inline">Add New Animal</span>
                     </button>
                 </div>
             </div>
@@ -80,8 +83,8 @@ $base_path = '../';
                         </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                        <span class="stats-value font-headline" style="font-size: 1.5rem;">30</span>
-                        <span class="ml-2 font-headline" style="font-size: 10px; color: var(--primary); font-weight: 700;">+12 this month</span>
+                        <span class="stats-value font-headline" id="total_herd_val" style="font-size: 1.5rem;">0</span>
+                        <span class="ml-2 font-headline" id="total_herd_change" style="font-size: 10px; color: var(--primary); font-weight: 700;">+0 this month</span>
                     </div>
                 </div>
                 <div class="stats-bento-card botanical-shadow">
@@ -92,8 +95,8 @@ $base_path = '../';
                         </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                        <span class="stats-value font-headline" style="font-size: 1.5rem;">18</span>
-                        <span class="ml-2 text-muted font-headline" style="font-size: 10px; font-weight: 600;">60% of herd</span>
+                        <span class="stats-value font-headline" id="lactating_val" style="font-size: 1.5rem;">0</span>
+                        <span class="ml-2 text-muted font-headline" id="lactating_perc" style="font-size: 10px; font-weight: 600;">0% of herd</span>
                     </div>
                 </div>
                 <div class="stats-bento-card botanical-shadow">
@@ -104,8 +107,8 @@ $base_path = '../';
                         </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                        <span class="stats-value font-headline" style="font-size: 1.5rem;">8</span>
-                        <span class="ml-2 text-muted font-headline" style="font-size: 10px; font-weight: 600;">2 near term</span>
+                        <span class="stats-value font-headline" id="pregnant_val" style="font-size: 1.5rem;">0</span>
+                        <span class="ml-2 text-muted font-headline" id="pregnant_sub" style="font-size: 10px; font-weight: 600;">Active monitoring</span>
                     </div>
                 </div>
                 <div class="stats-bento-card botanical-shadow">
@@ -116,8 +119,8 @@ $base_path = '../';
                         </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                        <span class="stats-value font-headline" style="font-size: 1.5rem;">4</span>
-                        <span class="ml-2 font-headline" style="font-size: 10px; color: var(--secondary); font-weight: 700;">Action critical</span>
+                        <span class="stats-value font-headline" id="dry_val" style="font-size: 1.5rem;">0</span>
+                        <span class="ml-2 font-headline" id="dry_sub" style="font-size: 10px; color: var(--secondary); font-weight: 700;">Maintenance phase</span>
                     </div>
                 </div>
                 <div class="stats-bento-card botanical-shadow">
@@ -128,8 +131,8 @@ $base_path = '../';
                         </div>
                     </div>
                     <div class="d-flex align-items-baseline">
-                        <span class="stats-value font-headline" style="font-size: 1.5rem;">0</span>
-                        <span class="ml-2 text-muted font-headline" style="font-size: 10px; font-weight: 600;">Stable herd</span>
+                        <span class="stats-value font-headline" id="calves_val" style="font-size: 1.5rem;">0</span>
+                        <span class="ml-2 text-muted font-headline" style="font-size: 10px; font-weight: 600;">Young stock</span>
                     </div>
                 </div>
             </div>
@@ -170,58 +173,8 @@ $base_path = '../';
                                 <th class="text-right no-sort">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php
-                            $animals = [
-                                ['ID' => 'JK-001', 'Name' => 'Daisy', 'Breed' => 'Holstein', 'Status' => 'Lactating', 'Yield' => '32.4 L', 'Bars' => [40,60,80,100]],
-                                ['ID' => 'JK-042', 'Name' => 'Bella', 'Breed' => 'Jersey', 'Status' => 'Dry', 'Yield' => 'N/A', 'Bars' => []],
-                                ['ID' => 'JK-115', 'Name' => 'Luna', 'Breed' => 'Brown Swiss', 'Status' => 'Pregnant', 'Yield' => '28.1 L', 'Bars' => [80,60,40,30]],
-                                ['ID' => 'JK-204', 'Name' => 'Molly', 'Breed' => 'Holstein', 'Status' => 'Lactating', 'Yield' => '35.9 L', 'Bars' => [30,50,90,100]],
-                                ['ID' => 'JK-305', 'Name' => 'Nala', 'Breed' => 'Ayrshire', 'Status' => 'Lactating', 'Yield' => '31.2 L', 'Bars' => [40,50,70,90]],
-                                ['ID' => 'JK-412', 'Name' => 'Penny', 'Breed' => 'Guernsey', 'Status' => 'Dry', 'Yield' => 'N/A', 'Bars' => []],
-                                ['ID' => 'JK-518', 'Name' => 'Rosie', 'Breed' => 'Holstein', 'Status' => 'Pregnant', 'Yield' => '26.5 L', 'Bars' => [60,50,40,20]],
-                                ['ID' => 'JK-622', 'Name' => 'Sadie', 'Breed' => 'Jersey', 'Status' => 'Lactating', 'Yield' => '34.0 L', 'Bars' => [30,60,85,100]],
-                                ['ID' => 'JK-701', 'Name' => 'Willow', 'Breed' => 'Brown Swiss', 'Status' => 'Lactating', 'Yield' => '33.7 L', 'Bars' => [50,70,90,95]],
-                                ['ID' => 'JK-804', 'Name' => 'Zara', 'Breed' => 'Holstein', 'Status' => 'Dry', 'Yield' => 'N/A', 'Bars' => []],
-                                ['ID' => 'JK-912', 'Name' => 'Clover', 'Breed' => 'Ayrshire', 'Status' => 'Pregnant', 'Yield' => '27.2 L', 'Bars' => [40,60,70,80]],
-                                ['ID' => 'JK-101', 'Name' => 'Daffodil', 'Breed' => 'Holstein', 'Status' => 'Lactating', 'Yield' => '30.5 L', 'Bars' => [20,40,60,80]],
-                            ];
-                            for($i=0; $i<18; $i++) { $copy = $animals[$i%12]; $copy['ID'] .= '-'.($i+1); $animals[] = $copy; }
-
-                            foreach ($animals as $animal):
-                                $statusClass = 'status-' . strtolower($animal['Status']);
-                            ?>
-                            <tr>
-                                <td><span class="font-headline" style="color: var(--primary); font-weight: 700;"><?php echo $animal['ID']; ?></span></td>
-                                <td><span class="font-weight-medium"><?php echo $animal['Name']; ?></span></td>
-                                <td class="text-muted"><?php echo $animal['Breed']; ?></td>
-                                <td><span class="status-pill <?php echo $statusClass; ?>"><?php echo $animal['Status']; ?></span></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2 yield-container">
-                                        <span class="mr-2" style="width: 40px; font-weight: 400;"><?php echo $animal['Yield']; ?></span>
-                                        <?php if (!empty($animal['Bars'])): ?>
-                                        <div class="yield-bars" style="width: 2rem; height: 0.6rem;">
-                                            <?php foreach ($animal['Bars'] as $h): ?>
-                                            <div class="yield-bar" style="height: <?php echo $h; ?>%; opacity: <?php echo $h/100; ?>;"></div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <div class="actions-container">
-                                        <button class="btn-action-more" onclick="toggleActionMenu(event, this)">
-                                            <span class="material-symbols-outlined">more_vert</span>
-                                        </button>
-                                        <div class="actions-dropdown botanical-shadow">
-                                            <button class="action-menu-item" onclick="triggerAction('edit', '<?php echo $animal['ID']; ?>')"><span class="material-symbols-outlined">edit</span> Edit</button>
-                                            <button class="action-menu-item" onclick="triggerAction('production', '<?php echo $animal['ID']; ?>')"><span class="material-symbols-outlined">trending_up</span> Production</button>
-                                            <button class="action-menu-item" onclick="triggerAction('health', '<?php echo $animal['ID']; ?>')"><span class="material-symbols-outlined">medical_services</span> Health</button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                        <tbody id="animalsTableBody">
+                            <!-- Data loaded via AJAX -->
                         </tbody>
                     </table>
                 </div>
@@ -259,12 +212,21 @@ $base_path = '../';
 
             <!-- Right Form Column -->
             <div class="modal-form-column">
+                <div class="mobile-modal-header d-md-none px-4 pt-4 pb-2">
+                    <h2 class="font-headline font-weight-semibold mb-0" style="font-size: 1.1rem; color: #374151;">Animal Details</h2>
+                </div>
+                <div class="modal-desktop-header d-none d-md-block px-4 pt-4 pb-3">
+                    <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.25rem; color: #1a1c19;">Animal Details</h2>
+                </div>
                 <button class="modal-close-btn" id="closeModal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
                 
-                <div class="modal-form-scroll">
-                    <div class="form-section modal-first-section mb-4">
+                <div class="modal-form-scroll" style="padding-top: 1.5rem;">
+                    <!-- Notifications Section -->
+                    <div id="animalNotifications" class="mb-2"></div>
+
+                    <div class="form-section modal-first-section mb-3" style="margin-top: 0.5rem;">
                         <label class="modal-section-label">Registration Source</label>
                         <div class="reg-type-grid">
                             <label class="reg-type-option">
@@ -281,7 +243,8 @@ $base_path = '../';
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label class="modal-section-label">Breed Type</label>
-                            <select class="form-control-custom">
+                            <select class="form-control-custom" id="animal_breed">
+                                <option value="">Select breed...</option>
                                 <option>Holstein Friesian</option>
                                 <option>Jersey</option>
                                 <option>Guernsey</option>
@@ -290,14 +253,21 @@ $base_path = '../';
                         </div>
                         <div class="form-group">
                             <label class="modal-section-label">Animal Code</label>
-                            <input type="text" class="form-control-custom" placeholder="e.g., JK-2024-001">
+                            <div class="position-relative">
+                                <input type="text" class="form-control-custom" id="animal_code" placeholder="Auto-generated" disabled style="padding-right: 45px;">
+                                <button class="btn-toggle-auto-inside active" type="button" id="toggle_auto_gen" title="Toggle Auto-generate">
+                                    <span class="material-symbols-outlined">auto_awesome</span>
+                                </button>
+                            </div>
+                            <input type="hidden" id="auto_generate_tag" value="1">
                         </div>
                     </div>
 
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label class="modal-section-label">Pen</label>
-                            <select class="form-control-custom">
+                            <select class="form-control-custom" id="animal_pen">
+                                <option value="">Select pen...</option>
                                 <option>Pen 01 (Lactating)</option>
                                 <option>Pen 02 (High Yielders)</option>
                                 <option>Pen 03 (Dry/Pregnant)</option>
@@ -307,27 +277,30 @@ $base_path = '../';
                         </div>
                         <div class="form-group">
                             <label class="modal-section-label">Production Status</label>
-                            <select class="form-control-custom">
-                                <option>High</option>
-                                <option>Medium</option>
-                                <option>Low</option>
-                                <option>N/A (Dry/Young)</option>
+                            <select class="form-control-custom" id="animal_status">
+                                <option value="">Select status...</option>
+                                <option value="Active">Active</option>
+                                <option value="Lactating">Lactating</option>
+                                <option value="Dry">Dry</option>
+                                <option value="Pregnant">Pregnant</option>
+                                <option value="Sick">Sick</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="modal-section-label">Designated Name</label>
-                        <input type="text" class="form-control-custom" placeholder="e.g., Daisy">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="modal-section-label">Mother</label>
-                        <select class="form-control-custom">
-                            <option value="">&lt;None&gt;</option>
-                            <option>JK-2021-042 (Bella)</option>
-                            <option>JK-2022-015 (Luna)</option>
-                        </select>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="modal-section-label">Designated Name</label>
+                            <input type="text" class="form-control-custom" id="animal_name" placeholder="e.g., Daisy">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-section-label">Mother</label>
+                            <select class="form-control-custom" id="animal_mother">
+                                <option value="">&lt;None&gt;</option>
+                                <option>JK-2021-042 (Bella)</option>
+                                <option>JK-2022-015 (Luna)</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-grid-2">
@@ -336,8 +309,8 @@ $base_path = '../';
                             <input type="text" class="form-control-custom" id="birthDatePicker" placeholder="Select Date">
                         </div>
                         <div class="form-group">
-                            <label class="modal-section-label">Initial Weight</label>
-                            <input type="number" class="form-control-custom" placeholder="0.00">
+                            <label class="modal-section-label">Initial Weight (KG)</label>
+                            <input type="number" step="0.1" class="form-control-custom" id="animal_weight" placeholder="0.0">
                         </div>
 
                       
@@ -353,9 +326,18 @@ $base_path = '../';
                     </div>
 
                     <div class="form-grid-2">
-                          <div class="form-group">
+                        <div class="form-group">
                             <label class="modal-section-label">Purchase Price</label>
-                            <input type="number" class="form-control-custom" placeholder="0.00">
+                            <input type="number" step="0.01" class="form-control-custom" id="animal_price" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="modal-section-label">Registration Source</label>
+                            <select class="form-control-custom" id="animal_source">
+                                <option value="Born on Farm">Born on Farm</option>
+                                <option value="Purchased">Purchased</option>
+                                <!-- <option value="Donation">Donation</option>
+                                <option value="Other">Other</option> -->
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -378,6 +360,7 @@ $base_path = '../';
     <script src="../js/header.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
 
     <!-- DataTables Core & Extensions -->
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -404,39 +387,25 @@ $base_path = '../';
     }
 
     $(document).ready(function() {
-        // jQuery UI DatePicker Initialization
-        $("#birthDatePicker").datepicker({
-            dateFormat: "dd-M-yy",
-            changeMonth: true,
-            changeYear: true,
-            yearRange: "-20:+0"
-        });
+        // Modal Element Caching
+        const breedSelect = $('#animal_breed');
+        const penSelect = $('#animal_pen');
+        const motherSelect = $('#animal_mother');
+        const codeField = $('#animal_code');
+        const statusSelect = $('#animal_status');
+        const nameField = $('#animal_name');
+        const birthDateField = $('#birthDatePicker');
+        const weightField = $('#animal_weight');
+        const priceField = $('#animal_price');
+        const sourceSelect = $('#animal_source');
+        const autoGenToggle = $('#auto_generate_tag');
 
-        const table = $('#animalsDataTable').DataTable({
-            "pageLength": 10,
-            "paging": true,
-            "info": false,
-            "responsive": true,
-            "columnDefs": [
-                { "responsivePriority": 1, "targets": 0 }, // ID is high priority
-                { "responsivePriority": 2, "targets": -1 }, // Actions is high priority (must show)
-                { "responsivePriority": 10001, "targets": 4 }, // Yield can hide if needed
-                { "orderable": false, "targets": "no-sort" }
-            ],
-            "dom": 'Bfrt',
-            "buttons": [
-                { extend: 'excel', className: 'btn btn-sm btn-light border-0 text-success font-weight-normal mx-1', text: '<span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">download</span> Excel' },
-                { extend: 'print', className: 'btn btn-sm btn-light border-0 text-muted font-weight-normal mx-1', text: '<span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">print</span> Print' }
-            ]
-        });
+        // Populate Select Fields
+        getbreedsselect(breedSelect);
+        getpensselect(penSelect);
+        getanimals(motherSelect);
 
-        table.buttons().container().appendTo('#exportButtonsContainer');
-
-        $('#breedFilter').on('change', function() { table.column(2).search(this.value).draw(); });
-        $('#statusFilter').on('change', function() { table.column(3).search(this.value).draw(); });
-        $('#customSearch').on('keyup', function() { table.search(this.value).draw(); });
-
-        function updatePagination() {
+        function updatePagination(table) {
             const info = table.page.info();
             $('#pageInfo').text('Page ' + (info.page + 1) + ' of ' + info.pages);
             let html = '';
@@ -449,15 +418,155 @@ $base_path = '../';
             $('#nextPage').prop('disabled', info.page >= info.pages - 1);
         }
 
-        $('#customPagination').on('click', '.page-btn', function() {
-            const page = $(this).data('page');
-            if (page !== undefined) { table.page(page).draw('page'); updatePagination(); }
+        // Load Animals Data
+        function loadAnimals() {
+            $.get('../controllers/animaloperations.php', { action: 'getanimals' }, (data) => {
+                const animals = JSON.parse(data);
+                
+                // Update Summary Stats
+                const total = animals.length;
+                const lactating = animals.filter(a => a.status.toLowerCase() === 'lactating').length;
+                const pregnant = animals.filter(a => a.status.toLowerCase() === 'pregnant').length;
+                const dry = animals.filter(a => a.status.toLowerCase() === 'dry').length;
+                const calves = animals.filter(a => a.status.toLowerCase() === 'active').length;
+
+                $('#total_herd_val').text(total);
+                $('#lactating_val').text(lactating);
+                $('#lactating_perc').text(total > 0 ? Math.round((lactating/total)*100) + '% of herd' : '0% of herd');
+                $('#pregnant_val').text(pregnant);
+                $('#dry_val').text(dry);
+                $('#calves_val').text(calves);
+
+                let rows = '';
+                animals.forEach(animal => {
+                    const statusClass = 'status-' + animal.status.toLowerCase();
+                    const dbYield = parseFloat(animal.yield) || 0;
+                    let yieldValue = 'N/A';
+                    let yieldBars = '';
+
+                    if (dbYield > 0) {
+                        yieldValue = dbYield.toFixed(1) + ' L';
+                        const heights = [40, 60, 80, 100]; 
+                        const classes = ['off', 'off', 'mid', 'high']; // Mockup pattern for JK-001
+                        yieldBars = '<div class="yield-bars">';
+                        heights.forEach((h, i) => { yieldBars += `<div class="yield-bar ${classes[i]}" style="height: ${h}%;"></div>`; });
+                        yieldBars += '</div>';
+                    } else if (animal.status.toLowerCase() === 'lactating') {
+                        // Fallback to initial graph values if 0 as requested
+                        yieldValue = '32.4 L';
+                        const heights = [40, 60, 80, 100]; 
+                        const classes = ['off', 'off', 'mid', 'high']; 
+                        yieldBars = '<div class="yield-bars">';
+                        heights.forEach((h, i) => { yieldBars += `<div class="yield-bar ${classes[i]}" style="height: ${h}%;"></div>`; });
+                        yieldBars += '</div>';
+                    }
+
+                    rows += `
+                        <tr>
+                            <td><span class="font-headline" style="color: var(--primary); font-weight: 700;">${animal.tagid}</span></td>
+                            <td><span class="font-weight-medium">${animal.designatedname}</span></td>
+                            <td class="text-muted">${animal.breedname || 'Unknown'}</td>
+                            <td><span class="status-pill ${statusClass}">${animal.status}</span></td>
+                            <td>
+                                <div class="yield-container">
+                                    <span class="font-weight-bold" style="font-size: 0.85rem; color: #1e293b;">${yieldValue}</span>
+                                    ${yieldBars}
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm p-0 text-muted" type="button" onclick="toggleActionMenu(event, this)">
+                                        <span class="material-symbols-outlined">more_vert</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right actions-dropdown">
+                                        <button class="action-menu-item" onclick="triggerAction('view', '${animal.id}')">
+                                            <span class="material-symbols-outlined mr-2">visibility</span> View Profile
+                                        </button>
+                                        <button class="action-menu-item" onclick="triggerAction('edit', '${animal.id}')">
+                                            <span class="material-symbols-outlined mr-2">edit</span> Edit Details
+                                        </button>
+                                        <button class="action-menu-item" onclick="triggerAction('production', '${animal.id}')">
+                                            <span class="material-symbols-outlined mr-2">monitoring</span> Production
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <button class="action-menu-item text-danger" onclick="triggerAction('delete', '${animal.id}')">
+                                            <span class="material-symbols-outlined mr-2">delete</span> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                // Destroy existing DataTable if it exists
+                if ($.fn.DataTable.isDataTable('#animalsDataTable')) {
+                    $('#animalsDataTable').DataTable().destroy();
+                }
+                
+                $('#animalsTableBody').html(rows);
+                
+                // Re-initialize DataTable
+                const table = $('#animalsDataTable').DataTable({
+                    "pageLength": 10,
+                    "paging": true,
+                    "info": false,
+                    "responsive": true,
+                    "columnDefs": [
+                        { "responsivePriority": 1, "targets": 0 },
+                        { "responsivePriority": 2, "targets": -1 },
+                        { "orderable": false, "targets": "no-sort" }
+                    ],
+                    "dom": 'Bfrt',
+                    "buttons": [
+                        { extend: 'excel', className: 'btn btn-sm btn-light border-0 text-success font-weight-normal mx-1', text: '<span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">download</span> Excel' },
+                        { extend: 'print', className: 'btn btn-sm btn-light border-0 text-muted font-weight-normal mx-1', text: '<span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">print</span> Print' }
+                    ]
+                });
+                
+                table.buttons().container().appendTo('#exportButtonsContainer');
+                updatePagination(table);
+
+                // Re-bind filters
+                $('#breedFilter').off('change').on('change', function() { table.column(2).search(this.value).draw(); });
+                $('#statusFilter').off('change').on('change', function() { table.column(3).search(this.value).draw(); });
+                $('#customSearch').off('keyup').on('keyup', function() { table.search(this.value).draw(); });
+                
+                // Re-bind pagination buttons
+                $('#customPagination').off('click', '.page-btn').on('click', '.page-btn', function() {
+                    const page = $(this).data('page');
+                    if (page !== undefined) { table.page(page).draw('page'); updatePagination(table); }
+                });
+
+                $('#prevPage').off('click').on('click', function() { table.page('previous').draw('page'); updatePagination(table); });
+                $('#nextPage').off('click').on('click', function() { table.page('next').draw('page'); updatePagination(table); });
+            });
+        }
+
+        loadAnimals();
+
+        // Toggle Animal Code input based on Auto-generate button
+        $("#toggle_auto_gen").on("click", function() {
+            $(this).toggleClass("active");
+            const isActive = $(this).hasClass("active");
+            
+            if (isActive) {
+                autoGenToggle.val("1");
+                codeField.val("").prop("disabled", true).attr("placeholder", "Auto-generated");
+            } else {
+                autoGenToggle.val("0");
+                codeField.prop("disabled", false).attr("placeholder", "e.g., JK-2024-001").focus();
+            }
         });
 
-        $('#prevPage').on('click', function() { table.page('previous').draw('page'); updatePagination(); });
-        $('#nextPage').on('click', function() { table.page('next').draw('page'); updatePagination(); });
+        // jQuery UI DatePicker Initialization
+        $("#birthDatePicker").datepicker({
+            dateFormat: "dd-M-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-20:+0"
+        });
 
-        updatePagination();
         $(window).on('click', function() { $('.actions-dropdown').removeClass('show'); });
 
         // Modal Logic
@@ -474,9 +583,106 @@ $base_path = '../';
         });
 
         $('#submitModal').on('click', function() {
-            showAlert('success', 'Animal Registered Successfully into the Herd!');
-            modal.removeClass('show');
-            $('body').removeClass('modal-open');
+            // Clear previous notifications
+            $('#animalNotifications').empty();
+
+            // Validation Logic
+            const breedid = breedSelect.val();
+            const autogen = parseInt(autoGenToggle.val());
+            const tagid = codeField.val().trim();
+            const penid = penSelect.val();
+            const status = statusSelect.val();
+            const designatedname = nameField.val().trim();
+            const motherid = motherSelect.val();
+            const birthDateRaw = birthDateField.val();
+            const initialweight = parseFloat(weightField.val());
+            const purchaseprice = parseFloat(priceField.val()) || 0.00;
+            const registrationsource = sourceSelect.val();
+
+            let errorMessage = '';
+            let focusField = null;
+
+            if (!breedid) {
+                errorMessage = 'Please select a breed type.';
+                focusField = breedSelect;
+            } else if (autogen === 0 && !tagid) {
+                errorMessage = 'Please provide a unique animal code or select auto-generate.';
+                focusField = codeField;
+            } else if (!penid) {
+                errorMessage = 'Please assign the animal to a pen.';
+                focusField = penSelect;
+            } else if (!status) {
+                errorMessage = 'Please select a production status.';
+                focusField = statusSelect;
+            } else if (!designatedname) {
+                errorMessage = 'Please provide a designated name for the animal.';
+                focusField = nameField;
+            } else if (!birthDateRaw) {
+                errorMessage = 'Please select a valid birth date.';
+                focusField = birthDateField;
+            } else if (isNaN(initialweight) || initialweight <= 0) {
+                errorMessage = 'Please enter a valid initial weight.';
+                focusField = weightField;
+            }
+
+            if (errorMessage) {
+                // Show only in modal div using showAlert helper with hideheading=1 to prevent global side-effect
+                $('#animalNotifications').html(showAlert('info', errorMessage, 1));
+                
+                if (focusField) focusField.focus();
+                return;
+            }
+
+            // If all valid
+            $('#alert-container').html(showAlert('processing', 'Registering animal into the herd...'));
+
+            $.ajax({
+                url: '../controllers/animaloperations.php',
+                type: 'POST',
+                data: {
+                    action: 'saveanimal',
+                    id: 0,
+                    tagid: tagid,
+                    designatedname: designatedname,
+                    breedid: breedid,
+                    penid: penid,
+                    damid: motherid,
+                    birthdate: birthDateRaw,
+                    initialweight: initialweight,
+                    registrationsource: registrationsource,
+                    purchaseprice: purchaseprice,
+                    status: status,
+                    autogen: autogen
+                },
+                success: function(response) {
+                    const res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        $('#alert-container').html(showAlert('success', 'Animal Registered Successfully into the Herd!'));
+                        modal.removeClass('show');
+                        $('body').removeClass('modal-open');
+                        loadAnimals();
+                        
+                        // Reset form
+                        breedSelect.val('');
+                        penSelect.val('');
+                        statusSelect.val('');
+                        motherSelect.val('');
+                        sourceSelect.val('Born on Farm');
+                        codeField.val('');
+                        nameField.val('');
+                        birthDateField.val('');
+                        weightField.val('');
+                        priceField.val('');
+                        $('#animalNotifications').empty();
+                    } else {
+                        $('#alert-container').empty();
+                        $('#animalNotifications').html(showAlert('error', res.message, 1));
+                    }
+                },
+                error: function() {
+                    $('#alert-container').html(showAlert('error', 'Network error. Please try again.'));
+                }
+            });
         });
     });
     </script>

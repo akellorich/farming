@@ -471,6 +471,8 @@ $base_path = '../';
 
     <script src="../js/header.js"></script>
     <script src="../js/navigation.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     
     <script>
         $(document).ready(function() {

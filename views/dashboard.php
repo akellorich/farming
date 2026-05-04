@@ -279,6 +279,7 @@ $base_path = '../';
     <script src="<?php echo $base_path; ?>js/header.js"></script>
     <script src="<?php echo $base_path; ?>js/auth.js"></script>
     <script src="<?php echo $base_path; ?>plugins/alert.js"></script>
+    <script src="<?php echo $base_path; ?>js/functions.js"></script>
 
     <script>
     $(document).ready(function() {

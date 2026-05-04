@@ -420,6 +420,8 @@ $base_path = '../';
     <script src="../plugins/jquery-3.6.1.js"></script>
     <script src="../plugins/popper.js"></script>
     <script src="../plugins/bootstrap.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     <script src="../js/header.js"></script>
 </body>
 </html>

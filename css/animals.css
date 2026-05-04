@@ -179,11 +179,6 @@ body.modal-open {
     }
 
     /* Modal Mobile High-Density Refinements */
-    .modal-branding-column h2 {
-        font-size: 1.25rem !important;
-        margin-bottom: 0.25rem !important;
-    }
-    
     .modal-branding-content p {
         font-size: 0.65rem !important;
         line-height: 1.2 !important;
@@ -204,13 +199,7 @@ body.modal-open {
         padding: 1.25rem !important; /* Reduced from 3rem */
     }
 
-    .modal-first-section {
-        margin-top: 1.5rem !important; /* Reduced from 2.5rem */
-    }
 
-    .modal-branding-column {
-        height: 120px !important; /* Slightly more compact header */
-    }
 
     .reg-type-card {
         font-size: 0.75rem !important; /* Reduced from 0.85rem */
@@ -218,12 +207,12 @@ body.modal-open {
 
     /* Expanded Mobile Modal Footprint */
     .animal-modal-container {
-        width: 96% !important; /* Slightly more edge-to-edge for data space */
+        width: 96% !important; 
         max-width: 96% !important;
-        height: 98vh !important;
-        max-height: 98vh !important;
-        border-radius: 1rem !important; /* Restore roundedness on mobile */
-        margin: 1vh auto !important;
+        height: auto !important; /* Changed to auto-grow */
+        max-height: 95vh !important;
+        border-radius: 1rem !important;
+        margin: auto !important; /* Center vertically */
     }
 
     .animal-modal-overlay {
@@ -231,7 +220,7 @@ body.modal-open {
     }
 
     .modal-form-scroll {
-        padding: 0.5rem 1rem 1rem 1rem !important; /* Re-introduced a tiny balancer */
+        padding: 0.5rem 1rem 0.25rem 1rem !important; /* Tightened bottom padding */
     }
 
     .modal-first-section {
@@ -249,7 +238,13 @@ body.modal-open {
 
     .form-group .modal-section-label {
         margin-bottom: 0 !important;
-        font-size: 0.75rem !important; /* Optimized for mobile grid */
+        font-size: 0.65rem !important;
+        background-color: #f3f4f6;
+        padding: 0.25rem 0.4rem !important;
+        border-radius: 0.35rem !important;
+        text-align: center !important;
+        font-weight: 700 !important;
+        color: #4b5563 !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -295,18 +290,18 @@ body.modal-open {
 
     /* Ultra-Compact Mobile Footer Suite */
     .modal-footer-actions {
-        padding: 0.75rem 1.25rem !important; /* Balanced with modal body padding */
+        padding: 0.5rem 1.25rem 0.75rem 1.25rem !important; /* Tightened top padding */
         gap: 0.75rem !important;
     }
 
     .btn-register {
-        padding: 0.5rem 1.25rem !important; /* Significantly reduced height */
-        font-size: 0.8rem !important; /* Aligned with form input scale */
+        padding: 0.65rem 1.5rem !important; /* Slightly increased for better touch target */
+        font-size: 0.85rem !important;
     }
 
     .btn-discard {
-        padding: 0.35rem 0.75rem !important;
-        font-size: 0.75rem !important;
+        padding: 0.5rem 1rem !important; /* Slightly increased */
+        font-size: 0.8rem !important;
     }
 }
 
@@ -583,8 +578,8 @@ body.modal-open {
     position: relative;
     width: 100%;
     max-width: 960px;
-    height: 90vh;
-    max-height: 850px;
+    height: auto;
+    max-height: 90vh;
     background-color: white;
     border-radius: 1.5rem;
     box-shadow: var(--shadow-highest);
@@ -658,8 +653,16 @@ body.modal-open {
     background-color: #fafaf5;
 }
 
+.mobile-modal-header, .modal-desktop-header {
+    background-color: #f2f2ed;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-desktop-header {
+    padding-bottom: 1rem;
+}
+
 .modal-form-scroll {
-    flex: 1;
     overflow-y: scroll; /* Keeps functionality */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
@@ -761,23 +764,31 @@ body.modal-open {
 
 /* Modal Footer */
 .modal-footer-actions {
-    padding: 1rem 3rem; /* Reduced from 1.5rem */
+    padding: 1.25rem 3rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 1.5rem;
-    background-color: white;
-    border-top: 1px solid var(--surface-container-highest);
+    background-color: #f2f2ed;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .btn-discard {
     font-size: 0.85rem;
-    font-weight: 500; /* Removed boldness from 700 */
-    color: var(--on-surface-variant);
-    background: none;
-    border: none;
-    padding: 0.4rem 1rem; /* Reduced from 0.5rem */
-    transition: color 0.2s;
+    font-weight: 500;
+    color: #4b5563;
+    background: white;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.btn-discard:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-color: #9ca3af;
+    text-decoration: none;
 }
 
 .btn-register {
@@ -802,8 +813,8 @@ body.modal-open {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     display: flex;
@@ -819,23 +830,36 @@ body.modal-open {
     background-color: white;
 }
 
+.modal-close-btn span {
+    font-size: 1.15rem !important;
+}
+
 @media (max-width: 768px) {
     .animal-modal-container {
         flex-direction: column;
-        height: 100vh;
-        max-height: 100vh;
-        border-radius: 0;
+        height: auto;
+        max-height: 95vh;
+        border-radius: 1rem;
     }
     .modal-branding-column {
-        width: 100%;
-        height: 150px;
-        padding: 1.5rem;
+        display: none !important;
     }
-    .modal-branding-icon-box {
-        display: none;
+    .mobile-modal-header {
+        background-color: white;
+        border-bottom: 1px solid var(--surface-container-low);
     }
-    .modal-branding-column h2 {
-        font-size: 1.5rem;
+    .modal-close-btn {
+        top: 0.5rem !important; /* Moved higher from 1rem */
+        right: 0.75rem !important;
+        background-color: transparent !important;
+    }
+    .modal-form-scroll {
+        padding-top: 0.5rem !important;
+    }
+    .modal-section-label {
+        font-size: 0.85rem !important;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -882,4 +906,112 @@ body.dark-theme .action-menu-item:hover {
 
 body.dark-theme .page-btn:hover:not(.active) {
     background-color: #21262d;
+}
+/* Toggle Auto Button - Inside Input */
+.btn-toggle-auto-inside {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    border: none;
+    background-color: #f0fdf4; /* Very light green */
+    color: #16a34a; /* Medium green */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border-radius: 0.55rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.btn-toggle-auto-inside:hover {
+    background-color: #dcfce7;
+}
+
+.btn-toggle-auto-inside.active {
+    background-color: #065f46; /* Primary Botanical Green */
+    color: white;
+}
+
+.btn-toggle-auto-inside span {
+    font-size: 18px !important;
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 0.2rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.05em;
+    min-width: 80px;
+}
+
+.status-active { 
+    background-color: #bbf7d0; 
+    color: #14532d; 
+    border: 1px solid #86efac;
+}
+
+.status-lactating { 
+    background-color: #fef3c7; 
+    color: #78350f; 
+    border: 1px solid #fcd34d;
+}
+
+.status-dry { 
+    background-color: #fee2e2; 
+    color: #991b1b; 
+    border: 1px solid #fca5a5;
+}
+
+.status-pregnant { 
+    background-color: #dbeafe; 
+    color: #1e3a8a; 
+    border: 1px solid #bfdbfe;
+}
+
+.status-sick {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* Yield Visualization */
+.yield-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.yield-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 14px;
+}
+
+.yield-bar {
+    width: 4px;
+    background-color: #e2e8f0;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.yield-bar.off {
+    background-color: #e2e8f0;
+}
+
+.yield-bar.mid {
+    background-color: #10b981;
+}
+
+.yield-bar.high {
+    background-color: #065f46;
 }

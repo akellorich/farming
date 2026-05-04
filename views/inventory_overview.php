@@ -32,6 +32,80 @@ $base_path = '../';
             font-family: 'Manrope', sans-serif;
             letter-spacing: -0.02em;
         }
+
+        /* Custom Icon Select Styles */
+        .custom-icon-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-icon-select-trigger {
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            height: 52px;
+        }
+
+        .custom-icon-select-trigger:hover {
+            border-color: #206223;
+        }
+
+        .custom-icon-options-container {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            background: #f8fafc; /* Slightly darker background */
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            z-index: 2000;
+            max-height: 250px;
+            overflow-y: auto;
+            display: none;
+            padding: 0.5rem;
+        }
+
+        .custom-icon-options-container.show {
+            display: block;
+            animation: slideIn 0.2s ease-out;
+        }
+
+        .icon-option {
+            display: flex;
+            align-items: center;
+            padding: 0.65rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            gap: 12px;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        .icon-option:hover {
+            background-color: #f1f5f9;
+            color: #206223;
+        }
+
+        .icon-option.active {
+            background-color: #ecf3ec;
+            color: #206223;
+            font-weight: 600;
+        }
+
+        .icon-option .material-symbols-outlined {
+            font-size: 20px;
+            opacity: 0.7;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .btn-add-asset {
             background: linear-gradient(135deg, #206223 0%, #3a7b3a 100%);
             border: none;
@@ -58,9 +132,9 @@ $base_path = '../';
 
     <!-- Main Content Area -->
     <main class="main-content">
-        <div class="container-fluid pt-1 px-4">
+        <div class="container-fluid pt-1 px-3">
             <!-- Header Section -->
-            <div class="row align-items-end mb-5 mt-2">
+            <div class="row align-items-end mb-3 mt-2">
                 <div class="col">
                     <span class="text-xs uppercase tracking-[0.2rem] font-bold font-label d-block mb-1" style="font-size: 0.75rem; color: #795900; text-transform: uppercase;">OVERVIEW</span>
                     <h2 class="font-headline font-weight-bold text-on-surface mb-0 inventory-page-title">
@@ -81,10 +155,10 @@ $base_path = '../';
                 <div class="inventory-stat-card botanical-shadow-sm">
                     <span class="material-symbols-outlined inventory-card-icon">payments</span>
                     <p class="inventory-stat-label">TOTAL INVENTORY VALUE</p>
-                    <h4 class="inventory-stat-value">4.28M</h4>
+                    <h4 class="inventory-stat-value" id="totalInventoryValue">0.00</h4>
                     <div class="inventory-stat-desc d-flex align-items-center gap-2 text-success font-weight-medium">
                         <span class="material-symbols-outlined" style="font-size: 1rem;">trending_up</span>
-                        <span>12% vs last month</span>
+                        <span>0% vs last month</span>
                     </div>
                 </div>
 
@@ -92,7 +166,7 @@ $base_path = '../';
                 <div class="inventory-stat-card botanical-shadow-sm">
                     <span class="material-symbols-outlined inventory-card-icon" style="color: #795900;">warning</span>
                     <p class="inventory-stat-label" style="color: #5c4300;">LOW STOCK ITEMS</p>
-                    <h4 class="inventory-stat-value" style="color: #795900;">08</h4>
+                    <h4 class="inventory-stat-value" style="color: #795900;" id="lowStockCount">0</h4>
                     <div class="inventory-stat-desc d-flex align-items-center gap-2 font-weight-medium" style="color: #795900;">
                         <span class="material-symbols-outlined" style="font-size: 1rem;">error</span>
                         <span>Needs reorder</span>
@@ -103,7 +177,7 @@ $base_path = '../';
                 <div class="inventory-stat-card botanical-shadow-sm">
                     <span class="material-symbols-outlined inventory-card-icon">category</span>
                     <p class="inventory-stat-label">CATEGORIES COUNT</p>
-                    <h4 class="inventory-stat-value">14</h4>
+                    <h4 class="inventory-stat-value" id="categoryCount">0</h4>
                     <div class="inventory-stat-desc d-flex align-items-center gap-2 text-muted font-weight-medium">
                         <span class="material-symbols-outlined" style="font-size: 1rem;">list_alt</span>
                         <span>Active segments</span>
@@ -112,8 +186,8 @@ $base_path = '../';
             </div>
 
             <!-- Browse by Category -->
-            <div class="mb-5">
-                <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
                     <h4 class="category-section-title">Browse by Category</h4>
                     <a href="#" class="category-section-link d-flex align-items-center gap-2">
                         View All Categories 
@@ -121,54 +195,20 @@ $base_path = '../';
                     </a>
                 </div>
                 
-                <div class="category-grid">
-                    <!-- Animal Feed -->
-                    <div class="category-card cat-animal-feed botanical-shadow-sm">
-                        <div class="category-icon-wrapper">
-                            <span class="material-symbols-outlined" style="color: #047857;">grass</span>
-                        </div>
-                        <h6 class="category-name font-weight-bold font-headline mb-1" style="color: #064e3b;">Animal Feed</h6>
-                        <p class="text-muted mb-0" style="font-size: 0.75rem;">124 Items</p>
-                    </div>
-
-                    <!-- Health & Meds -->
-                    <div class="category-card cat-health botanical-shadow-sm">
-                        <div class="category-icon-wrapper">
-                            <span class="material-symbols-outlined" style="color: #c2410c;">medical_services</span>
-                        </div>
-                        <h6 class="category-name font-weight-bold font-headline mb-1" style="color: #7c2d12;">Health & Meds</h6>
-                        <p class="text-muted mb-0" style="font-size: 0.75rem;">86 Items</p>
-                    </div>
-
-                    <!-- Equipment -->
-                    <div class="category-card cat-equipment botanical-shadow-sm">
-                        <div class="category-icon-wrapper">
-                            <span class="material-symbols-outlined" style="color: #334155;">precision_manufacturing</span>
-                        </div>
-                        <h6 class="category-name font-weight-bold font-headline mb-1" style="color: #0f172a;">Equipment</h6>
-                        <p class="text-muted mb-0" style="font-size: 0.75rem;">42 Items</p>
-                    </div>
-
-                    <!-- Maintenance -->
-                    <div class="category-card cat-maintenance botanical-shadow-sm">
-                        <div class="category-icon-wrapper">
-                            <span class="material-symbols-outlined" style="color: #92400e;">construction</span>
-                        </div>
-                        <h6 class="category-name font-weight-bold font-headline mb-1" style="color: #78350f;">Maintenance</h6>
-                        <p class="text-muted mb-0" style="font-size: 0.75rem;">215 Items</p>
-                    </div>
+                <div class="category-grid" id="categoryGrid">
+                    <!-- Categories will be populated here -->
                 </div>
             </div>
 
             <!-- Stock Inventory List Table -->
-            <div class="inventory-table-card botanical-shadow-sm mb-5">
+            <div class="inventory-table-card botanical-shadow-sm mb-3">
                 <div class="inventory-table-header flex-column align-items-stretch p-3">
                     <div class="inventory-title-row d-flex justify-content-between align-items-center mb-1">
                         <h4 class="table-section-title mb-0">Stock Inventory List</h4>
                     </div>
                     
                     <div class="inventory-filters-row d-flex flex-wrap">
-                        <select class="inventory-select-sm flex-fill">
+                        <select class="inventory-select-sm flex-fill" id="inventoryCategoryFilter">
                             <option>All Categories</option>
                         </select>
                         <select class="inventory-select-sm flex-fill">
@@ -176,25 +216,27 @@ $base_path = '../';
                         </select>
                     </div>
                     
-                    <div class="inventory-actions-row d-flex align-items-center">
-                        <button class="btn btn-export-excel d-flex align-items-center gap-1">
-                            <span class="material-symbols-outlined" style="font-size: 1.1rem;">download</span>
-                            Excel
-                        </button>
-                        <button class="btn btn-export-print d-flex align-items-center gap-1">
-                            <span class="material-symbols-outlined" style="font-size: 1.1rem;">print</span>
-                            Print
-                        </button>
+                    <div class="inventory-actions-row d-flex align-items-center gap-2 w-100">
                         <div class="flex-grow-1">
-                            <input type="text" class="form-control inventory-pill-search" placeholder="Search..." id="inventorySearch">
+                            <input type="text" class="form-control inventory-pill-search" placeholder="Search items..." id="inventorySearch">
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-export-excel d-flex align-items-center gap-1">
+                                <span class="material-symbols-outlined" style="font-size: 1.1rem;">download</span>
+                                Excel
+                            </button>
+                            <button class="btn btn-export-print d-flex align-items-center gap-1">
+                                <span class="material-symbols-outlined" style="font-size: 1.1rem;">print</span>
+                                Print
+                            </button>
+                            <button class="btn btn-success d-flex align-items-center gap-1 flex-shrink-0" id="addAssetBtn" style="height: 38px;">
+                                <span class="material-symbols-outlined" style="font-size: 1.2rem;">add</span>
+                                <span>Add Asset</span>
+                            </button>
                         </div>
                     </div>
-
-                    <button class="btn btn-success d-flex align-items-center gap-1 flex-shrink-0" id="addAssetBtn">
-                        <span class="material-symbols-outlined" style="font-size: 1.2rem;">add</span>
-                        <span>Add Asset</span>
-                    </button>
                 </div>
+
                 
                 <div class="inventory-table-container">
                     <table class="table inventory-table mb-0 w-100" id="inventoryDataTable" style="width: 100% !important;">
@@ -417,6 +459,8 @@ $base_path = '../';
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/inventory.js"></script>
 
@@ -450,55 +494,142 @@ $base_path = '../';
                         <span class="meta-label">Categorization Module</span>
                     </div>
 
-                    <form id="addCategoryForm" class="category-form" onsubmit="return false;">
+                    <div id="categoryModalAlert"></div>
+
+                    <form id="addCategoryForm" class="category-form" onsubmit="return false;" novalidate>
+                        <input type="hidden" id="categoryId" value="0">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Category Code</label>
-                                    <input type="text" class="category-input" placeholder="e.g. FD" required>
+                                    <input type="text" class="category-input" id="catCode" placeholder="e.g. FD" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Category Name</label>
-                                    <input type="text" class="category-input" placeholder="e.g. Concentrated Feed" required>
+                                    <input type="text" class="category-input" id="catName" placeholder="e.g. Concentrated Feed" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="category-field-group">
                             <label class="category-input-label">Category Icon</label>
-                            <select class="category-input font-awesome-select">
-                                <option value="fas fa-box">📦 Box</option>
-                                <option value="fas fa-boxes">📦 Boxes</option>
-                                <option value="fas fa-clipboard-list">📋 Ledger</option>
-                                <option value="fas fa-tools">🛠 Hardware</option>
-                                <option value="fas fa-pills">💊 Medicine</option>
-                                <option value="fas fa-vial">🧪 Lab/Vaccine</option>
-                                <option value="fas fa-warehouse">🏠 Storage</option>
-                                <option value="fas fa-tractor">🚜 Machinery</option>
-                                <option value="fas fa-seedling">🌱 Crop/Botanical</option>
-                                <option value="fas fa-hand-holding-water">💧 Supplies</option>
-                                <option value="fas fa-barcode">🏷 Scanner</option>
-                                <option value="fas fa-tag">🏷 Labeled</option>
-                                <option value="fas fa-flask">🧪 Chemicals</option>
-                                <option value="fas fa-thermometer-half">🌡 Temp</option>
-                                <option value="fas fa-microscope">🔬 Analysis</option>
-                                <option value="fas fa-first-aid">🏥 Critical Items</option>
-                            </select>
+                            <div class="custom-icon-select-wrapper">
+                                <div class="custom-icon-select-trigger botanical-shadow-sm" onclick="toggleCustomIconDropdown(event)">
+                                    <span id="categoryIconPreview" class="material-symbols-outlined text-success" style="font-size: 20px;">inventory_2</span>
+                                    <span id="selectedIconName" class="ml-2 font-weight-medium">Inventory (General)</span>
+                                    <span class="material-symbols-outlined ml-auto text-muted" style="font-size: 18px;">expand_more</span>
+                                </div>
+                                <input type="hidden" id="categoryIcon" value="inventory_2">
+                                <div class="custom-icon-options-container botanical-shadow-lg" id="customIconOptions">
+                                    <div class="icon-option active" data-value="inventory_2" onclick="selectCustomIcon('inventory_2', 'Inventory (General)')">
+                                        <span class="material-symbols-outlined">inventory_2</span>
+                                        <span>Inventory (General)</span>
+                                    </div>
+                                    <div class="icon-option" data-value="grass" onclick="selectCustomIcon('grass', 'Animal Feed (Grass)')">
+                                        <span class="material-symbols-outlined">grass</span>
+                                        <span>Animal Feed (Grass)</span>
+                                    </div>
+                                    <div class="icon-option" data-value="medical_services" onclick="selectCustomIcon('medical_services', 'Medical Services')">
+                                        <span class="material-symbols-outlined">medical_services</span>
+                                        <span>Medical Services</span>
+                                    </div>
+                                    <div class="icon-option" data-value="precision_manufacturing" onclick="selectCustomIcon('precision_manufacturing', 'Machinery / Equipment')">
+                                        <span class="material-symbols-outlined">precision_manufacturing</span>
+                                        <span>Machinery / Equipment</span>
+                                    </div>
+                                    <div class="icon-option" data-value="construction" onclick="selectCustomIcon('construction', 'Maintenance / Tools')">
+                                        <span class="material-symbols-outlined">construction</span>
+                                        <span>Maintenance / Tools</span>
+                                    </div>
+                                    <div class="icon-option" data-value="water_drop" onclick="selectCustomIcon('water_drop', 'Liquids / Fuel')">
+                                        <span class="material-symbols-outlined">water_drop</span>
+                                        <span>Liquids / Fuel</span>
+                                    </div>
+                                    <div class="icon-option" data-value="potted_plant" onclick="selectCustomIcon('potted_plant', 'Botanical / Seeds')">
+                                        <span class="material-symbols-outlined">potted_plant</span>
+                                        <span>Botanical / Seeds</span>
+                                    </div>
+                                    <div class="icon-option" data-value="science" onclick="selectCustomIcon('science', 'Lab / Chemicals')">
+                                        <span class="material-symbols-outlined">science</span>
+                                        <span>Lab / Chemicals</span>
+                                    </div>
+                                    <div class="icon-option" data-value="agriculture" onclick="selectCustomIcon('agriculture', 'Farm Vehicles')">
+                                        <span class="material-symbols-outlined">agriculture</span>
+                                        <span>Farm Vehicles</span>
+                                    </div>
+                                    <div class="icon-option" data-value="electric_bolt" onclick="selectCustomIcon('electric_bolt', 'Power / Electrical')">
+                                        <span class="material-symbols-outlined">electric_bolt</span>
+                                        <span>Power / Electrical</span>
+                                    </div>
+                                    <div class="icon-option" data-value="hardware" onclick="selectCustomIcon('hardware', 'Hardware / Parts')">
+                                        <span class="material-symbols-outlined">hardware</span>
+                                        <span>Hardware / Parts</span>
+                                    </div>
+                                    <div class="icon-option" data-value="vaccines" onclick="selectCustomIcon('vaccines', 'Vaccines / Biologics')">
+                                        <span class="material-symbols-outlined">vaccines</span>
+                                        <span>Vaccines / Biologics</span>
+                                    </div>
+                                    <div class="icon-option" data-value="pill" onclick="selectCustomIcon('pill', 'Tablets / Meds')">
+                                        <span class="material-symbols-outlined">pill</span>
+                                        <span>Tablets / Meds</span>
+                                    </div>
+                                    <div class="icon-option" data-value="shield_health" onclick="selectCustomIcon('shield_health', 'Safety / PPE')">
+                                        <span class="material-symbols-outlined">shield_health</span>
+                                        <span>Safety / PPE</span>
+                                    </div>
+                                    <div class="icon-option" data-value="cleaning_services" onclick="selectCustomIcon('cleaning_services', 'Disinfectants')">
+                                        <span class="material-symbols-outlined">cleaning_services</span>
+                                        <span>Disinfectants</span>
+                                    </div>
+                                    <div class="icon-option" data-value="factory" onclick="selectCustomIcon('factory', 'Processing Units')">
+                                        <span class="material-symbols-outlined">factory</span>
+                                        <span>Processing Units</span>
+                                    </div>
+                                    <div class="icon-option" data-value="propane_tank" onclick="selectCustomIcon('propane_tank', 'Tanks / Gas')">
+                                        <span class="material-symbols-outlined">propane_tank</span>
+                                        <span>Tanks / Gas</span>
+                                    </div>
+                                    <div class="icon-option" data-value="oil_barrel" onclick="selectCustomIcon('oil_barrel', 'Lubricants / Oils')">
+                                        <span class="material-symbols-outlined">oil_barrel</span>
+                                        <span>Lubricants / Oils</span>
+                                    </div>
+                                    <div class="icon-option" data-value="warehouse" onclick="selectCustomIcon('warehouse', 'Storage Units')">
+                                        <span class="material-symbols-outlined">warehouse</span>
+                                        <span>Storage Units</span>
+                                    </div>
+                                    <div class="icon-option" data-value="barcode_scanner" onclick="selectCustomIcon('barcode_scanner', 'Tags / Scanning')">
+                                        <span class="material-symbols-outlined">barcode_scanner</span>
+                                        <span>Tags / Scanning</span>
+                                    </div>
+                                    <div class="icon-option" data-value="label" onclick="selectCustomIcon('label', 'General Label')">
+                                        <span class="material-symbols-outlined">label</span>
+                                        <span>General Label</span>
+                                    </div>
+                                    <div class="icon-option" data-value="receipt_long" onclick="selectCustomIcon('receipt_long', 'Ledger / Records')">
+                                        <span class="material-symbols-outlined">receipt_long</span>
+                                        <span>Ledger / Records</span>
+                                    </div>
+                                    <div class="icon-option" data-value="shopping_cart" onclick="selectCustomIcon('shopping_cart', 'Purchasing')">
+                                        <span class="material-symbols-outlined">shopping_cart</span>
+                                        <span>Purchasing</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Item Prefix</label>
-                                    <input type="text" class="category-input" placeholder="FEED-" required>
+                                    <input type="text" class="category-input" id="itemPrefix" placeholder="FEED-" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Starting Number</label>
-                                    <input type="number" class="category-input" placeholder="001" required>
+                                    <input type="number" class="category-input" id="startingNum" placeholder="001" required>
                                 </div>
                             </div>
                         </div>
@@ -535,11 +666,11 @@ $base_path = '../';
                     <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1wiIMYCi-klEQoWsqSBfgi3mDMxW-EEPUMLptaIbiG8uvLsGvaNiov55cuGNDCyFxmlX17rW-PK8mDq6jf0NR6zDUCTNhxANs_uN4mWk1pOuK96OF9qHvJyWwJhujqN6EVSHWoDQgyL0k6XHUo09b9425HlkRfAGqycr6als85_ebO0Gp_I4dr3jDaUbTqr7odhsPga-jy5Qcbi2XN6QgCIjW5yrJFflr2ZS61nCVTMsXzENwrmbKLTeBWjGLE8uoi5I0s9RRq1nd" alt="Inventory" class="sidebar-img">
                     <div class="sidebar-botanical-overlay">
                         <div class="sidebar-bottom-content">
-                            <div style="background: rgba(255,255,255,0.2); width: fit-content; padding: 0.5rem; border-radius: 50%; margin-bottom: 1rem;">
+                            <div style="background: rgba(255,255,255,0.2); width: 44px; height: 44px; border-radius: 50%; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;">
                                 <span class="material-symbols-outlined" style="color: white; font-size: 1.5rem; font-variation-settings: 'FILL' 1;">add_shopping_cart</span>
                             </div>
-                            <h2 class="sidebar-headline" style="font-size: 1.5rem;">New Inventory Item</h2>
-                            <p class="sidebar-subtext" style="font-size: 0.8rem;">Provision new assets to your stock. Track reorder levels and pricing for efficient management.</p>
+                            <h2 class="sidebar-headline" style="font-size: 1.5rem; color: white;">New Inventory Item</h2>
+                            <p class="sidebar-subtext" style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.9);">Provision new assets to your stock. Track reorder levels and pricing for efficient management.</p>
                         </div>
                     </div>
                 </div>
@@ -550,91 +681,89 @@ $base_path = '../';
                         <span class="meta-label" style="color: #D2691E;">Asset Provisioning</span>
                     </div>
 
+                    <div id="itemModalAlert" class="mb-3"></div>
                     <form id="addItemForm" class="category-form" onsubmit="return false;">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Select Category</label>
-                                    <select class="category-input">
-                                        <option>Dairy Meal</option>
-                                        <option>Medical Supplies</option>
-                                        <option>Mineral Licks</option>
-                                        <option>Equipment</option>
+                                    <select id="itemCategory" class="category-input">
+                                        <option disabled selected>Loading...</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">Item Name</label>
-                                    <input type="text" class="category-input" placeholder="e.g. Maize Germ">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row align-items-end">
-                            <div class="col-6 col-md-6">
-                                <div class="category-field-group">
-                                    <label class="category-input-label">Item Code</label>
-                                    <input type="text" class="category-input" placeholder="JKM-INV-001" readonly style="opacity: 0.7; font-family: 'Space Grotesk', sans-serif;">
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <div class="category-field-group">
-                                    <div class="d-flex align-items-center gap-3 py-2">
-                                        <div class="custom-switch switch-lg">
-                                            <input type="checkbox" id="autoGenerateCode" onchange="toggleCodeGeneration()" checked>
-                                            <label for="autoGenerateCode" style="border-radius: 20px;"></label>
-                                        </div>
-                                        <span class="auto-gen-label text-on-surface-variant font-weight-bold">Auto-gen</span>
-                                    </div>
+                                    <input type="text" id="itemName" class="category-input" placeholder="e.g. Maize Germ">
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-4 col-md-4">
+                            <div class="col-md-6">
                                 <div class="category-field-group">
-                                    <label class="category-input-label">Unit Price</label>
+                                    <label class="category-input-label">Item Code</label>
                                     <div class="position-relative">
-                                        <span class="currency-prefix position-absolute">KES</span>
-                                        <input type="number" class="category-input price-input" placeholder="0.00" style="font-family: 'Space Grotesk', sans-serif;">
+                                        <input type="text" id="itemCode" class="category-input" placeholder="JKM-INV-001" readonly style="opacity: 0.7; padding-right: 90px; font-family: 'Space Grotesk', sans-serif;">
+                                        <div class="position-absolute d-flex align-items-center" style="right: 8px; top: 50%; transform: translateY(-50%);">
+                                            <input type="checkbox" id="autoGenerateCode" onchange="toggleCodeGeneration()" checked style="display: none;">
+                                            <label for="autoGenerateCode" id="autoGenBadge" style="cursor: pointer; margin-bottom: 0; padding: 6px 12px; border-radius: 6px; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.05em; transition: all 0.2s; background: #206223; color: white; display: flex; align-items: center; gap: 4px;">
+                                                <span class="material-symbols-outlined" style="font-size: 0.9rem; font-variation-settings: 'FILL' 1;">magic_button</span>
+                                                AUTO
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4 col-md-4">
-                                <div class="category-field-group">
-                                    <label class="category-input-label">Reorder</label>
-                                    <input type="number" class="category-input" placeholder="50" style="font-family: 'Space Grotesk', sans-serif;">
-                                </div>
-                            </div>
-                            <div class="col-4 col-md-4">
+                            <div class="col-md-6">
                                 <div class="category-field-group">
                                     <label class="category-input-label">UoM</label>
-                                    <select class="category-input">
+                                    <select id="itemUom" class="category-input">
                                         <option>Kg</option>
                                         <option>Litre</option>
                                         <option>Bag</option>
                                         <option>Pcs</option>
+                                        <option>Units</option>
+                                        <option>Vials</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="category-field-group">
+                                    <label class="category-input-label">Unit Price</label>
+                                    <div class="position-relative">
+                                        <span class="currency-prefix position-absolute">KES</span>
+                                        <input type="number" id="itemPrice" class="category-input price-input" placeholder="0.00" style="font-family: 'Space Grotesk', sans-serif;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="category-field-group">
+                                    <label class="category-input-label">Reorder Level</label>
+                                    <input type="number" id="itemReorder" class="category-input" placeholder="50" style="font-family: 'Space Grotesk', sans-serif;">
                                 </div>
                             </div>
                         </div>
 
                         <div class="category-field-group">
                             <label class="category-input-label">Item Type</label>
-                            <div class="d-flex align-items-center justify-content-between item-type-pill-container" style="padding: 0.65rem 1.25rem; border-radius: 0.75rem; height: 48px;">
-                                <span id="typeIngredientLabel" style="font-size: 0.7rem; font-weight: 700;">INGREDIENT</span>
-                                <div class="custom-switch switch-lg switch-always-green">
+                            <div class="d-flex align-items-center justify-content-between item-type-pill-container" style="padding: 0.4rem 1.25rem; border-radius: 0.75rem; height: 40px; background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                <span id="typeIngredientLabel" style="font-size: 0.65rem; font-weight: 700; color: #475569;">INGREDIENT</span>
+                                <div class="custom-switch switch-sm switch-always-green" style="transform: scale(0.85);">
                                     <input type="checkbox" id="itemTypeToggle" onchange="updateTypeLabels()">
                                     <label for="itemTypeToggle" style="border-radius: 30px;"></label>
                                 </div>
-                                <span id="typeProductLabel" style="font-size: 0.7rem; font-weight: 700;">PRODUCT</span>
+                                <span id="typeProductLabel" style="font-size: 0.65rem; font-weight: 700; color: #94a3b8;">PRODUCT</span>
                             </div>
                         </div>
 
                         <div class="category-field-group" style="margin-bottom: 0;">
                             <label class="category-input-label">Notes / Description</label>
-                            <textarea class="category-input" rows="4" placeholder="Specifications, vendor details..." style="resize: none;"></textarea>
+                            <textarea id="itemDescription" class="category-input" rows="3" placeholder="Specifications, vendor details..." style="resize: none;"></textarea>
                         </div>
 
                         <div class="add-category-footer">

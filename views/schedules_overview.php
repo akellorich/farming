@@ -502,6 +502,8 @@ $base_path = '../';
     <script src="../plugins/jquery-3.6.1.js"></script>
     <script src="../plugins/popper.js"></script>
     <script src="../plugins/bootstrap.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>

@@ -16,7 +16,8 @@ $(document).ready(function() {
     });
 
     // Profile Popup Toggle
-    $('#userMenuBtn').on('click', function() {
+    $('#userMenuBtn').on('click', function(e) {
+        e.stopPropagation();
         const popup = $(this).next('.profile-popup-menu');
         $('.profile-popup-menu').not(popup).removeClass('show');
         $('.notification-popup-menu').removeClass('show');

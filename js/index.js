@@ -19,8 +19,15 @@ $(document).ready(function() {
         alertContainer.empty();
 
         // Basic Validation
-        if (!email || !password) {
-            alertContainer.html(showAlert('info', 'Please provide both email and password.'));
+        if (!email) {
+            alertContainer.html(showAlert('info', 'Please provide your email address.'));
+            $('#email').focus();
+            return;
+        }
+
+        if (!password) {
+            alertContainer.html(showAlert('info', 'Please provide your password.'));
+            $('#password').focus();
             return;
         }
 

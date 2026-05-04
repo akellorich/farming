@@ -92,7 +92,7 @@ $(document).ready(() => {
         const fullname = $("#fullname").val().trim(),
             username = $("#username").val().trim(),
             email = $("#email").val().trim(),
-            mobile = $("#mobile").val().trim(),
+            mobile = $("#mobile").val().replace(/\s+/g, "").trim(),
             userrole = $("#userrole").val(),
             accesslevel = $("#accesslevel").val(),
             notificationsArea = $("#notificationsarea")
@@ -127,8 +127,15 @@ $(document).ready(() => {
         }
 
         if (!validatefielddata(mobile, 'mobile')) {
-            notificationsArea.html(showAlert("info", "Please provide a valid mobile number (10-12 digits."));
+            notificationsArea.html(showAlert("info", "Please provide a valid mobile number (10-12 digits)."));
             $("#mobile").focus();
+            return;
+        }
+
+        // Profile Photo Validation
+        const photoFile = $('#userPhoto')[0].files[0];
+        if (!photoFile) {
+            notificationsArea.html(showAlert("info", "Please attach a profile photo for the new user."));
             return;
         }
 
@@ -146,7 +153,7 @@ $(document).ready(() => {
         formData.append("accesslevel", accesslevel);
 
         // Append Photo if selected
-        const photoFile = $('#userPhoto')[0].files[0];
+        // const photoFile = $('#userPhoto')[0].files[0];
         if (photoFile) {
             formData.append("profilephoto", photoFile);
         }

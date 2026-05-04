@@ -13,12 +13,12 @@ body {
     background-color: var(--surface);
     color: #1a1c19;
     overflow-x: hidden;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .login-container {
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -29,6 +29,7 @@ body {
     background-size: cover;
     background-position: center;
     display: none;
+    min-height: 100vh;
 }
 
 @media (min-width: 768px) {
@@ -66,16 +67,23 @@ body {
 
 .brand-logo-text {
     color: var(--primary);
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 300;
+    font-size: 1.1rem;
 }
 
 .tagline-h2 {
-    font-weight: 800;
-    font-size: 2.5rem;
+    font-weight: 600;
+    font-size: 1.8rem;
     color: white;
     line-height: 1.2;
     margin-bottom: 1rem;
+}
+
+.portal-title {
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: #1a1c19;
+    margin-bottom: 0.5rem;
 }
 
 .tagline-p {
@@ -124,10 +132,15 @@ body {
 }
 
 .form-header h1 {
-    font-weight: 800;
+    font-weight: 600;
     font-size: 2.25rem;
     color: #1a1c19;
     margin-bottom: 0.5rem;
+}
+
+/* This is a fallback for the portal-title class */
+.form-header .portal-title {
+    font-size: 1.6rem;
 }
 
 .form-header p {
@@ -226,7 +239,7 @@ body {
     -webkit-font-feature-settings: 'liga';
     font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
 .decorative-bottom {
@@ -244,4 +257,79 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 767px) {
+    .form-section {
+        padding: 4rem 1.5rem 3rem; /* More top padding to prevent logo cutoff */
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .form-header {
+        text-align: center;
+        width: 100%;
+    }
+
+    .form-header img {
+        height: 7rem; /* Smaller logo for mobile */
+        margin-bottom: 1rem;
+    }
+
+    .portal-title {
+        font-size: 1.05rem;
+    }
+
+    .form-header p {
+        font-size: 0.75rem;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .form-group label {
+        font-size: 0.8rem;
+    }
+
+    .input-group-custom input {
+        padding: 0.75rem 1rem 0.75rem 2.75rem;
+        font-size: 0.9rem;
+    }
+
+    .input-group-custom .icon {
+        font-size: 1.2rem;
+    }
+
+    .btn-signin {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .d-flex.justify-content-between {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .mt-5.pt-3.border-top {
+        margin-top: 1.5rem !important;
+        padding-top: 1rem !important;
+    }
+
+    .decorative-bottom {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 2rem;
+        justify-content: center;
+        width: 100%;
+        opacity: 0.6;
+        padding-bottom: 1.5rem;
+    }
 }

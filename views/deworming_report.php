@@ -556,6 +556,8 @@ $to_date = isset($_GET['to']) ? $_GET['to'] : '31-Oct-2023';
     <script src="../plugins/bootstrap.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/navigation.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     
     <!-- DataTables JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>

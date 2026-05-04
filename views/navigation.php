@@ -51,11 +51,11 @@
         </div>
     </nav>
 
-    <div class="mt-auto pb-3">
+    <div class="mt-auto pb-1">
         <div class="position-relative">
             <button class="user-profile-btn botanical-shadow d-flex align-items-center" id="userMenuBtn">
                 <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I" alt="User" class="user-avatar">
-                <div class="user-info ml-2">
+                <div class="user-info">
                     <p class="font-headline font-weight-bold small mb-0">James Kamau</p>
                     <p class="font-headline text-muted mb-0" style="font-size: 8px; text-transform: uppercase;">General Manager</p>
                 </div>

@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="pass-modal-actions mt-5">
-                        <button type="button" class="pass-btn-text" id="cancelPassBtn">Cancel</button>
+                        <button type="button" class="pass-btn-outline-danger" id="cancelPassBtn">Cancel</button>
                         <button type="submit" class="pass-btn-primary" id="submitPassBtn">Change password</button>
                     </div>
                 </form>

@@ -21,12 +21,6 @@ $(document).ready(function() {
         $('.profile-popup-menu').removeClass('show');
     });
 
-    // User Profile Toggle
-    $('#userMenuBtn').on('click', function(e) {
-        e.stopPropagation();
-        $('.profile-popup-menu').toggleClass('show');
-        $('#notificationMenu').removeClass('show');
-    });
 
     // Theme Switcher Toggle
     $('#themeToggleBtn').on('click', function() {
@@ -34,10 +28,8 @@ $(document).ready(function() {
         const icon = $('#themeIcon');
         if($('body').hasClass('dark-theme')) {
             icon.text('light_mode');
-            showAlert('info', 'Switching to dark theme...');
         } else {
             icon.text('dark_mode');
-            showAlert('info', 'Switching to light theme...');
         }
     });
 

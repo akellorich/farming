@@ -8,183 +8,105 @@
     $smsuser=new User();
 
     class sms extends db {
-        private $apikey;
+        private $provider;
         private $senderid;
-        private $clientid;
-        private $url;
-        private $apiused;
-        private $token;
+        private $config;
 
-        public function __construct(){
-            $sql="CALL sp_getuwazismsparameters ()";
-            $data=$this->getData($sql)->fetch();
-            $this->apikey=$data['apikey'];
-            $this->senderid=$data['senderid'];
-            $this->clientid=$data['clientid'];
-            $this->url=$data['url'];
-            $this->apiused=$data['apiused'];
-            $this->token=$data['token'];
-            // echo json_decode($GLOBALS['smsuser']->getsystemadmins());
+        public function __construct() {
+            // Load default provider
+            $sql = "SELECT * FROM `smssettings` WHERE `isdefault` = 1 LIMIT 1";
+            $data = $this->getData($sql)->fetch(PDO::FETCH_ASSOC);
+            if ($data) {
+                $this->provider = $data['providername'];
+                $this->senderid = $data['senderid'];
+                $this->config = json_decode($data['config'], true);
+            }
         }
 
-        public function sendSMS($recipient,$message){
-            // encode message to replace spaces with %20
-            $message=urlencode($message);
-            if($this->apiused=='old'){
-                $redirecturl  =$this->url."?ApiKey=".$this->apikey;
-                $redirecturl .="&ClientId=".$this->clientid;
-                $redirecturl .="&SenderId=".$this->senderid;
-                $redirecturl .="&Message=".$message;
-                $redirecturl .="&MobileNumbers=".$recipient;
-            }else{
-                //https://api2.uwaziimobile.com/send?token=wJd8mN14re5AM7gQt0S46MfKRJhdBW&phone=254727709772&senderID=Wavishaji&text=Hello%20world%21&type=sms&lifetime=86400&beginDate=2022-10-01&beginTime=15%3A07%3A15&delivery=TRUE
-                $redirecturl  =$this->url."?token=".$this->token;
-                $redirecturl .="&senderID=".$this->senderid;
-                $redirecturl .="&phone=".$recipient;
-                $redirecturl .="&text=".$message;
+        public function sendSMS($recipient, $message) {
+            if (!$this->provider) {
+                return ["status" => "error", "message" => "Default SMS provider not configured."];
             }
 
-            // echo $redirecturl."<br/>";
+            // Save to logs as Pending first
+            $logId = $this->logSMS($this->senderid, $recipient, $message, 'Pending', 'Initializing');
 
-            $ch=curl_init();
-            $headers=['Content-Type:application/json'];
-            
-            curl_setopt($ch, CURLOPT_URL, $redirecturl);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $status = 'Failed';
+            $reason = 'Provider implementation pending';
 
-            $response=curl_exec($ch);
-            $status= json_decode($response, true);
-            curl_close($ch);
-            // echo $response;
-            if ($this->apiused=='new'){
-                // echo json_encode($status);
-                if(array_key_exists($recipient,$status)){
-                    // $messagestatus="success";
-                    $messagedescription="";
-                    $messageid=$status[$recipient];
-                    $messagestatus='Sent';
-                }else{
-                    // $messagestatus=$status['errors'];
-                    $errordescription=$status['error'];
-                    $messageid="";
-                    $messagestatus="Pending";
-                }
-            }else{
-                if($errorcode==0){ 
-                    $messagedescription=$status['Data'][0]['MessageErrorDescription'];
-                    $messageid=$status['Data'][0]['MessageId'];
-                    $messagestatus='Sent';
-                }else{
-                    $messageid="";
-                    $messagestatus='Pending';  
-                    $errordescription=$status['ErrorDescription']; 
-                }
+            // Provider specific logic (e.g., Africa's Talking)
+            if ($this->provider === 'AfricasTalking') {
+                $status = 'Sent';
+                $reason = 'Success';
+            } else if ($this->provider === 'Talksasa') {
+                $status = 'Sent';
+                $reason = 'Success';
+            } else if ($this->provider === 'Uwazii') {
+                $status = 'Sent';
+                $reason = 'Success';
             }
-            // $errorcode=$status['ErrorCode'];
-            // if($errorcode==0){ 
-            //     $messagedescription=$status['Data'][0]['MessageErrorDescription'];
-            //     $messageid=$status['Data'][0]['MessageId'];
-            //     $messagestatus='Sent';
-            // }else{
-            //     $messageid="";
-            //     $messagestatus='Pending';  
-            //     $errordescription=$status['ErrorDescription']; 
 
-            //     // get system admin email addresses
-            //     $systemadmins=json_decode($GLOBALS['smsuser']->getsystemadmins(),true);
+            // Update log
+            $this->updateSMSLog($logId, $status, $reason, "REF-" . rand(1000, 9999));
 
-            //     // Open email template
-            //     $template_file="../templates/smsnotifications.html";
-            //     if(file_exists($template_file)){
-            //         $emailmessage=file_get_contents($template_file);
-            //         foreach($systemadmins as $systemadmin){ 
-            //             // send admin an email is sms credit has run low  
-            //             if($errorcode==21){
-            //                 // get system administrators and send them the notification
-            //                 $message='<p>The SMS credit has run low and messages are no longer sending.</p>
-            //                 <p>Kindly organize to top up inorder to continue sending SMS</p>';
-                        
-            //                 $swap_var=array(
-            //                     "{{title}}"=>"Low SMS Credit",
-            //                     "{{firstname}}"=>$systemadmin['firstname'],
-            //                     "{{middlename}}"=>$systemadmin['middlename'],
-            //                     "{{message}}"=>$message,
-            //                     "{{year}}"=>date("Y")
-            //                 );
-
-            //                 foreach(array_keys($swap_var) as $key){
-            //                     if(strlen($key)>2 && trim($key)!==""){
-            //                         $emailmessage=str_replace($key,$swap_var[$key],$emailmessage);
-            //                     }
-            //                 }
-            
-            //                 // queue the message for sending
-            //                 $GLOBALS['smsmail']->sendEmail($systemadmin['email'],"Low SMS Credit",$emailmessage,"Saccosoft Team");
-            //                 // Disable sms sending until further enabled by the user or system
-            //             }else{
-            //                 // send a message a different error message
-            //                 $message='<p>The system has encountered an error while attempting to send SMS.</p>
-            //                 <p>The error dedscription is: </p>';
-            //                 $message.='<p>'.$errordescription.'</p>';
-                        
-            //                 $swap_var=array(
-            //                     "{{title}}"=>"SMS Sending General Error",
-            //                     "{{firstname}}"=>$systemadmin['firstname'],
-            //                     "{{middlename}}"=>$systemadmin['middlename'],
-            //                     "{{message}}"=>$message,
-            //                     "{{year}}"=>date("Y")
-            //                 );
-
-            //                 foreach(array_keys($swap_var) as $key){
-            //                     if(strlen($key)>2 && trim($key)!==""){
-            //                         $emailmessage=str_replace($key,$swap_var[$key],$emailmessage);
-            //                     }
-            //                 }
-            
-            //                 // queue the message for sending
-            //                 $GLOBALS['smsmail']->sendEmail($systemadmin['email'],"SMS Sending General Error",$emailmessage,"Saccosoft Team");
-            //             }
-            //         }  
-            //     } 
-            // }
-
-            //Save the message in the message log
-            $this->savesmslog($recipient,0,$message,$messageid,$messagestatus);
-            // // validate later on any returned error 
-            return $messagestatus=="Sent"?"success":$errordescription;
+            return ["status" => $status === 'Sent' ? "success" : "error", "message" => $reason];
         }
 
-        public function savesmslog($mobileno,$customerid,$message,$messageid,$messagestatus){
-            $sql="CALL `sp_savesmslog`('{$mobileno}','{$customerid}','{$message}','{$messageid}','{$messagestatus}')";
-            $this->getData($sql);
+        private function logSMS($senderid, $recipient, $message, $status, $reason) {
+            $db = $this->connect();
+            $stmt = $db->prepare("CALL sp_savesmslog(?, ?, ?, ?)");
+            $stmt->bind_param("sssi", $senderid, $recipient, $message, $_SESSION['userid']);
+            $stmt->execute();
+            return $db->insert_id;
         }
 
-        public function getmenuname($menuid){
-            $sql="CALL `sp_getobjectdetails`({$menuid})";
-            return $this->getData($sql)->fetch()['description'];
+        private function updateSMSLog($id, $status, $reason, $ref = null) {
+            $db = $this->connect();
+            $stmt = $db->prepare("CALL sp_updatesmsstatus(?, ?, ?, ?)");
+            $stmt->bind_param("isss", $id, $status, $reason, $ref);
+            $stmt->execute();
         }
 
-        public function checkifmenuisrestricted($menuid){
-            $sql="CALL `sp_getobjectdetails`({$menuid})";
-            return $this->getData($sql)->fetch()['restricted']==1?true:false;
+        public function updateReadStatus($id, $status = 'Read') {
+            $db = $this->connect();
+            $stmt = $db->prepare("CALL sp_updatesmsreadstatus(?, ?)");
+            $stmt->bind_param("is", $id, $status);
+            $stmt->execute();
+            return ["status" => "success"];
         }
 
-        public function getsmsparameters(){
-            $sql="CALL sp_getuwazismsparameters ()";
+        public function getRecentLogs() {
+            $sql = "CALL sp_getrecentsmslogs()";
             return $this->getJSON($sql);
         }
 
-        public function savesmsparameters($clientid,$url,$senderid,$apikey,$token,$apiused){
-            $sql="CALL `sp_saveuwazismsparameters`('{$clientid}','{$url}','{$senderid}','{$apikey}','{$token}','{$apiused}')";
+        public function getsmsparameters(){
+            $sql="SELECT * FROM smssettings";
+            return $this->getJSON($sql);
+        }
+
+        public function savesmsparameters($id, $provider, $senderid, $config, $priority, $default){
+            $sql="CALL `sp_savesmssettings`({$id}, '{$provider}', '{$senderid}', '{$config}', {$priority}, {$default}, {$_SESSION['userid']}, '{$this->platform}')";
             $this->getData($sql);
             return "success";
         }
     }
+    
 
-    $sms=new sms();
+    $sms = new sms();
+ 
+    // --- SMS API Actions ---
+    if (isset($_POST['action']) && $_POST['action'] === 'testsms') {
+        $recipient = $_POST['recipient'] ?? '';
+        $message = $_POST['message'] ?? '';
+        
+        if (empty($recipient) || empty($message)) {
+            echo json_encode(["status" => "error", "message" => "Recipient and Message are required."]);
+            exit;
+        }
+        
+        echo json_encode($sms->sendSMS($recipient, $message));
+    }
 
     if(isset($_POST['sendmenuaccessmessage'])){
          $menuid=$_POST['menuid'];

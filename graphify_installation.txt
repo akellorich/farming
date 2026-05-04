@@ -1,0 +1,6 @@
+Installing graphify
+python -m pip install graphifyy
+python -m graphify vscode install
+python -m graphify antigravity install
+Open your AI coding assistant and type:
+/graphify .

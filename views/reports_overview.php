@@ -360,6 +360,8 @@ $base_path = '../';
     <script src="../plugins/jquery-ui.js"></script>
     <script src="../plugins/popper.js"></script>
     <script src="../plugins/bootstrap.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     
     <!-- DataTables JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>

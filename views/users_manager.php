@@ -89,13 +89,19 @@ $base_path = '../';
             <div class="row mt-4">
                 <!-- Main Table Section -->
                 <div class="col-lg-8">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h3 class="font-headline font-weight-bold mb-0 users-section-title">Team Members</h3>
-                        <button class="btn btn-add-user d-flex align-items-center" data-toggle="modal" data-target="#addUserModal">
-                            <span class="material-symbols-outlined mr-2 add-user-icon">person_add</span>
-                            Add New User
-                        </button>
-                    </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="font-headline font-weight-bold mb-0 users-section-title">Team Members</h3>
+                            <div class="d-flex align-items-center">
+                                <div class="position-relative mr-3 d-none d-md-block">
+                                    <input type="text" id="staffSearch" class="form-control form-control-sm border-0 botanical-shadow-sm px-3" placeholder="Search team..." style="border-radius: 0.5rem; width: 200px; font-size: 0.75rem;">
+                                    <span class="material-symbols-outlined position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--on-surface-variant); opacity: 0.5;">search</span>
+                                </div>
+                                <button class="btn btn-add-user d-flex align-items-center" data-toggle="modal" data-target="#addUserModal">
+                                    <span class="material-symbols-outlined mr-2 add-user-icon">person_add</span>
+                                    Add New User
+                                </button>
+                            </div>
+                        </div>
 
                     <div class="users-table-container botanical-shadow-sm">
                         <table class="table users-table" id="usersTable" width="100%" style="border-collapse: separate; border-spacing: 0; width: 100% !important; max-width: 100% !important; margin: 0 !important;">
@@ -333,6 +339,8 @@ $base_path = '../';
     <script src="../plugins/bootstrap/bootstrap.js"></script>
     <script src="../js/header.js"></script>
     <script src="../plugins/alert/alert.js"></script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/usersmanager.js"></script>
 
     <!-- Add New User Modal -->
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -368,6 +376,7 @@ $base_path = '../';
                             <div class="user-modal-form-section flex-grow-1">
                                 <div class="mb-5">
                                     <span class="text-uppercase font-weight-bold" style="font-size: 0.65rem; color: #795900; letter-spacing: 1.5px;">USER INFORMATION</span>
+                                    <div id="notificationsarea"></div>
                                     <p class="text-muted small mb-0 mt-1 d-none d-md-block">Enter credentials and permissions for the new staff member.</p>
                                 </div>
 
@@ -397,7 +406,7 @@ $base_path = '../';
                                             <div class="row align-items-center mb-3 mb-md-4">
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Full Name</label>
                                                 <div class="col-8 col-md-12">
-                                                    <input type="text" class="user-modal-input" placeholder="e.g. Samuel Kibet">
+                                                    <input type="text" id="fullname" class="user-modal-input" placeholder="e.g. Samuel Kibet">
                                                 </div>
                                             </div>
                                         </div>
@@ -405,7 +414,7 @@ $base_path = '../';
                                             <div class="row align-items-center mb-3 mb-md-4">
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Username</label>
                                                 <div class="col-8 col-md-12">
-                                                    <input type="text" class="user-modal-input" placeholder="e.g. s_kibet">
+                                                    <input type="text" id="username" class="user-modal-input" placeholder="e.g. s_kibet">
                                                 </div>
                                             </div>
                                         </div>
@@ -417,7 +426,7 @@ $base_path = '../';
                                             <div class="row align-items-center mb-3 mb-md-4">
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Email Address</label>
                                                 <div class="col-8 col-md-12">
-                                                    <input type="email" class="user-modal-input" placeholder="samuel.k@jukamdairy.com">
+                                                    <input type="email" id="email" class="user-modal-input" placeholder="samuel.k@jukamdairy.com">
                                                 </div>
                                             </div>
                                         </div>
@@ -425,7 +434,7 @@ $base_path = '../';
                                             <div class="row align-items-center mb-3 mb-md-4">
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Mobile Number</label>
                                                 <div class="col-8 col-md-12">
-                                                    <input type="tel" class="user-modal-input" placeholder="e.g. +254 700 000 000">
+                                                    <input type="tel" id="mobile" class="user-modal-input" placeholder="e.g. +254 700 000 000">
                                                 </div>
                                             </div>
                                         </div>
@@ -438,7 +447,7 @@ $base_path = '../';
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Select Role</label>
                                                 <div class="col-8 col-md-12">
                                                     <div class="position-relative">
-                                                        <select class="user-modal-select">
+                                                        <select id="userrole" class="user-modal-select">
                                                             <option disabled selected>Choose Role</option>
                                                             <option>General Manager</option>
                                                             <option>Veterinarian</option>
@@ -456,7 +465,7 @@ $base_path = '../';
                                                 <label class="col-4 col-md-12 user-modal-label mb-0 mb-md-2">Access Level</label>
                                                 <div class="col-8 col-md-12">
                                                     <div class="position-relative">
-                                                        <select class="user-modal-select">
+                                                        <select id="accesslevel" class="user-modal-select">
                                                             <option disabled selected>Choose Level</option>
                                                             <option>Full Access</option>
                                                             <option>View Only</option>
@@ -489,86 +498,5 @@ $base_path = '../';
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
 
-    <!-- <script>
-        $(document).ready(function() {
-            const table = $('#usersTable').DataTable({
-                "pageLength": 5,
-                "lengthChange": false,
-                "searching": true,
-                "info": false,
-                "paging": true,
-                "ordering": true,
-                "order": [[0, "asc"]],
-                "responsive": true,
-                "columnDefs": [
-                    { "responsivePriority": 1, "targets": -1 }, // Action button is MAX priority
-                    { "responsivePriority": 2, "targets": 0 },  // User is high priority
-                    { "responsivePriority": 10, "targets": 1 }, // Role
-                    { "responsivePriority": 11, "targets": 2 }, // Status
-                    { "responsivePriority": 12, "targets": 3 }, // Last Login
-                    { "orderable": false, "targets": "no-sort" }
-                ],
-                "dom": 't', // Only show the table, we handle search and pagination manually
-                "language": {
-                    "search": "",
-                    "searchPlaceholder": "Search employees..."
-                }
-            });
-
-            // Map search input
-            $('#staffSearch').on('keyup', function() {
-                table.search(this.value).draw();
-                updatePagination();
-            });
-
-            function updatePagination() {
-                const info = table.page.info();
-                $('#pageInfo').text('Page ' + (info.page + 1) + ' of ' + (info.pages || 1));
-                
-                let html = '';
-                for (let i = 0; i < info.pages; i++) {
-                    const activeClass = i === info.page ? 'active' : '';
-                    html += `<button class="page-btn ${activeClass}" data-page="${i}">${i + 1}</button>`;
-                }
-                $('#numberButtons').html(html);
-                
-                $('#prevPage').prop('disabled', info.page === 0).toggleClass('disabled', info.page === 0);
-                $('#nextPage').prop('disabled', info.page >= info.pages - 1 || info.pages === 0).toggleClass('disabled', info.page >= info.pages - 1 || info.pages === 0);
-            }
-
-            $('#customPagination').on('click', '.page-btn:not(.boundary-btn)', function() {
-                const page = $(this).data('page');
-                if (page !== undefined) { 
-                    table.page(page).draw('page'); 
-                    updatePagination(); 
-                }
-            });
-
-            $('#prevPage').on('click', function() { 
-                table.page('previous').draw('page'); 
-                updatePagination(); 
-            });
-
-            $('#nextPage').on('click', function() { 
-                table.page('next').draw('page'); 
-                updatePagination(); 
-            });
-
-            // Initial pagination update
-            updatePagination();
-
-            // Profile Photo Preview Logic
-            $('#userPhoto').on('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#photoPreview').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script> -->
 </body>
 </html>

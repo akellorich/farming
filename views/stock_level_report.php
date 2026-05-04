@@ -664,6 +664,8 @@ $base_path = '../';
     <!-- Global Scripts -->
     <script src="../plugins/jquery-3.6.1.js"></script>
     <script src="../plugins/bootstrap.bundle.min.js"></script>
+    <script src="../plugins/alert.js"></script>
+    <script src="../js/functions.js"></script>
     
     <!-- DataTables JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
