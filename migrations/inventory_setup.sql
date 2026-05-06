@@ -3,8 +3,8 @@
 
 DELIMITER $$
 
-/* --- Table: inventory_categories --- */
-CREATE TABLE IF NOT EXISTS `inventory_categories` (
+/* --- Table: inventorycategories --- */
+CREATE TABLE IF NOT EXISTS `inventorycategories` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `categorycode` VARCHAR(50) NOT NULL UNIQUE,
     `categoryname` VARCHAR(255) NOT NULL,
@@ -44,7 +44,7 @@ BEGIN
     START TRANSACTION;
     
     IF `$id` = 0 THEN
-        INSERT INTO `inventory_categories` (
+        INSERT INTO `inventorycategories` (
             `categorycode`, `categoryname`, `categoryicon`, `itemprefix`, `startingnumber`, `padzeros`, `addedby`
         )
         VALUES (
@@ -58,9 +58,9 @@ BEGIN
         VALUES (NOW(), `$userid`, 'Insert', CONCAT('Created Inventory Category: ', `$categoryname`), `$platform`, `$updatedvalues`);
     ELSE
         SELECT JSON_OBJECT('categorycode', `categorycode`, 'categoryname', `categoryname`) INTO `$originalvalues` 
-        FROM `inventory_categories` WHERE `id` = `$id`;
+        FROM `inventorycategories` WHERE `id` = `$id`;
         
-        UPDATE `inventory_categories`
+        UPDATE `inventorycategories`
         SET `categorycode` = `$categorycode`,
             `categoryname` = `$categoryname`,
             `categoryicon` = `$categoryicon`,
@@ -72,7 +72,7 @@ BEGIN
         WHERE `id` = `$id`;
         
         SELECT JSON_OBJECT('categorycode', `categorycode`, 'categoryname', `categoryname`) INTO `$updatedvalues` 
-        FROM `inventory_categories` WHERE `id` = `$id`;
+        FROM `inventorycategories` WHERE `id` = `$id`;
         
         INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `originalvalues`, `updatedvalues`)
         VALUES (NOW(), `$userid`, 'Update', CONCAT('Updated Inventory Category: ', `$categoryname`), `$platform`, `$originalvalues`, `$updatedvalues`);
@@ -89,9 +89,9 @@ CREATE PROCEDURE `sp_getinventorycategories`(
 )
 BEGIN
     IF `$id` = 0 THEN
-        SELECT * FROM `inventory_categories` WHERE `deleted` = 0 ORDER BY `categoryname` ASC;
+        SELECT * FROM `inventorycategories` WHERE `deleted` = 0 ORDER BY `categoryname` ASC;
     ELSE
-        SELECT * FROM `inventory_categories` WHERE `id` = `$id` AND `deleted` = 0;
+        SELECT * FROM `inventorycategories` WHERE `id` = `$id` AND `deleted` = 0;
     END IF;
 END$$
 
@@ -109,9 +109,9 @@ BEGIN
     START TRANSACTION;
     
     SELECT `categoryname`, JSON_OBJECT('id', `id`, 'categoryname', `categoryname`) INTO `$categoryname`, `$originalvalues`
-    FROM `inventory_categories` WHERE `id` = `$id`;
+    FROM `inventorycategories` WHERE `id` = `$id`;
     
-    UPDATE `inventory_categories`
+    UPDATE `inventorycategories`
     SET `deleted` = 1,
         `deletedby` = `$userid`,
         `datedeleted` = NOW()
@@ -124,8 +124,8 @@ BEGIN
     SELECT 1 AS `success`;
 END$$
 
-/* --- Table: inventory_items --- */
-CREATE TABLE IF NOT EXISTS `inventory_items` (
+/* --- Table: inventoryitems --- */
+CREATE TABLE IF NOT EXISTS `inventoryitems` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `categoryid` INT NOT NULL,
     `itemcode` VARCHAR(100) NOT NULL UNIQUE,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `inventory_items` (
     `deleted` TINYINT(1) DEFAULT 0,
     `deletedby` INT,
     `datedeleted` DATETIME,
-    CONSTRAINT `fkinvitemcat` FOREIGN KEY (`categoryid`) REFERENCES `inventory_categories`(`id`),
+    CONSTRAINT `fkinvitemcat` FOREIGN KEY (`categoryid`) REFERENCES `inventorycategories`(`id`),
     CONSTRAINT `fkinvitemaddedby` FOREIGN KEY (`addedby`) REFERENCES `user`(`userid`),
     CONSTRAINT `fkinvitemupdatedby` FOREIGN KEY (`updatedby`) REFERENCES `user`(`userid`),
     CONSTRAINT `fkinvitemdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user`(`userid`)
@@ -170,7 +170,7 @@ BEGIN
     START TRANSACTION;
     
     IF `$id` = 0 THEN
-        INSERT INTO `inventory_items` (
+        INSERT INTO `inventoryitems` (
             `categoryid`, `itemcode`, `itemname`, `uom`, `unitprice`, `reorderlevel`, `itemtype`, `description`, `addedby`
         )
         VALUES (
@@ -184,9 +184,9 @@ BEGIN
         VALUES (NOW(), `$userid`, 'Insert', CONCAT('Provisioned Inventory Item: ', `$itemname`), `$platform`, `$updatedvalues`);
     ELSE
         SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`) INTO `$originalvalues` 
-        FROM `inventory_items` WHERE `id` = `$id`;
+        FROM `inventoryitems` WHERE `id` = `$id`;
         
-        UPDATE `inventory_items`
+        UPDATE `inventoryitems`
         SET `categoryid` = `$categoryid`,
             `itemcode` = `$itemcode`,
             `itemname` = `$itemname`,
@@ -200,7 +200,7 @@ BEGIN
         WHERE `id` = `$id`;
         
         SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`) INTO `$updatedvalues` 
-        FROM `inventory_items` WHERE `id` = `$id`;
+        FROM `inventoryitems` WHERE `id` = `$id`;
         
         INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `originalvalues`, `updatedvalues`)
         VALUES (NOW(), `$userid`, 'Update', CONCAT('Updated Inventory Item: ', `$itemname`), `$platform`, `$originalvalues`, `$updatedvalues`);
@@ -221,8 +221,8 @@ BEGIN
         ii.*,
         ic.`categoryname`,
         ic.`categorycode`
-    FROM `inventory_items` ii
-    LEFT JOIN `inventory_categories` ic ON ii.`categoryid` = ic.`id`
+    FROM `inventoryitems` ii
+    LEFT JOIN `inventorycategories` ic ON ii.`categoryid` = ic.`id`
     WHERE ii.`deleted` = 0
     AND (ii.`categoryid` = `$categoryid` OR `$categoryid` = 0)
     AND (ii.`id` = `$itemid` OR `$itemid` = 0)
@@ -243,9 +243,9 @@ BEGIN
     START TRANSACTION;
     
     SELECT `itemname`, JSON_OBJECT('id', `id`, 'itemname', `itemname`) INTO `$itemname`, `$originalvalues`
-    FROM `inventory_items` WHERE `id` = `$id`;
+    FROM `inventoryitems` WHERE `id` = `$id`;
     
-    UPDATE `inventory_items`
+    UPDATE `inventoryitems`
     SET `deleted` = 1,
         `deletedby` = `$userid`,
         `datedeleted` = NOW()

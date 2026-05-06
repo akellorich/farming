@@ -8,7 +8,7 @@ BEGIN
         IFNULL(SUM(current_stock * unitprice), 0) AS total_value,
         COUNT(CASE WHEN current_stock <= reorderlevel AND deleted = 0 THEN 1 END) AS low_stock_count,
         (SELECT COUNT(*) FROM inventory_categories WHERE deleted = 0) AS category_count
-    FROM inventory_items
+    FROM inventoryitems
     WHERE deleted = 0;
 END$$
 
@@ -22,7 +22,7 @@ BEGIN
         ic.categoryicon,
         COUNT(ii.id) as item_count
     FROM inventory_categories ic
-    LEFT JOIN inventory_items ii ON ic.id = ii.categoryid AND ii.deleted = 0
+    LEFT JOIN inventoryitems ii ON ic.id = ii.categoryid AND ii.deleted = 0
     WHERE ic.deleted = 0
     GROUP BY ic.id, ic.categoryname, ic.categoryicon
     ORDER BY ic.categoryname ASC;

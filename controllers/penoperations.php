@@ -2,6 +2,7 @@
     require_once("../models/pen.php");
     $pen = new pen();
     
+    header('Content-Type: application/json');
     $action = $_GET['action'] ?? $_POST['action'] ?? '';
 
     if ($action == 'savepen') {
@@ -15,7 +16,7 @@
         echo json_encode($response);
     }
 
-    if ($action == 'getpens') {
+    if (isset($_GET['getpens']) || $action == 'getpens') {
         echo $pen->getPens();
     }
 ?>

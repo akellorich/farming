@@ -39,9 +39,10 @@ if ($action == 'saveitem') {
     $price = $_POST['unitprice'] ?? 0;
     $reorder = $_POST['reorderlevel'] ?? 0;
     $type = $_POST['itemtype'] ?? 'Ingredient';
+    $isFeed = isset($_POST['is_feed']) ? 1 : 0;
     $desc = $_POST['description'] ?? '';
 
-    echo $inventory->saveItem($id, $catId, $code, $name, $uom, $price, $reorder, $type, $desc);
+    echo $inventory->saveItem($id, $catId, $code, $name, $uom, $price, $reorder, $type, $isFeed, $desc);
 }
 
 if ($action == 'getitems') {

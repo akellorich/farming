@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Record Vaccination - Modern Agrarian</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Font: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+          },
+          colors: {
+            primary: '#1B5E20',
+            surface: '#fbf9f8',
+            'surface-dim': '#dcd9d9',
+            'emerald-dark': '#0a2e0c',
+          },
+          borderRadius: {
+            'custom': '8px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styling">
+    body {
+      background-color: #9ca3af; /* Simulating the grey background behind modal */
+    }
+    .modal-overlay {
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-bg {
+      background: linear-gradient(rgba(27, 94, 32, 0.85), rgba(10, 46, 12, 0.95)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1000');
+      background-size: cover;
+      background-position: center;
+    }
+    /* Custom scrollbar for animal list */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #a1a1a1;
+    }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/></head>
+<body class="font-sans flex items-center justify-center min-h-screen p-4">
+<!-- BEGIN: Modal Overlay -->
+<div class="fixed inset-0 bg-black/40 modal-overlay flex items-center justify-center z-50">
+<!-- BEGIN: Main Modal Container -->
+<div class="bg-white rounded-3xl shadow-2xl flex max-w-6xl w-full max-h-[90vh] overflow-hidden">
+<!-- BEGIN: Sidebar Branding -->
+<aside class="w-1/3 sidebar-bg text-white p-10 flex flex-col justify-between relative">
+<div data-purpose="branding-content">
+<div class="flex items-center gap-2 mb-12">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707-.707" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-xl font-bold tracking-tight">Modern Agrarian</span>
+</div>
+<h1 class="text-4xl font-extrabold mb-4 leading-tight">Record Vaccination</h1>
+<p class="text-white/80 text-lg">
+            Ensuring precise health tracking for livestock and poultry divisions. Log vaccination routine details efficiently.
+          </p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20" data-purpose="station-info">
+<p class="text-xs uppercase tracking-widest text-white/60 mb-1">Active Station</p>
+<p class="font-bold text-lg">Emerald Valley Barn 4</p>
+<p class="text-sm text-white/70">Section A • Livestock Division</p>
+</div>
+</aside>
+<!-- END: Sidebar Branding -->
+<!-- BEGIN: Form Section -->
+<main class="w-2/3 bg-surface p-10 overflow-y-auto custom-scrollbar">
+<div class="flex justify-end mb-4">
+<button class="text-gray-400 hover:text-gray-600 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<header class="mb-8">
+<h2 class="text-primary text-xl font-bold">Vaccination Execution Log</h2>
+<p class="text-gray-500">Fill in the details for the routine medical administration.</p>
+</header>
+<form class="space-y-6">
+<!-- BEGIN: Form Row 1 -->
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Vaccination Date</label>
+<input class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3" type="date" value="2023-10-27"/>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Administered By</label>
+<select class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3 appearance-none">
+<option>Choose Vet</option>
+<option selected="">Dr. Sarah Miller</option>
+<option>Dr. James Wilson</option>
+</select>
+</div>
+</div>
+<!-- END: Form Row 1 -->
+<!-- BEGIN: Form Row 2 -->
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Execution Type</label>
+<div class="flex bg-white border border-gray-200 rounded-lg p-1">
+<button class="flex-1 py-2 text-sm font-medium rounded-md transition-colors bg-surface text-primary shadow-sm" type="button">Routine</button>
+<button class="flex-1 py-2 text-sm font-medium rounded-md transition-colors text-gray-500 hover:text-gray-700" type="button">Scheduled</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Select Schedule</label>
+<div class="relative">
+<select class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3 appearance-none">
+<option disabled="" selected="">Choose from schedules...</option>
+<option>Q4 Herd Immunity Drive</option>
+<option>Bovine Viral Diarrhea (BVD) Protocol</option>
+<option>Foot and Mouth Disease (FMD) Annual</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+<span class="material-symbols-outlined text-xl">expand_more</span>
+</div>
+</div>
+</div>
+</div><div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Vaccine / Product Name</label>
+<input class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3" placeholder="e.g. Aftovax, LumpyVax" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Batch / Lot Number</label>
+<input class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3" placeholder="e.g. BN-2024-X1" type="text"/>
+</div>
+</div>
+<!-- END: Form Row 2 -->
+<!-- BEGIN: Dosage Field -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Dosage (per animal)</label>
+<input class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3" placeholder="e.g. 2ml" type="text"/>
+</div>
+<!-- END: Dosage Field -->
+<!-- BEGIN: Animal Checklist Section -->
+<div class="space-y-3" data-purpose="animal-selection">
+<div class="flex justify-between items-center">
+<label class="text-sm font-bold text-primary uppercase tracking-wide">Animal Checklist</label>
+<div class="flex items-center gap-2">
+<input class="rounded text-primary focus:ring-primary" id="selectAll" type="checkbox"/>
+<label class="text-sm text-gray-600 font-medium" for="selectAll">Select All</label>
+</div>
+</div>
+<div class="bg-white border border-gray-100 rounded-xl p-4 h-64 overflow-y-auto custom-scrollbar shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2023-045</p>
+<p class="text-xs text-gray-500">Luna</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Calf Nursery</span>
+</div>
+</div>
+</div>
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2024-012</p>
+<p class="text-xs text-gray-500">Molly</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Calf Nursery</span>
+</div>
+</div>
+</div>
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2024-00012</p>
+<p class="text-xs text-gray-500">Mumbi</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Dry Cow Block B</span>
+</div>
+</div>
+</div>
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2022-001</p>
+<p class="text-xs text-gray-500">Daisy</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Lactation Hub 01</span>
+</div>
+</div>
+</div>
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2024-00008</p>
+<p class="text-xs text-gray-500">Nekesa</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Maternity Wing A</span>
+</div>
+</div>
+</div>
+<!-- Animal Card Item -->
+<div class="flex items-center p-3 border border-gray-50 rounded-lg hover:bg-emerald-50/50 transition-colors">
+<input class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300" type="checkbox"/>
+<div class="ml-3 flex-1">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold text-gray-800">JK-2024-00013</p>
+<p class="text-xs text-gray-500">Njeri</p>
+</div>
+<span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium">Maternity Wing A</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END: Animal Checklist Section -->
+<!-- BEGIN: Notes -->
+<div class="space-y-2">
+<label class="block text-sm font-semibold text-gray-700">Vaccination Notes</label>
+<textarea class="w-full bg-white border-gray-200 rounded-lg focus:ring-primary focus:border-primary px-4 py-3" placeholder="Optional notes regarding reactions, behavior, or administration conditions..." rows="3"></textarea>
+</div>
+<!-- END: Notes -->
+<!-- BEGIN: Actions Footer -->
+<div class="flex items-center justify-between pt-6 border-t border-gray-200">
+<button class="px-8 py-3 text-gray-500 font-bold hover:text-gray-700 transition-colors" type="button">
+              Cancel
+            </button>
+<button class="bg-primary hover:bg-emerald-dark text-white px-10 py-3 rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-primary/20 transition-all transform hover:-translate-y-0.5" type="submit">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Save Record
+            </button>
+</div>
+<!-- END: Actions Footer -->
+</form>
+</main>
+<!-- END: Form Section -->
+</div>
+<!-- END: Main Modal Container -->
+</div>
+<!-- END: Modal Overlay -->
+</body></html>

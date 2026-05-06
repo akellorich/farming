@@ -87,7 +87,7 @@ CREATE TABLE `audittrail` (
   `updatedvalues` mediumtext DEFAULT NULL,
   `branchid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2356 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2365 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `audittrail` */
 
@@ -2444,7 +2444,16 @@ insert  into `audittrail`(`id`,`timestamp`,`userid`,`operation`,`narration`,`pla
 (2352,'2026-05-04 11:54:39',5,'Insert','Registered new animal: JK-2026-00015 (Test)','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":16,\"tagid\":\"JK-2026-00015\",\"designatedname\":\"Test\",\"breedid\":6,\"penid\":3,\"status\":\"Dry\"}',NULL),
 (2353,'2026-05-04 15:18:42',5,'Insert','Created Inventory Category: Test category','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"1\", \"categorycode\": \"CT001\", \"categoryname\": \"Test category\"}',NULL),
 (2354,'2026-05-04 15:39:40',5,'Insert','Provisioned Inventory Item: Maize Barn','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"1\", \"itemcode\": \"\", \"itemname\": \"Maize Barn\"}',NULL),
-(2355,'2026-05-04 23:28:35',5,'CREATE','Created new feed mix formulation: Test (FEED-20260001)','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",',NULL,NULL,NULL);
+(2355,'2026-05-04 23:28:35',5,'CREATE','Created new feed mix formulation: Test (FEED-20260001)','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",',NULL,NULL,NULL),
+(2356,'2026-05-05 14:40:51',5,'Insert','Logged feeding session for Pen ID: 5','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":5,\"logdate\":\"2026-05-05\",\"shiftid\":3,\"penid\":5,\"feedtype\":\"3\",\"quantitykg\":200.00}',NULL),
+(2357,'2026-05-05 17:24:23',5,'Insert','Logged feeding session (Feed: Dewormer (1L)) for Pen ID: 1','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"6\", \"logdate\": \"2026-05-05\", \"shiftid\": \"3\", \"penid\": \"1\", \"feed_source_type\": \"Feed\", \"feed_id\": \"5\", \"feedname\": \"Dewormer (1L)\", \"quantitykg\": \"42.00\"}',NULL),
+(2358,'2026-05-05 17:28:41',5,'Insert','Logged feeding session (Ration: Test) for Pen ID: 1','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"7\", \"logdate\": \"2026-05-05\", \"shiftid\": \"3\", \"penid\": \"1\", \"feed_source_type\": \"Ration\", \"feed_id\": \"3\", \"feedname\": \"Test\", \"quantitykg\": \"30.00\"}',NULL),
+(2359,'2026-05-06 08:07:35',5,'Insert','Logged health record for animal: JK-2022-001','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":4,\"animalid\":1,\"diseaseid\":7,\"status\":\"Completed\"}',NULL),
+(2360,'2026-05-06 08:07:46',5,'Insert','Logged health record for animal: JK-2022-001','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":5,\"animalid\":1,\"diseaseid\":7,\"status\":\"Completed\"}',NULL),
+(2361,'2026-05-06 10:59:07',5,'Insert','Logged health record for animal: JK-2022-001','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":6,\"animalid\":1,\"diseaseid\":7,\"status\":\"Recovering\"}',NULL),
+(2362,'2026-05-06 11:10:18',5,'Insert','Logged health record for animal: JK-2022-002','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":7,\"animalid\":2,\"diseaseid\":7,\"status\":\"Recovering\"}',NULL),
+(2363,'2026-05-06 11:13:55',5,'Insert','Logged health record for animal: JK-2024-00005','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":8,\"animalid\":6,\"diseaseid\":8,\"status\":\"Recovering\"}',NULL),
+(2364,'2026-05-06 11:16:51',5,'Insert','Logged health record for animal: JK-2024-00006','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":9,\"animalid\":7,\"diseaseid\":2,\"status\":\"Recovering\"}',NULL);
 
 /*Table structure for table `breeds` */
 
@@ -2558,6 +2567,8 @@ CREATE TABLE `deworming` (
   `dosage` varchar(50) DEFAULT NULL,
   `method` varchar(50) DEFAULT NULL,
   `administeredby` varchar(100) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `record_type` enum('Scheduled','Routine','Emergency') DEFAULT 'Scheduled',
   `nextdue` date DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
   `dateadded` datetime DEFAULT current_timestamp(),
@@ -2574,13 +2585,29 @@ CREATE TABLE `deworming` (
   CONSTRAINT `fkdeworminganimal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fkdewormingdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkdewormingsched` FOREIGN KEY (`scheduleid`) REFERENCES `dewormingschedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `deworming` */
 
-insert  into `deworming`(`id`,`animalid`,`scheduleid`,`dewormingdate`,`productused`,`dosage`,`method`,`administeredby`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,1,1,'2026-04-23','Albendazole 10%','30ml','Oral Drench','Farm Tech','2026-08-01',5,'2026-05-03 18:08:39',0,NULL,NULL,NULL),
-(2,3,2,'2026-04-23','Ivermectin','5ml','Subcutaneous Injection','Dr. Kamau','2026-08-01',5,'2026-05-03 18:08:39',0,NULL,NULL,NULL);
+insert  into `deworming`(`id`,`animalid`,`scheduleid`,`dewormingdate`,`productused`,`dosage`,`method`,`administeredby`,`notes`,`record_type`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,1,1,'2026-04-23','Albendazole 10%','30ml','Oral Drench','Farm Tech',NULL,'Scheduled','2026-08-01',5,'2026-05-03 18:08:39',0,NULL,NULL,NULL),
+(2,3,2,'2026-04-23','Ivermectin','5ml','Subcutaneous Injection','Dr. Kamau',NULL,'Scheduled','2026-08-01',5,'2026-05-03 18:08:39',0,NULL,NULL,NULL),
+(3,3,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(4,5,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(5,16,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(6,8,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(7,13,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(8,11,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(9,1,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(10,2,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(11,6,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(12,7,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(13,10,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(14,12,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(15,15,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(16,4,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(17,9,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL),
+(18,14,6,'2026-05-06','Test Dewormer','20ml','Oral Drench','4','','Scheduled',NULL,5,'2026-05-06 20:54:25',0,NULL,NULL,NULL);
 
 /*Table structure for table `dewormingschedules` */
 
@@ -2589,9 +2616,14 @@ DROP TABLE IF EXISTS `dewormingschedules`;
 CREATE TABLE `dewormingschedules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `schedulename` varchar(100) NOT NULL,
-  `frequency` varchar(50) DEFAULT NULL,
-  `recommendedproduct` varchar(100) DEFAULT NULL,
+  `penids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`penids`)),
+  `scheduledate` date DEFAULT NULL,
+  `scheduletime` time DEFAULT NULL,
+  `repeat_annually` tinyint(1) DEFAULT 0,
+  `diseaseid` int(11) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `status` enum('pending','completed') DEFAULT 'pending',
   `addedby` int(11) DEFAULT NULL,
   `dateadded` datetime DEFAULT current_timestamp(),
   `deleted` tinyint(1) DEFAULT 0,
@@ -2603,14 +2635,17 @@ CREATE TABLE `dewormingschedules` (
   KEY `fkdewormingschedulesdeletedby` (`deletedby`),
   CONSTRAINT `fkdewormingschedulesaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkdewormingschedulesdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `dewormingschedules` */
 
-insert  into `dewormingschedules`(`id`,`schedulename`,`frequency`,`recommendedproduct`,`description`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,'Calf Deworming','Monthly','Albendazole','First 6 months of life',5,'2026-05-03 18:08:30',0,NULL,NULL,NULL),
-(2,'Adult Routine','Quarterly','Ivermectin / Levamisole','Routine internal parasite control',5,'2026-05-03 18:08:30',0,NULL,NULL,NULL),
-(3,'Pre-Calving','Once','Fenbendazole','Administered 2 weeks before expected calving',5,'2026-05-03 18:08:30',0,NULL,NULL,NULL);
+insert  into `dewormingschedules`(`id`,`schedulename`,`penids`,`scheduledate`,`scheduletime`,`repeat_annually`,`diseaseid`,`notes`,`description`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,'Albendazole 10%','[\"1\", \"3\"]','2026-04-26','06:30:00',0,NULL,'General herd deworming.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(2,'Ivermectin Injection','[\"2\", \"5\"]','2026-05-05','09:00:00',1,NULL,'External and internal parasite control.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(3,'Fenbendazole Oral','[\"4\"]','2026-05-06','14:00:00',0,NULL,'Targeted treatment for Pen 4.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(4,'Levamisole','[\"1\", \"2\", \"6\"]','2026-05-11','08:00:00',0,NULL,'Post-rainy season deworming.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(5,'Praziquantel','[\"3\"]','2026-05-18','10:30:00',1,NULL,'Routine tapeworm control.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(6,'Test','[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\"]','2026-05-31','07:00:00',0,NULL,'',NULL,'completed',5,'2026-05-06 16:29:29',0,NULL,NULL,NULL);
 
 /*Table structure for table `diseases` */
 
@@ -2702,6 +2737,31 @@ insert  into `emailsettings`(`id`,`role`,`sendername`,`smtpserver`,`smtpport`,`u
 (3,'Security Updates',NULL,'smtp.sendgrid.net',587,'security@jukamdairy.com','SecurityPass123!',1,'Queue',5,'2026-05-03 19:10:08','2026-05-03 19:10:08',NULL),
 (4,'Marketing',NULL,'smtp.mailchimp.com',587,'marketing@jukamdairy.com','MktPass456!',1,'Direct',5,'2026-05-03 19:18:28','2026-05-03 19:18:28',NULL);
 
+/*Table structure for table `feedingloganimals` */
+
+DROP TABLE IF EXISTS `feedingloganimals`;
+
+CREATE TABLE `feedingloganimals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `logid` int(11) NOT NULL,
+  `animalid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_feedinglog_master` (`logid`),
+  KEY `fk_feedinglog_animal` (`animalid`),
+  CONSTRAINT `fk_feedinglog_animal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
+  CONSTRAINT `fk_feedinglog_master` FOREIGN KEY (`logid`) REFERENCES `feedinglogs` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `feedingloganimals` */
+
+insert  into `feedingloganimals`(`id`,`logid`,`animalid`) values 
+(1,5,8),
+(2,5,13),
+(3,6,9),
+(4,6,14),
+(5,7,9),
+(6,7,14);
+
 /*Table structure for table `feedinglogs` */
 
 DROP TABLE IF EXISTS `feedinglogs`;
@@ -2711,6 +2771,8 @@ CREATE TABLE `feedinglogs` (
   `logdate` date NOT NULL,
   `shiftid` int(11) DEFAULT NULL,
   `penid` int(11) DEFAULT NULL,
+  `feed_source_type` enum('Feed','Ration') DEFAULT 'Feed',
+  `feed_id` int(11) DEFAULT NULL,
   `feedtype` varchar(100) DEFAULT NULL,
   `quantitykg` decimal(10,2) NOT NULL,
   `notes` text DEFAULT NULL,
@@ -2729,15 +2791,18 @@ CREATE TABLE `feedinglogs` (
   CONSTRAINT `fkfeedinglogsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkfeedingpen` FOREIGN KEY (`penid`) REFERENCES `pens` (`id`),
   CONSTRAINT `fkfeedingshift` FOREIGN KEY (`shiftid`) REFERENCES `feedingshifts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `feedinglogs` */
 
-insert  into `feedinglogs`(`id`,`logdate`,`shiftid`,`penid`,`feedtype`,`quantitykg`,`notes`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,'2026-05-03',1,2,'TMR Mixed',250.50,'Regular morning feed',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
-(2,'2026-05-03',1,3,'Calf Pellets',45.00,'High protein ration',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
-(3,'2026-05-03',2,2,'Silage',150.00,'Supplementary roughage',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
-(4,'2026-05-02',3,2,'Dairy Meal',80.00,'Evening concentrate',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL);
+insert  into `feedinglogs`(`id`,`logdate`,`shiftid`,`penid`,`feed_source_type`,`feed_id`,`feedtype`,`quantitykg`,`notes`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,'2026-05-03',1,2,'Feed',NULL,'TMR Mixed',250.50,'Regular morning feed',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
+(2,'2026-05-03',1,3,'Feed',NULL,'Calf Pellets',45.00,'High protein ration',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
+(3,'2026-05-03',2,2,'Feed',NULL,'Silage',150.00,'Supplementary roughage',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
+(4,'2026-05-02',3,2,'Feed',NULL,'Dairy Meal',80.00,'Evening concentrate',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
+(5,'2026-05-05',3,5,'Feed',NULL,'3',200.00,'',5,'2026-05-05 14:40:51',0,NULL,NULL,NULL),
+(6,'2026-05-05',3,1,'Feed',5,'Dewormer (1L)',42.00,'',5,'2026-05-05 17:24:23',0,NULL,NULL,NULL),
+(7,'2026-05-05',3,1,'Ration',3,'Test',30.00,'',5,'2026-05-05 17:28:41',0,NULL,NULL,NULL);
 
 /*Table structure for table `feedingshifts` */
 
@@ -2834,6 +2899,9 @@ CREATE TABLE `healthlogs` (
   `diseaseid` int(11) DEFAULT NULL,
   `diagnosis` varchar(255) DEFAULT NULL,
   `treatment` text DEFAULT NULL,
+  `narration` text DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'Recovering',
+  `veterinarianid` int(11) DEFAULT NULL,
   `veterinarian` varchar(100) DEFAULT NULL,
   `nextfollowup` date DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
@@ -2847,18 +2915,26 @@ CREATE TABLE `healthlogs` (
   KEY `fkhealthdisease` (`diseaseid`),
   KEY `fkhealthlogsaddedby` (`addedby`),
   KEY `fkhealthlogsdeletedby` (`deletedby`),
+  KEY `fkhealthvet` (`veterinarianid`),
   CONSTRAINT `fkhealthanimal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fkhealthdisease` FOREIGN KEY (`diseaseid`) REFERENCES `diseases` (`id`),
   CONSTRAINT `fkhealthlogsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
-  CONSTRAINT `fkhealthlogsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `fkhealthlogsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
+  CONSTRAINT `fkhealthvet` FOREIGN KEY (`veterinarianid`) REFERENCES `veterinarians` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `healthlogs` */
 
-insert  into `healthlogs`(`id`,`logdate`,`animalid`,`diseaseid`,`diagnosis`,`treatment`,`veterinarian`,`nextfollowup`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,'2026-04-28',1,1,'Early stage mastitis','Antibiotic ointment, frequent stripping','Dr. Kamau','2026-05-10',5,'2026-05-03 18:08:36',0,NULL,NULL,NULL),
-(2,'2026-05-01',3,NULL,'Routine Checkup','Vitamins administration','Dr. Sarah','2026-06-02',5,'2026-05-03 18:08:36',0,NULL,NULL,NULL),
-(3,'2026-04-23',2,5,'Severe Bloat','Trocarization and anti-foaming agent','Farm Tech',NULL,5,'2026-05-03 18:08:36',0,NULL,NULL,NULL);
+insert  into `healthlogs`(`id`,`logdate`,`animalid`,`diseaseid`,`diagnosis`,`treatment`,`narration`,`status`,`veterinarianid`,`veterinarian`,`nextfollowup`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,'2026-04-28',1,1,'Early stage mastitis','Antibiotic ointment, frequent stripping',NULL,'Recovering',NULL,'Dr. Kamau','2026-05-10',5,'2026-05-03 18:08:36',0,NULL,NULL,NULL),
+(2,'2026-05-01',3,NULL,'Routine Checkup','Vitamins administration',NULL,'Recovering',NULL,'Dr. Sarah','2026-06-02',5,'2026-05-03 18:08:36',0,NULL,NULL,NULL),
+(3,'2026-04-23',2,5,'Severe Bloat','Trocarization and anti-foaming agent',NULL,'Recovering',NULL,'Farm Tech',NULL,5,'2026-05-03 18:08:36',0,NULL,NULL,NULL),
+(4,'0000-00-00',1,7,'Test','Antibiotic administered','Responding well, will be monitored for the next 3 days','Completed',NULL,'',NULL,5,'2026-05-06 08:07:35',0,NULL,NULL,NULL),
+(5,'0000-00-00',1,7,'Test','Antibiotic administered','Responding well, will be monitored for the next 3 days','Completed',NULL,'',NULL,5,'2026-05-06 08:07:46',0,NULL,NULL,NULL),
+(6,'0000-00-00',1,7,'Test entry','Abtibacterial tablets admionistered','Responding well','Recovering',4,NULL,NULL,5,'2026-05-06 10:59:07',0,NULL,NULL,NULL),
+(7,'2026-05-06',2,7,'This is a test entry','Antibiotic given','This was a test entry','Recovering',2,NULL,NULL,5,'2026-05-06 11:10:18',0,NULL,NULL,NULL),
+(8,'2026-05-06',6,8,'Another test entry','Antibiotic given, other medicines to follow','This is a test','Recovering',3,NULL,NULL,5,'2026-05-06 11:13:55',0,NULL,NULL,NULL),
+(9,'2026-05-06',7,2,'This is a test entry','Antibiotic given, other medicines to follow','This is a test. Another test','Recovering',3,NULL,NULL,5,'2026-05-06 11:16:51',0,NULL,NULL,NULL);
 
 /*Table structure for table `inventorycategories` */
 
@@ -2913,6 +2989,7 @@ CREATE TABLE `inventoryitems` (
   `unitprice` decimal(15,2) DEFAULT 0.00,
   `reorderlevel` decimal(15,2) DEFAULT 0.00,
   `itemtype` enum('Ingredient','Product') DEFAULT 'Ingredient',
+  `is_feed` tinyint(1) DEFAULT 0,
   `description` text DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
   `dateadded` datetime DEFAULT current_timestamp(),
@@ -2935,21 +3012,21 @@ CREATE TABLE `inventoryitems` (
 
 /*Data for the table `inventoryitems` */
 
-insert  into `inventoryitems`(`id`,`categoryid`,`itemcode`,`itemname`,`uom`,`current_stock`,`unitprice`,`reorderlevel`,`itemtype`,`description`,`addedby`,`dateadded`,`updatedby`,`lastupdated`,`deleted`,`deletedby`,`datedeleted`) values 
-(1,1,'FEED-100','Dairy Meal 50kg','Bag',0.00,2450.00,10.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(2,1,'FEED-101','Maize Germ','Bag',0.00,1800.00,20.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(3,1,'FEED-102','Hay Bales (Rhodes)','Pcs',0.00,350.00,50.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(4,2,'MED-001','Penicillin Vials','Vials',0.00,450.00,5.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(5,2,'MED-002','Dewormer (1L)','Litre',0.00,1200.00,2.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(6,2,'MED-003','Foot & Mouth Vaccine','Vials',0.00,2500.00,10.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(7,3,'EQP-050','Milking Bucket','Pcs',0.00,3500.00,1.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(8,3,'EQP-051','Wheelbarrow','Pcs',0.00,4800.00,1.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(9,4,'BLD-001','Bamburi Cement 50kg','Bag',0.00,950.00,5.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(10,4,'BLD-002','Iron Sheets (G30)','Pcs',0.00,1200.00,10.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(11,5,'CLN-001','Dairy Sanitizer (5L)','Jerrycan',0.00,1850.00,3.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(12,5,'CLN-002','Milking Salve','Kg',0.00,350.00,5.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(13,6,'SUP-200','Mineral Lick Blocks','Pcs',0.00,850.00,10.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(14,6,'SUP-201','Calf Starter Pellets','Bag',0.00,2800.00,5.00,'Ingredient',NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL);
+insert  into `inventoryitems`(`id`,`categoryid`,`itemcode`,`itemname`,`uom`,`current_stock`,`unitprice`,`reorderlevel`,`itemtype`,`is_feed`,`description`,`addedby`,`dateadded`,`updatedby`,`lastupdated`,`deleted`,`deletedby`,`datedeleted`) values 
+(1,1,'FEED-100','Dairy Meal 50kg','Bag',0.00,2450.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(2,1,'FEED-101','Maize Germ','Bag',0.00,1800.00,20.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(3,1,'FEED-102','Hay Bales (Rhodes)','Pcs',0.00,350.00,50.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(4,2,'MED-001','Penicillin Vials','Vials',0.00,450.00,5.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(5,2,'MED-002','Dewormer (1L)','Litre',0.00,1200.00,2.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(6,2,'MED-003','Foot & Mouth Vaccine','Vials',0.00,2500.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(7,3,'EQP-050','Milking Bucket','Pcs',0.00,3500.00,1.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(8,3,'EQP-051','Wheelbarrow','Pcs',0.00,4800.00,1.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(9,4,'BLD-001','Bamburi Cement 50kg','Bag',0.00,950.00,5.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(10,4,'BLD-002','Iron Sheets (G30)','Pcs',0.00,1200.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(11,5,'CLN-001','Dairy Sanitizer (5L)','Jerrycan',0.00,1850.00,3.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
+(12,5,'CLN-002','Milking Salve','Kg',0.00,350.00,5.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(13,6,'SUP-200','Mineral Lick Blocks','Pcs',0.00,850.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(14,6,'SUP-201','Calf Starter Pellets','Bag',0.00,2800.00,5.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL);
 
 /*Table structure for table `inventoryreceiptdetails` */
 
@@ -2969,7 +3046,7 @@ CREATE TABLE `inventoryreceiptdetails` (
   KEY `fkinvrecdetailitem` (`itemid`),
   CONSTRAINT `fkinvrecdetailitem` FOREIGN KEY (`itemid`) REFERENCES `inventoryitems` (`id`),
   CONSTRAINT `fkinvrecdetailmaster` FOREIGN KEY (`receiptid`) REFERENCES `inventoryreceipts` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `inventoryreceiptdetails` */
 
@@ -3007,7 +3084,7 @@ CREATE TABLE `inventoryreceipts` (
   CONSTRAINT `fkinvrecinspectedby` FOREIGN KEY (`inspectedbyid`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkinvrecsupplier` FOREIGN KEY (`supplierid`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `fkinvrecupdatedby` FOREIGN KEY (`updatedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `inventoryreceipts` */
 
@@ -3038,7 +3115,7 @@ CREATE TABLE `milkcollection` (
   CONSTRAINT `fkmilkcollectionanimal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fkmilkcollectiondeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkmilkcollectionschedule` FOREIGN KEY (`scheduleid`) REFERENCES `milkingschedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `milkcollection` */
 
@@ -3051,7 +3128,8 @@ insert  into `milkcollection`(`id`,`logdate`,`scheduleid`,`animalid`,`quantityli
 (6,'2026-05-04',1,6,11.20,1.0300,NULL,5,'2026-05-04 11:51:13',0,NULL,NULL,NULL),
 (7,'2026-05-04',1,11,13.80,1.0300,NULL,5,'2026-05-04 11:51:13',0,NULL,NULL,NULL),
 (8,'2026-05-04',1,6,25.00,1.0300,'None, everything is ok',5,'2026-05-04 12:29:38',0,NULL,NULL,NULL),
-(9,'2026-05-04',1,6,25.00,1.0300,'None, everything is ok',5,'2026-05-04 12:30:08',0,NULL,NULL,NULL);
+(9,'2026-05-04',1,6,25.00,1.0300,'None, everything is ok',5,'2026-05-04 12:30:08',0,NULL,NULL,NULL),
+(10,'2026-05-06',1,7,20.00,1.0300,NULL,5,'2026-05-06 18:28:41',0,NULL,NULL,NULL);
 
 /*Table structure for table `milkingschedules` */
 
@@ -3339,14 +3417,15 @@ CREATE TABLE `serials` (
   UNIQUE KEY `document` (`document`),
   KEY `fkserialsaddedby` (`addedby`),
   CONSTRAINT `fkserialsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `serials` */
 
 insert  into `serials`(`id`,`document`,`prefix`,`currentno`,`addedby`,`dateadded`) values 
 (1,'Animal Tag','JK-{{year}}-',16,5,'2026-05-04 10:14:46'),
 (2,'Supplier','SUP-{{year}}-',1,5,'2026-05-04 16:40:44'),
-(4,'feedmix','FEED-2026',1,5,'2026-05-04 23:28:35');
+(4,'feedmix','FEED-2026',1,5,'2026-05-04 23:28:35'),
+(5,'Veterinarian Registration','VET-',1,5,'2026-05-06 08:17:34');
 
 /*Table structure for table `smslogs` */
 
@@ -3537,6 +3616,8 @@ CREATE TABLE `vaccinations` (
   `batchno` varchar(50) DEFAULT NULL,
   `dosage` varchar(50) DEFAULT NULL,
   `administeredby` varchar(100) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `record_type` enum('Scheduled','Routine','Emergency') DEFAULT 'Scheduled',
   `nextdue` date DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
   `dateadded` datetime DEFAULT current_timestamp(),
@@ -3553,13 +3634,13 @@ CREATE TABLE `vaccinations` (
   CONSTRAINT `fkvaccinationsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkvaccinationsched` FOREIGN KEY (`scheduleid`) REFERENCES `vaccinationschedules` (`id`),
   CONSTRAINT `fkvaccinationsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `vaccinations` */
 
-insert  into `vaccinations`(`id`,`animalid`,`scheduleid`,`vaccinationdate`,`vaccinename`,`productused`,`batchno`,`dosage`,`administeredby`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,1,1,'2026-04-03',NULL,'Aftovax','BN-4552','2ml','Dr. Kamau','2026-10-30',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL),
-(2,2,2,'2026-04-18',NULL,'Blanthrax','BN-1022','2ml','Dr. Sarah','2027-05-03',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL);
+insert  into `vaccinations`(`id`,`animalid`,`scheduleid`,`vaccinationdate`,`vaccinename`,`productused`,`batchno`,`dosage`,`administeredby`,`notes`,`record_type`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,1,1,'2026-04-03',NULL,'Aftovax','BN-4552','2ml','Dr. Kamau',NULL,'Scheduled','2026-10-30',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL),
+(2,2,2,'2026-04-18',NULL,'Blanthrax','BN-1022','2ml','Dr. Sarah',NULL,'Scheduled','2027-05-03',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL);
 
 /*Table structure for table `vaccinationschedules` */
 
@@ -3567,11 +3648,14 @@ DROP TABLE IF EXISTS `vaccinationschedules`;
 
 CREATE TABLE `vaccinationschedules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vaccinename` varchar(100) NOT NULL,
   `diseaseid` int(11) DEFAULT NULL,
-  `targetage` varchar(50) DEFAULT NULL,
-  `frequency` varchar(50) DEFAULT NULL,
+  `penids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`penids`)),
+  `scheduledate` date DEFAULT NULL,
+  `scheduletime` time DEFAULT NULL,
+  `repeat_annually` tinyint(1) DEFAULT 0,
+  `notes` text DEFAULT NULL,
   `description` text DEFAULT NULL,
+  `status` enum('pending','completed','overdue') DEFAULT 'pending',
   `addedby` int(11) DEFAULT NULL,
   `dateadded` datetime DEFAULT current_timestamp(),
   `deleted` tinyint(1) DEFAULT 0,
@@ -3585,15 +3669,50 @@ CREATE TABLE `vaccinationschedules` (
   CONSTRAINT `fkvaccinationschedulename` FOREIGN KEY (`diseaseid`) REFERENCES `diseases` (`id`),
   CONSTRAINT `fkvaccinationschedulesaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkvaccinationschedulesdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `vaccinationschedules` */
 
-insert  into `vaccinationschedules`(`id`,`vaccinename`,`diseaseid`,`targetage`,`frequency`,`description`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,'FMD',2,'6 Months','Every 6 Months','Foot and Mouth Disease vaccination',5,'2026-05-03 18:08:29',0,NULL,NULL,NULL),
-(2,'Anthrax/BQ',7,'3 Months','Annually','Anthrax and Blackquarter combined',5,'2026-05-03 18:08:29',0,NULL,NULL,NULL),
-(3,'LSD Vaccine',6,'6 Months','Annually','Lumpy Skin Disease protection',5,'2026-05-03 18:08:29',0,NULL,NULL,NULL),
-(4,'Brucella S19',8,'3-8 Months','Once (Heifers)','Bovine Brucellosis vaccination',5,'2026-05-03 18:08:29',0,NULL,NULL,NULL);
+insert  into `vaccinationschedules`(`id`,`diseaseid`,`penids`,`scheduledate`,`scheduletime`,`repeat_annually`,`notes`,`description`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,1,'[\"1\", \"2\"]','2026-05-01','08:00:00',1,'Routine vaccination for FMD.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(2,2,'[\"3\"]','2026-05-04','10:00:00',0,'Quarterly Anthrax vaccination.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(3,3,'[\"1\", \"4\", \"5\"]','2026-05-06','09:30:00',1,'Ongoing Brucellosis screening and vaccination.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(4,4,'[\"2\"]','2026-05-09','11:00:00',0,'BVD initial dose for calves.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(5,5,'[\"6\"]','2026-05-13','07:00:00',1,'Annual Lumpy Skin Disease prevention.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL);
+
+/*Table structure for table `veterinarians` */
+
+DROP TABLE IF EXISTS `veterinarians`;
+
+CREATE TABLE `veterinarians` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `regno` varchar(50) NOT NULL,
+  `vetname` varchar(100) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `specialization` varchar(100) DEFAULT NULL,
+  `status` varchar(20) DEFAULT 'Active',
+  `addedby` int(11) DEFAULT NULL,
+  `dateadded` datetime DEFAULT current_timestamp(),
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `regno` (`regno`),
+  KEY `fkvetsaddedby` (`addedby`),
+  KEY `fkvetsdeletedby` (`deletedby`),
+  CONSTRAINT `fkvetsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
+  CONSTRAINT `fkvetsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `veterinarians` */
+
+insert  into `veterinarians`(`id`,`regno`,`vetname`,`phone`,`email`,`specialization`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,'KVB-2021-001','Dr. John Kamau','0711222333','j.kamau@vetcare.co.ke','Large Animal Surgery','Active',5,'2026-05-06 08:17:54',0,NULL,NULL,NULL),
+(2,'KVB-2022-045','Dr. Sarah Wambui','0722333444','s.wambui@farmvets.com','Bovine Reproduction','Active',5,'2026-05-06 08:17:54',0,NULL,NULL,NULL),
+(3,'KVB-2023-012','Dr. Michael Okoth','0733444555','m.okoth@dairyhealth.org','Nutritional Medicine','Active',5,'2026-05-06 08:17:54',0,NULL,NULL,NULL),
+(4,'TECH-101','Alex Mwangi (Paravet)','0744555666','a.mwangi@farm.co.ke','Routine Care','Active',5,'2026-05-06 08:17:54',0,NULL,NULL,NULL);
 
 /* Function  structure for function  `fngenerateanimaltag` */
 
@@ -3644,6 +3763,27 @@ BEGIN
     SET $formatted_no = LPAD($currentno, 4, '0');
     
     RETURN CONCAT($final_prefix, $formatted_no);
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_generatevetregno` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_generatevetregno` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_generatevetregno`() RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+    READS SQL DATA
+BEGIN
+    DECLARE $prefix VARCHAR(50);
+    DECLARE $currentno INT;
+    DECLARE $formatted_no VARCHAR(50);
+
+    SELECT `prefix`, `currentno` INTO $prefix, $currentno 
+    FROM `serials` WHERE `document` = 'Veterinarian Registration';
+    
+    SET $formatted_no = LPAD($currentno, 3, '0');
+    
+    RETURN CONCAT($prefix, $formatted_no);
 END */$$
 DELIMITER ;
 
@@ -4061,6 +4201,39 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_deletehealthlog` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletehealthlog` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletehealthlog`(
+    IN `$id` INT,
+    IN `$userid` INT,
+    IN `$reason` TEXT,
+    IN `$platform` VARCHAR(1000)
+)
+BEGIN
+    DECLARE `$tagid` VARCHAR(50);
+    
+    START TRANSACTION;
+    SELECT a.`tagid` INTO `$tagid` FROM `healthlogs` hl JOIN `animals` a ON hl.`animalid` = a.`id` WHERE hl.`id` = `$id`;
+    
+    UPDATE `healthlogs` 
+    SET `deleted` = 1, `deletedby` = `$userid`, `datedeleted` = NOW(), `reasondeleted` = `$reason`
+    WHERE `id` = `$id`;
+    
+    INSERT INTO `audittrail` (
+        `timestamp`, `userid`, `operation`, `narration`, `platform`
+    )
+    VALUES (
+        NOW(), `$userid`, 'Delete', CONCAT('Soft deleted health record for animal: ', IFNULL(`$tagid`, 'Unknown'), '. Reason: ', `$reason`), `$platform`
+    );
+    
+    COMMIT;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_deleteinventorycategory` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteinventorycategory` */;
@@ -4206,6 +4379,24 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_deleteveterinarian` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteveterinarian` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteveterinarian`(
+    IN `$id` INT,
+    IN `$userid` INT,
+    IN `$reason` TEXT
+)
+BEGIN
+    UPDATE `veterinarians` 
+    SET `deleted` = 1, `deletedby` = `$userid`, `datedeleted` = NOW(), `reasondeleted` = `$reason`
+    WHERE `id` = `$id`;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_disableuseraccount` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_disableuseraccount` */;
@@ -4341,6 +4532,28 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getanimalsbypen` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getanimalsbypen` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getanimalsbypen`(
+    IN `$penid` INT
+)
+BEGIN
+    SELECT 
+        a.`id`, 
+        a.`tagid`, 
+        a.`designatedname`, 
+        b.`breedname`
+    FROM `animals` a
+    LEFT JOIN `breeds` b ON a.`breedid` = b.`id`
+    WHERE a.`penid` = `$penid` AND a.`deleted` = 0
+    ORDER BY a.`tagid`;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getbreeddetails` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getbreeddetails` */;
@@ -4454,6 +4667,23 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getdewormingschedules` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdewormingschedules` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdewormingschedules`()
+BEGIN
+    SELECT 
+        d.*,
+        JSON_LENGTH(d.penids) as pen_count
+    FROM `dewormingschedules` d
+    WHERE d.deleted = 0
+    ORDER BY d.scheduledate DESC, d.scheduletime DESC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getdiseasedetails` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getdiseasedetails` */;
@@ -4518,6 +4748,50 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getfeedingloganimals` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getfeedingloganimals` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getfeedingloganimals`(IN `$logid` INT)
+BEGIN
+    SELECT a.*, b.breedname, p.penname
+    FROM feedingloganimals fla
+    JOIN animals a ON fla.animalid = a.id
+    LEFT JOIN breeds b ON a.breedid = b.id
+    LEFT JOIN pens p ON a.penid = p.id
+    WHERE fla.logid = `$logid`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getfeedinglogs` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getfeedinglogs` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getfeedinglogs`()
+BEGIN
+    SELECT 
+        f.*, 
+        s.shiftname, 
+        p.penname, 
+        'Completed' as status,
+        CASE 
+            WHEN f.feed_source_type = 'Feed' THEN (SELECT itemname FROM inventoryitems WHERE id = f.feed_id)
+            WHEN f.feed_source_type = 'Ration' THEN (SELECT feedname FROM feedmix WHERE id = f.feed_id)
+            ELSE f.feedtype 
+        END as feed_display_name,
+        (SELECT COUNT(*) FROM feedingloganimals WHERE logid = f.id) as animal_count
+    FROM feedinglogs f
+    LEFT JOIN feedingshifts s ON f.shiftid = s.id
+    LEFT JOIN pens p ON f.penid = p.id
+    WHERE f.deleted = 0
+    ORDER BY f.logdate DESC, f.id DESC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getfeedmixdetails` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getfeedmixdetails` */;
@@ -4554,6 +4828,29 @@ BEGIN
         LEFT JOIN user u ON f.createdby = u.userid
         WHERE f.id = $id AND f.deleted = 0;
     END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_gethealthlogs` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_gethealthlogs` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gethealthlogs`()
+BEGIN
+    SELECT 
+        hl.*, 
+        a.`tagid`, 
+        a.`designatedname` AS `animalname`,
+        d.`diseasename`,
+        CONCAT(u.`firstname`, ' ', u.`lastname`) AS `addedbyname`
+    FROM `healthlogs` hl
+    LEFT JOIN `animals` a ON hl.`animalid` = a.`id`
+    LEFT JOIN `diseases` d ON hl.`diseaseid` = d.`id`
+    LEFT JOIN `user` u ON hl.`addedby` = u.`userid`
+    WHERE hl.`deleted` = 0
+    ORDER BY hl.`logdate` DESC;
 END */$$
 DELIMITER ;
 
@@ -4896,6 +5193,56 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getschedulestats` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getschedulestats` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getschedulestats`()
+BEGIN
+    DECLARE `$completed` INT DEFAULT 0;
+    DECLARE `$pending` INT DEFAULT 0;
+    DECLARE `$overdue` INT DEFAULT 0;
+    
+    -- Completed: Unique animals treated in the last 30 days
+    SELECT COUNT(DISTINCT animalid) INTO `$completed` 
+    FROM (
+        SELECT animalid FROM vaccinations WHERE deleted = 0 AND vaccinationdate >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)
+        UNION
+        SELECT animalid FROM deworming WHERE deleted = 0 AND dewormingdate >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)
+    ) as combined;
+    
+    -- Pending: Unique animals in pens with upcoming schedules
+    SELECT COUNT(DISTINCT a.id) INTO `$pending`
+    FROM animals a
+    WHERE EXISTS (
+        SELECT 1 FROM vaccinationschedules vs 
+        WHERE vs.deleted = 0 AND vs.scheduledate >= CURRENT_DATE 
+        AND JSON_CONTAINS(vs.penids, CAST(a.penid AS CHAR))
+    ) OR EXISTS (
+        SELECT 1 FROM dewormingschedules ds 
+        WHERE ds.deleted = 0 AND ds.scheduledate >= CURRENT_DATE 
+        AND JSON_CONTAINS(ds.penids, CAST(a.penid AS CHAR))
+    );
+    
+    -- Overdue: Unique animals in pens with past schedules (not yet completed)
+    SELECT COUNT(DISTINCT a.id) INTO `$overdue`
+    FROM animals a
+    WHERE EXISTS (
+        SELECT 1 FROM vaccinationschedules vs 
+        WHERE vs.deleted = 0 AND vs.scheduledate < CURRENT_DATE 
+        AND JSON_CONTAINS(vs.penids, CAST(a.penid AS CHAR))
+    ) OR EXISTS (
+        SELECT 1 FROM dewormingschedules ds 
+        WHERE ds.deleted = 0 AND ds.scheduledate < CURRENT_DATE 
+        AND JSON_CONTAINS(ds.penids, CAST(a.penid AS CHAR))
+    );
+
+    SELECT `$completed` as completed, `$pending` as pending, `$overdue` as overdue;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getsmsproviders` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getsmsproviders` */;
@@ -5067,6 +5414,200 @@ BEGIN
 		where u.userid=$userid and u.allowed=1
 		order by companyname,unitname;
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getvaccinationschedules` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getvaccinationschedules` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getvaccinationschedules`()
+BEGIN
+    SELECT 
+        v.*,
+        d.diseasename,
+        JSON_LENGTH(v.penids) as pen_count
+    FROM `vaccinationschedules` v
+    JOIN `diseases` d ON v.diseaseid = d.id
+    WHERE v.deleted = 0
+    ORDER BY v.scheduledate DESC, v.scheduletime DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getveterinarians` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getveterinarians` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getveterinarians`()
+BEGIN
+    SELECT * FROM `veterinarians` WHERE `deleted` = 0 ORDER BY `vetname` ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_get_active_health_schedules` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_get_active_health_schedules` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_active_health_schedules`(
+    IN `$type` VARCHAR(20)
+)
+BEGIN
+    IF `$type` = 'vaccination' THEN
+        SELECT s.id, d.diseasename as title, s.scheduledate 
+        FROM vaccinationschedules s 
+        JOIN diseases d ON s.diseaseid = d.id 
+        WHERE s.deleted = 0 AND s.status != 'Completed'
+        ORDER BY s.scheduledate ASC;
+    ELSE
+        SELECT s.id,s.schedulename as title, s.scheduledate 
+        FROM dewormingschedules s 
+        -- JOIN diseases d ON s.diseaseid = d.id 
+        WHERE s.deleted = 0 AND s.status != 'Completed'
+        ORDER BY s.scheduledate ASC;
+    END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_get_animals_by_schedule` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_get_animals_by_schedule` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_animals_by_schedule`(
+    IN `$scheduleid` INT,
+    IN `$type` VARCHAR(20)
+)
+BEGIN
+    IF `$scheduleid` = 0 OR `$scheduleid` IS NULL THEN
+        
+        SELECT a.id, a.tagid, a.designatedname, p.penname 
+        FROM animals a 
+        JOIN pens p ON a.penid = p.id 
+        WHERE a.deleted = 0 
+        ORDER BY p.penname, a.tagid;
+    ELSE
+        
+        SET @penids = '';
+        IF `$type` = 'vaccination' THEN
+            SELECT penids INTO @penids FROM vaccinationschedules WHERE id = `$scheduleid`;
+        ELSE
+            SELECT penids INTO @penids FROM dewormingschedules WHERE id = `$scheduleid`;
+        END IF;
+
+        IF @penids IS NOT NULL AND @penids <> '' AND @penids <> '[]' THEN
+            SELECT a.id, a.tagid, a.designatedname, p.penname 
+            FROM animals a 
+            JOIN pens p ON a.penid = p.id 
+            WHERE (JSON_CONTAINS(@penids, CAST(a.penid AS CHAR)) OR JSON_CONTAINS(@penids, JSON_QUOTE(CAST(a.penid AS CHAR))))
+            AND a.deleted = 0
+            ORDER BY p.penname, a.tagid;
+        ELSE 
+            SELECT a.id, a.tagid, a.designatedname, p.penname FROM animals a LIMIT 0;
+        END IF;
+    END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_record_bulk_deworming` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_record_bulk_deworming` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_record_bulk_deworming`(
+    IN `$scheduleid` INT,
+    IN `$animalids` JSON,
+    IN `$dewormingdate` DATE,
+    IN `$productused` VARCHAR(100),
+    IN `$dosage` VARCHAR(50),
+    IN `$method` VARCHAR(50),
+    IN `$administeredby` VARCHAR(100),
+    IN `$notes` TEXT,
+    IN `$userid` INT
+)
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE `$animalid` INT;
+    DECLARE `$count` INT;
+    DECLARE `$rec_type` VARCHAR(20) DEFAULT 'Scheduled';
+    
+    SET `$count` = JSON_LENGTH(`$animalids`);
+
+    IF `$scheduleid` = 0 THEN
+        SET `$rec_type` = 'Routine';
+    END IF;
+    
+    WHILE i < `$count` DO
+        SET `$animalid` = JSON_UNQUOTE(JSON_EXTRACT(`$animalids`, CONCAT('$[', i, ']')));
+        
+        INSERT INTO `deworming` (
+            `animalid`, `scheduleid`, `dewormingdate`, `productused`, `dosage`, `method`, `administeredby`, `notes`, `record_type`, `addedby`
+        ) VALUES (
+            `$animalid`, `$scheduleid`, `$dewormingdate`, `$productused`, `$dosage`, `$method`, `$administeredby`, `$notes`, `$rec_type`, `$userid`
+        );
+        
+        SET i = i + 1;
+    END WHILE;
+
+    -- Mark schedule as completed if applicable
+    IF `$scheduleid` > 0 THEN
+        UPDATE `dewormingschedules` SET `status` = 'Completed' WHERE `id` = `$scheduleid`;
+    END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_record_bulk_vaccination` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_record_bulk_vaccination` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_record_bulk_vaccination`(
+    IN `$scheduleid` INT,
+    IN `$animalids` JSON, -- Array of animal IDs
+    IN `$vaccinationdate` DATE,
+    IN `$productused` VARCHAR(100),
+    IN `$batchno` VARCHAR(50),
+    IN `$dosage` VARCHAR(50),
+    IN `$administeredby` VARCHAR(100),
+    IN `$notes` TEXT,
+    IN `$userid` INT
+)
+BEGIN
+    DECLARE i INT DEFAULT 0;
+    DECLARE `$animalid` INT;
+    DECLARE `$count` INT;
+    DECLARE `$rec_type` VARCHAR(20) DEFAULT 'Scheduled';
+    
+    SET `$count` = JSON_LENGTH(`$animalids`);
+    
+    IF `$scheduleid` = 0 THEN
+        SET `$rec_type` = 'Routine';
+    END IF;
+    
+    WHILE i < `$count` DO
+        SET `$animalid` = JSON_UNQUOTE(JSON_EXTRACT(`$animalids`, CONCAT('$[', i, ']')));
+        
+        INSERT INTO `vaccinations` (
+            `animalid`, `scheduleid`, `vaccinationdate`, `productused`, `batchno`, `dosage`, `administeredby`, `notes`, `record_type`, `addedby`
+        ) VALUES (
+            `$animalid`, `$scheduleid`, `$vaccinationdate`, `$productused`, `$batchno`, `$dosage`, `$administeredby`, `$notes`, `$rec_type`, `$userid`
+        );
+        
+        SET i = i + 1;
+    END WHILE;
+
+    -- Mark schedule as completed if applicable
+    IF `$scheduleid` > 0 THEN
+        UPDATE `vaccinationschedules` SET `status` = 'Completed' WHERE `id` = `$scheduleid`;
+    END IF;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_removeusercompany` */
@@ -5535,6 +6076,39 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_savedewormingschedule` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savedewormingschedule` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savedewormingschedule`(
+    IN `$id` INT,
+    IN `$schedulename` VARCHAR(100),
+    IN `$penids` JSON,
+    IN `$scheduledate` DATE,
+    IN `$scheduletime` TIME,
+    IN `$repeat_annually` TINYINT(1),
+    IN `$notes` TEXT,
+    IN `$userid` INT
+)
+BEGIN
+    IF `$id` = 0 THEN
+        INSERT INTO `dewormingschedules` (`schedulename`, `penids`, `scheduledate`, `scheduletime`, `repeat_annually`, `notes`, `addedby`)
+        VALUES (`$schedulename`, `$penids`, `$scheduledate`, `$scheduletime`, `$repeat_annually`, `$notes`, `$userid`);
+    ELSE
+        UPDATE `dewormingschedules` 
+        SET `schedulename` = `$schedulename`,
+            `penids` = `$penids`,
+            `scheduledate` = `$scheduledate`,
+            `scheduletime` = `$scheduletime`,
+            `repeat_annually` = `$repeat_annually`,
+            `notes` = `$notes`
+        WHERE `id` = `$id`;
+    END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_savedisease` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_savedisease` */;
@@ -5685,6 +6259,111 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_savefeedinglog` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savefeedinglog` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savefeedinglog`(
+    IN `$id` INT,
+    IN `$logdate` DATE,
+    IN `$shiftid` INT,
+    IN `$penid` INT,
+    IN `$feed_source_type` VARCHAR(50),
+    IN `$feed_id` INT,
+    IN `$quantitykg` DECIMAL(10, 2),
+    IN `$notes` TEXT,
+    IN `$animalsjson` JSON,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(1000)
+)
+BEGIN
+    DECLARE `$updatedvalues` MEDIUMTEXT DEFAULT '';
+    DECLARE `$i` INT DEFAULT 0;
+    DECLARE `$animal_count` INT;
+    DECLARE `$feedname` VARCHAR(100);
+    
+    START TRANSACTION;
+    
+    -- Get feed name for audit narration
+    IF `$feed_source_type` = 'Feed' THEN
+        SELECT `itemname` INTO `$feedname` FROM `inventoryitems` WHERE `id` = `$feed_id`;
+    ELSE
+        SELECT `feedname` INTO `$feedname` FROM `feedmix` WHERE `id` = `$feed_id`;
+    END IF;
+    
+    IF `$id` = 0 THEN
+        INSERT INTO `feedinglogs` (
+            `logdate`, `shiftid`, `penid`, `feed_source_type`, `feed_id`, `feedtype`, `quantitykg`, `notes`, `addedby`, `dateadded`
+        ) VALUES (
+            `$logdate`, `$shiftid`, `$penid`, `$feed_source_type`, `$feed_id`, `$feedname`, `$quantitykg`, `$notes`, `$userid`, NOW()
+        );
+        SET `$id` = LAST_INSERT_ID();
+        
+        -- Audit Trail for Insert
+        SET `$updatedvalues` = JSON_OBJECT(
+            'id', `$id`, 
+            'logdate', `$logdate`, 
+            'shiftid', `$shiftid`, 
+            'penid', `$penid`, 
+            'feed_source_type', `$feed_source_type`,
+            'feed_id', `$feed_id`,
+            'feedname', `$feedname`,
+            'quantitykg', `$quantitykg`
+        );
+        
+        INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `updatedvalues`)
+        VALUES (NOW(), `$userid`, 'Insert', CONCAT('Logged feeding session (', `$feed_source_type`, ': ', `$feedname`, ') for Pen ID: ', `$penid`), `$platform`, `$updatedvalues`);
+    ELSE
+        UPDATE `feedinglogs` SET
+            `logdate` = `$logdate`,
+            `shiftid` = `$shiftid`,
+            `penid` = `$penid`,
+            `feed_source_type` = `$feed_source_type`,
+            `feed_id` = `$feed_id`,
+            `feedtype` = `$feedname`,
+            `quantitykg` = `$quantitykg`,
+            `notes` = `$notes`
+        WHERE `id` = `$id`;
+        
+        -- Clear existing animal associations for update
+        DELETE FROM `feedingloganimals` WHERE `logid` = `$id`;
+    END IF;
+
+    -- Process Animals JSON
+    IF `$animalsjson` IS NOT NULL AND JSON_TYPE(`$animalsjson`) = 'ARRAY' THEN
+        SET `$animal_count` = JSON_LENGTH(`$animalsjson`);
+        WHILE `$i` < `$animal_count` DO
+            INSERT INTO `feedingloganimals` (`logid`, `animalid`) 
+            VALUES (`$id`, JSON_UNQUOTE(JSON_EXTRACT(`$animalsjson`, CONCAT('$[', `$i`, ']'))));
+            SET `$i` = `$i` + 1;
+        END WHILE;
+    END IF;
+    
+    COMMIT;
+    SELECT `$id` AS `logid`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savefeedingloganimal` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savefeedingloganimal` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savefeedingloganimal`(
+    IN `$logid` INT,
+    IN `$animalid` INT
+)
+BEGIN
+    -- Only insert if not already linked (to prevent duplicates if re-run)
+    IF NOT EXISTS (SELECT 1 FROM `feedingloganimals` WHERE `logid` = `$logid` AND `animalid` = `$animalid`) THEN
+        INSERT INTO `feedingloganimals` (`logid`, `animalid`) VALUES (`$logid`, `$animalid`);
+    END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_savefeedmix` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_savefeedmix` */;
@@ -5780,6 +6459,90 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_savehealthlog` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savehealthlog` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savehealthlog`(
+    IN `$id` INT,
+    IN `$logdate` DATE,
+    IN `$animalid` INT,
+    IN `$diseaseid` INT,
+    IN `$diagnosis` VARCHAR(255),
+    IN `$treatment` TEXT,
+    IN `$narration` TEXT,
+    IN `$status` VARCHAR(50),
+    IN `$veterinarianid` INT,
+    IN `$nextfollowup` DATE,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(1000)
+)
+BEGIN
+    DECLARE `$originalvalues` MEDIUMTEXT DEFAULT '';
+    DECLARE `$updatedvalues` MEDIUMTEXT DEFAULT '';
+    DECLARE `$tagid` VARCHAR(50);
+    
+    START TRANSACTION;
+    
+    SELECT `tagid` INTO `$tagid` FROM `animals` WHERE `id` = `$animalid`;
+    
+    IF `$id` = 0 THEN
+        INSERT INTO `healthlogs` (
+            `logdate`, `animalid`, `diseaseid`, `diagnosis`, `treatment`, `narration`, `status`, `veterinarianid`, `nextfollowup`, `addedby`, `dateadded`, `deleted`
+        )
+        VALUES (
+            `$logdate`, `$animalid`, `$diseaseid`, `$diagnosis`, `$treatment`, `$narration`, `$status`, `$veterinarianid`, `$nextfollowup`, `$userid`, NOW(), 0
+        );
+        
+        SET `$id` = LAST_INSERT_ID();
+        
+        SET `$updatedvalues` = CONCAT(
+            '{"id":', `$id`, ',"animalid":', `$animalid`, ',"diseaseid":', IFNULL(`$diseaseid`, 'null'), ',"status":"', `$status`, '"}'
+        );
+        
+        INSERT INTO `audittrail` (
+            `timestamp`, `userid`, `operation`, `narration`, `platform`, `updatedvalues`
+        )
+        VALUES (
+            NOW(), `$userid`, 'Insert', CONCAT('Logged health record for animal: ', `$tagid`), `$platform`, `$updatedvalues`
+        );
+    ELSE
+        SELECT CONCAT(
+            '{"id":', `id`, ',"animalid":', `animalid`, ',"diseaseid":', IFNULL(`diseaseid`, 'null'), ',"status":"', `status`, '"}'
+        ) INTO `$originalvalues`
+        FROM `healthlogs` WHERE `id` = `$id`;
+        
+        UPDATE `healthlogs` 
+        SET `logdate` = `$logdate`, 
+            `animalid` = `$animalid`, 
+            `diseaseid` = `$diseaseid`, 
+            `diagnosis` = `$diagnosis`, 
+            `treatment` = `$treatment`, 
+            `narration` = `$narration`, 
+            `status` = `$status`, 
+            `veterinarianid` = `$veterinarianid`, 
+            `nextfollowup` = `$nextfollowup`
+        WHERE `id` = `$id`;
+        
+        SET `$updatedvalues` = CONCAT(
+            '{"id":', `$id`, ',"animalid":', `$animalid`, ',"diseaseid":', IFNULL(`$diseaseid`, 'null'), ',"status":"', `$status`, '"}'
+        );
+        
+        INSERT INTO `audittrail` (
+            `timestamp`, `userid`, `operation`, `narration`, `platform`, `originalvalues`, `updatedvalues`
+        )
+        VALUES (
+            NOW(), `$userid`, 'Update', CONCAT('Updated health record for animal: ', `$tagid`), `$platform`, `$originalvalues`, `$updatedvalues`
+        );
+    END IF;
+    
+    COMMIT;
+    SELECT `$id` AS `logid`;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_saveinventorycategory` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_saveinventorycategory` */;
@@ -5858,6 +6621,7 @@ DELIMITER $$
     IN `$unitprice` DECIMAL(15, 2),
     IN `$reorderlevel` DECIMAL(15, 2),
     IN `$itemtype` VARCHAR(50),
+    IN `$is_feed` TINYINT(1),
     IN `$description` TEXT,
     IN `$userid` INT,
     IN `$platform` VARCHAR(1000)
@@ -5870,19 +6634,19 @@ BEGIN
     
     IF `$id` = 0 THEN
         INSERT INTO `inventoryitems` (
-            `categoryid`, `itemcode`, `itemname`, `uom`, `unitprice`, `reorderlevel`, `itemtype`, `description`, `addedby`
+            `categoryid`, `itemcode`, `itemname`, `uom`, `unitprice`, `reorderlevel`, `itemtype`, `is_feed`, `description`, `addedby`
         )
         VALUES (
-            `$categoryid`, `$itemcode`, `$itemname`, `$uom`, `$unitprice`, `$reorderlevel`, `$itemtype`, `$description`, `$userid`
+            `$categoryid`, `$itemcode`, `$itemname`, `$uom`, `$unitprice`, `$reorderlevel`, `$itemtype`, `$is_feed`, `$description`, `$userid`
         );
         SET `$id` = LAST_INSERT_ID();
         
-        SET `$updatedvalues` = JSON_OBJECT('id', `$id`, 'itemcode', `$itemcode`, 'itemname', `$itemname`);
+        SET `$updatedvalues` = JSON_OBJECT('id', `$id`, 'itemcode', `$itemcode`, 'itemname', `$itemname`, 'is_feed', `$is_feed`);
         
         INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `updatedvalues`)
         VALUES (NOW(), `$userid`, 'Insert', CONCAT('Provisioned Inventory Item: ', `$itemname`), `$platform`, `$updatedvalues`);
     ELSE
-        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`) INTO `$originalvalues` 
+        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`, 'is_feed', `is_feed`) INTO `$originalvalues` 
         FROM `inventoryitems` WHERE `id` = `$id`;
         
         UPDATE `inventoryitems`
@@ -5893,12 +6657,13 @@ BEGIN
             `unitprice` = `$unitprice`,
             `reorderlevel` = `$reorderlevel`,
             `itemtype` = `$itemtype`,
+            `is_feed` = `$is_feed`,
             `description` = `$description`,
             `updatedby` = `$userid`,
             `lastupdated` = NOW()
         WHERE `id` = `$id`;
         
-        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`) INTO `$updatedvalues` 
+        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`, 'is_feed', `is_feed`) INTO `$updatedvalues` 
         FROM `inventoryitems` WHERE `id` = `$id`;
         
         INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `originalvalues`, `updatedvalues`)
@@ -6369,6 +7134,78 @@ BEGIN
 			end if;
 		end if;
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savevaccinationschedule` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savevaccinationschedule` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savevaccinationschedule`(
+    IN `$id` INT,
+    IN `$diseaseid` INT,
+    IN `$penids` JSON,
+    IN `$scheduledate` DATE,
+    IN `$scheduletime` TIME,
+    IN `$repeat_annually` TINYINT(1),
+    IN `$notes` TEXT,
+    IN `$userid` INT
+)
+BEGIN
+    IF `$id` = 0 THEN
+        INSERT INTO `vaccinationschedules` (`diseaseid`, `penids`, `scheduledate`, `scheduletime`, `repeat_annually`, `notes`, `addedby`)
+        VALUES (`$diseaseid`, `$penids`, `$scheduledate`, `$scheduletime`, `$repeat_annually`, `$notes`, `$userid`);
+    ELSE
+        UPDATE `vaccinationschedules` 
+        SET `diseaseid` = `$diseaseid`,
+            `penids` = `$penids`,
+            `scheduledate` = `$scheduledate`,
+            `scheduletime` = `$scheduletime`,
+            `repeat_annually` = `$repeat_annually`,
+            `notes` = `$notes`
+        WHERE `id` = `$id`;
+    END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_saveveterinarian` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveveterinarian` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveveterinarian`(
+    IN `$id` INT,
+    IN `$regno` VARCHAR(50),
+    IN `$vetname` VARCHAR(100),
+    IN `$phone` VARCHAR(20),
+    IN `$email` VARCHAR(100),
+    IN `$specialization` VARCHAR(100),
+    IN `$status` VARCHAR(20),
+    IN `$autogenerate` TINYINT,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(1000)
+)
+BEGIN
+    IF `$id` = 0 THEN
+        IF `$autogenerate` = 1 THEN
+            SET `$regno` = fn_generatevetregno();
+            UPDATE `serials` SET `currentno` = `currentno` + 1 WHERE `document` = 'Veterinarian Registration';
+        END IF;
+        
+        INSERT INTO `veterinarians` (`regno`, `vetname`, `phone`, `email`, `specialization`, `status`, `addedby`)
+        VALUES (`$regno`, `$vetname`, `$phone`, `$email`, `$specialization`, `$status`, `$userid`);
+        SET `$id` = LAST_INSERT_ID();
+    ELSE
+        UPDATE `veterinarians` 
+        SET `regno` = `$regno`, `vetname` = `$vetname`, `phone` = `$phone`, `email` = `$email`, 
+            `specialization` = `$specialization`, `status` = `$status`
+        WHERE `id` = `$id`;
+    END IF;
+    
+    SELECT `$id` AS `vetid`, `$regno` AS `regno`;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_updateemailstatus` */

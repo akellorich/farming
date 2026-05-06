@@ -20,7 +20,9 @@ $base_path = '../';
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
     <link rel="stylesheet" href="../css/health.css">
+    <link rel="stylesheet" href="../css/schedules.css">
     <link rel="stylesheet" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/jquery-ui.css">
     
     <!-- DataTables Advanced Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
@@ -56,6 +58,18 @@ $base_path = '../';
             70% { box-shadow: 0 0 0 10px rgba(32, 98, 35, 0); }
             100% { box-shadow: 0 0 0 0 rgba(32, 98, 35, 0); }
         }
+        
+        /* Dropdown Alignment Fix */
+        .dropdown-menu-right {
+            right: 0 !important;
+            left: auto !important;
+            transform: none !important;
+            top: 100% !important;
+            margin-top: 0.5rem !important;
+        }
+        .col-auto .dropdown {
+            position: relative;
+        }
     </style>
 </head>
 <body class="bg-background">
@@ -83,10 +97,18 @@ $base_path = '../';
                             <span>Action</span>
                             <span class="material-symbols-outlined ml-2" style="font-size: 1.1rem; margin-top: 1px;">expand_more</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right botanical-shadow border-0 mt-2" style="border-radius: 0.75rem; padding: 0.65rem; font-size: 0.85rem; min-width: 220px;">
-                            <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" onclick="$('#healthRecordModal').addClass('show')">
+                        <div class="dropdown-menu dropdown-menu-right botanical-shadow border-0" style="border-radius: 0.75rem; padding: 0.65rem; font-size: 0.85rem; min-width: 220px;">
+                            <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnLogHealthCheck">
                                 <span class="material-symbols-outlined text-primary" style="font-size: 1.2rem;">medical_services</span> 
                                 <span class="font-weight-medium">Log Health Check</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnRecordVaccination">
+                                <span class="material-symbols-outlined text-success" style="font-size: 1.2rem; font-variation-settings: 'FILL' 1;">shield_with_heart</span> 
+                                <span class="font-weight-medium">Record Vaccination</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnRecordDeworming">
+                                <span class="material-symbols-outlined text-warning" style="font-size: 1.2rem; font-variation-settings: 'FILL' 1;">pill</span> 
+                                <span class="font-weight-medium">Record Deworming</span>
                             </a>
                             <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="schedules_overview.php" style="gap: 1rem;">
                                 <span class="material-symbols-outlined text-success" style="font-size: 1.2rem;">event_available</span> 
@@ -203,7 +225,7 @@ $base_path = '../';
                             <div class="filter-item ml-md-auto">
                                 <div class="position-relative">
                                     <span class="material-symbols-outlined position-absolute text-muted" style="left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.1rem;">search</span>
-                                    <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="healthSearch" placeholder="Search..." style="border-radius: 0.5rem; height: 36px; padding-left: 35px; font-size: 0.75rem; width: 180px; background-color: white;">
+                                    <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="healthSearch" placeholder="Search..." style="border-radius: 0.5rem; height: 36px; padding-left: 35px; font-size: 0.75rem; width: 220px; background-color: white;">
                                 </div>
                             </div>
                         </div>
@@ -348,104 +370,165 @@ $base_path = '../';
             </div>
         </div>
 
-        <!-- Log Health Record Modal (Localized to Health Module) -->
-        <div id="healthRecordModal" class="modal-overlay">
-            <div class="health-modal-container">
-                <!-- Left Panel: Visual Branding -->
-                <div class="modal-side-panel">
-                    <button type="button" class="btn-close-modal d-md-none" id="closeHealthModalMobile" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.2); border: none; padding: 0.4rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; color: white;">
-                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">close</span>
-                    </button>
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdrMoDI1Eftc1HPLu4Lyz5Sk0AzP4FnjpJXuvIbgfODkvciccmZLXbh8t9eYl-GH9pBnfZDcUuxM8aRG5wOheOELRl-ANyvsk7jMwEaLi67eRVewE7CC6iXTUFeDT1BZGuSrio7tkKL_xgvsRuQs11XnTUNjxOhzo5Oh6LdqLAqgqDPy8Q7wHnwwwI3slf7jsIlV1nRKJZJB7PKlioyRwgfsUcwQxAzElN-szGDl_BYL7eo5UAtr4fgtvGI1CV1KwyfhTMwSYI4_Jv" alt="Veterinary care" class="modal-side-panel-img">
-                    <div style="position: relative; z-index: 1;">
-                        <span class="material-symbols-outlined" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; font-variation-settings: 'FILL' 1;">medical_services</span>
-                        <h2 class="font-headline font-weight-bold mb-2" style="font-size: 1.2rem; line-height: 1.2;">New Health Record</h2>
-                        <p style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0;">Document treatments and monitor herd vitality.</p>
+    </main>
+
+    <!-- Log Health Record Modal (Localized to Health Module) -->
+    <div id="healthRecordModal" class="modal-overlay">
+        <div class="health-modal-container">
+            <!-- Left Panel: Visual Branding -->
+            <div class="modal-side-panel">
+                <button type="button" class="btn-close-modal d-md-none" id="closeHealthModalMobile" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.2); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; color: white;">
+                    <span class="material-symbols-outlined" style="font-size: 1.15rem;">close</span>
+                </button>
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdrMoDI1Eftc1HPLu4Lyz5Sk0AzP4FnjpJXuvIbgfODkvciccmZLXbh8t9eYl-GH9pBnfZDcUuxM8aRG5wOheOELRl-ANyvsk7jMwEaLi67eRVewE7CC6iXTUFeDT1BZGuSrio7tkKL_xgvsRuQs11XnTUNjxOhzo5Oh6LdqLAqgqDPy8Q7wHnwwwI3slf7jsIlV1nRKJZJB7PKlioyRwgfsUcwQxAzElN-szGDl_BYL7eo5UAtr4fgtvGI1CV1KwyfhTMwSYI4_Jv" alt="Veterinary care" class="modal-side-panel-img">
+                <div style="position: relative; z-index: 1;">
+                    <div class="d-flex align-items-center mb-2">
+                        <span class="material-symbols-outlined mr-2" style="font-size: 1.75rem; font-variation-settings: 'FILL' 1;">medical_services</span>
+                        <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.2rem; line-height: 1.2;">New Health Record</h2>
                     </div>
-                </div>
-
-                <!-- Right Panel: Form Content -->
-                <div class="modal-form-area">
-                    <div class="d-none d-md-flex justify-content-between align-items-start mb-4">
-                        <div>
-                            <h3 style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--secondary); margin-bottom: 0.25rem;">Health Log Details</h3>
-                            <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0;">Please provide clinical details for this entry.</p>
-                        </div>
-                        <button type="button" class="btn-close-modal" id="closeHealthModal" style="background: none; border: none; padding: 0.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
-                            <span class="material-symbols-outlined text-muted" style="font-size: 1.25rem;">close</span>
-                        </button>
-                    </div>
-
-                    <form id="healthLogForm" class="mt-2 mt-md-4">
-                        <!-- Animal Selection -->
-                        <div class="mb-4 text-left">
-                            <label class="form-label-caps">Select Animal From Herd...</label>
-                            <div class="position-relative">
-                                <select class="modal-input no-caret" style="appearance: none; -webkit-appearance: none;">
-                                    <option value="">Choose an animal</option>
-                                    <option>JK-012 (Daisy)</option>
-                                    <option>JK-045 (Bessie)</option>
-                                    <option>JK-089 (Luna)</option>
-                                    <option>JK-112 (Goldie)</option>
-                                </select>
-                                <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">expand_more</span>
-                            </div>
-                        </div>
-
-                        <!-- Disease or Condition -->
-                        <div class="mb-4 text-left">
-                            <label class="form-label-caps">Disease Or Condition</label>
-                            <input type="text" class="modal-input" placeholder="e.g., Mastitis, Foot Rot">
-                        </div>
-
-                        <!-- Medication Administered -->
-                        <div class="mb-4 text-left">
-                            <label class="form-label-caps">Medication Administered</label>
-                            <input type="text" class="modal-input" placeholder="Enter dosage and medication name...">
-                        </div>
-
-                        <!-- Treatment Response / Prognosis -->
-                        <div class="mb-4 text-left">
-                            <label class="form-label-caps">Treatment Response / Prognosis</label>
-                            <textarea class="modal-input" style="height: 80px; resize: none; border-radius: 0.75rem;" placeholder="Describe the current state and expected recovery timeline..."></textarea>
-                        </div>
-
-                        <!-- Status Selection Chips -->
-                        <div class="mb-5 text-left">
-                            <label class="form-label-caps">Status</label>
-                            <div class="status-chip-grid">
-                                <label class="status-chip mb-0">
-                                    <input type="radio" name="status" value="recovering" checked>
-                                    <div class="status-chip-content">
-                                        <span class="material-symbols-outlined" style="font-size: 1rem; font-variation-settings: 'FILL' 1;">sync</span>
-                                        Recovering
-                                    </div>
-                                    <div class="status-chip-border"></div>
-                                </label>
-                                <label class="status-chip mb-0">
-                                    <input type="radio" name="status" value="completed">
-                                    <div class="status-chip-content">
-                                        <span class="material-symbols-outlined" style="font-size: 1rem;">check_circle</span>
-                                        Completed
-                                    </div>
-                                    <div class="status-chip-border"></div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Footer Actions -->
-                        <div class="pt-4 border-top d-flex gap-3">
-                            <button type="button" class="btn flex-grow-1" id="cancelHealthModal" style="border-radius: 0.5rem; font-weight: 500; font-size: 0.75rem; height: 40px; color: var(--primary);">Cancel</button>
-                            <button type="submit" class="btn btn-success flex-grow-1" style="border-radius: 0.5rem; font-weight: 600; font-size: 0.75rem; height: 40px; background-color: var(--primary); border: none; box-shadow: 0 4px 12px rgba(32, 98, 35, 0.15);">Save Health Record</button>
-                        </div>
-                    </form>
+                    <p style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0;">Document treatments and monitor herd vitality.</p>
                 </div>
             </div>
+
+            <!-- Right Panel: Form Content -->
+            <div class="modal-form-area">
+                <div class="d-none d-md-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h3 style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--secondary); margin-bottom: 0.25rem;">Health Log Details</h3>
+                        <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0;">Please provide clinical details for this entry.</p>
+                    </div>
+                    <button type="button" class="btn-close-modal" id="closeHealthModal" style="background: none; border: none; padding: 0.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; margin-top: -0.75rem;">
+                        <span class="material-symbols-outlined text-muted" style="font-size: 1.25rem;">close</span>
+                    </button>
+                </div>
+
+                <form id="healthLogForm" class="mt-2 mt-md-4">
+                    <!-- Notification Section -->
+                    <div id="healthModalAlert" class="mb-4" style="display: none;"></div>
+
+                    <!-- Animal Selection -->
+                    <div class="mb-4 text-left">
+                        <label class="form-label-caps">Select Animal From Herd...</label>
+                        <div class="position-relative">
+                            <select id="animalid" name="animalid" class="modal-input no-caret" style="appearance: none; -webkit-appearance: none;">
+                                <option value="" disabled selected>Choose an animal</option>
+                            </select>
+                            <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">expand_more</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Disease or Condition -->
+                            <div class="mb-4 text-left">
+                                <label class="form-label-caps">Disease Or Condition</label>
+                                <div class="position-relative">
+                                    <select id="diseaseid" name="diseaseid" class="modal-input no-caret" style="appearance: none; -webkit-appearance: none;">
+                                        <option value="" disabled selected>Select disease...</option>
+                                    </select>
+                                    <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Veterinarian -->
+                            <div class="mb-4 text-left">
+                                <label class="form-label-caps">Attending Veterinarian</label>
+                                <div class="position-relative">
+                                    <select id="veterinarianid" name="veterinarianid" class="modal-input no-caret" style="appearance: none; -webkit-appearance: none;">
+                                        <option value="" disabled selected>Select veterinarian...</option>
+                                    </select>
+                                    <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Date -->
+                            <div class="mb-4 text-left">
+                                <label class="form-label-caps">Check Date</label>
+                                <div class="position-relative">
+                                    <input type="text" id="logdate" name="logdate" class="modal-input" value="<?php echo date('d-M-Y'); ?>" readonly style="padding-right: 2.5rem;">
+                                    <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">calendar_today</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Next Followup -->
+                            <div class="mb-4 text-left">
+                                <label class="form-label-caps">Next Follow-up Date</label>
+                                <div class="position-relative">
+                                    <input type="text" id="nextfollowup" name="nextfollowup" class="modal-input v_datepicker" placeholder="Optional followup..." readonly style="padding-right: 2.5rem;">
+                                    <span class="material-symbols-outlined text-muted" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; font-size: 1.15rem;">event</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnosis / Narration -->
+                    <div class="mb-4 text-left">
+                        <label class="form-label-caps">Diagnosis / Disease Narration</label>
+                        <input type="text" id="diagnosis" name="diagnosis" class="modal-input" placeholder="e.g., Early stage, chronic, etc.">
+                    </div>
+
+                    <!-- Medication Administered -->
+                    <div class="mb-4 text-left">
+                        <label class="form-label-caps">Medication Administered</label>
+                        <input type="text" id="treatment" name="treatment" class="modal-input" placeholder="Enter dosage and medication name...">
+                    </div>
+
+                    <!-- Treatment Response / Prognosis -->
+                    <div class="mb-4 text-left">
+                        <label class="form-label-caps">Treatment Response / Prognosis (Narration)</label>
+                        <textarea id="narration" name="narration" class="modal-input" style="height: 80px; resize: none; border-radius: 0.75rem;" placeholder="Describe the current state and expected recovery timeline..."></textarea>
+                    </div>
+
+                    <!-- Status Selection Chips -->
+                    <div class="mb-5 text-left">
+                        <label class="form-label-caps">Status</label>
+                        <div class="status-chip-grid">
+                            <label class="status-chip mb-0">
+                                <input type="radio" name="status" value="Recovering" checked>
+                                <div class="status-chip-content">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem; font-variation-settings: 'FILL' 1;">sync</span>
+                                    Recovering
+                                </div>
+                                <div class="status-chip-border"></div>
+                            </label>
+                            <label class="status-chip mb-0">
+                                <input type="radio" name="status" value="Completed">
+                                <div class="status-chip-content">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem;">check_circle</span>
+                                    Completed
+                                </div>
+                                <div class="status-chip-border"></div>
+                            </label>
+                            <label class="status-chip mb-0">
+                                <input type="radio" name="status" value="Quarantined">
+                                <div class="status-chip-content">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem;">emergency_home</span>
+                                    Quarantined
+                                </div>
+                                <div class="status-chip-border"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="pt-4 border-top d-flex gap-3 justify-content-end">
+                        <button type="button" class="btn" id="cancelHealthModal" style="border-radius: 0.5rem; font-weight: 500; font-size: 0.75rem; height: 40px; color: #64748b; border: 1px solid #e2e8f0; width: 120px;">Cancel</button>
+                        <button type="submit" class="btn btn-success" id="btnSaveHealthRecord" style="border-radius: 0.5rem; font-weight: 400; font-size: 0.75rem; height: 40px; background-color: var(--primary); border: none; box-shadow: 0 4px 12px rgba(32, 98, 35, 0.15); width: 160px; margin-left: 0.75rem;">Save Record</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </main>
+    </div>
 
     <!-- Global Scripts -->
     <script src="../plugins/jquery-3.6.1.js"></script>
+    <script src="../plugins/jquery-ui.js"></script>
     <script src="../plugins/popper.js"></script>
     <script src="../plugins/bootstrap.js"></script>
     <script src="../plugins/alert.js"></script>
@@ -458,5 +541,350 @@ $base_path = '../';
     <script src="../js/health.js"></script>
 
     <?php include 'modals.php'; ?>
+
+    <!-- Record Vaccination Activity Modal -->
+    <div id="recordVaccinationModal" class="v-modal-overlay" style="display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); background-color: rgba(0, 0, 0, 0.4);">
+        <div class="v-modal-wrapper">
+            <div class="v-modal-container botanical-shadow-lg" style="max-width: 1000px; height: auto; min-height: 600px; background: white; border-radius: 1.5rem; overflow: hidden; display: flex;">
+                
+                <!-- Left Sidebar (Botanical Brand) -->
+                <div class="v-modal-sidebar d-none d-lg-flex" style="width: 300px; background: #166534; color: white; position: relative; padding: 2.5rem 1.25rem; display: flex; flex-direction: column; justify-content: flex-end;">
+                    <div class="v-modal-sidebar-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.25; mix-blend-mode: overlay;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFARTsU3dpTtLaqQZZWEzRoQsVTkW2LZYB78FAfz1SBY2W6OIBOldnQliXBIvhRWjAbBhtqw7NZHEF59yxTxZCQkYUl1-1ybbRJQ-UsMRllbSjF9hXSN-c_-rfVCVw_jGbNz67Djy2XtM6bpN-wPhESOQ01sZzn10eHyURHljP_wLaZ0XVyLJw4ExQIEezXyPQRxcHQBoZy5MpYH9h9bkoD98IbLlQpRDyG9x854G4NFV2ze3uhSAN_Kgj7uDSZBnHHexFESZe113y" alt="Botanical Pattern" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    
+                    <div class="v-modal-sidebar-content" style="position: relative; z-index: 1;">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined" style="font-size: 2rem; font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+                            <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.25rem; line-height: 1.2;">Log Execution</h2>
+                        </div>
+                        <p class="small mb-0" style="opacity: 0.8; font-size: 0.8rem;">Ensure the vitality of your herd through precise, proactive healthcare documentation.</p>
+                        
+                        <div class="mt-4">
+                            <div class="v-modal-badge" style="background: rgba(255,255,255,0.15); border-radius: 999px; padding: 0.4rem 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <div class="v-modal-dot" style="width: 6px; height: 6px; background: #fbbf24; border-radius: 50%;"></div>
+                                <p class="v-modal-badge-text mb-0" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.1em;">Vaccination Protocol</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side (Form) -->
+                <div class="v-modal-form-area position-relative" style="flex: 1; padding: 3rem 2rem; background: #fafafa; overflow-y: auto; max-height: 90vh;">
+                    <!-- Close Button -->
+                    <button type="button" class="close-modal-btn position-absolute" style="top: 1.5rem; right: 1.5rem; border: none; background: transparent; color: #94a3b8; transition: color 0.2s;">
+                        <span class="material-symbols-outlined" style="font-size: 1.5rem;">close</span>
+                    </button>
+
+                    <!-- Header -->
+                    <div class="mb-4">
+                        <h2 class="font-headline font-weight-bold" style="font-size: 1.5rem; color: #166534; margin-bottom: 0.25rem;">Vaccination Execution Log</h2>
+                        <p class="text-muted small">Fill in the details for the routine medical administration.</p>
+                    </div>
+
+                    <form id="recordVaccinationForm" novalidate>
+                        <input type="hidden" name="action" value="recordvaccination">
+
+                        <div id="rv_alert_container" class="mb-4 d-none"></div>
+
+                        <div class="row">
+                            <!-- Date and Administered By -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Vaccination Date</label>
+                                <div class="v-input-wrapper">
+                                    <input type="text" name="execution_date" id="rv_date" class="form-control v-form-control v_datepicker" placeholder="DD-MMM-YYYY" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.2rem;">calendar_today</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Administered By</label>
+                                <div class="v-input-wrapper">
+                                    <select name="administered_by" id="rv_administered_by" class="form-control v-form-control" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;">
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
+                            </div>
+
+                            <!-- Execution Type and Select Schedule -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Execution Type</label>
+                                <div class="d-flex p-1" style="background: #f1f5f9; border-radius: 0.75rem; border: 1px solid #e2e8f0;">
+                                    <label class="flex-fill mb-0 text-center py-2 rounded-lg cursor-pointer transition-all rv-type-label active" style="font-size: 0.85rem; font-weight: 500; cursor: pointer;">
+                                        <input type="radio" name="record_type" value="Routine" checked class="d-none">
+                                        <span class="rv-type-text">Routine</span>
+                                    </label>
+                                    <label class="flex-fill mb-0 text-center py-2 rounded-lg cursor-pointer transition-all rv-type-label" style="font-size: 0.85rem; font-weight: 500; cursor: pointer; color: #64748b;">
+                                        <input type="radio" name="record_type" value="Scheduled" class="d-none">
+                                        <span class="rv-type-text">Scheduled</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Select Schedule</label>
+                                <div class="v-input-wrapper">
+                                    <select name="scheduleid" id="rv_scheduleid" class="form-control v-form-control" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;" disabled>
+                                        <option value="0">Choose from schedules...</option>
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
+                            </div>
+
+                            <!-- Vaccine Name and Batch -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Vaccine / Product Name</label>
+                                <input type="text" name="product_used" id="rv_product" class="form-control v-form-control" placeholder="e.g. Aftovax, LumpyVax" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Batch / Lot Number</label>
+                                <input type="text" name="batch_no" id="rv_batch" class="form-control v-form-control" placeholder="e.g. BN-2024-X1" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+
+                            <!-- Dosage -->
+                            <div class="col-12 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Dosage (per animal)</label>
+                                <input type="text" name="dosage" id="rv_dosage" class="form-control v-form-control" placeholder="e.g. 2ml" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+                        </div>
+
+                        <!-- Animal Checklist -->
+                        <div class="mt-0">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="font-weight-bold" style="font-size: 0.75rem; color: #166534; text-transform: uppercase; letter-spacing: 0.05em;">ANIMAL CHECKLIST</span>
+                                <div class="custom-control custom-checkbox d-flex align-items-center gap-1">
+                                    <input type="checkbox" class="custom-control-input" id="rv_selectAll" checked>
+                                    <label class="custom-control-label small font-weight-500 text-muted" for="rv_selectAll" style="cursor: pointer;">Select All</label>
+                                </div>
+                            </div>
+                            <div style="background: #f1f5f9; border-radius: 1rem; border: 1px solid #e2e8f0; padding: 0.75rem;">
+                                <div id="rv_animal_list" class="row gx-1 gy-2" style="max-height: 280px; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin;">
+                                    <div class="col text-center py-4 text-muted small w-100">Loading animals...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="d-flex justify-content-end align-items-center mt-5 gap-4">
+                            <button type="button" class="btn btn-outline-secondary close-modal-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-success v-btn-save shadow-sm" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #166534; border: none; font-size: 0.85rem; margin-left: 1rem;">
+                                Save Vaccination
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+        
+        #recordVaccinationModal, #recordDewormingModal {
+            font-family: 'Manrope', sans-serif !important;
+        }
+
+        .rv-type-label.active {
+            background: white;
+            color: #166534;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .rv-type-label {
+            transition: all 0.2s ease;
+        }
+        .animal-check-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem; /* Reduced bottom margin */
+        }
+        .animal-check-card:hover {
+            border-color: #166534;
+            background: #f0fdf4;
+        }
+        .animal-check-card .custom-checkbox {
+            margin-right: 0.25rem; /* Reduced gap between checkbox and details */
+        }
+        /* Style for the select all area */
+        .custom-control-label.small {
+            padding-left: 0.75rem !important; /* Reduced space between checkbox and label */
+        }
+        /* Reduce font size for form controls */
+        #recordVaccinationModal .form-control, 
+        #recordDewormingModal .form-control {
+            font-size: 0.85rem !important;
+        }
+        #recordVaccinationModal .rv-type-text,
+        #recordDewormingModal .rd-type-text {
+            font-size: 0.8rem;
+        }
+        /* Reduce vertical margins for form groups */
+        #recordVaccinationModal .mb-4, 
+        #recordDewormingModal .mb-4 {
+            margin-bottom: 0.85rem !important; /* Reduced from default mb-4 */
+        }
+        #recordVaccinationModal .font-label,
+        #recordDewormingModal .font-label {
+            margin-bottom: 0.25rem !important; /* Reduced label gap */
+        }
+    </style>
+
+    <!-- Record Deworming Activity Modal -->
+    <div id="recordDewormingModal" class="v-modal-overlay" style="display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); background-color: rgba(0, 0, 0, 0.4);">
+        <div class="v-modal-wrapper">
+            <div class="v-modal-container botanical-shadow-lg" style="max-width: 1000px; height: auto; min-height: 600px; background: white; border-radius: 1.5rem; overflow: hidden; display: flex;">
+                
+                <!-- Left Sidebar (Botanical Brand) -->
+                <div class="v-modal-sidebar d-none d-lg-flex" style="width: 300px; background: #d97706; color: white; position: relative; padding: 2.5rem 1.25rem; display: flex; flex-direction: column; justify-content: flex-end;">
+                    <div class="v-modal-sidebar-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.25; mix-blend-mode: overlay;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFARTsU3dpTtLaqQZZWEzRoQsVTkW2LZYB78FAfz1SBY2W6OIBOldnQliXBIvhRWjAbBhtqw7NZHEF59yxTxZCQkYUl1-1ybbRJQ-UsMRllbSjF9hXSN-c_-rfVCVw_jGbNz67Djy2XtM6bpN-wPhESOQ01sZzn10eHyURHljP_wLaZ0XVyLJw4ExQIEezXyPQRxcHQBoZy5MpYH9h9bkoD98IbLlQpRDyG9x854G4NFV2ze3uhSAN_Kgj7uDSZBnHHexFESZe113y" alt="Botanical Pattern" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    
+                    <div class="v-modal-sidebar-content" style="position: relative; z-index: 1;">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined" style="font-size: 2rem; font-variation-settings: 'FILL' 1;">pill</span>
+                            <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.25rem; line-height: 1.2;">Log Treatment</h2>
+                        </div>
+                        <p class="small mb-0" style="opacity: 0.8; font-size: 0.8rem;">Track and manage parasite control protocols for a healthy and productive herd.</p>
+                        
+                        <div class="mt-4">
+                            <div class="v-modal-badge" style="background: rgba(255,255,255,0.15); border-radius: 999px; padding: 0.4rem 0.8rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <div class="v-modal-dot" style="width: 6px; height: 6px; background: #fef3c7; border-radius: 50%;"></div>
+                                <p class="v-modal-badge-text mb-0" style="font-size: 0.65rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.1em;">Deworming Protocol</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side (Form) -->
+                <div class="v-modal-form-area position-relative" style="flex: 1; padding: 3rem 2rem; background: #fafafa; overflow-y: auto; max-height: 90vh;">
+                    <!-- Close Button -->
+                    <button type="button" class="close-modal-btn position-absolute" style="top: 1.5rem; right: 1.5rem; border: none; background: transparent; color: #94a3b8; transition: color 0.2s;">
+                        <span class="material-symbols-outlined" style="font-size: 1.5rem;">close</span>
+                    </button>
+
+                    <!-- Header -->
+                    <div class="mb-4">
+                        <h2 class="font-headline font-weight-bold" style="font-size: 1.5rem; color: #d97706; margin-bottom: 0.25rem;">Deworming Execution Log</h2>
+                        <p class="text-muted small">Fill in the details for the routine medical administration.</p>
+                    </div>
+
+                    <form id="recordDewormingForm" novalidate>
+                        <input type="hidden" name="action" value="recorddeworming">
+
+                        <div id="rd_alert_container" class="mb-4 d-none"></div>
+
+                        <div class="row">
+                            <!-- Date and Administered By -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Deworming Date</label>
+                                <div class="v-input-wrapper">
+                                    <input type="text" name="execution_date" id="rd_date" class="form-control v-form-control v_datepicker" placeholder="DD-MMM-YYYY" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.2rem;">calendar_today</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Administered By</label>
+                                <div class="v-input-wrapper">
+                                    <select name="administered_by" id="rd_administered_by" class="form-control v-form-control" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;">
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
+                            </div>
+
+                            <!-- Execution Type and Select Schedule -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Execution Type</label>
+                                <div class="d-flex p-1" style="background: #f1f5f9; border-radius: 0.75rem; border: 1px solid #e2e8f0;">
+                                    <label class="flex-fill mb-0 text-center py-2 rounded-lg cursor-pointer transition-all rd-type-label active" style="font-size: 0.85rem; font-weight: 500; cursor: pointer;">
+                                        <input type="radio" name="record_type" value="Routine" checked class="d-none">
+                                        <span class="rd-type-text">Routine</span>
+                                    </label>
+                                    <label class="flex-fill mb-0 text-center py-2 rounded-lg cursor-pointer transition-all rd-type-label" style="font-size: 0.85rem; font-weight: 500; cursor: pointer; color: #64748b;">
+                                        <input type="radio" name="record_type" value="Scheduled" class="d-none">
+                                        <span class="rd-type-text">Scheduled</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Select Schedule</label>
+                                <div class="v-input-wrapper">
+                                    <select name="scheduleid" id="rd_scheduleid" class="form-control v-form-control" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;" disabled>
+                                        <option value="0">Choose from schedules...</option>
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
+                            </div>
+
+                            <!-- Product Name and Method -->
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Dewormer / Product Name</label>
+                                <input type="text" name="product_used" id="rd_product" class="form-control v-form-control" placeholder="e.g. Albendazole 10%, Ivermectin" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Method of Administration</label>
+                                <div class="v-input-wrapper">
+                                    <select name="method" id="rd_method" class="form-control v-form-control" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;">
+                                        <option value="Oral Drench">Oral Drench</option>
+                                        <option value="Subcutaneous Injection">Subcutaneous Injection</option>
+                                        <option value="Intramuscular Injection">Intramuscular Injection</option>
+                                        <option value="Topical / Pour-on">Topical / Pour-on</option>
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
+                            </div>
+
+                            <!-- Dosage -->
+                            <div class="col-12 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Dosage (per animal)</label>
+                                <input type="text" name="dosage" id="rd_dosage" class="form-control v-form-control" placeholder="e.g. 50ml" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+                        </div>
+
+                        <!-- Animal Checklist -->
+                        <div class="mt-0">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="font-weight-bold" style="font-size: 0.75rem; color: #d97706; text-transform: uppercase; letter-spacing: 0.05em;">ANIMAL CHECKLIST</span>
+                                <div class="custom-control custom-checkbox d-flex align-items-center gap-1">
+                                    <input type="checkbox" class="custom-control-input" id="rd_selectAll" checked>
+                                    <label class="custom-control-label small font-weight-500 text-muted" for="rd_selectAll" style="cursor: pointer;">Select All</label>
+                                </div>
+                            </div>
+                            <div style="background: #fffcf5; border-radius: 1rem; border: 1px solid #fef3c7; padding: 0.75rem;">
+                                <div id="rd_animal_list" class="row gx-1 gy-2" style="max-height: 280px; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin;">
+                                    <div class="col text-center py-4 text-muted small w-100">Loading animals...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="d-flex justify-content-end align-items-center mt-5 gap-4">
+                            <button type="button" class="btn btn-outline-secondary close-modal-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-warning v-btn-save shadow-sm text-white" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #d97706; border: none; font-size: 0.85rem; margin-left: 1rem;">
+                                Save Deworming
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .rd-type-label.active {
+            background: white;
+            color: #d97706;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .rd-type-label {
+            transition: all 0.2s ease;
+        }
+    </style>
 </body>
 </html>

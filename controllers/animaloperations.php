@@ -31,6 +31,11 @@
         echo $animal->getAnimalDetails($id);
     }
 
+    if ($action == 'getanimalsbypen') {
+        $penid = $_GET['penid'];
+        echo $animal->getAnimalsByPen($penid);
+    }
+
     if ($action == 'deleteanimal') {
         $id = $_POST['id'];
         $reason = $_POST['reason'];

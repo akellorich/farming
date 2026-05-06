@@ -683,6 +683,7 @@ $base_path = '../';
 
                     <div id="itemModalAlert" class="mb-3"></div>
                     <form id="addItemForm" class="category-form" onsubmit="return false;">
+                        <input type="hidden" id="itemId" value="0">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="category-field-group">
@@ -749,15 +750,34 @@ $base_path = '../';
                             </div>
                         </div>
 
-                        <div class="category-field-group">
-                            <label class="category-input-label">Item Type</label>
-                            <div class="d-flex align-items-center justify-content-between item-type-pill-container" style="padding: 0.4rem 1.25rem; border-radius: 0.75rem; height: 40px; background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                <span id="typeIngredientLabel" style="font-size: 0.65rem; font-weight: 700; color: #475569;">INGREDIENT</span>
-                                <div class="custom-switch switch-sm switch-always-green" style="transform: scale(0.85);">
-                                    <input type="checkbox" id="itemTypeToggle" onchange="updateTypeLabels()">
-                                    <label for="itemTypeToggle" style="border-radius: 30px;"></label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="category-field-group">
+                                    <label class="category-input-label">Item Type</label>
+                                    <div class="d-flex align-items-center justify-content-between item-type-pill-container" style="padding: 0.4rem 1.25rem; border-radius: 0.75rem; height: 40px; background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                        <span id="typeIngredientLabel" style="font-size: 0.65rem; font-weight: 700; color: #475569;">INGREDIENT</span>
+                                        <div class="custom-switch switch-sm switch-always-green" style="transform: scale(0.85);">
+                                            <input type="checkbox" id="itemTypeToggle" onchange="updateTypeLabels()">
+                                            <label for="itemTypeToggle" style="border-radius: 30px;"></label>
+                                        </div>
+                                        <span id="typeProductLabel" style="font-size: 0.65rem; font-weight: 700; color: #94a3b8;">PRODUCT</span>
+                                    </div>
                                 </div>
-                                <span id="typeProductLabel" style="font-size: 0.65rem; font-weight: 700; color: #94a3b8;">PRODUCT</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="category-field-group">
+                                    <label class="category-input-label">Categorize as Feed?</label>
+                                    <div class="d-flex align-items-center justify-content-between item-type-pill-container" style="padding: 0.4rem 1.25rem; border-radius: 0.75rem; height: 40px; background: #f8fafc; border: 1px solid #e2e8f0;">
+                                        <span class="d-flex align-items-center gap-2" style="font-size: 0.65rem; font-weight: 700; color: #64748b;">
+                                            <span class="material-symbols-outlined" style="font-size: 1rem;">restaurant</span>
+                                            ANIMAL FEED
+                                        </span>
+                                        <div class="custom-switch switch-sm">
+                                            <input type="checkbox" id="isFeedToggle">
+                                            <label for="isFeedToggle" style="border-radius: 30px;"></label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

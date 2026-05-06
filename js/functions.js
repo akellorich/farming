@@ -798,7 +798,6 @@ function populateyears(obj) {
     return dfd.promise()
 }
 
-
 function generatenumbers(style, startat, units, padzeros = false, prefix = "", suffix = "") {
     const numbers = [], totalunits = Number(startat) + Number(units) - 1
 
@@ -809,7 +808,7 @@ function generatenumbers(style, startat, units, padzeros = false, prefix = "", s
                 if (padzeros == false) {
                     numbers.push(`${prefix}${currentno}${suffix}`)
                 } else {
-                    let padding = "", currnolength = currentnoi.toString().length
+                    let padding = "", currnolength = currentno.toString().length
                     for (let j = currnolength; j < totalunits.toString().length; j++) {
                         padding += `0`
                     }
@@ -1523,7 +1522,7 @@ function getunits(obj, companyid = 0, option = 'choose') {
             companyid
         },
         (data) => {
-            let results = option == 'all' ? "<option value='0'>&lt;All&gt;</option>" : "<option value=''>&lt;Choose&gt;</option>"
+            let results = option == 'all' ? "<option value='0' disabled selected>&lt;All&gt;</option>" : "<option value='' disabled selected>&lt;Choose&gt;</option>"
             // sort the 
             data.forEach((unit) => {
                 results += `<option value='${unit.unitid}'>${unit.unitname}</option>`
@@ -1544,7 +1543,7 @@ function getsections(obj, departmentid, option = 'choose') {
             departmentid
         },
         (data) => {
-            let results = option == 'all' ? "<option value='0'>&lt;All&gt;</option>" : "<option value=''>&lt;Choose&gt;</option>"
+            let results = option == 'all' ? "<option value='0' disabled selected>&lt;All&gt;</option>" : "<option value='' disabled selected>&lt;Choose&gt;</option>"
             // sort the 
             data.forEach((section) => {
                 results += `<option value='${section.sectionid}'>${section.sectionname}</option>`
@@ -1615,7 +1614,7 @@ function getcompanies(obj, option = 'all') {
             getcompanies: true
         },
         (data) => {
-            let results = option == 'all' ? "<option value='0'>&lt;All&gt;</option>" : "<option value=''>&lt;Choose&gt;</option>"
+            let results = option == 'all' ? "<option value='0' disabled selected>&lt;All&gt;</option>" : "<option value='' disabled selected>&lt;Choose&gt;</option>"
             data.forEach((company) => {
                 results += `<option value='${company.companyid}'>${company.companyname}</option>`
             })
@@ -1800,6 +1799,22 @@ function minutesBetween(time1, time2) {
     return diffMs / (1000 * 60)
 }
 
+function getveterinariansselect(obj, option = 'choose') {
+    $.getJSON(
+        "../controllers/veterinarianoperations.php",
+        {
+            getveterinarians: true
+        },
+        (data) => {
+            let results = option == 'all' ? "<option value='0' disabled selected>All</option>" : "<option value='' disabled selected>Choose Vet</option>"
+            data.forEach((vet) => {
+                results += `<option value='${vet.id}'>${vet.vetname}</option>`
+            })
+            obj.html(results)
+        }
+    )
+}
+
 function addMinutesToTime(time, minutesToAdd) {
     const date = new Date(`1970-01-01T${time}:00`);
     date.setMinutes(date.getMinutes() + minutesToAdd);
@@ -1889,7 +1904,7 @@ function getpens(obj) {
 function getbreedsselect(obj) {
     $.get("../controllers/breedoperations.php", { getbreeds: true }, (data) => {
         let breeds = JSON.parse(data);
-        let options = '<option value="">Select breed...</option>';
+        let options = '<option value="" disabled selected>Select breed...</option>';
         breeds.forEach(breed => {
             options += `<option value="${breed.id}">${breed.breedname}</option>`;
         });
@@ -1900,7 +1915,7 @@ function getbreedsselect(obj) {
 function getpensselect(obj) {
     $.get("../controllers/penoperations.php", { action: 'getpens' }, (data) => {
         let pens = JSON.parse(data);
-        let options = '<option value="">Select pen...</option>';
+        let options = '<option value="" disabled selected>Select pen...</option>';
         pens.forEach(pen => {
             options += `<option value="${pen.id}">${pen.penname} (${pen.pentype})</option>`;
         });
@@ -1908,19 +1923,112 @@ function getpensselect(obj) {
     });
 }
 
+function getpenscheckboxes(container) {
+    $.getJSON("../controllers/penoperations.php", { getpens: true }, (data) => {
+        let html = '';
+        if (data && data.length > 0) {
+            data.forEach(pen => {
+                html += `
+                    <label class="pen-item">
+                        <input type="checkbox" value="${pen.id}">
+                        <span>${pen.penname} (${pen.pentype})</span>
+                    </label>
+                `;
+            });
+        } else {
+            html = '<div class="text-center py-3 text-muted small">No pens found</div>';
+        }
+        container.html(html);
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.error("Pen Loading Error:", textStatus, errorThrown);
+        container.html('<div class="text-center py-3 text-danger small">Error loading pens. Please try again.</div>');
+    });
+}
+
 function getanimals(obj, status = 'all') {
-    $.get("../controllers/animaloperations.php", { action: 'getanimals' }, (data) => {
-        let animals = JSON.parse(data);
+    $.getJSON("../controllers/animaloperations.php", { action: 'getanimals' }, (data) => {
+        let animals = data;
         
         // Filter by status if provided and not 'all'
         if (status !== 'all') {
             animals = animals.filter(animal => animal.status.toLowerCase() === status.toLowerCase());
         }
         
-        let options = '<option value="">&lt;None&gt;</option>';
+        let options = '<option value="" disabled selected>Choose an animal</option>';
         animals.forEach(animal => {
-            options += `<option value="${animal.id}">${animal.tagid} (${animal.designatedname})</option>`;
+            options += `<option value="${animal.id}">${animal.tagid} (${animal.designatedname || 'Unnamed'})</option>`;
         });
         obj.html(options);
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        console.error("Failed to load animals:", textStatus, errorThrown);
+    });
+}
+
+function getfeedmixesselect(obj) {
+    $.get("../controllers/feedmixoperations.php", { action: 'getfeedmixes' }, (data) => {
+        let mixes = JSON.parse(data);
+        let options = '<option value="" disabled selected>Select Ration Mix...</option>';
+        mixes.forEach(mix => {
+            options += `<option value="${mix.id}">${mix.feedname} (${mix.feedcode})</option>`;
+        });
+        obj.html(options);
+    });
+}
+
+function getdiseases(obj) {
+    $.getJSON("../controllers/diseaseoperations.php", { getdiseases: true }, (data) => {
+        let options = '<option value="" disabled selected>Select disease...</option>';
+        data.forEach(disease => {
+            options += `<option value="${disease.id}">${disease.diseasename}</option>`;
+        });
+        obj.html(options);
+    });
+}
+
+function getinventoryfeedsselect(obj) {
+    $.getJSON("../controllers/inventoryoperations.php", { action: 'getitems' }, (data) => {
+        let options = '<option value="" disabled selected>Select Complete Feed...</option>';
+        if (data && data.length > 0) {
+            // Filter only items marked as feed
+            const feeds = data.filter(item => parseInt(item.is_feed) === 1);
+            feeds.forEach(feed => {
+                options += `<option value="${feed.id}">${feed.itemname} (${feed.itemcode})</option>`;
+            });
+        }
+        obj.html(options);
+    });
+}
+
+
+function getAnimalsByPenList(penid, targetList) {
+    $.getJSON("../controllers/animaloperations.php", { action: 'getanimalsbypen', penid: penid }, (data) => {
+        let html = '';
+        if (data && data.length > 0) {
+            html = '<div class="d-flex flex-column gap-2">';
+            data.forEach(animal => {
+                const breed = animal.breedname ? animal.breedname : 'Unknown Breed';
+                html += `
+                    <div class="animal-card-wrapper">
+                        <div class="animal-card-item" data-animalid="${animal.id}">
+                            <div class="d-flex align-items-center">
+                                <div class="mr-3" style="min-width: 60px; border-right: 1px solid #f1f5f1;">
+                                    <span class="text-muted" style="font-size: 0.725rem; font-weight: 800; font-family: monospace; color: #206223 !important;">${animal.tagid}</span>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.825rem; font-weight: 500; color: #1a1c19;">${animal.designatedname || 'Unnamed'}</span>
+                                    <span class="text-muted" style="font-size: 0.675rem; font-weight: 400; margin-left: 2px;">(${breed})</span>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-success" style="font-size: 1.25rem; font-variation-settings: 'FILL' 1;">check_circle</span>
+                        </div>
+                    </div>`;
+            });
+            html += '</div>';
+        } else {
+            html = '<div class="text-center py-4"><span class="material-symbols-outlined text-muted mb-2" style="font-size: 2.5rem; opacity: 0.2;">groups</span><p class="text-muted small italic mb-0">No animals found in this pen.</p></div>';
+        }
+        $(targetList).html(html);
+    }).fail(() => {
+        $(targetList).html('<div class="text-center py-4 text-danger small">Error loading animal audit ledger.</div>');
     });
 }

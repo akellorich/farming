@@ -56,5 +56,10 @@ class animal extends db {
         $sql = "CALL sp_getanimaldetails({$id})";
         return $this->getJSON($sql);
     }
+
+    public function getAnimalsByPen($penid) {
+        $sql = "CALL sp_getanimalsbypen({$penid})";
+        return $this->getJSON($sql);
+    }
 }
 ?>

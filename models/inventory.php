@@ -41,7 +41,7 @@ class inventory extends db {
 
     /* --- Item Operations --- */
 
-    public function saveItem($id, $catId, $code, $name, $uom, $price, $reorder, $type, $desc) {
+    public function saveItem($id, $catId, $code, $name, $uom, $price, $reorder, $type, $isFeed, $desc) {
         $sql = "CALL sp_saveinventoryitem(
             {$id},
             {$catId},
@@ -51,6 +51,7 @@ class inventory extends db {
             {$price},
             {$reorder},
             '{$type}',
+            {$isFeed},
             " . ($desc ? "'{$desc}'" : "NULL") . ",
             {$this->userid},
             '{$this->platform}'

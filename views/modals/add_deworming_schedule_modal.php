@@ -1,5 +1,5 @@
-<!-- Vaccination Schedule Modal -->
-<div id="vaccinationModal" class="v-modal-overlay" style="display: none; backdrop-filter: blur(12px); background-color: rgba(0, 0, 0, 0.4);">
+<!-- Deworming Schedule Modal -->
+<div id="dewormingModal" class="v-modal-overlay" style="display: none; backdrop-filter: blur(12px); background-color: rgba(0, 0, 0, 0.4);">
     <div class="v-modal-wrapper">
         <div class="v-modal-container botanical-shadow-lg">
             
@@ -11,9 +11,9 @@
                 </div>
                 
                 <div class="v-modal-sidebar-content">
-                    <span class="material-symbols-outlined v-modal-icon">medical_information</span>
-                    <h2 class="v-modal-title">New Health Schedule</h2>
-                    <p class="v-modal-desc">Ensure the vitality of your herd through precise, proactive healthcare planning.</p>
+                    <span class="material-symbols-outlined v-modal-icon">medication</span>
+                    <h2 class="v-modal-title">Deworming Schedule</h2>
+                    <p class="v-modal-desc">Maintain optimal herd hygiene and parasite control through systematic deworming protocols.</p>
                     
                     <div class="mt-auto">
                         <div class="v-modal-badge">
@@ -28,31 +28,26 @@
             <div class="v-modal-form-area position-relative">
                 <div class="v-modal-header mb-4">
                     <div>
-                        <h3 class="font-headline font-weight-bold text-on-surface mb-1" style="font-size: 1.35rem;">Vaccination Schedule Details</h3>
-                        <p class="text-muted small mb-0">Fill in the parameters for the new health record.</p>
+                        <h3 class="font-headline font-weight-bold text-on-surface mb-1" style="font-size: 1.35rem;">Deworming Schedule Details</h3>
+                        <p class="text-muted small mb-0">Specify the drug and timing for the parasite control protocol.</p>
                     </div>
                     <button type="button" class="close-modal-btn position-absolute" style="top: 2rem; right: 2rem; border: none; background: transparent; color: #94a3b8; transition: color 0.2s;">
                         <span class="material-symbols-outlined" style="font-size: 1.5rem;">close</span>
                     </button>
                 </div>
 
-                <form id="vaccinationForm" class="v-modal-form">
+                <form id="dewormingForm" class="v-modal-form">
                     <input type="hidden" name="id" value="0">
-                    <input type="hidden" name="action" value="savevaccinationschedule">
+                    <input type="hidden" name="action" value="savedewormingschedule">
                     
-                    <div id="vaccination-modal-alert" style="display: none;" class="mb-3"></div>
+                    <div id="deworming-modal-alert" style="display: none;" class="mb-3"></div>
                     <div class="row">
-                        <!-- Disease Selection -->
+                        <!-- Proposed Drug -->
                         <div class="col-12 mb-4">
-                            <label class="font-label text-muted d-block mb-2" style="font-size: 0.725rem !important;">Target Disease</label>
+                            <label class="font-label text-muted d-block mb-2" style="font-size: 0.725rem !important;">Proposed Drug</label>
                             <div class="v-input-wrapper">
-                                <select class="form-control v-form-control select2" id="v_diseaseid" name="diseaseid">
-                                    <option value="">Select Disease...</option>
-                                    <option>Bovine Viral Diarrhea (BVD)</option>
-                                    <option>Foot & Mouth Disease</option>
-                                    <option>Brucellosis</option>
-                                    <option>Anthrax</option>
-                                </select>
+                                <input type="text" class="form-control v-form-control" name="schedulename" placeholder="e.g., Albendazole, Ivermectin">
+                                <span class="material-symbols-outlined v-input-icon" style="color: #94a3b8 !important;">medication</span>
                             </div>
                         </div>
 
@@ -60,28 +55,28 @@
                         <div class="col-12 mb-4">
                             <label class="font-label text-muted d-block mb-2" style="font-size: 0.725rem !important;">Target Pens</label>
                             <div class="pen-multiselect">
-                                <div class="pen-multiselect-trigger penTrigger" id="v_penTrigger">
-                                    <span id="v_penDisplay" class="penDisplay">Select Pens</span>
+                                <div class="pen-multiselect-trigger penTrigger" id="d_penTrigger">
+                                    <span id="d_penDisplay" class="penDisplay">Select Pens</span>
                                     <span class="material-symbols-outlined" style="font-size: 1.2rem; color: #666;">arrow_drop_down</span>
                                 </div>
-                                <div class="pen-multiselect-menu penMenu" id="v_penMenu">
+                                <div class="pen-multiselect-menu penMenu" id="d_penMenu">
                                     <div class="pen-search-wrapper">
-                                        <input type="text" class="pen-search-input penSearch" id="v_penSearch" placeholder="Search...">
+                                        <input type="text" class="pen-search-input penSearch" id="d_penSearch" placeholder="Search...">
                                     </div>
-                                    <div class="pen-list" id="v_pen_list">
+                                    <div class="pen-list" id="d_pen_list">
                                         <!-- Dynamically populated -->
                                         <div class="text-center py-3 text-muted small">Loading pens...</div>
                                     </div>
                                     <div class="pen-footer">
                                         <div class="d-flex gap-2">
-                                            <button type="button" class="pen-footer-btn penSelectAll" id="v_penSelectAll" title="Select All">
+                                            <button type="button" class="pen-footer-btn penSelectAll" id="d_penSelectAll" title="Select All">
                                                 <span class="material-symbols-outlined" style="font-size: 1.2rem;">select_all</span>
                                             </button>
-                                            <button type="button" class="pen-footer-btn penDeselectAll" id="v_penDeselectAll" title="Clear Selection">
+                                            <button type="button" class="pen-footer-btn penDeselectAll" id="d_penDeselectAll" title="Clear Selection">
                                                 <span class="material-symbols-outlined" style="font-size: 1.2rem;">deselect</span>
                                             </button>
                                         </div>
-                                        <button type="button" class="pen-footer-btn penConfirm" id="v_penConfirm" title="Confirm">
+                                        <button type="button" class="pen-footer-btn penConfirm" id="d_penConfirm" title="Confirm">
                                             <span class="material-symbols-outlined" style="font-size: 1.2rem; color: #4caf50;">check_circle</span>
                                         </button>
                                     </div>
@@ -93,7 +88,7 @@
                         <div class="col-md-6 mb-4">
                             <label class="font-label text-muted d-block mb-2" style="font-size: 0.725rem !important;">Scheduled Date</label>
                             <div class="v-input-wrapper">
-                                <input type="text" id="v_datepicker" name="scheduledate" class="form-control v-form-control v_datepicker" placeholder="YYYY-MM-DD">
+                                <input type="text" id="d_datepicker" name="scheduledate" class="form-control v-form-control v_datepicker" placeholder="DD-MMM-YYYY">
                                 <span class="material-symbols-outlined v-input-icon" style="color: #94a3b8 !important;">calendar_today</span>
                             </div>
                         </div>
@@ -118,7 +113,7 @@
                                     </div>
                                 </div>
                                 <label class="switch mb-0">
-                                    <input type="checkbox" id="v_repeat_annually" name="repeat_annually">
+                                    <input type="checkbox" id="d_repeat_annually" name="repeat_annually">
                                     <span class="slider round"></span>
                                 </label>
                             </div>

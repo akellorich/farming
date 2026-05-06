@@ -23,6 +23,7 @@ $base_path = '../';
     <link rel="stylesheet" href="../css/feeding.css">
     <link rel="stylesheet" href="../css/animals.css">
     <link rel="stylesheet" href="../css/alert.css">
+    <link rel="stylesheet" href="../css/jquery-ui.css">
     
     <!-- DataTables Advanced Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
@@ -111,6 +112,67 @@ $base_path = '../';
                 padding-right: 1rem !important;
             }
         }
+        /* Shift Toggle Styles */
+        .shift-toggle-btn {
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 0.725rem;
+            font-weight: 500;
+            padding: 0.65rem 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            color: #64748b;
+            text-align: center;
+        }
+        .shift-toggle-btn:hover {
+            background-color: #f8fafc;
+        }
+        .shift-toggle-btn.active {
+            background-color: #f1f5f1 !important;
+            color: #206223 !important;
+            border-color: #206223 !important;
+            font-weight: 700;
+        }
+
+        #newFeedingModal .form-control-custom,
+        #newFeedingModal .input-group-text {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            height: 38px !important;
+            font-size: 0.775rem !important;
+            padding-left: 0.75rem !important;
+        }
+
+        #newFeedingModal textarea.form-control-custom {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            height: auto !important;
+        }
+
+        .invalid-feedback-custom {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.675rem;
+            color: #ef4444;
+            font-weight: 500;
+        }
+
+        /* jQuery UI Datepicker Overrides */
+        .ui-datepicker-month, .ui-datepicker-year {
+            font-size: 11.5px !important;
+            padding: 3px 4px !important;
+            height: auto !important;
+            border-radius: 4px !important;
+            border: 1px solid #e2e8f0 !important;
+            margin: 0 2px !important;
+        }
+
+        #cancelFeeding:hover {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border-color: #94a3b8 !important;
+        }
     </style>
 </head>
 <body class="bg-background">
@@ -126,13 +188,19 @@ $base_path = '../';
 
     <!-- Main Content Area -->
     <main class="main-content">
-        <div class="container-fluid pt-1 px-4">
+        <div class="container-fluid pt-1 px-2">
             <!-- Header Section -->
-            <div class="row align-items-center mb-4 mt-2">
+            <div class="row align-items-center mb-2 mt-2">
                 <div class="col">
                     <h2 class="font-headline font-weight-bold text-on-surface" style="font-size: 1.1rem;">
                         Feeding Overview
                     </h2>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-success d-flex align-items-center px-3" id="openFeedingModalBtn" style="background-color: #206223; border: none; font-size: 0.85rem; height: 38px; border-radius: 6px; font-weight: 500;">
+                        <span class="material-symbols-outlined mr-2" style="font-size: 1.2rem;">add</span>
+                        Add New Log
+                    </button>
                 </div>
             </div>
 
@@ -410,13 +478,13 @@ body.dark-theme .feeding-table tr:hover {
                     <div>
                         <p class="font-headline text-muted font-weight-bold mb-2" style="font-size: 0.65rem; letter-spacing: 0.05rem; text-transform: uppercase;">Total Consumed (Today)</p>
                         <div class="d-flex align-items-baseline gap-2">
-                            <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem; color: #206223;">4,280</h2>
+                            <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem; color: #206223;" id="statTodayConsumed">0</h2>
                             <span class="text-muted small">kg</span>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center gap-1 text-success font-weight-bold" style="font-size: 0.7rem;">
-                        <span class="material-symbols-outlined" style="font-size: 1rem;">trending_up</span>
-                        <span>2% vs yesterday</span>
+                    <div class="d-flex align-items-center gap-1 font-weight-bold" style="font-size: 0.7rem;" id="statTrendContainer">
+                        <span class="material-symbols-outlined" style="font-size: 1rem;" id="statTrendIcon">remove</span>
+                        <span id="statTrendText">0% vs yesterday</span>
                     </div>
                 </div>
                 <!-- ... other cards ... -->
@@ -424,13 +492,13 @@ body.dark-theme .feeding-table tr:hover {
                     <div>
                         <p class="font-headline text-muted font-weight-bold mb-2" style="font-size: 0.65rem; letter-spacing: 0.05rem; text-transform: uppercase;">Avg Ration Per Cow</p>
                         <div class="d-flex align-items-baseline gap-2">
-                            <h2 class="font-headline font-weight-bold mb-0 text-on-surface" style="font-size: 1.5rem;">24.5</h2>
+                            <h2 class="font-headline font-weight-bold mb-0 text-on-surface" style="font-size: 1.5rem;" id="statAvgRation">0.0</h2>
                             <span class="text-muted small">kg/day</span>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-1 text-secondary font-weight-bold" style="font-size: 0.7rem;">
-                        <span class="material-symbols-outlined" style="font-size: 1rem;">remove</span>
-                        <span>Stable yield ratio</span>
+                        <span class="material-symbols-outlined" style="font-size: 1rem;">info</span>
+                        <span>Daily feeding density</span>
                     </div>
                 </div>
 
@@ -453,7 +521,7 @@ body.dark-theme .feeding-table tr:hover {
                 <!-- Left Column: Feeding Schedule & Ration Composition -->
                 <div class="col-lg-8">
                     <!-- Daily Feeding Schedule Card -->
-                    <div class="feeding-schedule-card botanical-shadow mb-4">
+                    <div class="feeding-schedule-card botanical-shadow mb-3">
                         <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
                             <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.85rem;">Daily Feeding Schedule</h5>
                             <div id="feedingExportContainer" class="d-flex gap-2"></div>
@@ -493,57 +561,13 @@ body.dark-theme .feeding-table tr:hover {
                                             <th>Pen ID</th>
                                             <th>Feed Type</th>
                                             <th>Quantity</th>
+                                            <th>Animals Fed</th>
                                             <th>Status</th>
                                             <th class="text-right">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php for($i=0; $i<12; $i++): ?>
-                                        <tr>
-                                            <td class="text-muted" style="white-space: nowrap; font-size: 0.7rem;">Oct 24, 2023</td>
-                                            <td class="font-weight-medium">06:00 AM</td>
-                                            <td>Pen 12 (Lactating)</td>
-                                            <td>TMR Mix A</td>
-                                            <td>850 kg</td>
-                                            <td><span class="feeding-status-badge status-completed">Completed</span></td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-sm p-0 text-muted" type="button" data-toggle="dropdown">
-                                                        <span class="material-symbols-outlined">more_vert</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right shadow-sm border-0" style="font-size: 0.75rem;">
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">visibility</span> View Detail</a>
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span> Edit Record</a>
-                                                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">delete</span> Delete</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">summarize</span> Report</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-muted" style="font-size: 0.7rem;">Oct 24, 2023</td>
-                                            <td class="font-weight-medium">12:00 PM</td>
-                                            <td>Pen 08 (Dry)</td>
-                                            <td>Hay / Silage</td>
-                                            <td>600 kg</td>
-                                            <td><span class="feeding-status-badge status-pending">Pending</span></td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-sm p-0 text-muted" type="button" data-toggle="dropdown">
-                                                        <span class="material-symbols-outlined">more_vert</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right shadow-sm border-0" style="font-size: 0.75rem;">
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">visibility</span> View Detail</a>
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span> Edit Record</a>
-                                                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">delete</span> Delete</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">summarize</span> Report</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php endfor; ?>
+                                        <!-- Data populated via DataTables AJAX -->
                                     </tbody>
                                 </table>
                             </div>
@@ -564,7 +588,7 @@ body.dark-theme .feeding-table tr:hover {
                     </div>
 
                     <!-- Ration Composition Section -->
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <h5 class="font-headline font-weight-bold mb-3" style="font-size: 0.85rem;">Ration Composition: Dairy Meal</h5>
                         <div class="ration-composition-grid">
                             <div class="ration-item-card botanical-shadow-sm">
@@ -590,7 +614,7 @@ body.dark-theme .feeding-table tr:hover {
                 <!-- Right Column: Alerts, Trend & CTA -->
                 <div class="col-lg-4">
                     <!-- Low Stock Alerts -->
-                    <div class="chart-container-card botanical-shadow mb-4">
+                    <div class="chart-container-card botanical-shadow mb-3">
                         <div class="d-flex align-items-center mb-4" style="color: #78350f; gap: 0.6rem; margin-left: 0.5rem;">
                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 1.2rem;">warning</span>
                             <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.85rem;">Low Stock Alerts</h5>
@@ -618,7 +642,7 @@ body.dark-theme .feeding-table tr:hover {
                     </div>
 
                     <!-- 7-Day Consumption -->
-                    <div class="chart-container-card botanical-shadow mb-4">
+                    <div class="chart-container-card botanical-shadow mb-3">
                         <h5 class="font-headline font-weight-bold mb-1" style="font-size: 0.85rem;">7-Day Consumption</h5>
                         <div id="consumptionAreaChart" style="min-height: 180px;"></div>
                     </div>
@@ -637,10 +661,6 @@ body.dark-theme .feeding-table tr:hover {
         </div>
     </main>
 
-    <!-- FAB for New Feeding -->
-    <button class="fab botanical-shadow" id="newFeedingFAB" style="background-color: #206223; color: white; z-index: 1060;">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 1.8rem;">add</span>
-    </button>
 
     <!-- New Feeding Entry Modal -->
     <div class="animal-modal-overlay" id="newFeedingModal">
@@ -672,26 +692,69 @@ body.dark-theme .feeding-table tr:hover {
                 </div>
 
                 <div class="flex-grow-1 overflow-auto" style="background-color: #fafbf9; padding: 2rem;">
+                    <div id="feedingValidationAlertContainer" class="mb-3"></div>
                     <!-- Selection Grid -->
                     <div class="row mb-3">
                         <div class="col-6 mb-3">
-                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Target Pen ID</label>
-                            <select class="form-control form-control-custom bg-white border" id="modalPenSelect" style="height: 48px; font-size: 0.85rem; border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
-                                <option value="" disabled selected>Choose a Pen...</option>
-                                <option value="Pen 12">Pen 12 (Lactating)</option>
-                                <option value="Pen 04">Pen 04 (Calves)</option>
-                                <option value="Pen 08">Pen 08 (Dry)</option>
-                            </select>
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Feeding Date</label>
+                            <div class="position-relative">
+                                <input type="text" class="form-control form-control-custom bg-white border" id="modalFeedingDate" value="<?php echo date('d-M-Y'); ?>" readonly style="border-radius: 6px; border-color: #e2e8f0 !important; font-weight: 400; cursor: pointer; padding-right: 35px;">
+                                <span class="material-symbols-outlined" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 1.1rem; color: #64748b; pointer-events: none;">calendar_month</span>
+                            </div>
+                            <div class="invalid-feedback-custom" id="error-modalFeedingDate">Please select a date</div>
                         </div>
                         <div class="col-6 mb-3">
-                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Ration Type</label>
-                            <select class="form-control form-control-custom bg-white border" id="modalFeedType" style="height: 48px; font-size: 0.85rem; border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
-                                <option value="" disabled selected>Select Ration Mix...</option>
-                                <option>TMR Mix A (Premium)</option>
-                                <option>Calf Starter Mix</option>
-                                <option>High Yield Silage</option>
-                                <option>Mineral Supplement</option>
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Target Pen ID</label>
+                            <select class="form-control form-control-custom bg-white border" id="modalPenSelect" style="border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
+                                <option value="" disabled selected>Choose a Pen...</option>
                             </select>
+                            <div class="invalid-feedback-custom" id="error-modalPenSelect">Pen is required</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3">
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Feeding Shift</label>
+                            <div class="d-flex gap-2" id="modalShiftToggles">
+                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="1">3 AM - Early Morning</button>
+                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="2">11 AM - Mid Day</button>
+                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="3">4 PM - Evening</button>
+                                <input type="hidden" id="modalShiftSelect" value="">
+                            </div>
+                            <div class="invalid-feedback-custom" id="error-modalShiftSelect">Shift is required</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 mb-3">
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Source Type</label>
+                            <select class="form-control form-control-custom bg-white border" id="modalFeedSourceType" style="border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
+                                <option value="Feed" selected>Complete Feed</option>
+                                <option value="Ration">Ration / Mix</option>
+                            </select>
+                        </div>
+                        <div class="col-8 mb-3">
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;" id="modalFeedSelectionLabel">Select Feed</label>
+                            <select class="form-control form-control-custom bg-white border" id="modalFeedId" style="border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
+                                <option value="" disabled selected>Loading...</option>
+                            </select>
+                            <div class="invalid-feedback-custom" id="error-modalFeedId">Feed selection is required</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-4 mb-3">
+                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Total Weight</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-custom bg-white" id="modalFeedingWeight" placeholder="0.00" style="border-radius: 6px 0 0 6px; border: 1px solid #e2e8f0; font-weight: 400;">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-light border-left-0" style="font-weight: 500; border-radius: 0 6px 6px 0; border: 1px solid #e2e8f0; color: #64748b;">KG</span>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback-custom" id="error-modalFeedingWeight">Valid weight is required</div>
+                        </div>
+                        <div class="col-8 mb-3">
+                            <!-- Placeholder for other info if needed -->
                         </div>
                     </div>
 
@@ -706,28 +769,17 @@ body.dark-theme .feeding-table tr:hover {
                         </div>
                     </div>
 
-                    <!-- Quantity & Observation -->
-                    <div class="row">
-                        <div class="col-6 mb-4">
-                            <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Total Weight</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control form-control-custom bg-white" placeholder="0.00" style="height: 48px; font-size: 1.1rem; border-radius: 6px 0 0 6px; border: 1px solid #e2e8f0; font-weight: 400;">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-light border-left-0" style="font-size: 0.75rem; font-weight: 500; border-radius: 0 6px 6px 0; border: 1px solid #e2e8f0; color: #64748b;">KG</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div class="col-12">
                             <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Observation Notes</label>
-                            <textarea class="form-control form-control-custom bg-white border" rows="2" placeholder="Enter any significant pen observations..." style="font-size: 0.85rem; border-radius: 6px; resize: none; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;"></textarea>
+                            <textarea class="form-control form-control-custom bg-white border" id="modalFeedingNotes" rows="3" placeholder="Enter any significant pen observations..." style="font-size: 0.85rem; border-radius: 6px; resize: none; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-4 bg-white border-top d-flex justify-content-end align-items-center gap-4" style="z-index: 5;">
-                    <button class="btn btn-link text-muted" style="font-size: 0.85rem; text-decoration: none; font-weight: 500;" id="cancelFeeding">Cancel</button>
+                    <button class="btn btn-outline-secondary px-4" style="font-size: 0.85rem; border-radius: 6px; font-weight: 500; border-color: #cbd5e1; color: #64748b; height: 48px;" id="cancelFeeding">Cancel</button>
                     <button class="btn btn-success px-5 shadow-sm" style="background-color: #206223; border-radius: 6px; font-size: 0.9rem; height: 48px; font-weight: 500;" id="saveFeedingBtn">Submit Record</button>
                 </div>
             </div>
@@ -737,12 +789,37 @@ body.dark-theme .feeding-table tr:hover {
         </div>
     </div>
 
+    <!-- Animals Fed Detail Modal -->
+    <div class="animal-modal-overlay" id="animalsFedModal">
+        <div class="modal-backdrop-blur"></div>
+        <div class="animal-modal-container shadow-lg" style="max-width: 550px; border-radius: 1rem; overflow: hidden; background: white; display: flex; flex-direction: column;">
+            <div class="px-4 py-3 border-bottom d-flex justify-content-between align-items-center bg-white">
+                <div>
+                    <h4 class="font-headline mb-0" style="font-size: 1.05rem; font-weight: 700;">Animals Fed</h4>
+                    <p class="text-muted mb-0" style="font-size: 0.725rem;" id="animalsFedModalSubtitle">List of animals in the selected pen.</p>
+                </div>
+                <button class="btn btn-light rounded-circle p-1" style="width: 32px; height: 32px; background: rgba(0,0,0,0.06); border: none;" id="closeAnimalsFedModal">
+                    <span class="material-symbols-outlined" style="font-size: 1.2rem;">close</span>
+                </button>
+            </div>
+            <div class="flex-grow-1 overflow-auto" style="max-height: 400px; background-color: #fafbf9;">
+                <div id="animalsFedList" class="p-3">
+                    <!-- Animals will be loaded here -->
+                </div>
+            </div>
+            <div class="p-3 bg-white border-top d-flex justify-content-end">
+                <button class="btn btn-outline-secondary px-4 py-2" style="font-size: 0.85rem; border-radius: 6px;" id="dismissAnimalsFedModal">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Global Scripts -->
     <script src="../plugins/jquery-3.6.1.js"></script>
+    <script src="../plugins/jquery-ui.js"></script>
     <script src="../plugins/popper.js"></script>
     <script src="../plugins/bootstrap.js"></script>
     <script src="../plugins/alert.js"></script>
-    <script src="../js/functions.js"></script>
+    <script src="../js/functions.js?v=<?php echo time(); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
@@ -759,23 +836,50 @@ body.dark-theme .feeding-table tr:hover {
     $(document).ready(function() {
         const isDark = $('body').hasClass('dark-theme');
         
+        // --- Fetch Dashboard Stats ---
+        function loadDashboardStats() {
+            $.getJSON('../controllers/feedingoperations.php?action=getfeedingstats', function(res) {
+                $('#statTodayConsumed').text(res.today_consumed || '0');
+                $('#statAvgRation').text(res.avg_ration_per_cow || '0.0');
+                
+                const trend = parseFloat(res.trend) || 0;
+                const trendText = Math.abs(trend) + '% vs yesterday';
+                $('#statTrendText').text(trendText);
+                
+                const trendContainer = $('#statTrendContainer');
+                const trendIcon = $('#statTrendIcon');
+                
+                if (trend > 0) {
+                    trendContainer.removeClass('text-danger text-secondary').addClass('text-success');
+                    trendIcon.text('trending_up');
+                } else if (trend < 0) {
+                    trendContainer.removeClass('text-success text-secondary').addClass('text-danger');
+                    trendIcon.text('trending_down');
+                } else {
+                    trendContainer.removeClass('text-success text-danger').addClass('text-secondary');
+                    trendIcon.text('horizontal_rule');
+                }
+            });
+        }
+        loadDashboardStats();
+
         // --- Consumption Chart ---
-        const options = {
+        const chartOptions = {
             series: [{
                 name: 'Consumption (kg)',
-                data: [3850, 4120, 3950, 4580, 4210, 4850, 4280]
+                data: [] // Will be populated dynamically
             }],
             chart: {
                 type: 'area',
-                height: 180,
+                height: 250, // Slightly taller to accommodate axis titles
                 toolbar: { show: false },
-                sparkline: { enabled: false },
                 background: 'transparent',
-                theme: { mode: isDark ? 'dark' : 'light' }
+                theme: { mode: isDark ? 'dark' : 'light' },
+                fontFamily: 'Inter, sans-serif'
             },
             colors: ['#206223'],
             dataLabels: { enabled: false },
-            stroke: { curve: 'smooth', width: 2 },
+            stroke: { curve: 'smooth', width: 3 },
             fill: {
                 type: 'gradient',
                 gradient: {
@@ -787,12 +891,18 @@ body.dark-theme .feeding-table tr:hover {
             },
             grid: {
                 borderColor: isDark ? '#30363d' : '#f1f1f1',
-                xaxis: { lines: { show: false } },
-                yaxis: { lines: { show: false } },
-                padding: { top: 0, right: 0, bottom: 0, left: -10 }
+                padding: { top: 0, right: 0, bottom: 0, left: 10 }
             },
             xaxis: {
-                categories: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+                categories: [], // Will be populated dynamically
+                title: {
+                    text: 'Days of the Week',
+                    style: {
+                        color: isDark ? '#8b949e' : '#64748b',
+                        fontSize: '12px',
+                        fontWeight: 600
+                    }
+                },
                 labels: {
                     style: {
                         colors: isDark ? '#8b949e' : '#94a3b8',
@@ -802,18 +912,117 @@ body.dark-theme .feeding-table tr:hover {
                 axisBorder: { show: false },
                 axisTicks: { show: false }
             },
-            yaxis: { show: false },
+            yaxis: { 
+                title: {
+                    text: 'Quantity (KG)',
+                    style: {
+                        color: isDark ? '#8b949e' : '#64748b',
+                        fontSize: '12px',
+                        fontWeight: 600
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: isDark ? '#8b949e' : '#94a3b8',
+                        fontSize: '10px'
+                    },
+                    formatter: function (value) {
+                        return value.toLocaleString() + " kg";
+                    }
+                }
+            },
             tooltip: {
                 theme: isDark ? 'dark' : 'light',
-                x: { show: false }
+                y: {
+                    formatter: function (val) {
+                        return val.toLocaleString() + " kg";
+                    }
+                }
             }
         };
 
-        const chart = new ApexCharts(document.querySelector("#consumptionAreaChart"), options);
+        const chart = new ApexCharts(document.querySelector("#consumptionAreaChart"), chartOptions);
         chart.render();
+
+        // --- Fetch Weekly Consumption Data ---
+        function loadWeeklyConsumption() {
+            $.getJSON('../controllers/feedingoperations.php?action=getweeklyconsumption', function(res) {
+                if (res && res.length > 0) {
+                    const labels = res.map(item => item.day_label.toUpperCase());
+                    const values = res.map(item => parseFloat(item.total_kg));
+                    
+                    chart.updateOptions({
+                        xaxis: { categories: labels },
+                        series: [{
+                            name: 'Consumption (kg)',
+                            data: values
+                        }]
+                    });
+                }
+            });
+        }
+        loadWeeklyConsumption();
 
         // --- DataTables Integration ---
         const table = $('#feedingDataTable').DataTable({
+            "ajax": {
+                "url": "../controllers/feedingoperations.php?action=getfeedinglogs",
+                "dataSrc": ""
+            },
+            "columns": [
+                { 
+                    "data": "logdate",
+                    "render": function(data) {
+                        // Format date to MMM DD, YYYY if needed, or keep as is
+                        return `<span class="text-muted" style="white-space: nowrap; font-size: 0.7rem;">${data}</span>`;
+                    }
+                },
+                { 
+                    "data": "shiftname",
+                    "render": function(data) {
+                        return `<span class="font-weight-medium">${data}</span>`;
+                    }
+                },
+                { "data": "penname" },
+                { "data": "feed_display_name" },
+                { 
+                    "data": "quantitykg",
+                    "render": function(data) {
+                        return `<strong>${data}</strong> <small class="text-muted">kg</small>`;
+                    }
+                },
+                { 
+                    "data": "animal_count",
+                    "render": function(data, type, row) {
+                        return `<a href="#" class="text-primary font-weight-bold" onclick="showAnimalsFed(${row.id}, '${row.penname}', '${row.logdate}')" style="text-decoration: underline; font-size: 0.75rem;">${data} animals</a>`;
+                    }
+                },
+                { 
+                    "data": "status",
+                    "render": function(data) {
+                        const statusClass = (data || 'Completed').toLowerCase() === 'completed' ? 'status-completed' : 'status-pending';
+                        return `<span class="feeding-status-badge ${statusClass}">${data || 'Completed'}</span>`;
+                    }
+                },
+                {
+                    "data": "id",
+                    "render": function(data) {
+                        return `
+                            <div class="dropdown">
+                                <button class="btn btn-sm p-0 text-muted" type="button" data-toggle="dropdown">
+                                    <span class="material-symbols-outlined">more_vert</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right shadow-sm border-0" style="font-size: 0.75rem;">
+                                    <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#" onclick="viewDetail(${data})"><span class="material-symbols-outlined" style="font-size: 1.1rem;">visibility</span> View Detail</a>
+                                    <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#" onclick="editRecord(${data})"><span class="material-symbols-outlined" style="font-size: 1.1rem;">edit</span> Edit Record</a>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger" href="#" onclick="deleteRecord(${data})"><span class="material-symbols-outlined" style="font-size: 1.1rem;">delete</span> Delete</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center gap-3 py-2" href="#"><span class="material-symbols-outlined" style="font-size: 1.1rem;">summarize</span> Report</a>
+                                </div>
+                            </div>`;
+                    }
+                }
+            ],
             "pageLength": 6,
             "paging": true,
             "info": false,
@@ -838,13 +1047,18 @@ body.dark-theme .feeding-table tr:hover {
                     className: 'dt-button', 
                     text: '<span class="material-symbols-outlined">print</span> Print' 
                 }
-            ]
+            ],
+            "drawCallback": function() {
+                updatePagination(this.api());
+            }
         });
 
         table.buttons().container().appendTo('#feedingExportContainer');
 
-        function updatePagination() {
-            const info = table.page.info();
+        function updatePagination(api) {
+            const dt = api || table;
+            if (!dt) return;
+            const info = dt.page.info();
             $('#pageInfo').text('Page ' + (info.page + 1) + ' of ' + info.pages);
             let html = '';
             for (let i = 0; i < info.pages; i++) {
@@ -870,89 +1084,200 @@ body.dark-theme .feeding-table tr:hover {
 
         updatePagination();
 
+        // Populate Pens and Feed Mixes for Modal
+        getpensselect($('#modalPenSelect'));
+        getinventoryfeedsselect($('#modalFeedId')); // Default to Feed
+
+        // Source Type Change Handler
+        $('#modalFeedSourceType').on('change', function() {
+            const type = $(this).val();
+            const label = $('#modalFeedSelectionLabel');
+            const select = $('#modalFeedId');
+            
+            select.html('<option value="" disabled selected>Loading...</option>');
+            
+            if (type === 'Feed') {
+                label.text('Select Complete Feed');
+                getinventoryfeedsselect(select);
+            } else {
+                label.text('Select Ration / Mix');
+                getfeedmixesselect(select);
+            }
+        });
+
         // --- New Feeding Modal Logic ---
-        $('#newFeedingFAB').on('click', function() {
+        $('#openFeedingModalBtn').on('click', function() {
             $('#newFeedingModal').addClass('show');
             $('body').addClass('modal-open');
-            $(this).fadeOut(200); // Hide FAB when modal opens
+            
+            // Auto-select closest shift
+            const now = new Date();
+            const hour = now.getHours();
+            let closestShift = "1"; // Default 3 AM
+            if (hour >= 8 && hour < 14) closestShift = "2"; // 11 AM
+            else if (hour >= 14 || hour < 0) closestShift = "3"; // 4 PM
+            
+            $(`#modalShiftToggles .shift-toggle-btn[data-value="${closestShift}"]`).click();
         });
 
-        $('#closeFeedingModal, #dismissFeedingModal, #cancelFeeding, .modal-backdrop-blur').on('click', function() {
+        $('#closeFeedingModal, #dismissFeedingModal, #cancelFeeding').on('click', function() {
             $('#newFeedingModal').removeClass('show');
             $('body').removeClass('modal-open');
-            $('#newFeedingFAB').fadeIn(200); // Show FAB when modal closes
         });
 
-        // Pen Selection -> Animal List Simulation (Code & Name)
-        const animalData = {
-            'Pen 12': [
-                { id: 'JK-2481', name: 'Daisy (Jersey)' },
-                { id: 'JK-2485', name: 'Bella (Guernsey)' },
-                { id: 'JK-2490', name: 'Luna (Holstein)' }
-            ],
-            'Pen 04': [
-                { id: 'CL-0301', name: 'Max (Ayrshire)' },
-                { id: 'CL-0305', name: 'Ruby (Jersey)' },
-                { id: 'CL-0310', name: 'Cooper (Holstein)' }
-            ],
-            'Pen 08': [
-                { id: 'HF-0120', name: 'Molly (Sahiwal)' },
-                { id: 'HF-0125', name: 'Sophie (Brown Swiss)' }
-            ]
-        };
+        // Initialize Datepicker
+        $('#modalFeedingDate').datepicker({
+            dateFormat: 'dd-M-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: 0
+        });
+
+        // Shift Toggle Button Handler
+        $('.shift-toggle-btn').on('click', function() {
+            $('.shift-toggle-btn').removeClass('active');
+            $(this).addClass('active');
+            $('#modalShiftSelect').val($(this).data('value'));
+            
+            // Clear shift error
+            $('#error-modalShiftSelect').hide();
+            if ($('.invalid-feedback-custom:visible').length === 0) {
+                $('#feedingValidationAlertContainer').empty();
+            }
+        });
+
+        // Clear errors on interaction
+        $('#newFeedingModal input, #newFeedingModal select').on('input change', function() {
+            $(this).css('border-color', '#e2e8f0');
+            $(`#error-${$(this).attr('id')}`).hide();
+            
+            // If no more individual errors, clear the top summary
+            if ($('.invalid-feedback-custom:visible').length === 0) {
+                $('#feedingValidationAlertContainer').empty();
+            }
+        });
 
         $('#modalPenSelect').on('change', function() {
-            const pen = $(this).val();
-            const animals = animalData[pen] || [];
-            let html = '';
-            
-            if (animals.length > 0) {
-                html = '<div class="d-flex flex-column gap-2">';
-                    animals.forEach(animal => {
-                        html += `
-                            <div class="animal-card-wrapper">
-                                <div class="animal-card-item">
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3" style="min-width: 60px; border-right: 1px solid #f1f5f1;">
-                                            <span class="text-muted" style="font-size: 0.725rem; font-weight: 800; font-family: monospace; color: #206223 !important;">${animal.id}</span>
-                                        </div>
-                                        <div>
-                                            <span style="font-size: 0.825rem; font-weight: 500; color: #1a1c19;">${animal.name.split(' (')[0]}</span>
-                                            <span class="text-muted" style="font-size: 0.675rem; font-weight: 400; margin-left: 2px;">(${animal.name.split(' (')[1]}</span>
-                                        </div>
-                                    </div>
-                                    <span class="material-symbols-outlined text-success" style="font-size: 1.25rem; font-variation-settings: 'FILL' 1;">check_circle</span>
-                                </div>
-                            </div>`;
-                    });
-                html += '</div>';
-            } else {
-                html = '<div class="text-center py-4"><span class="material-symbols-outlined text-muted mb-2" style="font-size: 2.5rem; opacity: 0.2;">groups</span><p class="text-muted small italic mb-0">Select a pen to audit animals...</p></div>';
-            }
-            
-            $('#modalAnimalList').html(html);
+            const penid = $(this).val();
+            getAnimalsByPenList(penid, $('#modalAnimalList'));
         });
 
         $('#saveFeedingBtn').on('click', function() {
-            const pen = $('#modalPenSelect').val();
-            if (!pen) {
-                alert('Please select a pen.');
+            const btn = $(this);
+            const date = $('#modalFeedingDate').val();
+            const penid = $('#modalPenSelect').val();
+            const shiftid = $('#modalShiftSelect').val();
+            const sourceType = $('#modalFeedSourceType').val();
+            const feedId = $('#modalFeedId').val();
+            const weight = $('#modalFeedingWeight').val();
+            const notes = $('#modalFeedingNotes').val();
+            const alertContainer = $('#feedingValidationAlertContainer');
+
+            // Clear previous errors
+            alertContainer.empty();
+            $('.form-control').css('border-color', '#e2e8f0');
+            $('.invalid-feedback-custom').hide();
+
+            // Validation
+            let errors = [];
+            if (!date) { 
+                errors.push("Please select a feeding date."); 
+                $('#modalFeedingDate').css('border-color', '#ef4444');
+                $('#error-modalFeedingDate').text("Please select a date").show();
+            }
+            if (!penid) { 
+                errors.push("Please select a target pen."); 
+                $('#modalPenSelect').css('border-color', '#ef4444');
+                $('#error-modalPenSelect').text("Please select a pen").show();
+            }
+            if (!shiftid) { 
+                errors.push("Please select a feeding shift."); 
+                $('#error-modalShiftSelect').text("Please select a shift").show();
+            }
+            if (!feedId) { 
+                errors.push("Please select a feed or ration."); 
+                $('#modalFeedId').css('border-color', '#ef4444');
+                $('#error-modalFeedId').text("Selection is required").show();
+            }
+            if (!weight || weight <= 0) { 
+                errors.push("Please enter the total weight."); 
+                $('#modalFeedingWeight').css('border-color', '#ef4444');
+                $('#error-modalFeedingWeight').text("Please enter a valid weight").show();
+            }
+
+            if (errors.length > 0) {
+                // Use showAlert plugin to get formatted HTML but prevent it from showing in the global container by passing 1
+                const detailedMessage = errors.join("<br/>");
+                const alertHtml = showAlert('info', detailedMessage, 1);
+                alertContainer.html(alertHtml);
+                
+                // Focus first error
+                if (!date) $('#modalFeedingDate').focus();
+                else if (!penid) $('#modalPenSelect').focus();
+                else if (!feedtype) $('#modalFeedType').focus();
+                else if (!weight || weight <= 0) $('#modalFeedingWeight').focus();
+                
+                // Scroll to top of modal to see the alerts
+                $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                
                 return;
             }
-            // Simulate Save
-            $(this).html('<span class="spinner-border spinner-border-sm mr-2"></span>Saving...');
-            setTimeout(() => {
-                $('#newFeedingModal').removeClass('show');
-                $('body').removeClass('modal-open');
-                $('#newFeedingFAB').fadeIn(200);
-                $(this).html('Submit Record');
-                // Show success alert (assuming showAlert is global)
-                if (typeof showAlert === 'function') {
-                    showAlert('success', 'Feeding record for ' + pen + ' saved successfully!');
-                } else {
-                    alert('Feeding record for ' + pen + ' saved successfully!');
+
+            // Collect Animal IDs
+            let animalIds = [];
+            $('#modalAnimalList .animal-card-item').each(function() {
+                animalIds.push($(this).data('animalid'));
+            });
+
+            if (animalIds.length === 0) {
+                alertContainer.html('<div class="alert alert-info small py-2 px-3 mb-0" style="border-radius: 6px; border: none; background-color: #eff6ff; color: #1e40af;">Note: No animals found in this pen to associate with this record.</div>');
+            }
+
+            // Save via AJAX
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm mr-2"></span>Saving...');
+            
+            $.post('../controllers/feedingoperations.php', {
+                action: 'savefeedingrecord',
+                id: 0,
+                logdate: date,
+                penid: penid,
+                shiftid: shiftid,
+                feed_source_type: sourceType,
+                feed_id: feedId,
+                quantitykg: weight,
+                notes: notes,
+                animalids: JSON.stringify(animalIds)
+            }, function(response) {
+                btn.prop('disabled', false).html('Submit Record');
+                try {
+                    const res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        // Success notification inside modal above feeding date
+                        const successHtml = showAlert('info', res.message, 1);
+                        alertContainer.html(successHtml);
+
+                        // Clear fields for new entry
+                        $('#modalPenSelect').val('').trigger('change');
+                        $('#modalFeedId').val('');
+                        $('#modalFeedingWeight').val('');
+                        $('#modalFeedingNotes').val('');
+                        
+                        // Clear animal list to default state
+                        $('#modalAnimalList').html('<div class="d-flex flex-column align-items-center justify-content-center h-100 py-5 text-center px-4"><span class="material-symbols-outlined text-muted mb-3" style="font-size: 3rem; opacity: 0.2;">groups</span><p class="text-muted small italic mb-0">Identification ledger will populate once a pen is selected.</p></div>');
+
+                        // Scroll to top
+                        $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                    } else {
+                        showAlert('danger', res.message);
+                    }
+                } catch (e) {
+                    console.error(response);
+                    showAlert('danger', 'System error: ' + response);
                 }
-            }, 800);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                btn.prop('disabled', false).html('Submit Record');
+                showAlert('danger', 'Network error: ' + errorThrown);
+            });
         });
 
         // Theme Toggle Listener
@@ -964,6 +1289,48 @@ body.dark-theme .feeding-table tr:hover {
                 xaxis: { labels: { style: { colors: dark ? '#8b949e' : '#94a3b8' } } }
             });
         });
+    });
+
+    function showAnimalsFed(logId, penName, logDate) {
+        $('#animalsFedModalSubtitle').text(`Feeding session for ${penName} on ${logDate}`);
+        $('#animalsFedList').html('<div class="text-center py-5"><div class="spinner-border text-success"></div><p class="mt-2 text-muted small">Loading animal registry...</p></div>');
+        $('#animalsFedModal').addClass('show');
+        $('body').addClass('modal-open');
+
+        $.getJSON('../controllers/feedingoperations.php', { action: 'getfeedingloganimals', logid: logId }, function(data) {
+            let html = '';
+            if (data && data.length > 0) {
+                html = '<div class="d-flex flex-column gap-3">';
+                data.forEach(animal => {
+                    html += `
+                        <div class="animal-card-item shadow-sm border-0 bg-white mb-2" style="border-left: 4px solid #206223 !important; padding: 1rem;">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-3 p-2 bg-light rounded" style="min-width: 70px; text-align: center;">
+                                        <span class="font-weight-bold" style="font-size: 0.8rem; color: #206223;">${animal.tagid}</span>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 font-weight-bold" style="font-size: 0.9rem; color: #1a1c19;">${animal.designatedname || 'Unnamed'}</p>
+                                        <p class="mb-0 text-muted" style="font-size: 0.75rem;">${animal.breedname || 'Cross-breed'}</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined text-success">verified</span>
+                            </div>
+                        </div>`;
+                });
+                html += '</div>';
+            } else {
+                html = '<div class="text-center py-5"><span class="material-symbols-outlined text-muted mb-3" style="font-size: 3rem; opacity: 0.2;">sentiment_dissatisfied</span><p class="text-muted">No animal records found for this session.</p></div>';
+            }
+            $('#animalsFedList').html(html);
+        });
+    }
+
+    $('#closeAnimalsFedModal, #dismissAnimalsFedModal').on('click', function() {
+        $('#animalsFedModal').removeClass('show');
+        if (!$('#newFeedingModal').hasClass('show')) {
+            $('body').removeClass('modal-open');
+        }
     });
     </script>
 </body>

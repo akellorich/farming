@@ -123,6 +123,18 @@ $(document).ready(function() {
 
         // Add Inventory Item Modal Toggle
         $('#addAssetBtn').on('click', function() {
+            // Reset Form for New Entry
+            $('#itemId').val(0);
+            $('#addItemForm')[0].reset();
+            $('#autoGenerateCode').prop('checked', true).trigger('change');
+            $('#itemTypeToggle').prop('checked', false).trigger('change');
+            $('#isFeedToggle').prop('checked', false);
+            
+            // Restore Text
+            $('.sidebar-headline').text('New Inventory Item');
+            $('.sidebar-subtext').text('Provision new assets to your stock. Track reorder levels and pricing for efficient management.');
+            $('#addItemForm button[type="submit"]').text('Save Item');
+
             getinventorycategorieslist($('#itemCategory'), 'choose');
             $('#addInventoryItemModal').fadeIn(300);
         });
@@ -289,6 +301,7 @@ $(document).ready(function() {
             const reorderLevel = $('#itemReorder').val();
             const uom = $('#itemUom').val();
             const itemType = $('#itemTypeToggle').is(':checked') ? 'Product' : 'Ingredient';
+            const isFeed = $('#isFeedToggle').is(':checked') ? 1 : 0;
             const description = $('#itemDescription').val().trim();
 
             // Sequential Validation
@@ -319,7 +332,7 @@ $(document).ready(function() {
             }
 
             const data = {
-                id: 0,
+                id: $('#itemId').val() || 0,
                 categoryid: categoryId,
                 itemcode: itemCode,
                 itemname: itemName,
@@ -327,6 +340,7 @@ $(document).ready(function() {
                 unitprice: unitPrice,
                 reorderlevel: reorderLevel,
                 itemtype: itemType,
+                is_feed: isFeed,
                 description: description,
                 action: 'saveitem'
             };
@@ -487,3 +501,70 @@ function toggleActionMenu(event, button) {
         $('.actions-dropdown').removeClass('show');
     });
 }
+
+function editItem(itemId) {
+    $.getJSON("../controllers/inventoryoperations.php", { action: 'getitems', id: itemId }, function(data) {
+        if (data && data.length > 0) {
+            const item = data[0];
+            
+            // Populate form
+            $('#itemId').val(item.id);
+            $('#itemName').val(item.itemname);
+            $('#itemCode').val(item.itemcode);
+            $('#itemPrice').val(item.unitprice);
+            $('#itemReorder').val(item.reorderlevel);
+            $('#itemUom').val(item.uom);
+            $('#itemDescription').val(item.description);
+            
+            // Handle Type Toggle
+            $('#itemTypeToggle').prop('checked', item.itemtype === 'Product').trigger('change');
+            
+            // Handle isFeed Toggle
+            $('#isFeedToggle').prop('checked', parseInt(item.is_feed) === 1);
+            
+            // Handle Auto-gen Code (Disable for edits)
+            $('#autoGenerateCode').prop('checked', false).trigger('change');
+            
+            // Set Category
+            getinventorycategorieslist($('#itemCategory'), item.categoryid);
+            
+            // Show Modal
+            $('#addInventoryItemModal').fadeIn(300);
+            
+            // Update UI
+            $('.sidebar-headline').text('Edit Inventory Item');
+            $('.sidebar-subtext').text('Modify existing asset details and stock parameters.');
+            $('#addItemForm button[type="submit"]').text('Update Item');
+        }
+    });
+}
+
+function deleteItem(itemId) {
+    if (confirm("Are you sure you want to delete this inventory item?")) {
+        $.ajax({
+            url: "../controllers/inventoryoperations.php",
+            type: "POST",
+            data: { action: 'deleteitem', id: itemId },
+            success: function(response) {
+                try {
+                    const res = JSON.parse(response);
+                    if (res.status === 'success') {
+                        $('#inventoryDataTable').DataTable().ajax.reload();
+                        loadInventoryStats();
+                        loadCategorySummaries();
+                        if (typeof showNotification === 'function') {
+                            showNotification("success", res.message);
+                        } else {
+                            alert(res.message);
+                        }
+                    } else {
+                        alert(res.message);
+                    }
+                } catch (e) {
+                    console.error("Delete Error:", response);
+                }
+            }
+        });
+    }
+}
+

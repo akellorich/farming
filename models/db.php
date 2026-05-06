@@ -62,8 +62,13 @@
         }
 
         function mySQLDate($date){
-            $date = DateTime::createFromFormat('d-M-Y', $date);
-            return $date->format('Y-m-d');
+            if (!$date) return date('Y-m-d');
+            $d = DateTime::createFromFormat('d-M-Y', $date);
+            if (!$d) {
+                // Try alternate format if d-M-Y fails
+                $d = new DateTime($date);
+            }
+            return $d ? $d->format('Y-m-d') : date('Y-m-d');
         }
 
         function mySQLDateTime($datestring){
