@@ -5,8 +5,8 @@
 .health-header-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
 }
 
 @media (max-width: 1200px) {
@@ -20,6 +20,12 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
     }
+}
+
+/* Global Content Padding Refinements */
+.main-content .container-fluid {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
 .health-stat-card {
@@ -69,18 +75,23 @@
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 0.65rem;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
 }
 
 .status-recovering {
-    background-color: #fef9c3;
-    color: #854d0e;
+    background-color: #fef3c7;
+    color: #92400e;
 }
 
 .status-completed {
-    background-color: var(--tertiary-fixed);
-    color: var(--on-tertiary-fixed);
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-quarantined {
+    background-color: #fee2e2;
+    color: #991b1b;
 }
 
 /* Right Panels */
@@ -441,31 +452,65 @@ body.dark-theme .status-recovering {
     .health-modal-container {
         flex-direction: column;
         border-radius: 1rem;
-    }
-    .modal-side-panel {
-        width: 100%;
-        height: 110px;
-        padding: 1.25rem;
-    }
-    .modal-side-panel h2 {
-        font-size: 1rem !important;
-        margin-bottom: 0.15rem !important;
-    }
-    .modal-side-panel p {
-        font-size: 0.65rem !important;
-    }
-    .modal-side-panel span.material-symbols-outlined {
-        font-size: 1.5rem !important;
-        margin-bottom: 0.4rem !important;
+        max-width: 95%;
+        height: 90vh !important;
+        max-height: 90vh !important;
     }
     .modal-form-area {
-        padding: 1.25rem 1.5rem;
-    }
-    .modal-form-area .d-md-flex {
-        display: none !important; /* Specifically hide desktop header in form area */
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
     #healthLogForm {
-        margin-top: 0.5rem !important; /* Reduce top margin on mobile */
+        flex-grow: 1 !important;
+    }
+    .modal-side-panel {
+        display: none !important;
+    }
+    .modal-form-area {
+        padding: 1.5rem 1.25rem !important;
+    }
+    #healthLogForm {
+        margin-top: 0.25rem !important;
+    }
+    .modal-input {
+        font-size: 0.775rem !important;
+        padding: 0.65rem 0.85rem !important;
+        border-radius: 0.5rem !important;
+    }
+    .form-label-caps {
+        font-size: 0.675rem !important;
+        margin-bottom: 0.45rem !important;
+        font-weight: 600 !important;
+        color: #64748b !important;
+    }
+    .health-modal-container {
+        position: relative !important;
+    }
+    .btn-close-modal {
+        display: flex !important;
+        position: absolute !important;
+        top: 1.25rem !important;
+        right: 1.25rem !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 100 !important;
+    }
+    .status-chip-grid {
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 0.5rem !important;
+    }
+    .status-chip {
+        padding: 0.5rem 0.1rem !important;
+        border-radius: 0.5rem !important;
+    }
+    .status-chip-content {
+        font-size: 0.65rem !important;
+        font-weight: 400 !important;
+        gap: 0.25rem !important;
+    }
+    .status-chip-content span.material-symbols-outlined {
+        font-size: 1rem !important;
     }
 }
 
@@ -548,3 +593,132 @@ body.dark-theme .status-recovering {
     }
 }
 
+/* Tab Navigation */
+.health-tabs-container {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.health-tab {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #3b82f6; /* Blue for inactive */
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+    position: relative;
+    bottom: -1px; /* Align with container border */
+}
+
+.health-tab.active {
+    color: #1e293b; /* Bold dark text for active */
+    font-weight: 700;
+    border-bottom-color: #ef4444; /* Red indicator */
+}
+
+.health-tab:hover:not(.active) {
+    color: #2563eb;
+}
+
+.btn-add-table {
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: #166534;
+    border: none;
+    height: 32px;
+}
+
+@media (max-width: 576px) {
+    .health-tab {
+        font-size: 0.75rem !important;
+        padding: 0.6rem 0.25rem !important;
+    }
+    .health-tabs-container {
+        gap: 1.25rem !important;
+    }
+    .btn-add-table {
+        font-size: 0.65rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        height: 28px !important;
+    }
+    .btn-add-table span.material-symbols-outlined {
+        font-size: 0.85rem !important;
+    }
+    .page-info-display {
+        font-size: 0.65rem !important;
+    }
+    .pagination-container {
+        gap: 0.4rem !important;
+    }
+    .number-buttons-container {
+        gap: 0.35rem !important;
+    }
+    .health-table-card div.d-flex.justify-content-between.p-4 {
+        padding: 0.75rem 1rem !important;
+    }
+    .main-content .container-fluid {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+    .page-btn {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.65rem !important;
+    }
+    .pagination-arrow {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .pagination-arrow span {
+        font-size: 1rem !important;
+    }
+    .actions-label {
+        font-size: 0.75rem !important;
+    }
+    .modal-action-btn {
+        height: 38px !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 0.5rem !important;
+    }
+    /* V-Modal Mobile Font Overrides */
+    .v-modal-sidebar h2 {
+        font-size: 1rem !important;
+    }
+    .v-modal-sidebar p {
+        font-size: 0.65rem !important;
+    }
+    .v-modal-badge {
+        padding: 0.3rem 0.6rem !important;
+    }
+    .v-modal-badge-text {
+        font-size: 0.55rem !important;
+    }
+    .v-modal-header h3 {
+        font-size: 1.1rem !important;
+    }
+    .v-modal-header p {
+        font-size: 0.75rem !important;
+    }
+    /* Fail-safe to hide Animal ID on mobile */
+    .animal-code-cell {
+        display: none !important;
+    }
+    .dtr-details .animal-code-cell {
+        display: inline-block !important; /* Show it inside the expanded details */
+    }
+}
+
+.modal-action-btn {
+    transition: all 0.2s ease;
+}

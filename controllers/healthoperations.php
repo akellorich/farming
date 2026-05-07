@@ -2,7 +2,9 @@
     require_once("../models/health.php");
     $health = new health();
     
-    if(isset($_POST['savehealthlog'])){
+    $action = $_GET['action'] ?? $_POST['action'] ?? '';
+    
+    if($action == 'savehealthlog' || isset($_POST['savehealthlog'])){
         $id = $_POST['id'];
         $logdate = date('Y-m-d', strtotime($_POST['logdate']));
         $animalid = $_POST['animalid'];
@@ -19,13 +21,21 @@
         echo json_encode($response);
     }
 
-    if(isset($_POST['deletehealthlog'])){
+    if($action == 'deletehealthlog' || isset($_POST['deletehealthlog'])){
         $id = $_POST['id'];
         $reason = $_POST['reason'];
         echo json_encode($health->deleteHealthLog($id, $reason));
     }
 
-    if(isset($_GET['gethealthlogs'])){
+    if($action == 'gethealthlogs' || isset($_GET['gethealthlogs'])){
         echo $health->getHealthLogs();
+    }
+
+    if($action == 'getupcomingfollowups'){
+        echo $health->getUpcomingFollowups();
+    }
+
+    if($action == 'gethealthsummary'){
+        echo $health->getHealthSummary();
     }
 ?>

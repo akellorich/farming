@@ -5447,13 +5447,13 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `sp_get_active_health_schedules` */
+/* Procedure structure for procedure `sp_getactivehealthschedules` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_get_active_health_schedules` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getactivehealthschedules` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_active_health_schedules`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getactivehealthschedules`(
     IN `$type` VARCHAR(20)
 )
 BEGIN
@@ -5473,13 +5473,13 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `sp_get_animals_by_schedule` */
+/* Procedure structure for procedure `sp_getanimalsbyschedule` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_get_animals_by_schedule` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getanimalsbyschedule` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_get_animals_by_schedule`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getanimalsbyschedule`(
     IN `$scheduleid` INT,
     IN `$type` VARCHAR(20)
 )
@@ -5514,13 +5514,13 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `sp_record_bulk_deworming` */
+/* Procedure structure for procedure `sp_recordbulkdeworming` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_record_bulk_deworming` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_recordbulkdeworming` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_record_bulk_deworming`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_recordbulkdeworming`(
     IN `$scheduleid` INT,
     IN `$animalids` JSON,
     IN `$dewormingdate` DATE,
@@ -5562,13 +5562,13 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `sp_record_bulk_vaccination` */
+/* Procedure structure for procedure `sp_recordbulkvaccination` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_record_bulk_vaccination` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_recordbulkvaccination` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_record_bulk_vaccination`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_recordbulkvaccination`(
     IN `$scheduleid` INT,
     IN `$animalids` JSON, -- Array of animal IDs
     IN `$vaccinationdate` DATE,

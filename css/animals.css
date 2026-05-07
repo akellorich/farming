@@ -209,7 +209,7 @@ body.modal-open {
     .animal-modal-container {
         width: 96% !important; 
         max-width: 96% !important;
-        height: auto !important; /* Changed to auto-grow */
+        height: 95vh !important;
         max-height: 95vh !important;
         border-radius: 1rem !important;
         margin: auto !important; /* Center vertically */
@@ -578,8 +578,8 @@ body.modal-open {
     position: relative;
     width: 100%;
     max-width: 960px;
-    height: auto;
-    max-height: 90vh;
+    height: 95vh;
+    max-height: 95vh;
     background-color: white;
     border-radius: 1.5rem;
     box-shadow: var(--shadow-highest);
@@ -663,7 +663,8 @@ body.modal-open {
 }
 
 .modal-form-scroll {
-    overflow-y: scroll; /* Keeps functionality */
+    flex: 1;
+    overflow-y: auto; /* Changed to auto for better behavior */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     padding: 3rem;

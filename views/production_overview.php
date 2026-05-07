@@ -87,9 +87,9 @@ $base_path = '../';
                     </h2>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-register d-flex align-items-center gap-2" id="logYieldFAB" style="background-color: #206223; color: white; border-radius: 0.5rem; padding: 0.6rem 1.5rem; font-weight: 600;">
+                    <button class="btn btn-register d-flex align-items-center gap-2" id="logYieldFAB" style="background-color: #206223; color: white; border-radius: 0.5rem; padding: 0.6rem 1.5rem; font-weight: 400;">
                         <span class="material-symbols-outlined" style="font-size: 1.2rem;">add</span>
-                        Add Log
+                        Add Production
                     </button>
                 </div>
             </div>
@@ -315,9 +315,9 @@ $base_path = '../';
                     <div class="modal-branding-gradient" style="background: linear-gradient(to top, rgba(32, 98, 35, 0.9) 0%, rgba(32, 98, 35, 0.6) 100%);"></div>
                 </div>
                 <div class="modal-branding-content">
-                    <div class="d-flex align-items-center mb-4" style="gap: 1rem;">
-                        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1; font-size: 2.25rem;">water_drop</span>
-                        <h2 class="font-headline mb-0" style="font-size: 1.25rem; line-height: 1.2; font-weight: 500;">New Production Log</h2>
+                    <div class="d-flex align-items-center mb-4" style="gap: 0.5rem;">
+                        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1; font-size: 1.75rem;">water_drop</span>
+                        <h2 class="font-headline mb-0" style="font-size: 1.1rem; line-height: 1.2; font-weight: 500;">Production Entry</h2>
                     </div>
                     <p class="font-body text-white-50" style="font-size: 0.75rem; line-height: 1.5; opacity: 0.8;">Record precise daily yields to maintain your herd's performance data.</p>
                 </div>
@@ -329,7 +329,7 @@ $base_path = '../';
                     <span class="material-symbols-outlined" style="font-size: 1.25rem;">close</span>
                 </button>
                 
-                <div class="modal-form-scroll" style="padding: 2.5rem 3rem;">
+                <div class="modal-form-scroll" style="padding: 2.5rem 1.5rem;">
                     <div class="mb-3">
                         <label class="modal-section-label modal-title-label" style="color: #854d0e; font-weight: 500; display: block; margin-bottom: 0.25rem;">Entry Details</label>
                         <p class="text-muted" style="font-size: 0.85rem;">Fill in the required fields for the milking session.</p>

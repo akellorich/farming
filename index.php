@@ -18,6 +18,38 @@
     <link rel="stylesheet" href="css/style.css"> <!-- Local Fonts & Styles -->
     <link rel="stylesheet" href="css/alert.css"> <!-- Custom Alert Styles -->
     <link rel="stylesheet" href="css/login.css"> <!-- Page Specific Styles -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#206223">
+    <link rel="apple-touch-icon" href="image/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+
+        // Install Prompt Logic
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+
+            // Optionally show an install button/banner here
+            // For now, we'll wait 2 seconds and then prompt if it's the first time
+            setTimeout(() => {
+                if (deferredPrompt) {
+                    // You could show a custom modal here instead of direct prompt
+                    console.log('App is installable');
+                }
+            }, 2000);
+        });
+    </script>
 </head>
 
 <body>
@@ -55,6 +87,17 @@
                 <div id="alert-container"></div>
 
                 <form id="loginForm" class="mt-4" novalidate>
+                    <!-- Farm Type Toggle -->
+                    <div class="farm-type-toggle mb-4">
+                        <div class="toggle-wrapper">
+                            <input type="radio" name="farm_type" id="typeLivestock" value="livestock" class="d-none" checked>
+                            <label for="typeLivestock" class="toggle-item">Livestock</label>
+                            
+                            <input type="radio" name="farm_type" id="typePoultry" value="poultry" class="d-none">
+                            <label for="typePoultry" class="toggle-item">Poultry</label>
+                        </div>
+                    </div>
+
                     <div class="form-group mb-4">
                         <label for="email">Email Address</label>
                         <div class="input-group-custom">

@@ -19,6 +19,16 @@ class health extends db {
         $sql = "CALL sp_gethealthlogs()";
         return $this->getJSON($sql);
     }
+
+    public function getUpcomingFollowups() {
+        $sql = "CALL sp_getupcomingfollowups()";
+        return $this->getJSON($sql);
+    }
+
+    public function getHealthSummary() {
+        $sql = "CALL sp_gethealthsummary()";
+        return $this->getJSON($sql);
+    }
 }
 
 ?>

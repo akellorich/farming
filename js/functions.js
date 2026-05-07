@@ -191,10 +191,10 @@ function getbreeds(obj) {
                     <tr class="border-bottom" style="border-color: rgba(0,0,0,0.03) !important;">
                         <td class="py-4 pl-0">
                             <div class="d-flex align-items-center">
-                                <div class="rounded p-2 mr-3" style="background-color: #f1f5f1;">
+                                <div class="rounded p-2 mr-3 d-flex" style="background-color: #f1f5f1;">
                                     <span class="material-symbols-outlined" style="font-size: 20px; color: #1a4d1a; font-variation-settings: 'FILL' 1;">${breed.icon || 'stars'}</span>
                                 </div>
-                                <div class="font-weight-bold" style="color: #1a1c19; font-size: 0.9rem; line-height: 1.2;">${breed.breedname}</div>
+                                <div class="font-weight-bold text-truncate" style="color: #1a1c19; font-size: 0.9rem; line-height: 1.2; max-width: 120px;">${breed.breedname}</div>
                             </div>
                         </td>
                         <td class="py-4 text-center">
@@ -202,10 +202,10 @@ function getbreeds(obj) {
                             <div class="text-muted" style="font-size: 0.75rem;">head</div>
                         </td>
                         <td class="py-4 text-center">
-                            <div class="font-weight-bold" style="color: #475569; font-size: 0.85rem;">${parseFloat(breed.avg_actual_milking).toFixed(2)}</div>
-                            <div class="text-muted" style="font-size: 0.75rem;">ltrs/day</div>
+                            <div class="font-weight-bold" style="color: #475569; font-size: 0.85rem;">${parseFloat(breed.avg_actual_milking).toFixed(1)}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">ltrs</div>
                         </td>
-                        <td class="py-4">
+                        <td class="d-none d-lg-table-cell py-4">
                             <div class="d-flex align-items-center justify-content-center">
                                 <div class="progress mr-3" style="height: 6px; width: 100px; background-color: #f1f5f1; border-radius: 10px;">
                                     <div class="progress-bar" style="width: ${breed.efficiency}%; background-color: ${efficiencyColor}; border-radius: 10px;"></div>
@@ -213,11 +213,30 @@ function getbreeds(obj) {
                                 <span class="font-weight-bold" style="font-size: 0.75rem; color: #1a4d1a;">${breed.efficiency}%</span>
                             </div>
                         </td>
-                        <td class="py-4 text-center">
+                        <td class="d-none d-lg-table-cell py-4 text-center">
                             <span class="badge badge-pill py-1 px-3" style="${healthStyle} font-size: 9px; font-weight: 800; letter-spacing: 0.05em;">${breed.health_status}</span>
                         </td>
                         <td class="py-4 text-right pr-0">
-                            <button class="btn btn-link text-muted p-0"><span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span></button>
+                            <div class="dropdown">
+                                <button class="btn btn-link text-muted p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right shadow border-0 p-2" style="border-radius: 12px; min-width: 150px;">
+                                    <a class="dropdown-item d-flex align-items-center py-2" href="#" style="border-radius: 8px;">
+                                        <span class="material-symbols-outlined mr-2" style="font-size: 18px; color: var(--primary);">groups</span>
+                                        <span style="font-size: 13px; font-weight: 500;">View Herd</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center py-2" href="#" style="border-radius: 8px;">
+                                        <span class="material-symbols-outlined mr-2" style="font-size: 18px; color: var(--secondary);">edit</span>
+                                        <span style="font-size: 13px; font-weight: 500;">Edit Profile</span>
+                                    </a>
+                                    <div class="dropdown-divider mx-2"></div>
+                                    <a class="dropdown-item d-flex align-items-center py-2 text-danger" href="#" style="border-radius: 8px;">
+                                        <span class="material-symbols-outlined mr-2" style="font-size: 18px;">delete</span>
+                                        <span style="font-size: 13px; font-weight: 500;">Remove</span>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -1881,9 +1900,9 @@ function getpens(obj) {
                 results += `
                     <tr class="border-bottom" style="border-color: rgba(0,0,0,0.03) !important;">
                         <td class="py-4 pl-4 font-weight-bold">${pen.penname}</td>
-                        <td class="py-4 text-muted small">${pen.pentype}</td>
-                        <td class="py-4 font-weight-medium">${pen.current_occupancy} / ${pen.capacity}</td>
-                        <td class="py-4">${statusBadge}</td>
+                        <td class="py-4 text-muted small d-none d-md-table-cell">${pen.pentype}</td>
+                        <td class="py-4 font-weight-medium d-none d-md-table-cell">${pen.current_occupancy} / ${pen.capacity}</td>
+                        <td class="py-4 d-none d-lg-table-cell">${statusBadge}</td>
                         <td class="py-4 text-right pr-4">
                             <button class="btn btn-link text-muted p-0"><span class="material-symbols-outlined">more_vert</span></button>
                         </td>
@@ -1902,8 +1921,8 @@ function getpens(obj) {
 }
 
 function getbreedsselect(obj) {
-    $.get("../controllers/breedoperations.php", { getbreeds: true }, (data) => {
-        let breeds = JSON.parse(data);
+    $.getJSON("../controllers/breedoperations.php", { getbreeds: true }, (data) => {
+        let breeds = data;
         let options = '<option value="" disabled selected>Select breed...</option>';
         breeds.forEach(breed => {
             options += `<option value="${breed.id}">${breed.breedname}</option>`;
@@ -1913,8 +1932,8 @@ function getbreedsselect(obj) {
 }
 
 function getpensselect(obj) {
-    $.get("../controllers/penoperations.php", { action: 'getpens' }, (data) => {
-        let pens = JSON.parse(data);
+    $.getJSON("../controllers/penoperations.php", { action: 'getpens' }, (data) => {
+        let pens = data;
         let options = '<option value="" disabled selected>Select pen...</option>';
         pens.forEach(pen => {
             options += `<option value="${pen.id}">${pen.penname} (${pen.pentype})</option>`;
@@ -1945,7 +1964,9 @@ function getpenscheckboxes(container) {
     });
 }
 
-function getanimals(obj, status = 'all') {
+function getanimals(obj, status = 'all', option = 'choose') {
+    const $target = (typeof obj === 'string') ? $('#' + obj) : $(obj);
+    
     $.getJSON("../controllers/animaloperations.php", { action: 'getanimals' }, (data) => {
         let animals = data;
         
@@ -1954,19 +1975,19 @@ function getanimals(obj, status = 'all') {
             animals = animals.filter(animal => animal.status.toLowerCase() === status.toLowerCase());
         }
         
-        let options = '<option value="" disabled selected>Choose an animal</option>';
+        let options = (option === 'all' || option === 'All Animals') ? '<option value="">All Animals</option>' : '<option value="" disabled selected>Choose an animal</option>';
         animals.forEach(animal => {
             options += `<option value="${animal.id}">${animal.tagid} (${animal.designatedname || 'Unnamed'})</option>`;
         });
-        obj.html(options);
+        $target.html(options);
     }).fail((jqXHR, textStatus, errorThrown) => {
         console.error("Failed to load animals:", textStatus, errorThrown);
     });
 }
 
 function getfeedmixesselect(obj) {
-    $.get("../controllers/feedmixoperations.php", { action: 'getfeedmixes' }, (data) => {
-        let mixes = JSON.parse(data);
+    $.getJSON("../controllers/feedmixoperations.php", { action: 'getfeedmixes' }, (data) => {
+        let mixes = data;
         let options = '<option value="" disabled selected>Select Ration Mix...</option>';
         mixes.forEach(mix => {
             options += `<option value="${mix.id}">${mix.feedname} (${mix.feedcode})</option>`;
@@ -2031,4 +2052,22 @@ function getAnimalsByPenList(penid, targetList) {
     }).fail(() => {
         $(targetList).html('<div class="text-center py-4 text-danger small">Error loading animal audit ledger.</div>');
     });
+}
+
+function getinsurancecompaniesselect(obj) {
+    $.getJSON(
+        "../controllers/insuranceoperations.php",
+        {
+            action: 'getinsurancecompanies'
+        },
+        (data) => {
+            let results = '<option value="" selected disabled>Select Insurance Provider</option>';
+            data.forEach((company) => {
+                results += `
+                    <option value="${company.id}">${company.companyname}</option>
+                `;
+            });
+            obj.html(results);
+        }
+    );
 }

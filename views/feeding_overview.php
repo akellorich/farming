@@ -980,7 +980,7 @@ body.dark-theme .feeding-table tr:hover {
                 { 
                     "data": "shiftname",
                     "render": function(data) {
-                        return `<span class="font-weight-medium">${data}</span>`;
+                        return `<span class="badge badge-warning py-1 px-3" style="font-size: 0.7rem; font-weight: 700; background-color: #fef9c3; color: #854d0e; border: 1px solid #fde047; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.02rem;">${data}</span>`;
                     }
                 },
                 { "data": "penname" },
@@ -994,7 +994,7 @@ body.dark-theme .feeding-table tr:hover {
                 { 
                     "data": "animal_count",
                     "render": function(data, type, row) {
-                        return `<a href="#" class="text-primary font-weight-bold" onclick="showAnimalsFed(${row.id}, '${row.penname}', '${row.logdate}')" style="text-decoration: underline; font-size: 0.75rem;">${data} animals</a>`;
+                        return `<span class="badge badge-secondary py-1 px-3 cursor-pointer" onclick="showAnimalsFed(${row.id}, '${row.penname}', '${row.logdate}')" style="font-size: 0.725rem; font-weight: 600; cursor: pointer; background-color: #64748b; color: #fff; border-radius: 999px; border: none;">${data}</span>`;
                     }
                 },
                 { 

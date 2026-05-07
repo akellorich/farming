@@ -115,13 +115,15 @@ CREATE PROCEDURE sp_getfeedmixes(IN $id INT)
 BEGIN
     IF $id = 0 THEN
         SELECT f.*, u.firstname as creator_name,
-        (SELECT COUNT(*) FROM feedmixdetails fd WHERE fd.feedmixid = f.id) as component_count
+        (SELECT COUNT(*) FROM feedmixdetails fd WHERE fd.feedmixid = f.id) as component_count,
+        (SELECT MAX(mixdate) FROM mixedfeeds mf WHERE mf.feedmixid = f.id) as last_mixed
         FROM feedmix f
         LEFT JOIN user u ON f.createdby = u.userid
         WHERE f.deleted = 0
         ORDER BY f.datecreated DESC;
     ELSE
-        SELECT f.*, u.firstname as creator_name
+        SELECT f.*, u.firstname as creator_name,
+        (SELECT MAX(mixdate) FROM mixedfeeds mf WHERE mf.feedmixid = f.id) as last_mixed
         FROM feedmix f
         LEFT JOIN user u ON f.createdby = u.userid
         WHERE f.id = $id AND f.deleted = 0;
@@ -169,6 +171,40 @@ BEGIN
     COMMIT;
 
     SELECT 1 AS success;
+END //
+
+DROP PROCEDURE IF EXISTS sp_getfeedmixstats //
+CREATE PROCEDURE sp_getfeedmixstats()
+BEGIN
+    DECLARE $total_formulations INT;
+    DECLARE $active_batches INT;
+    DECLARE $most_used_ingredient VARCHAR(100);
+    DECLARE $avg_stock_status INT;
+
+    -- 1. Total Formulations
+    SELECT COUNT(*) INTO $total_formulations FROM feedmix WHERE deleted = 0;
+
+    -- 2. Active Batches (Mixing events in the last 30 days)
+    SELECT COUNT(*) INTO $active_batches FROM mixedfeeds WHERE mixdate >= DATE_SUB(NOW(), INTERVAL 30 DAY);
+
+    -- 3. Most Used Ingredient (by frequency in formulations)
+    SELECT i.itemname INTO $most_used_ingredient
+    FROM feedmixdetails fd
+    JOIN inventoryitems i ON fd.inventoryitemid = i.id
+    GROUP BY fd.inventoryitemid
+    ORDER BY COUNT(*) DESC
+    LIMIT 1;
+
+    -- 4. Simple Stock Status (Average of items that are marked as feed)
+    -- Assuming inventoryitems has an 'is_feed' or similar, otherwise just take all
+    SELECT IFNULL(ROUND(AVG(currentstock / IF(maxstock=0, 100, maxstock)) * 100), 0) INTO $avg_stock_status
+    FROM inventoryitems;
+
+    SELECT 
+        IFNULL($total_formulations, 0) as total_formulations,
+        IFNULL($active_batches, 0) as active_batches,
+        IFNULL($most_used_ingredient, 'N/A') as most_used_ingredient,
+        IFNULL($avg_stock_status, 0) as avg_stock_status;
 END //
 
 DELIMITER ;

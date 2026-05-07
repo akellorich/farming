@@ -10,6 +10,7 @@ if ($action == 'recordvaccination') {
     $scheduleid = ($record_type == 'Routine') ? 0 : ($_POST['scheduleid'] ?? 0);
     
     $animalids = $_POST['animalids'] ?? [];
+    $diseaseid = $_POST['vaccine_disease'] ?? 0;
     $date = $_POST['execution_date'];
     $product = $_POST['product_used'];
     $batch = $_POST['batch_no'] ?? '';
@@ -17,7 +18,7 @@ if ($action == 'recordvaccination') {
     $vet = $_POST['administered_by'];
     $notes = $_POST['notes'] ?? '';
     
-    echo json_encode($treatment->recordBulkVaccination($scheduleid, $animalids, $date, $product, $batch, $dosage, $vet, $notes));
+    echo json_encode($treatment->recordBulkVaccination($scheduleid, $diseaseid, $animalids, $date, $product, $batch, $dosage, $vet, $notes));
 }
 
 if ($action == 'recorddeworming') {
@@ -44,5 +45,33 @@ if ($action == 'getanimalsbyschedule') {
     $scheduleid = $_GET['scheduleid'];
     $type = $_GET['type']; // 'vaccination' or 'deworming'
     echo $treatment->getAnimalsBySchedule($scheduleid, $type);
+}
+
+if ($action == 'getvaccinationhistory') {
+    echo $treatment->getVaccinationHistory();
+}
+
+if ($action == 'getdeworminghistory') {
+    echo $treatment->getDewormingHistory();
+}
+
+if ($action == 'getdewormingsummary') {
+    echo $treatment->getDewormingSummary();
+}
+
+if ($action == 'getupcomingdeworming') {
+    echo $treatment->getUpcomingDeworming();
+}
+
+if ($action == 'getvaccinationsummary') {
+    echo $treatment->getVaccinationSummary();
+}
+
+if ($action == 'getupcomingvaccinations') {
+    echo $treatment->getUpcomingVaccinations();
+}
+
+if ($action == 'getdistinctvaccines') {
+    echo $treatment->getDistinctVaccines();
 }
 ?>

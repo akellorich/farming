@@ -22,6 +22,16 @@ class feedmix extends db {
         return $this->getJSON($sql);
     }
     
+    public function getFeedMixStats() {
+        $sql = "CALL sp_getfeedmixstats()";
+        return $this->getJSON($sql);
+    }
+
+    public function recordMixing($feedmixid, $batchweight) {
+        $sql = "CALL sp_recordmixing({$feedmixid}, {$batchweight}, {$this->userid}, '{$this->platform}')";
+        return $this->getData($sql);
+    }
+
     public function deleteFeedMix($id) {
         $sql = "CALL sp_deletefeedmix({$id}, {$this->userid}, '{$this->platform}')";
         $rst = $this->getData($sql);

@@ -13,10 +13,6 @@ function toggleActionMenu(event, btn) {
 $(document).ready(function() {
     // --- UI Elements ---
     const $healthDataTable = $('#healthDataTable');
-    const $pageInfo = $('#pageInfo');
-    const $numberButtons = $('#numberButtons');
-    const $prevPageBtn = $('#prevPage');
-    const $nextPageBtn = $('#nextPage');
     
     // --- Filter Elements ---
     const $animalFilter = $('#animalFilter');
@@ -45,56 +41,412 @@ $(document).ready(function() {
     const $nextFollowup = $('#nextfollowup');
     const getStatus = () => $('input[name="status"]:checked').val();
 
-    const table = $healthDataTable.DataTable({
-        "pageLength": 5,
-        "paging": true,
-        "info": false,
-        "searching": true,
-        "lengthChange": false,
-        "responsive": true,
-        "autoWidth": false,
-        "dom": 'rt',
-        "columnDefs": [
-            { "responsivePriority": 1, "targets": [0, -1] }, // Animal ID and Action always visible
-            { "responsivePriority": 2, "targets": 3 },      // Condition secondary
-            { "responsivePriority": 3, "targets": [1, 2, 4, 5] }
-        ],
-        "language": {
-            "paginate": {
-                "previous": "",
-                "next": ""
-            }
-        }
-    });
+    // --- State Management ---
+    let currentTab = 'health';
+    let table = null;
 
-    function updatePagination() {
-        const info = table.page.info();
-        $pageInfo.text('Page ' + (info.page + 1) + ' of ' + info.pages);
-        
-        let html = '';
-        for (let i = 0; i < info.pages; i++) {
-            const activeClass = i === info.page ? 'active' : '';
-            html += `<button class="page-btn ${activeClass}" data-page="${i}">${i + 1}</button>`;
+    // Initialize DataTable
+    function initDataTable(tab, columns) {
+        const tableId = tab === 'health' ? '#healthDataTable' : `#${tab}DataTable`;
+        const $targetTable = $(tableId);
+
+        if ($.fn.DataTable.isDataTable(tableId)) {
+            $targetTable.DataTable().destroy();
         }
-        $numberButtons.html(html);
         
-        $prevPageBtn.prop('disabled', info.page === 0);
-        $nextPageBtn.prop('disabled', info.page >= info.pages - 1);
+        $targetTable.find('thead').empty();
+        $targetTable.find('tbody').empty();
+
+        const dtColumns = columns.map(col => ({
+            title: col.title,
+            data: col.data,
+            className: col.class || '',
+            defaultContent: '',
+            render: col.render || null,
+            responsivePriority: col.responsivePriority || 10000,
+            priority: col.responsivePriority || 10000
+        }));
+        
+        // Add Action column
+        dtColumns.push({
+            title: 'Action',
+            data: null,
+            className: 'text-right all',
+            orderable: false,
+            responsivePriority: 0, // Highest priority for Actions
+            priority: 0,
+            defaultContent: '',
+            render: function(data, type, row) {
+                return renderActionMenu(row.id);
+            }
+        });
+
+        table = $targetTable.DataTable({
+            "columns": dtColumns,
+            "columnDefs": dtColumns.map((col, index) => ({
+                "targets": index,
+                "responsivePriority": col.responsivePriority || 10000
+            })),
+            "pageLength": 5,
+            "paging": true,
+            "info": false,
+            "searching": true,
+            "lengthChange": false,
+            "responsive": true,
+            "autoWidth": false,
+            "dom": 'rt',
+            "language": {
+                "paginate": {
+                    "previous": "",
+                    "next": ""
+                }
+            }
+        });
+
+        updatePagination();
     }
 
-    $('#customPagination').on('click', '.page-btn', function() {
+    function renderActionMenu(id) {
+        return `
+            <div class="actions-container">
+                <button class="btn-action-more" onclick="toggleActionMenu(event, this)">
+                    <span class="material-symbols-outlined">more_vert</span>
+                </button>
+                <div class="actions-dropdown botanical-shadow">
+                    <button class="action-menu-item"><span class="material-symbols-outlined">visibility</span> View Record</button>
+                    ${currentTab === 'health' ? `<button class="action-menu-item"><span class="material-symbols-outlined">edit</span> Edit Incident</button>` : ''}
+                    <div class="dropdown-divider my-1"></div>
+                    <button class="action-menu-item text-danger"><span class="material-symbols-outlined">delete</span> Delete</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function populateTable(data) {
+        table.clear();
+        table.rows.add(data);
+        table.draw();
+        updatePagination();
+    }
+
+    function fetchTabData(tab) {
+        currentTab = tab;
+        const tableId = tab === 'health' ? '#healthDataTable' : `#${tab}DataTable`;
+        const $targetTable = $(tableId);
+
+        // Clear existing table if any before showing loader
+        if ($.fn.DataTable.isDataTable(tableId)) {
+            $targetTable.DataTable().destroy();
+        }
+        
+        $targetTable.find('tbody').html('<tr><td colspan="7" class="text-center py-5"><div class="spinner-border text-primary" role="status"></div></td></tr>');
+        $targetTable.find('thead').empty();
+
+        let url = '';
+        let action = '';
+        let columns = [];
+
+        if (tab === 'health') {
+            url = '../controllers/healthoperations.php';
+            action = 'gethealthlogs';
+            columns = [
+                { title: 'Name', data: 'animalname', responsivePriority: 1, class: 'all' },
+                { title: 'Date', data: 'logdate', responsivePriority: 2, class: 'all' },
+                { title: 'Animal ID', data: 'tagid', class: 'animal-code-cell min-tablet', responsivePriority: 10000 },
+                { title: 'Condition', data: 'diseasename', responsivePriority: 4, class: 'min-tablet' },
+                { title: 'Treatment', data: 'treatment', responsivePriority: 10000, class: 'min-tablet' },
+                { title: 'Status', data: 'status', responsivePriority: 5, class: 'all', render: (data) => `<span class="health-status-badge status-${(data || 'Completed').toLowerCase()}">${data || 'Completed'}</span>` }
+            ];
+            $('#tabTitle').text('Recent Health Incidents');
+        } else if (tab === 'vaccinations') {
+            url = '../controllers/treatmentoperations.php';
+            action = 'getvaccinationhistory';
+            columns = [
+                { title: 'Name', data: 'animalname', responsivePriority: 1, class: 'all' },
+                { title: 'Date', data: 'vaccinationdate', responsivePriority: 2, class: 'all' },
+                { title: 'Animal ID', data: 'tagid', class: 'animal-code-cell min-tablet', responsivePriority: 10000 },
+                { title: 'Disease', data: 'diseasename', responsivePriority: 4, class: 'min-tablet' },
+                { title: 'Product', data: 'productused', responsivePriority: 10000, class: 'min-tablet' },
+                { title: 'Batch', data: 'batchno', responsivePriority: 10000, class: 'min-tablet' },
+                { title: 'Status', data: 'status', responsivePriority: 5, class: 'all', render: () => `<span class="health-status-badge status-completed">Completed</span>` }
+            ];
+            $('#tabTitle').text('Vaccination History');
+        } else if (tab === 'deworming') {
+            url = '../controllers/treatmentoperations.php';
+            action = 'getdeworminghistory';
+            columns = [
+                { title: 'Name', data: 'animalname', responsivePriority: 1, class: 'all' },
+                { title: 'Date', data: 'dewormingdate', responsivePriority: 2, class: 'all' },
+                { title: 'Animal ID', data: 'tagid', class: 'animal-code-cell min-tablet', responsivePriority: 10000 },
+                { title: 'Product', data: 'productused', responsivePriority: 5, class: 'min-tablet' },
+                { title: 'Method', data: 'method', responsivePriority: 10000, class: 'min-tablet' },
+                { title: 'Status', data: 'status', responsivePriority: 4, class: 'all', render: () => `<span class="health-status-badge status-completed">Completed</span>` }
+            ];
+            $('#tabTitle').text('Deworming History');
+        }
+
+        initDataTable(tab, columns);
+
+        $.getJSON(url, { action: action }, function(data) {
+            populateTable(data);
+        });
+
+        fetchUpcomingFollowups();
+        fetchHealthSummary();
+        
+        if (tab === 'vaccinations') {
+            fetchVaccinationSummary();
+            fetchUpcomingVaccinations();
+            const vaccineAnimalFilter = $('#vaccineAnimalFilter');
+            getanimals(vaccineAnimalFilter, 'all', 'All Animals');
+            fetchVaccineTypes();
+        } else if (tab === 'deworming') {
+            fetchDewormingSummary();
+            fetchUpcomingDeworming();
+        }
+    }
+
+    function fetchVaccineTypes() {
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getdistinctvaccines' }, function(data) {
+            const $filter = $('#vaccineTypeFilter');
+            $filter.html('<option value="">All Vaccines</option>');
+            if (data && data.length > 0) {
+                data.forEach(item => {
+                    $filter.append(`<option value="${item.product}">${item.product}</option>`);
+                });
+            }
+        });
+    }
+
+    function fetchHealthSummary() {
+        $.getJSON('../controllers/healthoperations.php', { action: 'gethealthsummary' }, function(data) {
+            if (data && data.length > 0) {
+                const summary = data[0];
+                $('#activeTreatmentsCount').html(`${summary.active_treatments} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                $('#activeConditionsCount').html(`${String(summary.active_conditions).padStart(2, '0')} <small class="text-muted" style="font-size: 0.8rem;">types</small>`);
+                $('#quarantineCasesCount').html(`${String(summary.quarantine_cases).padStart(2, '0')} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                
+                if (summary.next_vet_visit) {
+                    const date = new Date(summary.next_vet_visit);
+                    $('#nextVetVisitDate').text(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+                } else {
+                    $('#nextVetVisitDate').text('None');
+                }
+            }
+        });
+    }
+
+    function fetchVaccinationSummary() {
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getvaccinationsummary' }, function(data) {
+            if (data && data.length > 0) {
+                const summary = data[0];
+                $('#herdImmunityCount').text(`${parseFloat(summary.herd_immunity || 0).toFixed(1)}%`);
+                $('#vaccinesCompletedMonth').html(`${summary.completed_month || 0} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                $('#vaccinesOverdueCount').html(`${summary.overdue || 0} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                
+                if (summary.next_batch) {
+                    const date = new Date(summary.next_batch);
+                    $('#nextVaccineBatchDate').text(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+                } else {
+                    $('#nextVaccineBatchDate').text('None');
+                }
+            }
+        });
+    }
+
+    function fetchUpcomingVaccinations() {
+        const $container = $('#upcomingVaccinationsContainer');
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getupcomingvaccinations' }, function(data) {
+            if (!data || data.length === 0) {
+                $container.html('<div class="text-center py-4 text-muted small">No upcoming vaccinations.</div>');
+                return;
+            }
+
+            let html = '';
+            data.forEach(item => {
+                const date = new Date(item.scheduledate);
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                
+                html += `
+                    <div class="d-flex align-items-start gap-4 pb-3 border-bottom mb-3">
+                        <div class="calendar-date-box date-box-active">
+                            <span class="d-block" style="font-size: 0.55rem; text-transform: uppercase; font-weight: 500;">${month}</span>
+                            <span class="d-block" style="font-size: 1.1rem; font-weight: 600;">${day}</span>
+                        </div>
+                        <div class="pl-2">
+                            <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">${item.vaccine_name}</p>
+                            <p class="text-muted mb-0" style="font-size: 0.65rem;">Target: ${item.penname || 'All Pens'}</p>
+                            <p class="text-primary mb-0" style="font-size: 0.6rem; font-weight: 600;">Status: Scheduled</p>
+                        </div>
+                    </div>
+                `;
+            });
+            $container.html(html);
+        });
+    }
+
+    function fetchDewormingSummary() {
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getdewormingsummary' }, function(data) {
+            if (data && data.length > 0) {
+                const summary = data[0];
+                $('#dewormingCoverageCount').text(`${parseFloat(summary.herd_coverage || 0).toFixed(1)}%`);
+                $('#dewormingCompletedMonth').html(`${summary.completed_month || 0} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                $('#dewormingOverdueCount').html(`${summary.overdue || 0} <small class="text-muted" style="font-size: 0.8rem;">animals</small>`);
+                
+                if (summary.next_batch) {
+                    const date = new Date(summary.next_batch);
+                    $('#nextDewormingBatchDate').text(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+                } else {
+                    $('#nextDewormingBatchDate').text('None');
+                }
+            }
+        });
+    }
+
+    function fetchUpcomingDeworming() {
+        const $container = $('#upcomingDewormingContainer');
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getupcomingdeworming' }, function(data) {
+            if (!data || data.length === 0) {
+                $container.html('<div class="text-center py-4 text-muted small">No upcoming deworming.</div>');
+                return;
+            }
+
+            let html = '';
+            data.forEach(item => {
+                const date = new Date(item.scheduledate);
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                
+                html += `
+                    <div class="d-flex align-items-start gap-4 pb-3 border-bottom mb-3">
+                        <div class="calendar-date-box date-box-active" style="background: rgba(217, 119, 6, 0.1); color: #d97706;">
+                            <span class="d-block" style="font-size: 0.55rem; text-transform: uppercase; font-weight: 500;">${month}</span>
+                            <span class="d-block" style="font-size: 1.1rem; font-weight: 600;">${day}</span>
+                        </div>
+                        <div class="pl-2">
+                            <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">${item.schedulename}</p>
+                            <p class="text-muted mb-0" style="font-size: 0.65rem;">Target: ${item.penname || 'All Pens'}</p>
+                            <p class="text-warning mb-0" style="font-size: 0.6rem; font-weight: 600;">Status: Scheduled</p>
+                        </div>
+                    </div>
+                `;
+            });
+            $container.html(html);
+        });
+    }
+
+    function fetchUpcomingFollowups() {
+        const $container = $('#upcomingFollowupsContainer');
+        $.getJSON('../controllers/healthoperations.php', { action: 'getupcomingfollowups' }, function(data) {
+            if (!data || data.length === 0) {
+                $container.html('<div class="text-center py-4 text-muted small">No upcoming follow-ups.</div>');
+                return;
+            }
+
+            let html = '';
+            data.forEach(item => {
+                const date = new Date(item.nextfollowup);
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                
+                html += `
+                    <div class="d-flex align-items-start gap-4 pb-3 border-bottom mb-3">
+                        <div class="calendar-date-box date-box-active">
+                            <span class="d-block" style="font-size: 0.55rem; text-transform: uppercase; font-weight: 500;">${month}</span>
+                            <span class="d-block" style="font-size: 1.1rem; font-weight: 600;">${day}</span>
+                        </div>
+                        <div class="pl-2">
+                            <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">${item.tagid} (${item.animalname})</p>
+                            <p class="text-muted mb-0" style="font-size: 0.65rem;">Follow-up: ${item.diseasename || 'Check-up'}</p>
+                            <p class="text-primary mb-0" style="font-size: 0.6rem; font-weight: 600;">${item.treatment.substring(0, 40)}${item.treatment.length > 40 ? '...' : ''}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            $container.html(html);
+        });
+    }
+
+    function updatePagination() {
+        if (!table) return;
+        const info = table.page.info();
+        const tableId = currentTab === 'health' ? '#healthDataTable' : `#${currentTab}DataTable`;
+        const $card = $(tableId).closest('.health-table-card');
+        
+        $card.find('.page-info-display').text('Page ' + (info.page + 1) + ' of ' + info.pages);
+        
+        let html = '';
+        const currentPage = info.page;
+        const totalPages = info.pages;
+        const maxVisible = 1; // Number of pages to show before/after current
+
+        if (totalPages <= 5) {
+            // Show all pages if total is 5 or less
+            for (let i = 0; i < totalPages; i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                html += `<button class="page-btn ${activeClass}" data-page="${i}">${i + 1}</button>`;
+            }
+        } else {
+            // Always show first page
+            html += `<button class="page-btn ${currentPage === 0 ? 'active' : ''}" data-page="0">1</button>`;
+
+            // Show leading ellipsis if current page is far from start
+            if (currentPage > maxVisible + 1) {
+                html += `<span class="px-1 text-muted align-self-center small" style="font-size: 0.75rem;">...</span>`;
+            }
+
+            // Show pages around current page
+            const start = Math.max(1, currentPage - maxVisible);
+            const end = Math.min(totalPages - 2, currentPage + maxVisible);
+
+            for (let i = start; i <= end; i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                html += `<button class="page-btn ${activeClass}" data-page="${i}">${i + 1}</button>`;
+            }
+
+            // Show trailing ellipsis if current page is far from end
+            if (currentPage < totalPages - maxVisible - 2) {
+                html += `<span class="px-1 text-muted align-self-center small" style="font-size: 0.75rem;">...</span>`;
+            }
+
+            // Always show last page
+            html += `<button class="page-btn ${currentPage === totalPages - 1 ? 'active' : ''}" data-page="${totalPages - 1}">${totalPages}</button>`;
+        }
+
+        $card.find('.number-buttons-container').html(html);
+        
+        $card.find('.prev-page-btn').prop('disabled', info.page === 0);
+        $card.find('.next-page-btn').prop('disabled', info.page >= info.pages - 1);
+    }
+
+    $(document).on('click', '.pagination-container .page-btn', function() {
         table.page($(this).data('page')).draw('page');
         updatePagination();
     });
 
-    $prevPageBtn.on('click', function() {
+    $(document).on('click', '.prev-page-btn', function() {
         table.page('previous').draw('page');
         updatePagination();
     });
 
-    $nextPageBtn.on('click', function() {
+    $(document).on('click', '.next-page-btn', function() {
         table.page('next').draw('page');
         updatePagination();
+    });
+
+    // Tab Event Listeners
+    $('.health-tab').on('click', function() {
+        const tab = $(this).data('tab');
+        $('.health-tab').removeClass('active');
+        $(this).addClass('active');
+        
+        // Toggle Content Visibility
+        $('.tab-pane-content').hide();
+        $(`#tabContent-${tab}`).show();
+        
+        currentTab = tab;
+        fetchTabData(tab);
     });
 
     // Filter Event Listeners
@@ -133,7 +485,9 @@ $(document).ready(function() {
         updatePagination();
     });
 
-    updatePagination();
+    // Initial Load
+    fetchTabData('health');
+    getanimals($animalFilter, 'all', 'all');
 
     // Close actions dropdown when clicking outside
     $(document).on('click', function(e) {
@@ -164,7 +518,7 @@ $(document).ready(function() {
         $healthModalAlert.hide().html('');
     }
 
-    $btnLogHealthCheck.on('click', function(e) {
+    $btnLogHealthCheck.add('#btnOpenClinicalModal').on('click', function(e) {
         e.preventDefault();
         openHealthModal();
     });
@@ -306,7 +660,7 @@ $(document).ready(function() {
     }
 
     // --- Recording Vaccination Logic ---
-    $('#btnRecordVaccination').on('click', function() {
+    $('#btnRecordVaccination, #btnOpenVaccinationModal').on('click', function() {
         const $modal = $('#recordVaccinationModal');
         const $form = $('#recordVaccinationForm');
         $form[0].reset();
@@ -325,6 +679,7 @@ $(document).ready(function() {
         
         setDatePicker($('#rv_date'), true);
         getveterinariansselect($('#rv_administered_by'));
+        getdiseases($('#rv_diseaseid'));
         
         $.getJSON("../controllers/treatmentoperations.php", { action: 'getanimalsbyschedule', scheduleid: 0, type: 'vaccination' }, (data) => {
             renderAnimalChecklist($('#rv_animal_list'), data, 'rv');
@@ -335,7 +690,7 @@ $(document).ready(function() {
     });
 
     // --- Recording Deworming Logic ---
-    $('#btnRecordDeworming').on('click', function() {
+    $('#btnRecordDeworming, #btnOpenDewormingModal').on('click', function() {
         const $modal = $('#recordDewormingModal');
         const $form = $('#recordDewormingForm');
         $form[0].reset();
@@ -379,11 +734,15 @@ $(document).ready(function() {
         
         $scheduleSelect.prop('disabled', !isScheduled);
         
+        if (isVac) {
+            $form.find(`#rv_diseaseid`).prop('disabled', isScheduled).val('');
+        }
+        
         if (isScheduled) {
             $.getJSON("../controllers/treatmentoperations.php", { action: 'getschedules', type: isVac ? 'vaccination' : 'deworming' }, (data) => {
                 let html = '<option value="">Choose from schedules...</option>';
                 data.forEach(s => {
-                    html += `<option value="${s.id}">${s.title} (${s.scheduledate})</option>`;
+                    html += `<option value="${s.id}" data-disease="${s.diseaseid || ''}">${s.title} (${s.scheduledate})</option>`;
                 });
                 $scheduleSelect.html(html);
                 // Clear animals list when switched to scheduled, until one is chosen
@@ -397,13 +756,28 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('change', '#rv_scheduleid, #rd_scheduleid', function() {
-        const isVac = $(this).attr('id') === 'rv_scheduleid';
-        const prefix = isVac ? 'rv' : 'rd';
+    // --- Handle Schedule Selection to Auto-fill Disease ---
+    $('#rv_scheduleid').on('change', function() {
+        const diseaseId = $(this).find('option:selected').data('disease');
+        if (diseaseId) {
+            $('#rv_diseaseid').val(diseaseId).prop('disabled', true);
+        } else {
+            $('#rv_diseaseid').val('').prop('disabled', false);
+        }
+        
+        const scheduleId = $(this).val();
+        if (scheduleId && scheduleId != '0') {
+            $.getJSON("../controllers/treatmentoperations.php", { action: 'getanimalsbyschedule', scheduleid: scheduleId, type: 'vaccination' }, (data) => {
+                renderAnimalChecklist($('#rv_animal_list'), data, 'rv');
+            });
+        }
+    });
+
+    $(document).on('change', '#rd_scheduleid', function() {
         const sid = $(this).val();
         if (sid) {
-            $.getJSON("../controllers/treatmentoperations.php", { action: 'getanimalsbyschedule', scheduleid: sid, type: isVac ? 'vaccination' : 'deworming' }, (data) => {
-                renderAnimalChecklist($(`#${prefix}_animal_list`), data, prefix);
+            $.getJSON("../controllers/treatmentoperations.php", { action: 'getanimalsbyschedule', scheduleid: sid, type: 'deworming' }, (data) => {
+                renderAnimalChecklist($('#rd_animal_list'), data, 'rd');
             });
         }
     });

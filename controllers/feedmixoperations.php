@@ -53,6 +53,29 @@ if ($action == 'getfeedmixdetails') {
     echo $feedmix->getFeedMixDetails($feedmixid);
 }
 
+if ($action == 'getfeedmixstats') {
+    echo $feedmix->getFeedMixStats();
+}
+
+if ($action == 'savemixedfeed') {
+    $feedmixid = $_POST['feedmixid'] ?? 0;
+    $batchweight = $_POST['batchweight'] ?? 0;
+
+    if ($feedmixid <= 0 || $batchweight <= 0) {
+        echo json_encode(["status" => "error", "message" => "Valid formulation reference and batch weight are required."]);
+        exit;
+    }
+
+    $rst = $feedmix->recordMixing($feedmixid, $batchweight);
+    $row = $rst->fetch(PDO::FETCH_ASSOC);
+    
+    if ($row && isset($row['mixedfeedid'])) {
+        echo json_encode(["status" => "success", "message" => "Feed mixing event recorded successfully", "id" => $row['mixedfeedid']]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Failed to record mixing event"]);
+    }
+}
+
 if ($action == 'deletefeedmix') {
     $id = $_POST['id'] ?? 0;
     echo $feedmix->deleteFeedMix($id);

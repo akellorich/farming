@@ -266,11 +266,6 @@ $base_path = '../';
     </div>
 </main>
 
-<!-- FAB -->
-<button class="fab botanical-shadow">
-    <span class="material-symbols-outlined" style="font-size: 2rem;">add</span>
-</button>
-
     <!-- Scripts Area -->
     <script src="<?php echo $base_path; ?>plugins/jquery-3.6.1.js"></script>
     <script src="<?php echo $base_path; ?>plugins/popper.js"></script>

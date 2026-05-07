@@ -23,6 +23,9 @@ $base_path = '../';
     <link rel="stylesheet" href="../css/alert.css">
     
     <!-- Google Fonts & Icons -->
+    <!-- Leaflet Maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Work+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     <style>
@@ -71,8 +74,8 @@ $base_path = '../';
         .settings-tab-btn {
             background: none;
             border: none;
-            padding-bottom: 1rem;
-            color: #57534e;
+            padding-bottom: 1.25rem;
+            color: #3b82f6;
             font-weight: 500;
             font-size: 0.875rem;
             transition: all 0.3s;
@@ -80,20 +83,21 @@ $base_path = '../';
             white-space: nowrap;
             cursor: pointer;
             flex-shrink: 0;
+            letter-spacing: 0.01em;
         }
-        .settings-tab-btn:hover { color: var(--primary); }
+        .settings-tab-btn:hover { color: #2563eb; }
         .settings-tab-btn.active {
-            color: var(--primary);
-            font-weight: 700;
+            color: #334155;
+            font-weight: 800;
         }
         .settings-tab-indicator {
             position: absolute;
-            bottom: 0;
+            bottom: -1px;
             left: 0;
             width: 100%;
-            height: 4px;
-            background-color: var(--primary);
-            border-radius: 4px 4px 0 0;
+            height: 3px;
+            background-color: #d90429;
+            border-radius: 0;
         }
 
         .premium-card {
@@ -122,7 +126,7 @@ $base_path = '../';
             display: block;
         }
         th.form-label-premium {
-            display: table-cell !important;
+            display: table-cell;
             color: #475569 !important;
             font-size: 11px !important;
             font-weight: 700 !important;
@@ -243,7 +247,7 @@ $base_path = '../';
         .setting-icon-box {
             width: 40px;
             height: 40px;
-            border-radius: 10px;
+            border-radius: 50%;
             background-color: white;
             display: flex;
             align-items: center;
@@ -286,25 +290,81 @@ $base_path = '../';
             background: white !important;
         }
 
+        /* Premium Dropdown Styling */
+        .dropdown-menu {
+            border: 1px solid rgba(191, 202, 186, 0.15) !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08) !important;
+            border-radius: 12px !important;
+            padding: 0.5rem;
+            margin-top: 5px !important;
+        }
+        .dropdown-item {
+            transition: all 0.2s;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            color: var(--on-surface-variant);
+        }
+        .dropdown-item:hover {
+            background-color: rgba(32, 98, 35, 0.05);
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+        .dropdown-item i, .dropdown-item span.material-symbols-outlined {
+            transition: transform 0.2s;
+        }
+        .dropdown-item:hover span.material-symbols-outlined {
+            transform: scale(1.1);
+        }
+
         @media (max-width: 768px) {
+            .premium-card {
+                padding: 1.5rem !important;
+                border-radius: 1rem;
+            }
+            .sidebar-card {
+                padding: 1rem !important;
+            }
             .settings-tabs-wrapper {
-                gap: 1.25rem;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            .settings-tab-btn {
+                font-size: 0.75rem !important;
+                padding-bottom: 0.75rem !important;
             }
             .setting-control-group {
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: flex-start;
                 padding: 1rem;
                 gap: 0.75rem;
             }
             .setting-control-group > .d-flex {
                 width: 100%;
-                justify-content: space-between;
+                justify-content: flex-start;
             }
             .premium-select-agro {
-                width: 100%;
-                margin-top: 0.5rem;
+                width: 100% !important;
+                margin-top: 0.25rem;
+            }
+            .setting-icon-box {
+                flex-shrink: 0;
+                width: 32px;
+                height: 32px;
             }
             .custom-switch {
-                margin-left: auto;
+                margin-left: 0;
+                margin-top: 0.5rem;
+                padding-left: 2.25rem;
+            }
+            .form-input-premium {
+                padding: 0.5rem 0.75rem;
+            }
+            .headline.h5 {
+                font-size: 0.95rem !important;
+            }
+            .premium-card p.small {
+                font-size: 0.65rem !important;
+                line-height: 1.4;
             }
         }
 
@@ -334,13 +394,13 @@ $base_path = '../';
 
     <!-- Main Content Area -->
     <main class="main-content">
-        <div class="container-fluid pt-2 pl-md-2 pr-md-5">
+        <div class="container-fluid pt-2 pl-md-2 pr-md-2">
             
             <!-- Context Header Section -->
-            <header class="mb-4">
-                <p class="headline text-uppercase font-weight-bold mb-0" style="font-size: 10px; letter-spacing: 0.2em; color: var(--on-surface-variant); line-height: 1;">Configure</p>
-                <h2 class="headline font-weight-extrabold h4 mb-1" style="color: var(--on-surface);">System Settings</h2>
-                <p class="text-nowrap" style="color: var(--on-surface-variant); font-size: 12.5px; font-weight: 500;">Configure your dairy management preferences and organizational identity for seamless operations.</p>
+            <header class="mb-3 mb-md-4">
+                <p class="headline text-uppercase font-weight-bold mb-0" style="font-size: 8px; letter-spacing: 0.2em; color: var(--on-surface-variant); line-height: 1;">Configure</p>
+                <h2 class="headline font-weight-extrabold h5 mb-1" style="color: var(--on-surface);">System Settings</h2>
+                <p class="" style="color: var(--on-surface-variant); font-size: 11.5px; font-weight: 500; line-height: 1.4;">Configure your dairy management preferences and organizational identity for seamless operations.</p>
             </header>
 
             <!-- Tabbed Interface -->
@@ -348,14 +408,15 @@ $base_path = '../';
                 <!-- Navigation Tabs -->
                 <div class="settings-tabs-wrapper">
                     <button class="settings-tab-btn active" data-tab="company-details">
-                        Company Details
+                        Company
                         <span class="settings-tab-indicator"></span>
                     </button>
                     <button class="settings-tab-btn" data-tab="breeds">Breeds</button>
                     <button class="settings-tab-btn" data-tab="pens">Pens</button>
-                    <button class="settings-tab-btn" data-tab="email">Email Settings</button>
-                    <button class="settings-tab-btn" data-tab="sms">SMS Settings</button>
+                    <button class="settings-tab-btn" data-tab="email">Email</button>
+                    <button class="settings-tab-btn" data-tab="sms">SMS</button>
                     <button class="settings-tab-btn" data-tab="feed-mix">Feed Mix</button>
+                    <button class="settings-tab-btn" data-tab="insurance">Insurance</button>
                 </div>
 
                 <!-- Content Display Areas -->
@@ -391,7 +452,7 @@ $base_path = '../';
                                         <div class="row mb-3">
                                             <div class="col-md-6 mb-3 mb-md-0">
                                                 <label class="form-label-premium">Incorporation Date</label>
-                                                <input class="form-input-premium" type="text" id="incorporationdate" name="incorporationdate" readonly/>
+                                                <input class="form-input-premium" type="text" id="incorporationdate" name="incorporationdate" placeholder="DD-MMM-YYYY" readonly/>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label-premium">Email Address</label>
@@ -416,7 +477,6 @@ $base_path = '../';
                                         </div>
 
                                         <div class="mt-auto pt-3 d-flex align-items-center justify-content-end">
-                                            <button class="btn-premium-discard mr-2" type="button" id="discardCompanyChanges">Discard Changes</button>
                                             <button class="btn-premium-save" type="submit" id="saveCompanyChanges">Save Changes</button>
                                         </div>
                                     </form>
@@ -431,7 +491,7 @@ $base_path = '../';
                                         <h4 class="headline text-uppercase mb-3" style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; color: var(--on-surface-variant);">Official Logo</h4>
                                         <div class="mx-auto" style="width: 128px;">
                                             <div class="position-relative overflow-hidden bg-white d-flex align-items-center justify-content-center border-2 border-dashed rounded-lg" style="aspect-ratio: 1/1; border-color: rgba(191, 202, 186, 0.4);">
-                                                <img alt="Company Logo" id="logoPreview" class="w-100 h-100" style="object-fit: cover;" src="images/logo.png"/>
+                                                <img alt="Company Logo" id="logoPreview" class="w-100 h-100" style="object-fit: cover;" src="../images/logo.png"/>
                                                 <div class="position-absolute d-flex align-items-center justify-content-center" style="inset: 0; background: rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0" onclick="$('#logo').click()">
                                                     <span class="material-symbols-outlined text-white" style="font-size: 32px;">photo_camera</span>
                                                 </div>
@@ -452,9 +512,7 @@ $base_path = '../';
                                             </div>
                                         </div>
                                         <!-- Interactive Map -->
-                                        <div class="flex-grow-1 rounded-lg bg-light overflow-hidden position-relative shadow-inner" style="min-h: 300px; border: 1px solid rgba(191, 202, 186, 0.1);">
-                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31918.0695740695!2d36.0500!3d-0.3000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18298d9eccd7a4d1%3A0x66c3013d3301073a!2sNakuru!5e0!3m2!1sen!2ske!4v1713537200000!5m2!1sen!2ske" width="100%" height="100%" style="border:0; filter: grayscale(1) contrast(1.2); opacity: 0.8;" allowfullscreen="" loading="lazy"></iframe>
-                                        </div>
+                                        <div class="flex-grow-1 rounded-lg bg-light overflow-hidden position-relative shadow-inner" id="businessMap" style="min-height: 350px; border: 1px solid rgba(191, 202, 186, 0.1); z-index: 1;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -486,12 +544,12 @@ $base_path = '../';
                                         <table class="table table-borderless align-middle">
                                             <thead>
                                                 <tr style="background-color: transparent;">
-                                                    <th class="form-label-premium py-3 pl-0" style="width: 30%;">BREED NAME</th>
-                                                    <th class="form-label-premium py-3 text-center" style="width: 15%;">TOTAL COUNT</th>
-                                                    <th class="form-label-premium py-3 text-center" style="width: 15%;">AVG. MILKING</th>
-                                                    <th class="form-label-premium py-3 text-center" style="width: 20%;">EFFICIENCY</th>
-                                                    <th class="form-label-premium py-3 text-center" style="width: 15%;">HEALTH INDEX</th>
-                                                    <th class="form-label-premium py-3 pr-0 text-right" style="width: 5%;"></th>
+                                                    <th class="form-label-premium py-3 pl-0" style="width: 35%;">BREED NAME</th>
+                                                    <th class="form-label-premium py-3 text-center" style="width: 15%;">TOTAL</th>
+                                                    <th class="form-label-premium py-3 text-center" style="width: 20%;">AVG MILK</th>
+                                                    <th class="d-none d-lg-table-cell form-label-premium py-3 text-center" style="width: 15%;">EFFICIENCY</th>
+                                                    <th class="d-none d-lg-table-cell form-label-premium py-3 text-center" style="width: 10%;">HEALTH</th>
+                                                    <th class="form-label-premium py-3 pr-0 text-right" style="width: 10%;">ACTION</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="breedsBody">
@@ -546,9 +604,9 @@ $base_path = '../';
                                             <thead>
                                                 <tr style="background-color: var(--surface-container-low);">
                                                     <th class="form-label-premium py-3 pl-4">Pen Name</th>
-                                                    <th class="form-label-premium py-3">Type</th>
-                                                    <th class="form-label-premium py-3">Capacity</th>
-                                                    <th class="form-label-premium py-3">Status</th>
+                                                    <th class="form-label-premium py-3 d-none d-md-table-cell">Type</th>
+                                                    <th class="form-label-premium py-3 d-none d-md-table-cell">Capacity</th>
+                                                    <th class="form-label-premium py-3 d-none d-lg-table-cell">Status</th>
                                                     <th class="form-label-premium py-3 pr-4 text-right">Action</th>
                                                 </tr>
                                             </thead>
@@ -605,7 +663,7 @@ $base_path = '../';
                             <div class="col-12 col-lg-8">
                                 <div class="premium-card">
                                     <div class="d-flex align-items-center mb-4">
-                                        <div class="rounded-xl d-flex align-items-center justify-content-center mr-3 shadow-sm" style="width: 48px; height: 48px; background-color: #abf4ac; color: #07521d; border-radius: 12px;">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center mr-3 shadow-sm" style="width: 48px; height: 48px; background-color: #abf4ac; color: #07521d; flex-shrink: 0;">
                                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">alternate_email</span>
                                         </div>
                                         <div>
@@ -661,7 +719,7 @@ $base_path = '../';
                                         <div class="border-top pt-4 mt-2">
                                             <div class="row align-items-center">
                                                 <div class="col-md-6 mb-3 mb-md-0">
-                                                    <div class="setting-control-group mb-0">
+                                                    <div class="setting-control-group mb-0 d-flex align-items-center justify-content-between">
                                                         <div class="d-flex align-items-center">
                                                             <div class="setting-icon-box">
                                                                 <span class="material-symbols-outlined text-success" style="font-size: 20px;">verified_user</span>
@@ -673,12 +731,12 @@ $base_path = '../';
                                                         </div>
                                                         <div class="custom-control custom-switch">
                                                             <input type="checkbox" class="custom-control-input" id="smtpusessl" name="smtpusessl">
-                                                            <label class="custom-control-label" for="smtpusessl"></label>
+                                                            <label class="custom-control-label" for="smtpusessl" style="cursor: pointer;"></label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="setting-control-group mb-0">
+                                                    <div class="setting-control-group mb-0 d-flex align-items-center justify-content-between">
                                                         <div class="d-flex align-items-center">
                                                             <div class="setting-icon-box">
                                                                 <span class="material-symbols-outlined text-success" style="font-size: 20px;">hub</span>
@@ -688,7 +746,7 @@ $base_path = '../';
                                                                 <p class="text-muted small mb-0">Operational context</p>
                                                             </div>
                                                         </div>
-                                                        <select class="premium-select-agro" id="roleSelector">
+                                                        <select class="premium-select-agro" id="roleSelector" style="min-width: 140px;">
                                                             <option value="General">General</option>
                                                             <option value="Account Management">Account Management</option>
                                                             <option value="Security Updates">Security Updates</option>
@@ -784,7 +842,7 @@ $base_path = '../';
                             <div class="col-12 col-lg-4">
                                 <div class="premium-card mb-4">
                                     <div class="d-flex align-items-center mb-4">
-                                        <div class="p-2 bg-success-light text-success rounded-lg mr-3" style="background-color: rgba(32, 98, 35, 0.1);">
+                                        <div class="p-2 bg-success-light text-success rounded-circle d-flex align-items-center justify-content-center mr-3 shadow-sm" style="background-color: rgba(32, 98, 35, 0.1); width: 36px; height: 36px; flex-shrink: 0;">
                                             <span class="material-symbols-outlined">cell_tower</span>
                                         </div>
                                         <h3 class="headline h6 font-weight-bold mb-0">Gateway Details</h3>
@@ -922,7 +980,7 @@ $base_path = '../';
                                 <div class="premium-card">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div class="d-flex align-items-center">
-                                            <div class="p-2 bg-success-light text-success rounded-lg mr-3" style="background-color: rgba(32, 98, 35, 0.1);">
+                                            <div class="p-2 bg-success-light text-success rounded-circle d-flex align-items-center justify-content-center mr-3 shadow-sm" style="background-color: rgba(32, 98, 35, 0.1); width: 36px; height: 36px; flex-shrink: 0;">
                                                 <span class="material-symbols-outlined">history</span>
                                             </div>
                                             <h3 class="headline h6 font-weight-bold mb-0">Recent SMS Activity</h3>
@@ -954,39 +1012,35 @@ $base_path = '../';
                     <div class="settings-tab-content" id="tab-feed-mix" style="display: none;">
                         <!-- Summary Section -->
                         <div class="row mb-4">
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="premium-card p-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
-                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 10px; letter-spacing: 0.1em;">Total Formulations</p>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="premium-card p-3 p-md-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
+                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 9px; letter-spacing: 0.1em;">Formulations</p>
                                     <div class="d-flex align-items-baseline">
-                                        <span class="font-weight-black" style="font-size: 2.25rem; color: var(--primary); font-family: 'Work Sans', sans-serif;">12</span>
-                                        <span class="ml-2 font-weight-bold" style="color: var(--tertiary); font-size: 10px;">+2 this month</span>
+                                        <span id="totalFormulationsCount" class="font-weight-black" style="font-size: 1.75rem; color: var(--primary); font-family: 'Work Sans', sans-serif;">0</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="premium-card p-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
-                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 10px; letter-spacing: 0.1em;">Active Batches</p>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="premium-card p-3 p-md-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
+                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 9px; letter-spacing: 0.1em;">Active Batches</p>
                                     <div class="d-flex align-items-baseline">
-                                        <span class="font-weight-black" style="font-size: 2.25rem; color: var(--secondary); font-family: 'Work Sans', sans-serif;">4</span>
-                                        <span class="ml-2" style="color: var(--on-surface-variant); font-size: 10px;">Currently Mixing</span>
+                                        <span id="activeBatchesCount" class="font-weight-black" style="font-size: 1.75rem; color: var(--secondary); font-family: 'Work Sans', sans-serif;">0</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="premium-card p-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
-                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 10px; letter-spacing: 0.1em;">Most Active Ingredient</p>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="premium-card p-3 p-md-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
+                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 9px; letter-spacing: 0.1em;">Ingredient</p>
                                     <div class="d-flex align-items-baseline">
-                                        <span class="font-weight-black" style="font-size: 1.5rem; color: var(--primary); font-family: 'Work Sans', sans-serif;">Maize Germ</span>
-                                        <span class="ml-2 font-weight-bold" style="color: var(--tertiary); font-size: 10px;">45% usage</span>
+                                        <span id="mostUsedIngredientName" class="font-weight-black" style="font-size: 1.25rem; color: var(--primary); font-family: 'Work Sans', sans-serif;">-</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="premium-card p-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
-                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 10px; letter-spacing: 0.1em;">Stock Status</p>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <div class="premium-card p-3 p-md-4 h-100 mb-0" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
+                                    <p class="text-uppercase font-weight-bold mb-1" style="color: var(--on-surface-variant); font-size: 9px; letter-spacing: 0.1em;">Stock Status</p>
                                     <div class="d-flex align-items-baseline">
-                                        <span class="font-weight-black" style="font-size: 2.25rem; color: var(--tertiary); font-family: 'Work Sans', sans-serif;">85%</span>
-                                        <span class="ml-2 font-weight-bold" style="color: var(--tertiary); font-size: 10px;">Optimal</span>
+                                        <span id="feedStockStatus" class="font-weight-black" style="font-size: 1.75rem; color: var(--tertiary); font-family: 'Work Sans', sans-serif;">0%</span>
                                     </div>
                                 </div>
                             </div>
@@ -1006,23 +1060,24 @@ $base_path = '../';
                                             <thead style="background-color: rgba(244, 244, 239, 0.5);">
                                                 <tr>
                                                     <th class="border-0 text-uppercase font-weight-bold py-3 pl-4" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Formulation Name</th>
-                                                    <th class="border-0 text-uppercase font-weight-bold py-3" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Primary Ingredient</th>
-                                                    <th class="border-0 text-uppercase font-weight-bold py-3" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Base Qty (KG)</th>
-                                                    <th class="border-0 text-uppercase font-weight-bold py-3" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Last Mixed</th>
-                                                    <th class="border-0 text-uppercase font-weight-bold py-3 pr-4 text-center" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Status</th>
+                                                    <th class="border-0 text-uppercase font-weight-bold py-3 d-none d-md-table-cell" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Primary Ingredient</th>
+                                                    <th class="border-0 text-uppercase font-weight-bold py-3" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Base Qty</th>
+                                                    <th class="border-0 text-uppercase font-weight-bold py-3 d-none d-lg-table-cell" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Last Mixed</th>
+                                                    <th class="border-0 text-uppercase font-weight-bold py-3 pr-4 text-center" style="font-size: 10px; letter-spacing: 0.1em; color: var(--on-surface-variant);">Actions</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="feedMixBody">
                                                 <tr style="background-color: rgba(172, 244, 164, 0.05); cursor: pointer;" class="border-bottom">
                                                     <td class="py-3 pl-4">
-                                                        <span class="font-weight-bold d-block" style="color: var(--on-surface);">High Yield Mix A2</span>
-                                                        <span style="font-size: 11px; color: var(--on-surface-variant);">Lactating Cows - Tier 1</span>
+                                                        <span class="font-weight-bold d-block" style="color: var(--on-surface); font-size: 12px;">High Yield Mix A2</span>
+                                                        <span class="d-none d-md-inline" style="font-size: 11px; color: var(--on-surface-variant);">Lactating Cows</span>
                                                     </td>
-                                                    <td class="py-3 align-middle" style="color: var(--on-surface-variant);">Maize Germ</td>
-                                                    <td class="py-3 align-middle font-weight-bold" style="color: var(--on-surface);">500.0</td>
-                                                    <td class="py-3 align-middle" style="color: var(--on-surface-variant);">Oct 24, 2023</td>
+                                                    <td class="py-3 align-middle d-none d-md-table-cell" style="color: var(--on-surface-variant);">Maize Germ</td>
+                                                    <td class="py-3 align-middle font-weight-bold" style="color: var(--on-surface);">500 KG</td>
+                                                    <td class="py-3 align-middle d-none d-lg-table-cell" style="color: var(--on-surface-variant);">Oct 24, 2023</td>
                                                     <td class="py-3 pr-4 align-middle text-center">
-                                                        <span class="badge badge-pill" style="background-color: var(--tertiary-fixed); color: var(--on-tertiary-fixed); padding: 4px 12px; font-weight: 700; font-size: 10px;">Stable</span>
+                                                        <button class="btn btn-sm btn-light rounded-circle p-1" style="color: var(--primary);"><span class="material-symbols-outlined" style="font-size: 16px;">edit</span></button>
+                                                        <button class="btn btn-sm btn-light rounded-circle p-1 ml-1" style="color: var(--error);"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span></button>
                                                     </td>
                                                 </tr>
                                                 <tr style="cursor: pointer;" class="border-bottom">
@@ -1053,6 +1108,7 @@ $base_path = '../';
                                         </table>
                                     </div>
                                 </div>
+                                <div id="feedMixPagination" class="d-flex justify-content-center mt-3 mb-4"></div>
                                 <button class="btn btn-premium-save align-self-start py-2 px-4 shadow-sm" data-toggle="modal" data-target="#addFeedMixModal" style="border-radius: 12px; display: flex; align-items: center; gap: 8px;">
                                     <span class="material-symbols-outlined" style="font-size: 20px;">add_circle</span>
                                     Create New Feed Mix
@@ -1062,47 +1118,14 @@ $base_path = '../';
                             <!-- Breakdown & Graph -->
                             <div class="col-md-4 d-flex flex-column">
                                 <!-- Ingredient Breakdown -->
-                                <div class="premium-card p-4 mb-4" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
+                                <div class="premium-card p-4 mb-4" id="feedMixBreakdownCard" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border: 1px solid rgba(191, 202, 186, 0.1);">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h3 class="font-weight-bold h6 mb-0">Breakdown: High Yield A2</h3>
+                                        <h3 id="feedMixBreakdownTitle" class="font-weight-bold h6 mb-0 text-truncate" style="max-width: 80%;">Composition Breakdown</h3>
                                         <span class="material-symbols-outlined" style="color: var(--primary);">pie_chart</span>
                                     </div>
-                                    <div class="d-flex flex-column" style="gap: 16px;">
-                                        <div>
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span class="font-weight-bold" style="font-size: 11px;">Maize Germ</span>
-                                                <span class="font-weight-bold" style="font-size: 11px;">45%</span>
-                                            </div>
-                                            <div class="progress" style="height: 8px; background-color: var(--surface-container-low); border-radius: 10px;">
-                                                <div class="progress-bar" style="width: 45%; background-color: var(--primary); border-radius: 10px;"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span class="font-weight-bold" style="font-size: 11px;">Cotton Seed</span>
-                                                <span class="font-weight-bold" style="font-size: 11px;">25%</span>
-                                            </div>
-                                            <div class="progress" style="height: 8px; background-color: var(--surface-container-low); border-radius: 10px;">
-                                                <div class="progress-bar" style="width: 25%; background-color: var(--tertiary); border-radius: 10px;"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span class="font-weight-bold" style="font-size: 11px;">Soya Meal</span>
-                                                <span class="font-weight-bold" style="font-size: 11px;">20%</span>
-                                            </div>
-                                            <div class="progress" style="height: 8px; background-color: var(--surface-container-low); border-radius: 10px;">
-                                                <div class="progress-bar" style="width: 20%; background-color: var(--secondary-container); border-radius: 10px;"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="d-flex justify-content-between mb-1">
-                                                <span class="font-weight-bold" style="font-size: 11px;">Premix/Minerals</span>
-                                                <span class="font-weight-bold" style="font-size: 11px;">10%</span>
-                                            </div>
-                                            <div class="progress" style="height: 8px; background-color: var(--surface-container-low); border-radius: 10px;">
-                                                <div class="progress-bar" style="width: 10%; background-color: var(--outline); border-radius: 10px;"></div>
-                                            </div>
+                                    <div id="feedMixBreakdownContent" class="d-flex flex-column" style="gap: 16px;">
+                                        <div class="text-center py-5">
+                                            <p class="text-muted small mb-0">Select a formulation to view its composition</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1155,6 +1178,42 @@ $base_path = '../';
                                         </div>
                                     </div>
                                     <button class="btn btn-link p-0 font-weight-bold text-decoration-none" style="font-size: 11px; color: var(--primary);">View All History</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab 7: Insurance Companies -->
+                    <div class="settings-tab-content" id="tab-insurance" style="display: none;">
+                        <div class="row">
+                            <div class="col-12 col-lg-9 order-2 order-lg-2">
+                                <div class="premium-card mb-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless align-middle">
+                                            <thead>
+                                                <tr style="background-color: transparent;">
+                                                    <th class="form-label-premium py-3 pl-0" style="width: 30%;">COMPANY NAME</th>
+                                                    <th class="form-label-premium py-3 text-center" style="width: 20%;">REG NO.</th>
+                                                    <th class="form-label-premium py-3 text-center" style="width: 20%;">CONTACT PERSON</th>
+                                                    <th class="form-label-premium py-3 text-center d-none d-lg-table-cell" style="width: 20%;">CONTACTS</th>
+                                                    <th class="form-label-premium py-3 pr-0 text-right" style="width: 10%;">ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="insuranceBody">
+                                                <!-- Dynamic Content -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3 order-1 order-lg-3 mb-4 mb-lg-0">
+                                <div class="premium-card sidebar-card h-100 mb-0">
+                                    <h4 class="headline h6 font-weight-bold mb-3" style="color: var(--primary);">Actions</h4>
+                                    <button class="btn btn-premium-save w-100 mb-3 d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#addInsuranceModal">
+                                        <span class="material-symbols-outlined mr-2">add_business</span>
+                                        Add Provider
+                                    </button>
+                                    <p class="small text-muted mb-0">Manage your livestock insurance partners and their official contact details.</p>
                                 </div>
                             </div>
                         </div>
@@ -1526,6 +1585,89 @@ $base_path = '../';
                         <div class="px-4 py-3 d-flex align-items-center justify-content-end border-top" style="background-color: rgba(244, 244, 239, 0.5); border-color: rgba(191, 202, 186, 0.2) !important;">
                             <button type="button" class="btn btn-link text-muted font-weight-medium p-0 mr-3" data-dismiss="modal" style="font-size: 0.875rem; text-decoration: none; border: 1px solid var(--outline-variant); border-radius: 0.5rem; padding: 0.5rem 1.5rem !important;">Cancel</button>
                             <button type="button" class="btn btn-primary shadow-sm" style="border-radius: 0.5rem; padding: 0.5rem 1.5rem; background: linear-gradient(to right, var(--primary), var(--primary-container)); border: none; font-size: 0.875rem; font-weight: 500;">Save Formulation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add/Edit Insurance Company Modal -->
+    <div class="modal fade" id="addInsuranceModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content border-0 overflow-hidden" style="border-radius: 1.25rem; box-shadow: 0 24px 48px rgba(26,28,25,0.12);">
+                <div class="modal-body p-0">
+                    <div class="d-flex flex-column flex-md-row" style="min-height: 500px;">
+                        <div class="botanical-sidebar d-none d-md-flex flex-column justify-content-between p-5 text-white" style="width: 33.33%;">
+                            <div>
+                                <h2 class="headline h4 font-weight-bold leading-tight mb-3">Partnering for Security</h2>
+                                <p class="text-white-50 font-weight-medium leading-relaxed small">Register insurance providers to safeguard your livestock assets and ensure business continuity.</p>
+                            </div>
+                            <div class="d-flex align-items-center mt-5">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center mr-3 flex-shrink-0" style="width: 48px; height: 48px; background-color: rgba(255,255,255,0.2); backdrop-filter: blur(8px);">
+                                    <span class="material-symbols-outlined text-white">shield_with_heart</span>
+                                </div>
+                                <span class="text-uppercase tracking-widest small font-weight-medium opacity-80" style="font-size: 10px;">Insurance Partners</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1 bg-white p-5 position-relative">
+                            <button type="button" class="close position-absolute" data-dismiss="modal" style="top: 20px; right: 20px; z-index: 10;">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                            
+                            <div class="mb-4">
+                                <h3 class="headline h5 font-weight-bold text-success tracking-tight mb-1" id="insuranceModalTitle">Add Insurance Provider</h3>
+                                <p class="text-muted font-weight-medium small">Enter the official credentials for the insurance company.</p>
+                            </div>
+
+                            <div class="modal-alert-container mb-3" id="insurance-modal-alert"></div>
+
+                            <form id="insuranceForm" class="mt-4">
+                                <input type="hidden" id="insuranceId" value="0">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Company Name</label>
+                                            <input type="text" id="insCompanyName" class="form-control form-input-premium" placeholder="e.g. Agri-Shield Kenya">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Registration No.</label>
+                                            <input type="text" id="insRegNo" class="form-control form-input-premium" placeholder="e.g. IRA-2024-001">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Contact Person</label>
+                                            <input type="text" id="insContactPerson" class="form-control form-input-premium" placeholder="Full Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Contacts/Phone</label>
+                                            <input type="text" id="insContacts" class="form-control form-input-premium" placeholder="Phone Number">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Email Address</label>
+                                            <input type="email" id="insEmail" class="form-control form-input-premium" placeholder="company@email.com">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group mb-4">
+                                            <label class="form-label-premium">Physical Address</label>
+                                            <textarea id="insAddress" class="form-control form-input-premium" rows="2" placeholder="HQ Location Details"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex mt-4">
+                                    <button type="button" id="saveInsuranceBtn" class="btn flex-grow-1 py-2 text-white font-weight-medium shadow-sm" style="background: linear-gradient(to right, #206223, #3a7b3a); border-radius: 0.5rem; font-size: 14px;">Save Provider</button>
+                                    <button type="button" class="btn py-2 px-5 ml-3" data-dismiss="modal" style="background-color: transparent; border: 1px solid rgba(0,0,0,0.1); color: #475569; border-radius: 0.5rem; font-size: 14px; font-weight: 500;">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

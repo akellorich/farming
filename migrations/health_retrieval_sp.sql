@@ -1,7 +1,7 @@
 DELIMITER //
 
-DROP PROCEDURE IF EXISTS sp_get_animals_by_schedule //
-CREATE PROCEDURE sp_get_animals_by_schedule(
+DROP PROCEDURE IF EXISTS sp_getanimalsbyschedule //
+CREATE PROCEDURE sp_getanimalsbyschedule(
     IN `$scheduleid` INT,
     IN `$type` VARCHAR(20)
 )
@@ -38,8 +38,8 @@ BEGIN
     END IF;
 END //
 
-DROP PROCEDURE IF EXISTS sp_get_active_health_schedules //
-CREATE PROCEDURE sp_get_active_health_schedules(
+DROP PROCEDURE IF EXISTS sp_getactivehealthschedules //
+CREATE PROCEDURE sp_getactivehealthschedules(
     IN `$type` VARCHAR(20)
 )
 BEGIN

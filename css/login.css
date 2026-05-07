@@ -333,3 +333,37 @@ body {
         padding-bottom: 1.5rem;
     }
 }
+
+/* Farm Type Toggle */
+.farm-type-toggle {
+    user-select: none;
+}
+
+.toggle-wrapper {
+    display: flex;
+    background: #eeeee9;
+    padding: 4px;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid rgba(112, 122, 108, 0.1);
+}
+
+.toggle-item {
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #707a6c;
+    border-radius: 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    margin-bottom: 0;
+}
+
+input[name="farm_type"]:checked + .toggle-item {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

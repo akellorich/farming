@@ -17,8 +17,11 @@
         $purchaseprice = $_POST['purchaseprice'] ?? 0.00;
         $status = $_POST['status'] ?? 'Active';
         $autogen = $_POST['autogen'] ?? 0;
+        $is_insured = $_POST['is_insured'] ?? 0;
+        $insurance_company_id = $_POST['insurance_company_id'] ?? null;
+        $insuranceamount = $_POST['insuranceamount'] ?? 0.00;
 
-        $response = $animal->saveAnimal($id, $tagid, $designatedname, $breedid, $penid, $damid, $birthdate, $initialweight, $registrationsource, $purchaseprice, $status, $autogen);
+        $response = $animal->saveAnimal($id, $tagid, $designatedname, $breedid, $penid, $damid, $birthdate, $initialweight, $registrationsource, $purchaseprice, $status, $autogen, $is_insured, $insurance_company_id, $insuranceamount);
         echo json_encode($response);
     }
 

@@ -84,22 +84,22 @@ $base_path = '../';
     <main class="main-content">
         <div class="container-fluid pt-1 px-4">
             <!-- Header Section -->
-            <div class="row align-items-end mb-4 mt-2">
-                <div class="col">
+            <div class="d-flex justify-content-between align-items-center mb-3 mt-1">
+                <div>
                     <h2 class="font-headline font-weight-bold text-on-surface mb-1 health-page-title">
                         Health Records
                     </h2>
-                    <p class="text-muted mb-0 health-page-desc">Livestock wellness and clinical history for JUKAM Dairy</p>
+                    <p class="text-muted mb-0 health-page-desc d-none d-md-block">Livestock wellness and clinical history for JUKAM Dairy</p>
                 </div>
-                <div class="col-auto">
+                <div>
                     <div class="dropdown">
-                        <button class="btn btn-success d-flex align-items-center gap-2 px-4 shadow-sm dropdown-toggle no-caret" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #206223; border-radius: 0.5rem; font-size: 0.85rem; height: 42px; font-weight: 600;">
-                            <span>Action</span>
-                            <span class="material-symbols-outlined ml-2" style="font-size: 1.1rem; margin-top: 1px;">expand_more</span>
+                        <button class="btn d-flex align-items-center dropdown-toggle px-4 py-2" type="button" id="healthActionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 0.75rem; font-size: 0.85rem; gap: 0.5rem; background-color: #f8fafc; border: 1px solid #e2e8f0; color: #475569; box-shadow: 0 2px 4px rgba(0,0,0,0.02); font-weight: 500;">
+                            <span class="material-symbols-outlined" style="font-size: 1.2rem; color: #206223; font-variation-settings: 'FILL' 1;">bolt</span>
+                            <span class="actions-label">Actions</span>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right botanical-shadow border-0" style="border-radius: 0.75rem; padding: 0.65rem; font-size: 0.85rem; min-width: 220px;">
+                        <div class="dropdown-menu dropdown-menu-right botanical-shadow border-0" style="border-radius: 0.75rem; padding: 0.65rem; font-size: 0.85rem; min-width: 220px; z-index: 1050;">
                             <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnLogHealthCheck">
-                                <span class="material-symbols-outlined text-primary" style="font-size: 1.2rem;">medical_services</span> 
+                                <span class="material-symbols-outlined text-success" style="font-size: 1.2rem;">medical_services</span> 
                                 <span class="font-weight-medium">Log Health Check</span>
                             </a>
                             <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnRecordVaccination">
@@ -107,7 +107,7 @@ $base_path = '../';
                                 <span class="font-weight-medium">Record Vaccination</span>
                             </a>
                             <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="javascript:void(0)" style="gap: 1rem;" id="btnRecordDeworming">
-                                <span class="material-symbols-outlined text-warning" style="font-size: 1.2rem; font-variation-settings: 'FILL' 1;">pill</span> 
+                                <span class="material-symbols-outlined text-success" style="font-size: 1.2rem; font-variation-settings: 'FILL' 1;">pill</span> 
                                 <span class="font-weight-medium">Record Deworming</span>
                             </a>
                             <a class="dropdown-item d-flex align-items-center mb-1 py-2 px-3 rounded" href="schedules_overview.php" style="gap: 1rem;">
@@ -116,7 +116,7 @@ $base_path = '../';
                             </a>
                             <div class="dropdown-divider my-2"></div>
                             <a class="dropdown-item d-flex align-items-center py-2 px-3 rounded" href="#" style="gap: 1rem;">
-                                <span class="material-symbols-outlined text-warning" style="font-size: 1.2rem;">history</span> 
+                                <span class="material-symbols-outlined text-success" style="font-size: 1.2rem;">history</span> 
                                 <span class="font-weight-medium">Veterinary Log</span>
                             </a>
                         </div>
@@ -124,8 +124,17 @@ $base_path = '../';
                 </div>
             </div>
 
-            <!-- Health Summary Grid -->
-            <div class="health-header-grid">
+            <!-- Category Tabs -->
+            <div class="health-tabs-container mt-0">
+                <button class="health-tab active" data-tab="health">Clinical Logs</button>
+                <button class="health-tab" data-tab="vaccinations">Vaccinations</button>
+                <button class="health-tab" data-tab="deworming">Deworming</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="tabContent-health" class="tab-pane-content active mt-2">
+                <!-- Health Summary Grid -->
+                <div class="health-header-grid">
                 <div class="health-stat-card botanical-shadow">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="material-symbols-outlined text-primary p-2 rounded-lg" style="background-color: rgba(32, 98, 35, 0.1);">medical_services</span>
@@ -133,18 +142,18 @@ $base_path = '../';
                     </div>
                     <div>
                         <p class="text-muted mb-1" style="font-size: 0.75rem;">Active Treatments</p>
-                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;">12 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="activeTreatmentsCount">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
                     </div>
                 </div>
                 
                 <div class="health-stat-card botanical-shadow">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="material-symbols-outlined text-warning p-2 rounded-lg" style="background-color: rgba(255, 193, 7, 0.1);">vaccines</span>
-                        <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Prevention</span>
+                        <span class="material-symbols-outlined text-warning p-2 rounded-lg" style="background-color: rgba(255, 193, 7, 0.1);">stethoscope</span>
+                        <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Observation</span>
                     </div>
                     <div>
-                        <p class="text-muted mb-1" style="font-size: 0.75rem;">Vaccination Coverage</p>
-                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;">98.2%</h3>
+                        <p class="text-muted mb-1" style="font-size: 0.75rem;">Active Conditions</p>
+                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="activeConditionsCount">0 <small class="text-muted" style="font-size: 0.8rem;">types</small></h3>
                     </div>
                 </div>
 
@@ -155,7 +164,7 @@ $base_path = '../';
                     </div>
                     <div>
                         <p class="text-muted mb-1" style="font-size: 0.75rem;">Quarantine Cases</p>
-                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;">03 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="quarantineCasesCount">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
                     </div>
                 </div>
 
@@ -166,7 +175,7 @@ $base_path = '../';
                     </div>
                     <div>
                         <p class="text-muted mb-1" style="font-size: 0.75rem;">Next Vet Visit</p>
-                        <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.35rem; color: #206223;">Oct 28, 2023</h3>
+                        <h3 class="font-headline font-weight-bold mb-0" id="nextVetVisitDate" style="font-size: 1.35rem; color: #206223;">None</h3>
                     </div>
                 </div>
             </div>
@@ -175,31 +184,29 @@ $base_path = '../';
             <div class="row">
                 <!-- Left Column: Incidents Table -->
                 <div class="col-lg-8">
+
                     <div class="health-table-card botanical-shadow mb-4">
                         <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
-                            <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.85rem;">Recent Health Incidents</h5>
+                            <h5 class="font-headline font-weight-bold mb-0" id="tabTitle" style="font-size: 0.85rem;">Recent Health Incidents</h5>
+                            <button class="btn btn-success d-flex align-items-center btn-sm px-3 btn-add-table" id="btnOpenClinicalModal">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">add</span>
+                                Add New
+                            </button>
                         </div>
                         
                         <!-- Table Filters -->
-                        <div class="table-controls p-3 border-bottom d-flex flex-wrap align-items-center" style="gap: 1rem; background-color: rgba(244, 244, 239, 0.3);">
+                        <div class="table-controls p-3 mt-1 border-bottom d-flex flex-wrap align-items-center" style="gap: 1rem; background-color: rgba(244, 244, 239, 0.3);">
                             <div class="filter-label mr-2">
                                 <span class="text-muted" style="font-size: 0.75rem; letter-spacing: 0.02rem;">Filter Options</span>
                             </div>
                             <div class="filter-item">
                                 <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="animalFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
                                     <option value="">All Animals</option>
-                                    <option value="JK-012">JK-012 (Daisy)</option>
-                                    <option value="JK-045">JK-045 (Bessie)</option>
-                                    <option value="JK-008">JK-008 (Luna)</option>
                                 </select>
                             </div>
-                            <div class="filter-item">
+                            <div class="filter-item" id="conditionFilterWrapper">
                                 <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="conditionFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
                                     <option value="">All Conditions</option>
-                                    <option value="Mastitis">Mastitis</option>
-                                    <option value="Lameness">Lameness</option>
-                                    <option value="Fever">Fever</option>
-                                    <option value="Bloat">Bloat</option>
                                 </select>
                             </div>
                             <div class="filter-item">
@@ -230,70 +237,24 @@ $base_path = '../';
                             </div>
                         </div>
 
-                        <div class="p-0">
+                        <div class="p-0 table-responsive">
                             <table class="table health-table mb-0" id="healthDataTable">
                                 <thead>
-                                    <tr>
-                                        <th>Animal ID</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Condition</th>
-                                        <th>Treatment</th>
-                                        <th>Status</th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
                                 </thead>
-                                <tbody>
-                                    <?php
-                                    $incidents = [
-                                        ['id' => 'JK-012', 'name' => 'Daisy', 'date' => 'Oct 14, 2023', 'cond' => 'Mastitis', 'treat' => 'Antibiotics Course', 'status' => 'Recovering', 'statusClass' => 'recovering'],
-                                        ['id' => 'JK-045', 'name' => 'Bessie', 'date' => 'Oct 12, 2023', 'cond' => 'Lameness', 'treat' => 'Hoof Trimming', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-008', 'name' => 'Luna', 'date' => 'Oct 10, 2023', 'cond' => 'Low Intake', 'treat' => 'Vitamin Boost', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-021', 'name' => 'Goldie', 'date' => 'Oct 09, 2023', 'cond' => 'Fever', 'treat' => 'Isolation & Fluids', 'status' => 'Recovering', 'statusClass' => 'recovering'],
-                                        ['id' => 'JK-099', 'name' => 'Molly', 'date' => 'Oct 05, 2023', 'cond' => 'Post-Natal Check', 'treat' => 'Routine Review', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-015', 'name' => 'Spot', 'date' => 'Oct 04, 2023', 'cond' => 'Bloat', 'treat' => 'Anti-foaming agent', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-033', 'name' => 'Ruby', 'date' => 'Oct 03, 2023', 'cond' => 'Foot Rot', 'treat' => 'Foot Bath Course', 'status' => 'Recovering', 'statusClass' => 'recovering'],
-                                        ['id' => 'JK-102', 'name' => 'Pearl', 'date' => 'Oct 01, 2023', 'cond' => 'Eye Infection', 'treat' => 'Ointment Application', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-056', 'name' => 'Snowy', 'date' => 'Sep 28, 2023', 'cond' => 'Low Yield', 'treat' => 'Nutritional Supplement', 'status' => 'Completed', 'statusClass' => 'completed'],
-                                        ['id' => 'JK-077', 'name' => 'Shadow', 'date' => 'Sep 25, 2023', 'cond' => 'Dehydration', 'treat' => 'IV Electrolytes', 'status' => 'Recovering', 'statusClass' => 'recovering'],
-                                    ];
-
-                                    foreach ($incidents as $inc):
-                                    ?>
-                                    <tr>
-                                        <td class="animal-code-cell"><?php echo $inc['id']; ?></td>
-                                        <td><?php echo $inc['name']; ?></td>
-                                        <td class="text-muted"><?php echo $inc['date']; ?></td>
-                                        <td class="font-weight-medium"><?php echo $inc['cond']; ?></td>
-                                        <td class="text-muted"><i><?php echo $inc['treat']; ?></i></td>
-                                        <td><span class="health-status-badge status-<?php echo $inc['statusClass']; ?>"><?php echo $inc['status']; ?></span></td>
-                                        <td class="text-right">
-                                            <div class="actions-container">
-                                                <button class="btn-action-more" onclick="toggleActionMenu(event, this)">
-                                                    <span class="material-symbols-outlined">more_vert</span>
-                                                </button>
-                                                <div class="actions-dropdown botanical-shadow">
-                                                    <button class="action-menu-item"><span class="material-symbols-outlined">visibility</span> View Record</button>
-                                                    <button class="action-menu-item"><span class="material-symbols-outlined">edit</span> Edit Incident</button>
-                                                    <div class="dropdown-divider my-1"></div>
-                                                    <button class="action-menu-item text-danger"><span class="material-symbols-outlined">delete</span> Delete</button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
+                                <tbody id="tableBody">
+                                    <!-- Dynamic Content -->
                                 </tbody>
                             </table>
                         </div>
                         <!-- Custom Pagination -->
                         <div class="d-flex justify-content-between align-items-center p-4 border-top">
-                            <div id="pageInfo" class="text-muted small">Page 1 of 1</div>
-                            <div class="custom-pagination d-flex" id="customPagination" style="gap: 0.75rem;">
-                                <button class="pagination-arrow" id="prevPage">
+                            <div id="pageInfo" class="text-muted small page-info-display">Page 1 of 1</div>
+                            <div class="custom-pagination d-flex pagination-container" id="customPagination" style="gap: 0.75rem;">
+                                <button class="pagination-arrow prev-page-btn" id="prevPage">
                                     <span class="material-symbols-outlined">chevron_left</span>
                                 </button>
-                                <div id="numberButtons" class="d-flex" style="gap: 0.5rem;"></div>
-                                <button class="pagination-arrow" id="nextPage">
+                                <div class="d-flex number-buttons-container" id="numberButtons" style="gap: 0.5rem;"></div>
+                                <button class="pagination-arrow next-page-btn" id="nextPage">
                                     <span class="material-symbols-outlined">chevron_right</span>
                                 </button>
                             </div>
@@ -303,68 +264,231 @@ $base_path = '../';
 
                 <!-- Right Column: Alerts & Upcoming -->
                 <div class="col-lg-4">
-                    <!-- Critical Alerts Panel -->
-                    <div class="alert-panel mb-4">
-                        <div class="d-flex align-items-center mb-4" style="gap: 1rem;">
-                            <span class="material-symbols-outlined text-danger" style="font-variation-settings: 'FILL' 1;">error</span>
-                            <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.9rem;">Critical Alerts</h5>
-                        </div>
-                        <div class="alert-item-card botanical-shadow-sm">
-                            <p class="text-danger font-weight-bold mb-1" style="font-size: 0.6rem; text-transform: uppercase;">Sudden Yield Drop</p>
-                            <p class="font-weight-bold mb-1" style="font-size: 0.75rem;">Cows in Pen 4 (JK-015, JK-016)</p>
-                            <p class="text-muted mb-0" style="font-size: 0.65rem;">Multiple animals showing 15% drop in morning yield. Possible environmental stress.</p>
-                        </div>
-                        <div class="alert-item-card botanical-shadow-sm">
-                            <p class="text-warning font-weight-bold mb-1" style="font-size: 0.6rem; text-transform: uppercase; color: #854d0e !important;">Heat Observation</p>
-                            <p class="font-weight-bold mb-1" style="font-size: 0.75rem;">Animal JK-022 (Pearl)</p>
-                            <p class="text-muted mb-0" style="font-size: 0.65rem;">Activity sensors indicate peak estrus cycle. Schedule insemination.</p>
-                        </div>
-                    </div>
 
                     <!-- Upcoming Panel -->
                     <div class="upcoming-card botanical-shadow">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.9rem;">Upcoming</h5>
+                            <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.9rem;">Upcoming Follow-ups</h5>
                             <span class="material-symbols-outlined text-muted" style="font-size: 1.1rem;">notifications_active</span>
                         </div>
-                        <div class="space-y-4">
-                            <!-- Vaccination -->
-                            <div class="d-flex align-items-start gap-4 pb-3 border-bottom mb-3">
-                                <div class="calendar-date-box date-box-active">
-                                    <span class="d-block font-weight-bold" style="font-size: 0.55rem; text-transform: uppercase;">Oct</span>
-                                    <span class="d-block font-weight-black" style="font-size: 1.1rem;">19</span>
+                        <div id="upcomingFollowupsContainer" class="space-y-4">
+                            <div class="text-center py-4 text-muted small">Loading follow-ups...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Vaccinations Tab -->
+            <div id="tabContent-vaccinations" class="tab-pane-content mt-3" style="display: none;">
+                <!-- Vaccination Summary Grid -->
+                <div class="health-header-grid">
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-success p-2 rounded-lg" style="background-color: rgba(32, 98, 35, 0.1);">shield_with_heart</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Prevention</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Herd Immunity</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="herdImmunityCount">95.4%</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-primary p-2 rounded-lg" style="background-color: rgba(32, 98, 35, 0.1);">task_alt</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Activity</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Completed (Month)</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="vaccinesCompletedMonth">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        </div>
+                    </div>
+
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-danger p-2 rounded-lg" style="background-color: rgba(186, 26, 26, 0.1);">history_toggle_off</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Compliance</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Overdue</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="vaccinesOverdueCount">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        </div>
+                    </div>
+
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-warning p-2 rounded-lg" style="background-color: rgba(255, 193, 7, 0.1);">event_upcoming</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Planning</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Next Batch</p>
+                            <h3 class="font-headline font-weight-bold mb-0" id="nextVaccineBatchDate" style="font-size: 1.35rem; color: #206223;">None</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="health-table-card botanical-shadow mb-4">
+                            <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
+                                <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.85rem;">Vaccination History</h5>
+                                <button class="btn btn-success d-flex align-items-center btn-sm px-3 btn-add-table" id="btnOpenVaccinationModal">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem;">add</span>
+                                    Add New
+                                </button>
+                            </div>
+
+                            <!-- Vaccination Filters -->
+                            <div class="table-controls p-3 mt-1 border-bottom d-flex flex-wrap align-items-center" style="gap: 1rem; background-color: rgba(244, 244, 239, 0.3);">
+                                <div class="filter-item">
+                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="vaccineAnimalFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
+                                        <option value="">All Animals</option>
+                                    </select>
                                 </div>
-                                <div class="pl-2">
-                                    <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">FMD & LSD Vaccination</p>
-                                    <p class="text-muted mb-0" style="font-size: 0.65rem;">Herd B - 42 Animals</p>
+                                <div class="filter-item">
+                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="vaccineTypeFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
+                                        <option value="">All Vaccines</option>
+                                    </select>
+                                </div>
+                                <div class="filter-item ml-md-auto">
+                                    <div class="position-relative">
+                                        <span class="material-symbols-outlined position-absolute text-muted" style="left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.1rem;">search</span>
+                                        <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="vaccineSearch" placeholder="Search..." style="border-radius: 0.5rem; height: 36px; padding-left: 35px; font-size: 0.75rem; width: 220px; background-color: white;">
+                                    </div>
                                 </div>
                             </div>
-                            <!-- Deworming -->
-                            <div class="d-flex align-items-start gap-4 pb-3 border-bottom mb-3">
-                                <div class="calendar-date-box date-box-muted">
-                                    <span class="d-block font-weight-bold" style="font-size: 0.55rem; text-transform: uppercase;">Oct</span>
-                                    <span class="d-block font-weight-black" style="font-size: 1.1rem;">22</span>
-                                </div>
-                                <div class="pl-2">
-                                    <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">Deworming Schedule</p>
-                                    <p class="text-muted mb-0" style="font-size: 0.65rem;">Calves Group - 18 Animals</p>
-                                </div>
+
+                            <div class="p-0 table-responsive">
+                                <table class="table health-table mb-0" id="vaccinationsDataTable">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
-                            <!-- Vet Visit -->
-                            <div class="d-flex align-items-start gap-4">
-                                <div class="calendar-date-box date-box-muted">
-                                    <span class="d-block font-weight-bold" style="font-size: 0.55rem; text-transform: uppercase;">Oct</span>
-                                    <span class="d-block font-weight-black" style="font-size: 1.1rem;">28</span>
-                                </div>
-                                <div class="pl-2">
-                                    <p class="font-weight-bold mb-0" style="font-size: 0.75rem;">Annual Vet Inspection</p>
-                                    <p class="text-muted mb-0" style="font-size: 0.65rem;">Full Site Review - Dr. Miller</p>
+                            <!-- Custom Pagination -->
+                            <div class="d-flex justify-content-between align-items-center p-4 border-top">
+                                <div id="vaccinationsPageInfo" class="text-muted small page-info-display">Page 1 of 1</div>
+                                <div class="custom-pagination d-flex pagination-container" id="vaccinationsPagination" style="gap: 0.75rem;">
+                                    <button class="pagination-arrow prev-page-btn" id="vaccinationsPrevPage">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <div class="d-flex number-buttons-container" id="vaccinationsNumberButtons" style="gap: 0.5rem;"></div>
+                                    <button class="pagination-arrow next-page-btn" id="vaccinationsNextPage">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <button onclick="window.location.href='schedules_overview.php'" class="btn btn-outline-success w-100 my-4 font-weight-bold" style="border-radius: 0.5rem; font-size: 0.85rem; border-color: rgba(32, 98, 35, 0.2); color: #206223;">
-                            Manage Schedule
-                        </button>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- Upcoming Vaccinations Panel -->
+                        <div class="upcoming-card botanical-shadow">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.9rem;">Upcoming Vaccinations</h5>
+                                <span class="material-symbols-outlined text-muted" style="font-size: 1.1rem;">notifications_active</span>
+                            </div>
+                            <div id="upcomingVaccinationsContainer" class="space-y-4">
+                                <div class="text-center py-4 text-muted small">Loading vaccinations...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deworming Tab Content -->
+            <div id="tabContent-deworming" class="tab-pane-content mt-3" style="display: none;">
+                <!-- Deworming Summary Cards -->
+                <div class="health-header-grid mb-4">
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-success p-2 rounded-lg" style="background-color: rgba(32, 98, 35, 0.1);">health_and_safety</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Protection</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Herd Coverage</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="dewormingCoverageCount">0%</h3>
+                        </div>
+                    </div>
+
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-info p-2 rounded-lg" style="background-color: rgba(30, 136, 229, 0.1);">task_alt</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Activity</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Completed (Month)</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="dewormingCompletedMonth">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        </div>
+                    </div>
+
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-danger p-2 rounded-lg" style="background-color: rgba(186, 26, 26, 0.1);">history_toggle_off</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Compliance</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Overdue</p>
+                            <h3 class="font-headline font-weight-bold mb-0" style="font-size: 1.5rem;" id="dewormingOverdueCount">0 <small class="text-muted" style="font-size: 0.8rem;">animals</small></h3>
+                        </div>
+                    </div>
+
+                    <div class="health-stat-card botanical-shadow">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="material-symbols-outlined text-warning p-2 rounded-lg" style="background-color: rgba(255, 193, 7, 0.1);">event_upcoming</span>
+                            <span class="text-muted font-weight-bold" style="font-size: 0.6rem; letter-spacing: 0.05rem; text-transform: uppercase;">Planning</span>
+                        </div>
+                        <div>
+                            <p class="text-muted mb-1" style="font-size: 0.75rem;">Next Batch</p>
+                            <h3 class="font-headline font-weight-bold mb-0" id="nextDewormingBatchDate" style="font-size: 1.35rem; color: #206223;">None</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="health-table-card botanical-shadow mb-4">
+                            <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
+                                <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.85rem;">Deworming History</h5>
+                                <button class="btn btn-success d-flex align-items-center btn-sm px-3 btn-add-table" id="btnOpenDewormingModal">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem;">add</span>
+                                    Add New
+                                </button>
+                            </div>
+
+                            <div class="p-0 table-responsive">
+                                <table class="table health-table mb-0" id="dewormingDataTable">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <!-- Custom Pagination -->
+                            <div class="d-flex justify-content-between align-items-center p-4 border-top">
+                                <div id="dewormingPageInfo" class="text-muted small page-info-display">Page 1 of 1</div>
+                                <div class="custom-pagination d-flex pagination-container" id="dewormingPagination" style="gap: 0.75rem;">
+                                    <button class="pagination-arrow prev-page-btn" id="dewormingPrevPage">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <div class="d-flex number-buttons-container" id="dewormingNumberButtons" style="gap: 0.5rem;"></div>
+                                    <button class="pagination-arrow next-page-btn" id="dewormingNextPage">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- Upcoming Deworming Panel -->
+                        <div class="upcoming-card botanical-shadow">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="font-headline font-weight-bold mb-0" style="font-size: 0.9rem;">Upcoming Deworming</h5>
+                                <span class="material-symbols-outlined text-muted" style="font-size: 1.1rem;">notifications_active</span>
+                            </div>
+                            <div id="upcomingDewormingContainer" class="space-y-4">
+                                <div class="text-center py-4 text-muted small">Loading deworming schedules...</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -392,12 +516,13 @@ $base_path = '../';
 
             <!-- Right Panel: Form Content -->
             <div class="modal-form-area">
-                <div class="d-none d-md-flex justify-content-between align-items-start mb-4">
+                <div class="d-flex justify-content-between align-items-start mb-3 mb-md-4">
                     <div>
-                        <h3 style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--secondary); margin-bottom: 0.25rem;">Health Log Details</h3>
-                        <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 0;">Please provide clinical details for this entry.</p>
+                        <h2 class="d-md-none font-headline font-weight-bold mb-1" style="font-size: 1.05rem; color: var(--primary);">New Health Record</h2>
+                        <h3 class="d-none d-md-block" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--secondary); margin-bottom: 0.25rem;">Health Log Details</h3>
+                        <p class="text-muted" style="font-size: 0.725rem; margin-bottom: 0;">Please provide clinical details for this entry.</p>
                     </div>
-                    <button type="button" class="btn-close-modal" id="closeHealthModal" style="background: none; border: none; padding: 0.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; margin-top: -0.75rem;">
+                    <button type="button" class="btn-close-modal" id="closeHealthModal" style="background: none; border: none; padding: 0.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; margin-top: -0.5rem;">
                         <span class="material-symbols-outlined text-muted" style="font-size: 1.25rem;">close</span>
                     </button>
                 </div>
@@ -518,8 +643,8 @@ $base_path = '../';
 
                     <!-- Footer Actions -->
                     <div class="pt-4 border-top d-flex gap-3 justify-content-end">
-                        <button type="button" class="btn" id="cancelHealthModal" style="border-radius: 0.5rem; font-weight: 500; font-size: 0.75rem; height: 40px; color: #64748b; border: 1px solid #e2e8f0; width: 120px;">Cancel</button>
-                        <button type="submit" class="btn btn-success" id="btnSaveHealthRecord" style="border-radius: 0.5rem; font-weight: 400; font-size: 0.75rem; height: 40px; background-color: var(--primary); border: none; box-shadow: 0 4px 12px rgba(32, 98, 35, 0.15); width: 160px; margin-left: 0.75rem;">Save Record</button>
+                        <button type="button" class="btn modal-action-btn" id="cancelHealthModal" style="border-radius: 0.5rem; font-weight: 500; font-size: 0.75rem; height: 40px; color: #64748b; border: 1px solid #e2e8f0; width: 120px;">Cancel</button>
+                        <button type="submit" class="btn btn-success modal-action-btn" id="btnSaveHealthRecord" style="border-radius: 0.5rem; font-weight: 400; font-size: 0.75rem; height: 40px; background-color: var(--primary); border: none; box-shadow: 0 4px 12px rgba(32, 98, 35, 0.15); width: 160px; margin-left: 0.75rem;">Save Record</button>
                     </div>
                 </form>
             </div>
@@ -639,10 +764,19 @@ $base_path = '../';
                                 <input type="text" name="batch_no" id="rv_batch" class="form-control v-form-control" placeholder="e.g. BN-2024-X1" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
                             </div>
 
-                            <!-- Dosage -->
-                            <div class="col-12 mb-4">
+                            <!-- Dosage and Disease -->
+                            <div class="col-md-6 mb-4">
                                 <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Dosage (per animal)</label>
                                 <input type="text" name="dosage" id="rv_dosage" class="form-control v-form-control" placeholder="e.g. 2ml" style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto;">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label class="font-label text-muted d-block mb-2" style="font-size: 0.85rem; font-weight: 500;">Vaccinated Against (Disease)</label>
+                                <div class="v-input-wrapper">
+                                    <select name="vaccine_disease" id="rv_diseaseid" class="form-control v-form-control" required style="background-color: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 0.85rem 1rem; height: auto; appearance: none;">
+                                        <option value="">Select condition...</option>
+                                    </select>
+                                    <span class="material-symbols-outlined" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none;">expand_more</span>
+                                </div>
                             </div>
                         </div>
 
@@ -664,10 +798,10 @@ $base_path = '../';
 
                         <!-- Footer -->
                         <div class="d-flex justify-content-end align-items-center mt-5 gap-4">
-                            <button type="button" class="btn btn-outline-secondary close-modal-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
+                            <button type="button" class="btn btn-outline-secondary close-modal-btn modal-action-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-success v-btn-save shadow-sm" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #166534; border: none; font-size: 0.85rem; margin-left: 1rem;">
+                            <button type="submit" class="btn btn-success v-btn-save shadow-sm modal-action-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #166534; border: none; font-size: 0.85rem; margin-left: 1rem;">
                                 Save Vaccination
                             </button>
                         </div>
@@ -730,6 +864,40 @@ $base_path = '../';
         #recordVaccinationModal .font-label,
         #recordDewormingModal .font-label {
             margin-bottom: 0.25rem !important; /* Reduced label gap */
+        }
+
+        /* Mobile View Adjustments for Vaccination/Deworming Modals */
+        @media (max-width: 768px) {
+            #recordVaccinationModal .v-modal-form-area,
+            #recordDewormingModal .v-modal-form-area {
+                padding: 1.5rem 1.25rem !important;
+            }
+            #recordVaccinationModal .v-modal-form-area h2,
+            #recordDewormingModal .v-modal-form-area h2 {
+                font-size: 1.15rem !important;
+            }
+            #recordVaccinationModal .v-modal-form-area p.text-muted,
+            #recordDewormingModal .v-modal-form-area p.text-muted {
+                font-size: 0.725rem !important;
+            }
+            #recordVaccinationModal .font-label,
+            #recordDewormingModal .font-label {
+                font-size: 0.75rem !important;
+                font-weight: 600 !important;
+            }
+            #recordVaccinationModal .v-form-control,
+            #recordDewormingModal .v-form-control {
+                font-size: 0.775rem !important;
+                padding: 0.65rem 0.85rem !important;
+            }
+            #recordVaccinationModal .v-input-wrapper span,
+            #recordDewormingModal .v-input-wrapper span {
+                font-size: 1rem !important;
+            }
+            #recordVaccinationModal .v-modal-badge-text,
+            #recordDewormingModal .v-modal-badge-text {
+                font-size: 0.55rem !important;
+            }
         }
     </style>
 
@@ -863,10 +1031,10 @@ $base_path = '../';
 
                         <!-- Footer -->
                         <div class="d-flex justify-content-end align-items-center mt-5 gap-4">
-                            <button type="button" class="btn btn-outline-secondary close-modal-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
+                            <button type="button" class="btn btn-outline-secondary close-modal-btn modal-action-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2rem; padding-right: 2rem; font-weight: 600; border: 1px solid #e2e8f0; color: #64748b; background: white; font-size: 0.85rem;">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-warning v-btn-save shadow-sm text-white" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #d97706; border: none; font-size: 0.85rem; margin-left: 1rem;">
+                            <button type="submit" class="btn btn-warning v-btn-save shadow-sm text-white modal-action-btn" style="height: 44px; border-radius: 0.75rem; padding-left: 2.5rem; padding-right: 2.5rem; font-weight: 600; background: #d97706; border: none; font-size: 0.85rem; margin-left: 1rem;">
                                 Save Deworming
                             </button>
                         </div>

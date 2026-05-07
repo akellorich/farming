@@ -1,8 +1,8 @@
 DELIMITER $$
 
 -- 2. SP to save multiple vaccination records (Batch Recording) and Mark Schedule Complete
-DROP PROCEDURE IF EXISTS `sp_record_bulk_vaccination`$$
-CREATE PROCEDURE `sp_record_bulk_vaccination`(
+DROP PROCEDURE IF EXISTS `sp_recordbulkvaccination`$$
+CREATE PROCEDURE `sp_recordbulkvaccination`(
     IN `$scheduleid` INT,
     IN `$animalids` JSON, -- Array of animal IDs
     IN `$vaccinationdate` DATE,
@@ -44,8 +44,8 @@ BEGIN
 END$$
 
 -- 3. SP to save multiple deworming records (Batch Recording) and Mark Schedule Complete
-DROP PROCEDURE IF EXISTS `sp_record_bulk_deworming`$$
-CREATE PROCEDURE `sp_record_bulk_deworming`(
+DROP PROCEDURE IF EXISTS `sp_recordbulkdeworming`$$
+CREATE PROCEDURE `sp_recordbulkdeworming`(
     IN `$scheduleid` INT,
     IN `$animalids` JSON,
     IN `$dewormingdate` DATE,

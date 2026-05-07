@@ -202,10 +202,12 @@ $base_path = '../';
                     <div class="modal-branding-gradient"></div>
                 </div>
                 <div class="modal-branding-content">
-                    <div class="modal-branding-icon-box">
-                        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1; font-size: 2rem;">add_circle</span>
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <div class="modal-branding-icon-box mb-0">
+                            <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1; font-size: 2rem;">add_circle</span>
+                        </div>
+                        <h2 class="font-headline font-weight-bold mb-0" style="font-size: 1.25rem;">Add New Animal</h2>
                     </div>
-                    <h2 class="font-headline font-weight-bold mb-2" style="font-size: 1.75rem;">Add New Animal</h2>
                     <p class="font-body text-white-50 small">Official Herd Registration for Management Tracking.</p>
                 </div>
             </div>
@@ -335,9 +337,37 @@ $base_path = '../';
                             <select class="form-control-custom" id="animal_source">
                                 <option value="Born on Farm">Born on Farm</option>
                                 <option value="Purchased">Purchased</option>
-                                <!-- <option value="Donation">Donation</option>
-                                <option value="Other">Other</option> -->
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section mb-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <label class="modal-section-label mb-0">Insurance Status</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="is_insured">
+                                <label class="custom-control-label" for="is_insured"></label>
+                            </div>
+                        </div>
+                        <div id="insurance_details_box" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="modal-section-label">Insurance Provider</label>
+                                        <select class="form-control-custom" id="insurance_company">
+                                            <option value="" selected disabled>Select Provider</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="modal-section-label">Insurance Valuation (Amount)</label>
+                                        <div class="position-relative">
+                                            <input type="number" step="0.01" class="form-control-custom" id="insurance_amount" placeholder="0.00">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -399,11 +429,27 @@ $base_path = '../';
         const priceField = $('#animal_price');
         const sourceSelect = $('#animal_source');
         const autoGenToggle = $('#auto_generate_tag');
+        const isInsuredToggle = $('#is_insured');
+        const insuranceCompanySelect = $('#insurance_company');
+        const insuranceAmountField = $('#insurance_amount');
+        const insuranceBox = $('#insurance_details_box');
 
         // Populate Select Fields
         getbreedsselect(breedSelect);
         getpensselect(penSelect);
         getanimals(motherSelect);
+        getinsurancecompaniesselect(insuranceCompanySelect);
+
+        // Insurance Toggle Logic
+        isInsuredToggle.on('change', function() {
+            if ($(this).is(':checked')) {
+                insuranceBox.slideDown();
+            } else {
+                insuranceBox.slideUp();
+                insuranceCompanySelect.val('');
+                insuranceAmountField.val('');
+            }
+        });
 
         function updatePagination(table) {
             const info = table.page.info();
@@ -577,7 +623,7 @@ $base_path = '../';
             $('body').addClass('modal-open');
         });
 
-        $('#closeModal, #discardModal, .modal-backdrop-blur').on('click', function() {
+        $('#closeModal, #discardModal').on('click', function() {
             modal.removeClass('show');
             $('body').removeClass('modal-open');
         });
@@ -652,7 +698,10 @@ $base_path = '../';
                     registrationsource: registrationsource,
                     purchaseprice: purchaseprice,
                     status: status,
-                    autogen: autogen
+                    autogen: autogen,
+                    is_insured: isInsuredToggle.is(':checked') ? 1 : 0,
+                    insurance_company_id: insuranceCompanySelect.val(),
+                    insuranceamount: insuranceAmountField.val() || 0.00
                 },
                 success: function(response) {
                     const res = JSON.parse(response);

@@ -22,9 +22,231 @@ $(document).ready(function() {
     loadRecentEmailLogs();
     getbreeds(breedsBody);
     getpens(pensBody);
+    getFeedMixes();
+    getInsuranceCompanies();
 
-    // Feed Mix Chart Instance
+    // --- Leaflet Map Initialization ---
+    function initBusinessMap() {
+        const mapContainer = document.getElementById('businessMap');
+        if (!mapContainer) return;
+
+        // Initialize map centered on Nakuru (based on previous Google Map)
+        const nakuruCoords = [-0.3031, 36.0613];
+        const map = L.map('businessMap', {
+            center: nakuruCoords,
+            zoom: 13,
+            scrollWheelZoom: false
+        });
+
+        // Add premium grayscale tiles (CartoDB Positron)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Add the business pin
+        const businessMarker = L.marker(nakuruCoords).addTo(map);
+        businessMarker.bindPopup("<b>Jukam Dairy HQ</b><br>Official Business Premises").openPopup();
+
+        // Fix for Leaflet maps in hidden tabs/containers
+        setTimeout(() => { map.invalidateSize(); }, 500);
+    }
+
+    initBusinessMap();
+
+    // Feed Mix State Management
     let feedMixChart = null;
+    let allFeedMixes = [];
+    let currentFeedMixPage = 1;
+    const feedMixPageSize = 5;
+
+    function loadFeedMixStats() {
+        $.getJSON("../controllers/feedmixoperations.php?action=getfeedmixstats", function(response) {
+            if (response && response.length > 0) {
+                const stats = response[0];
+                $("#totalFormulationsCount").text(stats.total_formulations);
+                $("#activeBatchesCount").text(stats.active_batches);
+                $("#mostUsedIngredientName").text(stats.most_used_ingredient);
+                $("#feedStockStatus").text(stats.avg_stock_status + "%");
+            }
+        });
+    }
+
+    function getFeedMixes() {
+        loadFeedMixStats(); // Also update stats when reloading list
+        const feedMixBody = $("#feedMixBody");
+        feedMixBody.html(`
+            <tr>
+                <td colspan="5" class="text-center py-5">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </td>
+            </tr>
+        `);
+
+        $.getJSON("../controllers/feedmixoperations.php?action=getfeedmixes", function(response) {
+            allFeedMixes = response || [];
+            renderFeedMixTable();
+        }).fail(function() {
+            feedMixBody.html('<tr><td colspan="5" class="text-center py-4 text-danger">Failed to load formulations</td></tr>');
+        });
+    }
+
+    function renderFeedMixTable() {
+        const feedMixBody = $("#feedMixBody");
+        const paginationContainer = $("#feedMixPagination");
+        feedMixBody.empty();
+
+        if (allFeedMixes.length === 0) {
+            feedMixBody.append('<tr><td colspan="5" class="text-center py-4 text-muted">No formulations found</td></tr>');
+            paginationContainer.empty();
+            return;
+        }
+
+        const startIndex = (currentFeedMixPage - 1) * feedMixPageSize;
+        const endIndex = Math.min(startIndex + feedMixPageSize, allFeedMixes.length);
+        const paginatedData = allFeedMixes.slice(startIndex, endIndex);
+
+        paginatedData.forEach(mix => {
+            feedMixBody.append(`
+                <tr class="border-bottom hover-row" data-id="${mix.id}">
+                    <td class="py-3 pl-4">
+                        <span class="font-weight-bold d-block" style="color: var(--on-surface); font-size: 12px;">${mix.feedname}</span>
+                        <span class="d-none d-md-inline text-muted" style="font-size: 10px;">${mix.feedcode}</span>
+                    </td>
+                    <td class="py-3 align-middle d-none d-md-table-cell text-muted" style="font-size: 12px;">${mix.primary_ingredient || 'Compound'}</td>
+                    <td class="py-3 align-middle font-weight-bold" style="color: var(--on-surface); font-size: 12px;">${mix.totalweight} KG</td>
+                    <td class="py-3 align-middle d-none d-lg-table-cell text-muted" style="font-size: 11px;">${formatDate(mix.mixdate)}</td>
+                    <td class="py-3 pr-4 align-middle text-center">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-light rounded-circle p-1 border-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 32px; height: 32px; background: #f4f4ef;">
+                                <span class="material-symbols-outlined" style="font-size: 18px; color: var(--on-surface-variant);">more_vert</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg py-2" style="border-radius: 12px; min-width: 160px;">
+                                <a class="dropdown-item d-flex align-items-center py-2 record-feed-mix" href="#" data-id="${mix.id}" style="gap: 10px;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px; color: var(--primary);">blender</span>
+                                    <span style="font-size: 13px; font-weight: 500;">Record Batch</span>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center py-2 edit-feed-mix" href="#" data-id="${mix.id}" style="gap: 10px;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px; color: var(--secondary);">edit_note</span>
+                                    <span style="font-size: 13px; font-weight: 500;">Edit Formulation</span>
+                                </a>
+                                <div class="dropdown-divider mx-2"></div>
+                                <a class="dropdown-item d-flex align-items-center py-2 delete-feed-mix" href="#" data-id="${mix.id}" style="gap: 10px; color: var(--error);">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">delete_sweep</span>
+                                    <span style="font-size: 13px; font-weight: 500;">Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `);
+        });
+
+        renderPagination(allFeedMixes.length, feedMixPageSize, currentFeedMixPage, paginationContainer, function(page) {
+            currentFeedMixPage = page;
+            renderFeedMixTable();
+        });
+    }
+
+    function renderFeedMixBreakdown(id, name, totalWeight) {
+        const title = $("#feedMixBreakdownTitle");
+        const content = $("#feedMixBreakdownContent");
+        
+        title.text("Breakdown: " + name);
+        content.html(`
+            <div class="text-center py-5">
+                <div class="spinner-border spinner-border-sm text-success" role="status"></div>
+            </div>
+        `);
+
+        $.getJSON("../controllers/feedmixoperations.php?action=getfeedmixdetails&id=" + id, function(response) {
+            content.empty();
+            if (response && response.length > 0) {
+                const colors = ['var(--primary)', 'var(--secondary)', 'var(--tertiary)', 'var(--secondary-container)', 'var(--primary-fixed)', 'var(--outline)'];
+                
+                response.forEach((item, index) => {
+                    const percentage = totalWeight > 0 ? ((item.quantity / totalWeight) * 100).toFixed(1) : 0;
+                    const color = colors[index % colors.length];
+                    
+                    content.append(`
+                        <div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="font-weight-bold" style="font-size: 11px; color: var(--on-surface);">${item.itemname}</span>
+                                <span class="font-weight-bold" style="font-size: 11px; color: var(--on-surface-variant);">${percentage}%</span>
+                            </div>
+                            <div class="progress" style="height: 6px; background-color: #f4f4ef; border-radius: 10px; overflow: hidden;">
+                                <div class="progress-bar" role="progressbar" style="width: ${percentage}%; background-color: ${color}; border-radius: 10px;" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-end mt-1">
+                                <span style="font-size: 9px; color: var(--on-surface-variant); opacity: 0.7;">${item.quantity} ${item.uom || 'KG'}</span>
+                            </div>
+                        </div>
+                    `);
+                });
+            } else {
+                content.html('<div class="text-center py-4 text-muted small">No composition details found</div>');
+            }
+        });
+    }
+
+    // Row Click Listener for Feed Mix Table
+    $(document).on("click", "#feedMixBody tr.hover-row", function(e) {
+        // Prevent click if clicking on dropdown or buttons
+        if ($(e.target).closest('.dropdown, .dropdown-menu, button').length) return;
+        
+        const row = $(this);
+        const id = row.data("id");
+        const name = row.find('td:first span:first').text();
+        const weightStr = row.find('td:nth-child(3)').text().replace(' KG', '');
+        const totalWeight = parseFloat(weightStr);
+        
+        // Highlight row
+        $("#feedMixBody tr").removeClass("active-row").css("background-color", "transparent");
+        row.addClass("active-row").css("background-color", "rgba(32, 98, 35, 0.05)");
+        
+        renderFeedMixBreakdown(id, name, totalWeight);
+    });
+
+    function renderPagination(totalItems, pageSize, currentPage, container, onPageChange) {
+        container.empty();
+        const totalPages = Math.ceil(totalItems / pageSize);
+        if (totalPages <= 1) return;
+
+        const nav = $('<nav aria-label="Page navigation"></nav>');
+        const ul = $('<ul class="pagination pagination-sm mb-0" style="gap: 5px;"></ul>');
+
+        // Previous
+        const prevLi = $(`<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link rounded-circle border-0" href="#" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: #f4f4ef;"><span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span></a></li>`);
+        prevLi.on('click', function(e) {
+            e.preventDefault();
+            if (currentPage > 1) onPageChange(currentPage - 1);
+        });
+        ul.append(prevLi);
+
+        // Pages
+        for (let i = 1; i <= totalPages; i++) {
+            const li = $(`<li class="page-item ${i === currentPage ? 'active' : ''}"><a class="page-link rounded-circle border-0" href="#" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; ${i === currentPage ? 'background: var(--primary); color: white;' : 'background: #f4f4ef; color: var(--on-surface-variant);'}">${i}</a></li>`);
+            li.on('click', function(e) {
+                e.preventDefault();
+                onPageChange(i);
+            });
+            ul.append(li);
+        }
+
+        // Next
+        const nextLi = $(`<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link rounded-circle border-0" href="#" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: #f4f4ef;"><span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span></a></li>`);
+        nextLi.on('click', function(e) {
+            e.preventDefault();
+            if (currentPage < totalPages) onPageChange(currentPage + 1);
+        });
+        ul.append(nextLi);
+
+        nav.append(ul);
+        container.append(nav);
+    }
 
     // ... (rest of the existing logic remains)
     
@@ -87,13 +309,14 @@ $(document).ready(function() {
                 const data = response[0];
                 $("#companyname").val(data.companyname);
                 $("#taxregno").val(data.taxregno);
-                $("#incorporationdate").val(data.incorporationdate);
+                $("#incorporationdate").val(data.incorporationdate ? formatDate(data.incorporationdate) : '');
                 $("#emailaddress").val(data.emailaddress);
                 $("#physicaladdress").val(data.physicaladdress);
                 $("#postaladdress").val(data.postaladdress);
                 $("#mobileno").val(data.mobileno);
                 if (data.logopath) {
-                    logoPreview.attr("src", "../images/" + data.logopath);
+                    const fullPath = data.logopath.startsWith('images/') ? "../" + data.logopath : "../images/" + data.logopath;
+                    logoPreview.attr("src", fullPath);
                 }
             }
         });
@@ -125,9 +348,6 @@ $(document).ready(function() {
         });
     });
 
-    $("#discardCompanyChanges").on("click", function() {
-        loadCompanyDetails();
-    });
 
     // Logo Preview & Auto-Upload (optional, or just use the form submit)
     logoInput.on("change", function() {
@@ -909,6 +1129,165 @@ $(document).ready(function() {
     $(document).on('focus', '#addFeedMixModal .form-control, #addFeedMixModal select', function() {
         $(this).css('border', 'none');
         $(this).closest('.feed-component-row').css('background-color', 'transparent');
+    });
+
+    // --- Insurance Management Logic ---
+    function getInsuranceCompanies() {
+        const body = $("#insuranceBody");
+        body.html('<tr><td colspan="5" class="text-center py-4"><div class="spinner-border spinner-border-sm text-success"></div></td></tr>');
+
+        $.getJSON("../controllers/insuranceoperations.php?action=getinsurancecompanies", function(response) {
+            body.empty();
+            if (response && response.length > 0) {
+                response.forEach(company => {
+                    body.append(`
+                        <tr class="border-bottom hover-row">
+                            <td class="py-3 pl-0">
+                                <span class="font-weight-bold d-block" style="color: var(--on-surface); font-size: 13px;">${company.companyname}</span>
+                                <span class="text-muted" style="font-size: 11px;">${company.emailaddress || 'No email registered'}</span>
+                            </td>
+                            <td class="py-3 text-center text-muted" style="font-size: 12px;">${company.registrationno}</td>
+                            <td class="py-3 text-center font-weight-medium" style="font-size: 12px;">${company.contactperson}</td>
+                            <td class="py-3 text-center d-none d-lg-table-cell text-muted" style="font-size: 12px;">${company.contacts}</td>
+                            <td class="py-3 pr-0 text-right">
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-light rounded-circle p-1 border-0" type="button" data-toggle="dropdown" style="width: 32px; height: 32px; background: #f4f4ef;">
+                                        <span class="material-symbols-outlined" style="font-size: 18px; color: var(--on-surface-variant);">more_vert</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg py-2" style="border-radius: 12px; min-width: 150px;">
+                                        <a class="dropdown-item d-flex align-items-center py-2 edit-insurance" href="#" data-id="${company.id}" style="gap: 10px;">
+                                            <span class="material-symbols-outlined" style="font-size: 18px; color: var(--secondary);">edit_note</span>
+                                            <span style="font-size: 13px; font-weight: 500;">Edit Provider</span>
+                                        </a>
+                                        <div class="dropdown-divider mx-2"></div>
+                                        <a class="dropdown-item d-flex align-items-center py-2 delete-insurance" href="#" data-id="${company.id}" style="gap: 10px; color: var(--error);">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">delete_sweep</span>
+                                            <span style="font-size: 13px; font-weight: 500;">Remove</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
+                });
+            } else {
+                body.html('<tr><td colspan="5" class="text-center py-5 text-muted">No insurance providers registered.</td></tr>');
+            }
+        }).fail(() => {
+            body.html('<tr><td colspan="5" class="text-center py-4 text-danger">Failed to load insurance data.</td></tr>');
+        });
+    }
+
+    $("#saveInsuranceBtn").on("click", function() {
+        const btn = $(this);
+        const alertDiv = $("#insurance-modal-alert");
+        const id = $("#insuranceId").val();
+        const companyName = $("#insCompanyName").val().trim();
+        const regNo = $("#insRegNo").val().trim();
+        const contactPerson = $("#insContactPerson").val().trim();
+        const contacts = $("#insContacts").val().trim();
+        const email = $("#insEmail").val().trim();
+        const address = $("#insAddress").val().trim();
+
+        alertDiv.hide().empty();
+
+        if (!companyName) {
+            alertDiv.html(showAlert("info", "Company Name is required.", 1)).fadeIn();
+            $("#insCompanyName").focus();
+            return;
+        }
+        if (!regNo) {
+            alertDiv.html(showAlert("info", "Registration Number is required.", 1)).fadeIn();
+            $("#insRegNo").focus();
+            return;
+        }
+
+        const originalBtnText = btn.html();
+        btn.prop("disabled", true).html('<span class="spinner-border spinner-border-sm mr-2"></span> Saving...');
+
+        $.ajax({
+            url: "../controllers/insuranceoperations.php",
+            type: "POST",
+            data: {
+                action: "saveinsurancecompany",
+                id: id,
+                registrationno: regNo,
+                companyname: companyName,
+                contacts: contacts,
+                contactperson: contactPerson,
+                emailaddress: email,
+                physicaladdress: address
+            },
+            success: function(response) {
+                btn.prop("disabled", false).html(originalBtnText);
+                try {
+                    const res = JSON.parse(response);
+                    if (res.status === "success") {
+                        showAlert("success", res.message);
+                        getInsuranceCompanies();
+                        $("#addInsuranceModal").modal("hide");
+                        $("#insuranceForm")[0].reset();
+                        $("#insuranceId").val(0);
+                    } else {
+                        alertDiv.html(showAlert("danger", "Error: " + res.message, 1)).fadeIn();
+                    }
+                } catch(e) {
+                    alertDiv.html(showAlert("danger", "Unexpected response from server.", 1)).fadeIn();
+                }
+            },
+            error: function() {
+                btn.prop("disabled", false).html(originalBtnText);
+                alertDiv.html(showAlert("danger", "Network error. Please try again.", 1)).fadeIn();
+            }
+        });
+    });
+
+    $(document).on("click", ".edit-insurance", function(e) {
+        e.preventDefault();
+        const id = $(this).data("id");
+        
+        $.getJSON(`../controllers/insuranceoperations.php?action=getinsurancecompany&id=${id}`, function(response) {
+            if (response) {
+                $("#insuranceId").val(response.id);
+                $("#insCompanyName").val(response.companyname);
+                $("#insRegNo").val(response.registrationno);
+                $("#insContactPerson").val(response.contactperson);
+                $("#insContacts").val(response.contacts);
+                $("#insEmail").val(response.emailaddress);
+                $("#insAddress").val(response.physicaladdress);
+                
+                $("#insuranceModalTitle").text("Edit Insurance Provider");
+                $("#addInsuranceModal").modal("show");
+            }
+        });
+    });
+
+    $(document).on("click", ".delete-insurance", function(e) {
+        e.preventDefault();
+        const id = $(this).data("id");
+        
+        if (confirm("Are you sure you want to remove this insurance provider? This action cannot be undone.")) {
+            $.post("../controllers/insuranceoperations.php", { action: "deleteinsurancecompany", id: id }, function(response) {
+                try {
+                    const res = JSON.parse(response);
+                    if (res.status === "success") {
+                        showAlert("success", res.message);
+                        getInsuranceCompanies();
+                    } else {
+                        showAlert("danger", "Error: " + res.message);
+                    }
+                } catch(e) {
+                    showAlert("danger", "Unexpected response from server.");
+                }
+            });
+        }
+    });
+
+    $("#addInsuranceModal").on("hidden.bs.modal", function() {
+        $("#insuranceForm")[0].reset();
+        $("#insuranceId").val(0);
+        $("#insuranceModalTitle").text("Add Insurance Provider");
+        $("#insurance-modal-alert").hide().empty();
     });
 
 });

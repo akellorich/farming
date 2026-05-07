@@ -9,7 +9,7 @@ class animal extends db {
         return $this->getData($sql)->rowCount();
     }
 
-    public function saveAnimal($id, $tagid, $designatedname, $breedid, $penid, $damid, $birthdate, $initialweight, $registrationsource, $purchaseprice, $status, $autogen = 0) {
+    public function saveAnimal($id, $tagid, $designatedname, $breedid, $penid, $damid, $birthdate, $initialweight, $registrationsource, $purchaseprice, $status, $autogen = 0, $is_insured = 0, $insurance_company_id = null, $insuranceamount = 0.00) {
         if ($autogen == 0 && $this->checkAnimal($id, 'tagid', $tagid)) {
             return ["status" => "exists", "message" => "Animal Tag ID already exists"];
         }
@@ -27,8 +27,11 @@ class animal extends db {
         $damid = empty($damid) ? 'NULL' : $damid;
         $initialweight = empty($initialweight) ? 0.00 : $initialweight;
         $purchaseprice = empty($purchaseprice) ? 0.00 : $purchaseprice;
+        $insurance_company_id = empty($insurance_company_id) ? 'NULL' : $insurance_company_id;
+        $is_insured = empty($is_insured) ? 0 : $is_insured;
+        $insuranceamount = empty($insuranceamount) ? 0.00 : $insuranceamount;
 
-        $sql = "CALL sp_saveanimal({$id}, '{$tagid}', '{$designatedname}', {$breedid}, {$penid}, {$damid}, '{$birthdate}', {$initialweight}, '{$registrationsource}', {$purchaseprice}, '{$status}', {$autogen}, {$this->userid}, '{$this->platform}')";
+        $sql = "CALL sp_saveanimal({$id}, '{$tagid}', '{$designatedname}', {$breedid}, {$penid}, {$damid}, '{$birthdate}', {$initialweight}, '{$registrationsource}', {$purchaseprice}, '{$status}', {$autogen}, {$is_insured}, {$insurance_company_id}, {$insuranceamount}, {$this->userid}, '{$this->platform}')";
 
         $rst = $this->getData($sql);
         do {
