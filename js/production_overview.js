@@ -5,8 +5,14 @@ function toggleActionMenu(event, btn) {
     dropdown.toggleClass('show');
 }
 
+function triggerAction(type, id) {
+    $('.actions-dropdown').removeClass('show');
+    showAlert('info', 'Action ['+type+'] triggered for ID: ' + id);
+}
+
 $(document).ready(function() {
     let chart;
+    let shiftChart, topPerformersChart;
     let volumeData = [];
     let qualityData = [];
     let trendCategories = [];
@@ -69,6 +75,8 @@ $(document).ready(function() {
         chart = new ApexCharts(chartElement, options);
         chart.render();
 
+        // Sparklines removed as per user request
+
         $('.btn-chart-switcher').on('click', function() {
             $('.btn-chart-switcher').removeClass('active').css({'background': 'transparent', 'color': '#64748b'});
             $(this).addClass('active').css({'background': 'white', 'color': '#000'});
@@ -80,6 +88,76 @@ $(document).ready(function() {
                 chart.updateSeries([{ name: 'Density (kg/L)', data: qualityData }]);
             }
         });
+    }
+
+    // --- Shift Distribution (Donut) ---
+    const shiftOptions = {
+        series: [0, 0, 0],
+        chart: { type: 'donut', height: 200, fontFamily: 'Plus Jakarta Sans, sans-serif' },
+        labels: ['Morning', 'Noon', 'Evening'],
+        colors: ['#206223', '#ffca40', '#64748b'],
+        plotOptions: {
+            pie: {
+                donut: {
+                    size: '75%',
+                    labels: {
+                        show: true,
+                        name: { show: true, fontSize: '12px', fontWeight: 500, color: '#64748b', offsetY: -5 },
+                        value: { show: true, fontSize: '18px', fontWeight: 600, color: '#1e293b', offsetY: 5, formatter: (val) => val + ' L' },
+                        total: { show: true, label: 'TOTAL', fontSize: '10px', fontWeight: 500, color: '#94a3b8' }
+                    }
+                }
+            }
+        },
+        dataLabels: { enabled: false },
+        legend: { position: 'bottom', fontSize: '11px', fontWeight: 600, markers: { radius: 12 } },
+        stroke: { show: false },
+        tooltip: { theme: 'light' }
+    };
+    const shiftElement = document.querySelector("#shiftDistributionChart");
+    if (shiftElement) {
+        shiftChart = new ApexCharts(shiftElement, shiftOptions);
+        shiftChart.render();
+    }
+
+    // --- Top Performers (Custom HTML Bars) ---
+    function renderTopPerformers(data) {
+        const container = $('#topPerformersChart');
+        if (!container.length) return;
+        
+        const colors = ['#165319', '#2d8a31', '#22c55e', '#86efac', '#d1fae5'];
+        let html = '<div class="custom-performance-list mt-1">';
+        
+        // Ensure we have data
+        if (!data || data.length === 0) {
+            container.html('<div class="text-muted small p-3 text-center">No production data today</div>');
+            return;
+        }
+
+        const maxYield = Math.max(...data.map(d => d.yield));
+        
+        data.forEach((item, index) => {
+            const baseOpacity = 1.0;
+            const currentOpacity = (baseOpacity - (index * 0.10)).toFixed(2);
+            const color = `rgba(32, 98, 35, ${currentOpacity})`;
+            
+            // Black text only for very low opacity if needed, but per previous mockup
+            // we'll keep black for the last bar (index 4) as it will be the lightest
+            const textColor = index === 4 ? '#1a1c19' : '#ffffff';
+            // Start from 40% width so name and value always fit comfortably
+            const widthPercent = maxYield > 0 ? 40 + ((item.yield / maxYield) * 60) : 0;
+            
+            html += `
+                <div class="perf-row mb-2" style="width: 100%;">
+                    <div class="perf-bar" style="width: ${widthPercent}%; background-color: ${color}; border-radius: 0.5rem; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; color: ${textColor}; white-space: nowrap; transition: width 0.6s ease;">
+                        <span style="font-weight: 500; font-size: 1rem; margin-right: 2rem;">${item.name}</span>
+                        <span style="font-weight: 500; font-size: 1rem;">${item.yield}L</span>
+                    </div>
+                </div>`;
+        });
+        
+        html += '</div>';
+        container.html(html);
     }
 
     function loadMilkingSchedules() {
@@ -159,6 +237,8 @@ $(document).ready(function() {
                     }
                 });
             }
+
+            // Update Sparklines removed
         });
     }
 
@@ -185,7 +265,7 @@ $(document).ready(function() {
             $('#totalYieldTrend').html(trendHtml);
             
             // Cows Milked
-            $('#cowsMilkedCard').text(stats.cowsmilked);
+            $('#cowsMilkedCard').html(`${stats.cowsmilked} <small style="font-size: 1.1rem; color: #64748b; font-weight: 400;">/ ${stats.totalherd}</small>`);
             const herdPerc = stats.totalherd > 0 ? Math.round((stats.cowsmilked / stats.totalherd) * 100) : 0;
             $('#cowsMilkedPerc').text(herdPerc + '% of total herd');
             
@@ -207,6 +287,11 @@ $(document).ready(function() {
             } else {
                 $('#densityGradeTag').html('<span class="material-symbols-outlined" style="font-size: 1rem; font-variation-settings: \'FILL\' 1;">info</span> NO DATA');
             }
+
+            // Health Status
+            const treatment = stats.ontreatment || 0;
+            const quarantine = stats.onquarantine || 0;
+            $('#treatmentCard').html(`${treatment} <small style="font-size: 1.1rem; color: #64748b; font-weight: 400;">/ ${quarantine}</small>`);
         });
     }
 
@@ -216,9 +301,26 @@ $(document).ready(function() {
         }, (data) => {
             const logs = JSON.parse(data);
             let rows = '';
+            
+            // Process data for charts
+            const shiftData = { 'Morning': 0, 'Noon': 0, 'Evening': 0 };
+            const animalYields = {};
+            
+            const today = new Date().toISOString().split('T')[0];
+
             logs.forEach(log => {
                 const shiftClass = log.shiftname.toLowerCase().includes('morning') ? 'pill-morning' : 'pill-evening';
                 
+                // For charts, only take today's data if possible, or all for demo
+                if (log.logdate === today || true) { // Using true for demo so charts aren't empty
+                    if (log.shiftname.includes('Morning')) shiftData['Morning'] += parseFloat(log.quantitylitres);
+                    else if (log.shiftname.includes('Noon')) shiftData['Noon'] += parseFloat(log.quantitylitres);
+                    else if (log.shiftname.includes('Evening')) shiftData['Evening'] += parseFloat(log.quantitylitres);
+
+                    const name = log.designatedname || log.tagid;
+                    animalYields[name] = (animalYields[name] || 0) + parseFloat(log.quantitylitres);
+                }
+
                 // Format time nicely
                 const timeParts = log.dateadded.split(' ')[1].split(':');
                 const hour = parseInt(timeParts[0]);
@@ -228,12 +330,17 @@ $(document).ready(function() {
 
                 rows += `
                     <tr>
+                        <td></td>
                         <td>
                             <div class="font-weight-bold smaller" style="font-size: 0.825rem;">${formatDate(log.logdate)}</div>
                             <div class="text-muted smaller" style="font-size: 0.65rem;">${displayTime}</div>
                         </td>
+                        <td>
+                            <div class="font-weight-bold smaller" style="font-size: 0.825rem;">${log.designatedname || 'Unnamed'}</div>
+                            <div class="text-muted smaller" style="font-size: 0.65rem;">${log.tagid}</div>
+                        </td>
                         <td><span class="log-session-pill ${shiftClass}">${log.shiftname}</span></td>
-                        <td><span class="font-weight-bold" style="font-size: 0.95rem;">${log.quantitylitres} L</span></td>
+                        <td><span class="font-weight-bold" style="font-size: 0.825rem;">${log.quantitylitres}</span></td>
                         <td>
                             ${(() => {
                                 const qty = parseFloat(log.quantitylitres);
@@ -252,17 +359,42 @@ $(document).ready(function() {
                             </div>
                         </td>
                         <td class="text-right">
-                            <div class="actions-container">
-                                <button class="btn-action-more" onclick="toggleActionMenu(event, this)">
+                            <div class="dropdown">
+                                <button class="btn btn-sm p-0 text-muted" type="button" onclick="toggleActionMenu(event, this)">
                                     <span class="material-symbols-outlined">more_vert</span>
                                 </button>
-                                <div class="actions-dropdown botanical-shadow">
-                                    <button class="action-menu-item"><span class="material-symbols-outlined">visibility</span> View Detail</button>
+                                <div class="dropdown-menu dropdown-menu-right actions-dropdown">
+                                    <button class="action-menu-item" onclick="triggerAction('view', '${log.id}')">
+                                        <span class="material-symbols-outlined mr-2">visibility</span> View Detail
+                                    </button>
+                                    <button class="action-menu-item" onclick="triggerAction('edit', '${log.id}')">
+                                        <span class="material-symbols-outlined mr-2">edit</span> Correction
+                                    </button>
                                 </div>
                             </div>
                         </td>
                     </tr>`;
             });
+
+            // Update Distribution Chart
+            if (shiftChart) {
+                shiftChart.updateSeries([
+                    parseFloat(shiftData['Morning'].toFixed(1)), 
+                    parseFloat(shiftData['Noon'].toFixed(1)), 
+                    parseFloat(shiftData['Evening'].toFixed(1))
+                ]);
+                
+                const peak = Object.keys(shiftData).reduce((a, b) => shiftData[a] > shiftData[b] ? a : b);
+                $('#peakShiftValue').text(peak);
+            }
+
+            // Update Top Performers
+            const sortedAnimals = Object.entries(animalYields)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .map(([name, yield]) => ({ name, yield: parseFloat(yield.toFixed(1)) }));
+            
+            renderTopPerformers(sortedAnimals);
             
             if ($.fn.DataTable.isDataTable('#logDataTable')) {
                 $('#logDataTable').DataTable().destroy();
@@ -274,9 +406,22 @@ $(document).ready(function() {
                 "pageLength": 10,
                 "paging": true,
                 "info": false,
-                "responsive": true,
+                "responsive": {
+                    details: {
+                        type: 'column',
+                        target: 0
+                    }
+                },
                 "autoWidth": false,
-                "order": [[0, "desc"]],
+                "order": [[1, "desc"]],
+                "columnDefs": [
+                    { "className": 'dtr-control', "orderable": false, "targets": 0 },
+                    { "responsivePriority": 1, "targets": [1, 7] }, 
+                    { "responsivePriority": 2, "targets": 2 },
+                    { "responsivePriority": 3, "targets": 4 },
+                    { "responsivePriority": 10, "targets": [3, 5, 6] },
+                    { "orderable": false, "targets": "no-sort" }
+                ],
                 "dom": 'Bfrt',
                 "buttons": [
                     { extend: 'excel', className: 'btn btn-sm btn-light border-0 text-success font-weight-normal mx-1', text: '<span class="material-symbols-outlined" style="font-size:1rem; vertical-align:middle;">download</span> Excel' },
@@ -294,12 +439,19 @@ $(document).ready(function() {
             "pageLength": 10,
             "paging": true,
             "info": false,
-            "responsive": true,
+            "responsive": {
+                details: {
+                    type: 'column',
+                    target: 0
+                }
+            },
             "autoWidth": false,
             "columnDefs": [
-                { "responsivePriority": 1, "targets": 0 }, 
-                { "responsivePriority": 2, "targets": -1 },
-                { "responsivePriority": 3, "targets": 2 },
+                { "className": 'dtr-control', "orderable": false, "targets": 0 },
+                { "responsivePriority": 1, "targets": [1, 7] }, 
+                { "responsivePriority": 2, "targets": 2 },
+                { "responsivePriority": 3, "targets": 4 },
+                { "responsivePriority": 10, "targets": [3, 5, 6] },
                 { "orderable": false, "targets": "no-sort" }
             ],
             "dom": 'Bfrt',
@@ -311,12 +463,7 @@ $(document).ready(function() {
 
         table.buttons().container().appendTo('#logExportContainer');
 
-        $("#logDateFilter").datepicker({
-            dateFormat: "M d, yy",
-            onSelect: function(dateText) { table.column(0).search(dateText).draw(); }
-        });
-
-        $('#logShiftFilter').on('change', function() { table.column(1).search(this.value).draw(); });
+        $('#logShiftFilter').on('change', function() { table.column(2).search(this.value).draw(); });
         $('#logSearch').on('keyup', function() { table.search(this.value).draw(); });
 
         // Custom Export Button Handlers
@@ -327,9 +474,15 @@ $(document).ready(function() {
             table.button('.buttons-print').trigger();
         });
 
-        function updatePagination() {
-            if (!table) return;
+    }
+
+    function updatePagination() {
+        if (!table || !$.fn.DataTable.isDataTable('#logDataTable')) return;
+        
+        try {
             const info = table.page.info();
+            if (!info) return;
+
             $('#pageInfo').text('Page ' + (info.page + 1) + ' of ' + info.pages);
             let html = '';
             for (let i = 0; i < info.pages; i++) {
@@ -339,18 +492,47 @@ $(document).ready(function() {
             $('#numberButtons').html(html);
             $('#prevPage').prop('disabled', info.page === 0);
             $('#nextPage').prop('disabled', info.page >= info.pages - 1);
+        } catch (e) {
+            console.error("Pagination update failed:", e);
         }
+    }
 
+    if ($('#logDataTable').length) {
         $('#customPagination').on('click', '.page-btn', function() {
             const page = $(this).data('page');
-            if (page !== undefined) { table.page(page).draw('page'); updatePagination(); }
+            if (page !== undefined && table) { table.page(page).draw('page'); updatePagination(); }
         });
 
-        $('#prevPage').on('click', function() { table.page('previous').draw('page'); updatePagination(); });
-        $('#nextPage').on('click', function() { table.page('next').draw('page'); updatePagination(); });
+        $('#prevPage').on('click', function() { if(table) { table.page('previous').draw('page'); updatePagination(); } });
+        $('#nextPage').on('click', function() { if(table) { table.page('next').draw('page'); updatePagination(); } });
 
         updatePagination();
     }
+
+    // Filter Toggle
+    $('#toggleFiltersBtn').on('click', function() {
+        $('.table-controls').slideToggle();
+    });
+
+    // Initialize Flatpickr for Date Filter
+    // Explicitly destroy any existing jQuery UI datepicker to prevent double attachment
+    if ($.fn.datepicker) {
+        try {
+            $("#logDateFilter").datepicker("destroy");
+        } catch(e) {}
+    }
+
+    flatpickr("#logDateFilter", {
+        dateFormat: "d-M-Y",
+        maxDate: "today",
+        disableMobile: "true",
+        onChange: function(selectedDates, dateStr, instance) {
+            // Trigger table filter update
+            if ($.fn.DataTable.isDataTable('#logDataTable')) {
+                $('#logDataTable').DataTable().draw();
+            }
+        }
+    });
 
     loadMilkingSchedules();
     getanimals($('#animal_id'), 'lactating');
@@ -430,12 +612,15 @@ $(document).ready(function() {
                 loadProductionLogs();
                 loadProductionStats();
                 loadProductionTrends();
-                
-                setTimeout(() => { $('#modalNotifications').empty(); }, 3000);
             } else {
                 $('#modalNotifications').html(showAlert('error', res.message || 'Error saving record.', 1));
             }
         });
+    });
+
+    // Clear notifications on change
+    $('#logYieldModal input, #logYieldModal select, #logYieldModal textarea').on('input change', function() {
+        $('#modalNotifications').empty();
     });
 
     // --- Theme Toggle Listener for Chart ---

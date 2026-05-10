@@ -23,6 +23,7 @@ $base_path = '../';
     <link rel="stylesheet" href="../css/schedules.css">
     <link rel="stylesheet" href="../css/alert.css">
     <link rel="stylesheet" href="../css/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <!-- DataTables Advanced Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
@@ -195,44 +196,57 @@ $base_path = '../';
                         </div>
                         
                         <!-- Table Filters -->
-                        <div class="table-controls p-3 mt-1 border-bottom d-flex flex-wrap align-items-center" style="gap: 1rem; background-color: rgba(244, 244, 239, 0.3);">
-                            <div class="filter-label mr-2">
-                                <span class="text-muted" style="font-size: 0.75rem; letter-spacing: 0.02rem;">Filter Options</span>
+                        <div class="table-controls p-3 mt-1 border-bottom" style="background-color: rgba(244, 244, 239, 0.3);">
+                            <!-- Filter Label (Visible on both mobile and desktop) -->
+                            <div class="mb-3 px-1">
+                                <span class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Filter Options</span>
                             </div>
-                            <div class="filter-item">
-                                <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="animalFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                    <option value="">All Animals</option>
-                                </select>
-                            </div>
-                            <div class="filter-item" id="conditionFilterWrapper">
-                                <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="conditionFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                    <option value="">All Conditions</option>
-                                </select>
-                            </div>
-                            <div class="filter-item">
-                                <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="dateRangeFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                    <option value="">All Dates</option>
-                                    <option value="today">Today</option>
-                                    <option value="7days">Past 7 Days</option>
-                                    <option value="30days">Past 30 Days</option>
-                                </select>
-                            </div>
-                            <div class="filter-item">
-                                <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="statusFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                    <option value="">All Statuses</option>
-                                    <option value="Recovering">Recovering</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </div>
-                            <div class="filter-item">
-                                <button class="btn btn-light d-flex align-items-center justify-content-center botanical-shadow-sm" id="refreshFilters" style="border-radius: 0.5rem; height: 36px; width: 36px; background-color: white; border: none;">
-                                    <i class="fa fa-sync-alt text-primary" style="font-size: 0.9rem;"></i>
-                                </button>
-                            </div>
-                            <div class="filter-item ml-md-auto">
-                                <div class="position-relative">
-                                    <span class="material-symbols-outlined position-absolute text-muted" style="left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.1rem;">search</span>
-                                    <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="healthSearch" placeholder="Search..." style="border-radius: 0.5rem; height: 36px; padding-left: 35px; font-size: 0.75rem; width: 220px; background-color: white;">
+                            
+                            <div class="row mx-n2 align-items-end">
+                                <!-- Filters and Search Row -->
+                                <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                    <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Animal</label>
+                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="animalFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                        <option value="">All Animals</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-md-auto px-2 mb-3 mb-md-0" id="conditionFilterWrapper">
+                                    <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Condition</label>
+                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="conditionFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                        <option value="">All Conditions</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                    <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Date Range</label>
+                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="dateRangeFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                        <option value="">All Dates</option>
+                                        <option value="today">Today</option>
+                                        <option value="7days">Past 7 Days</option>
+                                        <option value="30days">Past 30 Days</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                    <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Status</label>
+                                    <div class="d-flex align-items-center" style="gap: 0.5rem;">
+                                        <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="statusFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 110px; background-color: white;">
+                                            <option value="">All Statuses</option>
+                                            <option value="Recovering">Recovering</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                        <button class="btn btn-light d-flex align-items-center justify-content-center botanical-shadow-sm" id="refreshFilters" title="Reset Filters" style="border-radius: 0.5rem; height: 38px; width: 38px; min-width: 38px; background-color: white; border: none;">
+                                            <i class="fa fa-sync-alt text-primary" style="font-size: 0.85rem;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Search Field - Full width on mobile, right-aligned on desktop -->
+                                <div class="col-12 col-md px-2 mt-1 mt-md-0 ml-md-auto" style="max-width: 100%; width: 100%; md-max-width: 280px;">
+                                    <div class="position-relative ml-md-auto" style="max-width: 400px; width: 100%;">
+                                        <span class="material-symbols-outlined position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 1.2rem;">search</span>
+                                        <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="healthSearch" placeholder="Search incidents..." style="border-radius: 0.5rem; height: 38px; padding-left: 42px; font-size: 0.8rem; width: 100%; background-color: white;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -340,21 +354,38 @@ $base_path = '../';
                             </div>
 
                             <!-- Vaccination Filters -->
-                            <div class="table-controls p-3 mt-1 border-bottom d-flex flex-wrap align-items-center" style="gap: 1rem; background-color: rgba(244, 244, 239, 0.3);">
-                                <div class="filter-item">
-                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="vaccineAnimalFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                        <option value="">All Animals</option>
-                                    </select>
+                            <div class="table-controls p-3 mt-1 border-bottom" style="background-color: rgba(244, 244, 239, 0.3);">
+                                <!-- Filter Label -->
+                                <div class="mb-3 px-1">
+                                    <span class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Filter Options</span>
                                 </div>
-                                <div class="filter-item">
-                                    <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="vaccineTypeFilter" style="border-radius: 0.5rem; height: 36px; font-size: 0.75rem; min-width: 130px; background-color: white;">
-                                        <option value="">All Vaccines</option>
-                                    </select>
-                                </div>
-                                <div class="filter-item ml-md-auto">
-                                    <div class="position-relative">
-                                        <span class="material-symbols-outlined position-absolute text-muted" style="left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.1rem;">search</span>
-                                        <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="vaccineSearch" placeholder="Search..." style="border-radius: 0.5rem; height: 36px; padding-left: 35px; font-size: 0.75rem; width: 220px; background-color: white;">
+                                
+                                <div class="row mx-n2 align-items-end">
+                                    <!-- Row 1: Animal and Vaccine -->
+                                    <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                        <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Animal</label>
+                                        <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="vaccineAnimalFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                            <option value="">All Animals</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                        <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Vaccine Type</label>
+                                        <div class="d-flex align-items-center" style="gap: 0.5rem;">
+                                            <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3 flex-grow-1" id="vaccineTypeFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                                <option value="">All Vaccines</option>
+                                            </select>
+                                            <button class="btn btn-light d-flex align-items-center justify-content-center botanical-shadow-sm" id="refreshVaccineFilters" title="Reset Filters" style="border-radius: 0.5rem; height: 38px; width: 38px; min-width: 38px; background-color: white; border: none;">
+                                                <i class="fa fa-sync-alt text-primary" style="font-size: 0.85rem;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Search Field -->
+                                    <div class="col-12 col-md px-2 mt-1 mt-md-0 ml-md-auto" style="max-width: 100%; width: 100%; md-max-width: 280px;">
+                                        <div class="position-relative ml-md-auto" style="max-width: 400px; width: 100%;">
+                                            <span class="material-symbols-outlined position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 1.2rem;">search</span>
+                                            <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="vaccineSearch" placeholder="Search history..." style="border-radius: 0.5rem; height: 38px; padding-left: 42px; font-size: 0.8rem; width: 100%; background-color: white;">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -454,6 +485,43 @@ $base_path = '../';
                                     <span class="material-symbols-outlined" style="font-size: 1rem;">add</span>
                                     Add New
                                 </button>
+                            </div>
+
+                            <!-- Deworming Filters -->
+                            <div class="table-controls p-3 mt-1 border-bottom" style="background-color: rgba(244, 244, 239, 0.3);">
+                                <!-- Filter Label -->
+                                <div class="mb-3 px-1">
+                                    <span class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Filter Options</span>
+                                </div>
+                                
+                                <div class="row mx-n2 align-items-end">
+                                    <!-- Row 1: Animal and Dewormer -->
+                                    <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                        <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Animal</label>
+                                        <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3" id="dewormingAnimalFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                            <option value="">All Animals</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-md-auto px-2 mb-3 mb-md-0">
+                                        <label class="d-md-none text-muted small mb-1" style="font-size: 0.6rem; font-weight: 600; text-transform: uppercase;">Product</label>
+                                        <div class="d-flex align-items-center" style="gap: 0.5rem;">
+                                            <select class="form-control form-control-sm border-0 botanical-shadow-sm px-3 flex-grow-1" id="dewormingTypeFilter" style="border-radius: 0.5rem; height: 38px; font-size: 0.75rem; min-width: 140px; background-color: white;">
+                                                <option value="">All Dewormers</option>
+                                            </select>
+                                            <button class="btn btn-light d-flex align-items-center justify-content-center botanical-shadow-sm" id="refreshDewormingFilters" title="Reset Filters" style="border-radius: 0.5rem; height: 38px; width: 38px; min-width: 38px; background-color: white; border: none;">
+                                                <i class="fa fa-sync-alt text-primary" style="font-size: 0.85rem;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Search Field -->
+                                    <div class="col-12 col-md px-2 mt-1 mt-md-0 ml-md-auto" style="max-width: 100%; width: 100%; md-max-width: 280px;">
+                                        <div class="position-relative ml-md-auto" style="max-width: 400px; width: 100%;">
+                                            <span class="material-symbols-outlined position-absolute text-muted" style="left: 12px; top: 50%; transform: translateY(-50%); font-size: 1.2rem;">search</span>
+                                            <input type="text" class="form-control form-control-sm border-0 botanical-shadow-sm" id="dewormingSearch" placeholder="Search history..." style="border-radius: 0.5rem; height: 38px; padding-left: 42px; font-size: 0.8rem; width: 100%; background-color: white;">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="p-0 table-responsive">
@@ -658,6 +726,7 @@ $base_path = '../';
     <script src="../plugins/bootstrap.js"></script>
     <script src="../plugins/alert.js"></script>
     <script src="../js/functions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
@@ -665,7 +734,6 @@ $base_path = '../';
     <script src="../js/header.js"></script>
     <script src="../js/health.js"></script>
 
-    <?php include 'modals.php'; ?>
 
     <!-- Record Vaccination Activity Modal -->
     <div id="recordVaccinationModal" class="v-modal-overlay" style="display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); background-color: rgba(0, 0, 0, 0.4);">

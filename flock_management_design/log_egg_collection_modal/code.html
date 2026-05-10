@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#303030",
+                      "tertiary-fixed": "#dee5d6",
+                      "on-surface-variant": "#41493e",
+                      "secondary": "#4a654e",
+                      "on-surface": "#1b1c1c",
+                      "error-container": "#ffdad6",
+                      "outline": "#717a6d",
+                      "on-tertiary-fixed": "#171d14",
+                      "on-primary-container": "#90d689",
+                      "surface-tint": "#2a6b2c",
+                      "surface-container-low": "#f5f3f3",
+                      "error": "#ba1a1a",
+                      "tertiary": "#363d33",
+                      "on-primary-fixed-variant": "#0c5216",
+                      "inverse-on-surface": "#f2f0f0",
+                      "background": "#fbf9f8",
+                      "surface-container-high": "#eae8e7",
+                      "primary-fixed": "#acf4a4",
+                      "on-primary-fixed": "#002203",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#4e6952",
+                      "secondary-fixed-dim": "#b1ceb2",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e4e2e1",
+                      "inverse-primary": "#91d78a",
+                      "secondary-container": "#c9e7ca",
+                      "tertiary-container": "#4d5449",
+                      "surface-variant": "#e4e2e1",
+                      "primary-fixed-dim": "#91d78a",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#c0c9bb",
+                      "primary-container": "#1b5e20",
+                      "surface-container": "#f0eded",
+                      "primary": "#00450d",
+                      "tertiary-fixed-dim": "#c2c9bb",
+                      "on-secondary-fixed": "#07200e",
+                      "surface-bright": "#fbf9f8",
+                      "on-tertiary-container": "#c1c8ba",
+                      "surface": "#fbf9f8",
+                      "surface-dim": "#dcd9d9",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#cceacd",
+                      "on-tertiary-fixed-variant": "#42493e",
+                      "on-background": "#1b1c1c",
+                      "on-secondary-fixed-variant": "#334d37"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "gutter": "24px",
+                      "margin": "32px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "xl": "64px",
+                      "sm": "12px",
+                      "lg": "40px"
+              },
+              "fontFamily": {
+                      "display": ["Manrope"],
+                      "h3": ["Manrope"],
+                      "body-md": ["Manrope"],
+                      "label-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "h1": ["Manrope"],
+                      "label-bold": ["Manrope"],
+                      "h2": ["Manrope"],
+                      "body-sm": ["Manrope"]
+              },
+              "fontSize": {
+                      "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h1": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .backdrop-blur-farm {
+            backdrop-filter: blur(8px) saturate(120%);
+            background-color: rgba(251, 249, 248, 0.85);
+        }
+        .custom-input {
+            background-color: #FCFAF7; /* Ivory Tint */
+            border: 1px solid #c0c9bb;
+            transition: all 0.2s ease;
+        }
+        .custom-input:focus {
+            border-color: #00450d;
+            box-shadow: 0 0 0 2px rgba(0, 69, 13, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background bg-background min-h-screen">
+<!-- Mock Background: Flock Details View (Blurred) -->
+<div class="fixed inset-0 z-0 overflow-hidden opacity-40 blur-md pointer-events-none">
+<div class="p-margin flex flex-col gap-gutter">
+<div class="h-16 w-full bg-surface-container rounded-xl"></div>
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-8 h-[600px] bg-white rounded-xl shadow-sm"></div>
+<div class="col-span-4 flex flex-col gap-gutter">
+<div class="h-64 bg-white rounded-xl shadow-sm"></div>
+<div class="h-64 bg-white rounded-xl shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+<!-- Modal Container -->
+<div class="bg-white rounded-[24px] shadow-[0px_20px_40px_rgba(27,94,32,0.10)] w-full max-w-5xl flex overflow-hidden min-h-[680px]">
+<!-- Left Sidebar: Branded Identity -->
+<div class="relative w-1/3 hidden md:flex flex-col justify-between p-lg overflow-hidden text-white">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A high-fidelity close-up of vibrant botanical patterns and lush emerald green foliage. The scene is illuminated with soft, golden hour sunlight filtering through leaves, creating a professional and serene agrarian atmosphere. The deep green tones and natural textures represent growth, vitality, and the high-tech biosecurity standards of a modern poultry facility. The aesthetic is clean, sophisticated, and deeply grounded in nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGY3OCCeOQuMVusjRuSccpi8Xs2jA8uZPETsgGHDJSFyxCE8pB4Cn0OHmRtHuH1V9BOWyLiO-fIGWv2tx6-vrxhmhDEGSyymrjDrlIwSJGtgOEWHH8Z0IOwTggol2g5OmG3LLpL59T5wpHoArNNqEykL3kavrvzL0NU_gghf16hupuuFyNWcdyKppSgjROai6T5vZsNjVM6quWRuvBFutbyUDEIJ60Ghh3hxta8H6PdWjU-Z3wypR6iCi1x4qX6tFkZCymf6WIHETg"/>
+<div class="absolute inset-0 bg-primary/60 backdrop-blur-[2px]"></div>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">egg</span>
+<span class="font-display text-h2 tracking-tight">Modern Agrarian</span>
+</div>
+<h2 class="font-display text-display leading-tight mb-4">Record Production</h2>
+<p class="font-body-md text-primary-fixed/90 max-w-[240px]">
+                        Ensuring precise data tracking for the Emerald Valley Barn 4 operations.
+                    </p>
+</div>
+<div class="relative z-10 mt-auto">
+<div class="p-md bg-white/10 rounded-xl backdrop-blur-md border border-white/20">
+<p class="font-label-bold uppercase text-[10px] tracking-widest mb-2 text-primary-fixed">Active Station</p>
+<p class="font-h3 text-white">Barn Cluster 04</p>
+<p class="font-body-sm text-primary-fixed/80">Section A • Layers Division</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Form Area -->
+<div class="flex-1 bg-white relative flex flex-col">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 p-2 text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="flex-1 flex flex-col justify-center px-lg py-xl max-w-2xl mx-auto w-full">
+<header class="mb-lg">
+<h1 class="font-h1 text-primary mb-2">Daily Egg Collection</h1>
+<p class="font-body-md text-on-surface-variant">Fill in the collection details for the current shift.</p>
+</header>
+<form class="space-y-6">
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Date Field -->
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Date</label>
+<input class="custom-input rounded-xl px-4 py-3 font-body-md" type="date" value="2023-10-27"/>
+</div>
+<!-- Flock Selection -->
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Flock Selection</label>
+<select class="custom-input rounded-xl px-4 py-3 font-body-md appearance-none">
+<option>Loman Brown - Batch 22</option>
+<option>Hy-Line Silver - Batch 19</option>
+<option>ISA Brown - Batch 04</option>
+</select>
+</div>
+</div>
+<!-- Shift Selection -->
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Shift Selection</label>
+<div class="grid grid-cols-3 gap-3">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="shift" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface peer-checked:bg-secondary-container peer-checked:border-secondary peer-checked:text-on-secondary-container transition-all">
+<span class="font-label-bold text-[10px]">MORNING</span>
+<span class="font-h3">06:30 AM</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="shift" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface peer-checked:bg-secondary-container peer-checked:border-secondary peer-checked:text-on-secondary-container transition-all">
+<span class="font-label-bold text-[10px]">MIDDAY</span>
+<span class="font-h3">11:00 AM</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="shift" type="radio"/>
+<div class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant bg-surface peer-checked:bg-secondary-container peer-checked:border-secondary peer-checked:text-on-secondary-container transition-all">
+<span class="font-label-bold text-[10px]">EVENING</span>
+<span class="font-h3">03:45 PM</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Quantities -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant flex items-center gap-1">
+                                    Quantity: Good Eggs
+                                    <span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+</label>
+<input class="custom-input rounded-xl px-4 py-3 font-body-md text-lg" placeholder="0" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant flex items-center gap-1">
+                                    Quantity: Broken/Bad Eggs
+                                    <span class="material-symbols-outlined text-[14px] text-error">report</span>
+</label>
+<input class="custom-input rounded-xl px-4 py-3 font-body-md text-lg" placeholder="0" type="number"/>
+</div>
+</div>
+<!-- Narration/Notes -->
+<div class="flex flex-col gap-2">
+<label class="font-label-bold text-on-surface-variant">Narration/Notes</label>
+<textarea class="custom-input rounded-xl px-4 py-3 font-body-md resize-none" placeholder="Optional notes regarding shell quality, abnormal behavior, or barn conditions..." rows="3"></textarea>
+</div>
+<!-- Form Actions -->
+<div class="flex items-center gap-4 pt-4">
+<button class="flex-1 bg-primary text-white font-label-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-container transition-colors flex items-center justify-center gap-2" type="submit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">save</span>
+                                Save Record
+                            </button>
+<button class="px-8 py-4 font-label-bold text-outline hover:text-on-surface transition-colors" type="button">
+                                Cancel
+                            </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -24,6 +24,7 @@ $base_path = '../';
     <link rel="stylesheet" href="../css/animals.css">
     <link rel="stylesheet" href="../css/alert.css">
     <link rel="stylesheet" href="../css/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <!-- DataTables Advanced Styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css"/>
@@ -168,10 +169,35 @@ $base_path = '../';
             margin: 0 2px !important;
         }
 
+        /* Flatpickr Custom Styling */
+        .flatpickr-calendar {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+        }
+        .flatpickr-day.selected {
+            background: #206223 !important;
+            border-color: #206223 !important;
+        }
+        .flatpickr-months .flatpickr-month {
+            background: #f8fafc !important;
+            color: #1e293b !important;
+        }
+
         #cancelFeeding:hover {
             background-color: #f1f5f9 !important;
             color: #0f172a !important;
             border-color: #94a3b8 !important;
+        }
+
+        /* Tight Gutter for Bootstrap 4 */
+        .tight-gutter {
+            margin-right: -5px !important;
+            margin-left: -5px !important;
+        }
+        .tight-gutter > [class*="col-"] {
+            padding-right: 5px !important;
+            padding-left: 5px !important;
         }
     </style>
 </head>
@@ -183,8 +209,6 @@ $base_path = '../';
     <!-- Modular Header -->
     <?php include 'header.php'; ?>
 
-    <!-- Modular Modals -->
-    <?php include 'modals.php'; ?>
 
     <!-- Main Content Area -->
     <main class="main-content">
@@ -245,8 +269,28 @@ $base_path = '../';
         font-size: 0.65rem !important;
     }
 
-    #newFeedingModal .p-4 {
-        padding: 0.6rem !important;
+    #newFeedingModal .flex-grow-1.overflow-auto {
+        padding: 1rem !important;
+    }
+
+    #newFeedingModal .row.mb-3, 
+    #newFeedingModal .mb-3,
+    #newFeedingModal .mb-4 {
+        margin-bottom: 0.65rem !important;
+    }
+
+    #newFeedingModal label {
+        margin-bottom: 0.15rem !important;
+    }
+
+    /* Target Total Weight Column specifically for 50vw width */
+    #newFeedingModal .col-4:has(#modalFeedingWeight) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    #newFeedingModal .col-4:has(#modalFeedingWeight) .input-group {
+        width: 50vw !important;
     }
 
     #newFeedingModal .btn-success, 
@@ -694,7 +738,7 @@ body.dark-theme .feeding-table tr:hover {
                 <div class="flex-grow-1 overflow-auto" style="background-color: #fafbf9; padding: 2rem;">
                     <div id="feedingValidationAlertContainer" class="mb-3"></div>
                     <!-- Selection Grid -->
-                    <div class="row mb-3">
+                    <div class="row tight-gutter mb-3">
                         <div class="col-6 mb-3">
                             <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Feeding Date</label>
                             <div class="position-relative">
@@ -716,16 +760,14 @@ body.dark-theme .feeding-table tr:hover {
                         <div class="col-12 mb-3">
                             <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Feeding Shift</label>
                             <div class="d-flex gap-2" id="modalShiftToggles">
-                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="1">3 AM - Early Morning</button>
-                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="2">11 AM - Mid Day</button>
-                                <button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="3">4 PM - Evening</button>
+                                <!-- Dynamic shift buttons will be loaded here -->
                                 <input type="hidden" id="modalShiftSelect" value="">
                             </div>
                             <div class="invalid-feedback-custom" id="error-modalShiftSelect">Shift is required</div>
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row tight-gutter mb-3">
                         <div class="col-4 mb-3">
                             <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Source Type</label>
                             <select class="form-control form-control-custom bg-white border" id="modalFeedSourceType" style="border-radius: 6px; border-color: #e2e8f0 !important; width: 100%; font-weight: 400;">
@@ -742,7 +784,7 @@ body.dark-theme .feeding-table tr:hover {
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row tight-gutter mb-3">
                         <div class="col-4 mb-3">
                             <label class="small text-muted mb-2 d-block" style="letter-spacing: 0.02rem; font-weight: 500;">Total Weight</label>
                             <div class="input-group">
@@ -780,7 +822,7 @@ body.dark-theme .feeding-table tr:hover {
 
                 <div class="p-4 bg-white border-top d-flex justify-content-end align-items-center gap-4" style="z-index: 5;">
                     <button class="btn btn-outline-secondary px-4" style="font-size: 0.85rem; border-radius: 6px; font-weight: 500; border-color: #cbd5e1; color: #64748b; height: 48px;" id="cancelFeeding">Cancel</button>
-                    <button class="btn btn-success px-5 shadow-sm" style="background-color: #206223; border-radius: 6px; font-size: 0.9rem; height: 48px; font-weight: 500;" id="saveFeedingBtn">Submit Record</button>
+                    <button class="btn btn-success px-5 shadow-sm" type="button" style="background-color: #206223; border-radius: 6px; font-size: 0.9rem; height: 48px; font-weight: 500;" id="saveFeedingBtn">Submit Record</button>
                 </div>
             </div>
         </div>
@@ -830,7 +872,9 @@ body.dark-theme .feeding-table tr:hover {
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../js/header.js"></script>
+    <script src="../js/auth.js"></script>
 
     <script>
     $(document).ready(function() {
@@ -1087,6 +1131,7 @@ body.dark-theme .feeding-table tr:hover {
         // Populate Pens and Feed Mixes for Modal
         getpensselect($('#modalPenSelect'));
         getinventoryfeedsselect($('#modalFeedId')); // Default to Feed
+        loadShiftsToToggles();
 
         // Source Type Change Handler
         $('#modalFeedSourceType').on('change', function() {
@@ -1110,14 +1155,22 @@ body.dark-theme .feeding-table tr:hover {
             $('#newFeedingModal').addClass('show');
             $('body').addClass('modal-open');
             
-            // Auto-select closest shift
-            const now = new Date();
-            const hour = now.getHours();
-            let closestShift = "1"; // Default 3 AM
-            if (hour >= 8 && hour < 14) closestShift = "2"; // 11 AM
-            else if (hour >= 14 || hour < 0) closestShift = "3"; // 4 PM
+            // Auto-select closest shift based on current time
+            const selectShift = () => {
+                const now = new Date();
+                const hour = now.getHours();
+                let shiftIndex = 0;
+                
+                if (hour >= 8 && hour < 14) shiftIndex = 1;
+                else if (hour >= 14 || hour < 4) shiftIndex = 2;
+                
+                const buttons = $('#modalShiftToggles .shift-toggle-btn');
+                if (buttons.length > 0) {
+                    buttons.eq(Math.min(shiftIndex, buttons.length - 1)).addClass('active').click();
+                }
+            };
             
-            $(`#modalShiftToggles .shift-toggle-btn[data-value="${closestShift}"]`).click();
+            setTimeout(selectShift, 150); // Slightly longer delay to ensure DOM readiness
         });
 
         $('#closeFeedingModal, #dismissFeedingModal, #cancelFeeding').on('click', function() {
@@ -1125,29 +1178,57 @@ body.dark-theme .feeding-table tr:hover {
             $('body').removeClass('modal-open');
         });
 
-        // Initialize Datepicker
-        $('#modalFeedingDate').datepicker({
-            dateFormat: 'dd-M-yy',
-            changeMonth: true,
-            changeYear: true,
-            maxDate: 0
+        // Initialize Flatpickr (replacing jQuery UI Datepicker)
+        flatpickr("#modalFeedingDate", {
+            dateFormat: "d-M-Y",
+            maxDate: "today",
+            disableMobile: "true",
+            onReady: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).on('focus', function() {
+                    $(this).blur();
+                });
+            },
+            onClose: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).blur();
+            }
         });
 
-        // Shift Toggle Button Handler
-        $('.shift-toggle-btn').on('click', function() {
+        // Shift Toggle Button Handler (Delegated for dynamic content)
+        $('#modalShiftToggles').on('click', '.shift-toggle-btn', function() {
             $('.shift-toggle-btn').removeClass('active');
             $(this).addClass('active');
             $('#modalShiftSelect').val($(this).data('value'));
             
-            // Clear shift error
+            // Clear shift error and top summary
             $('#error-modalShiftSelect').hide();
-            if ($('.invalid-feedback-custom:visible').length === 0) {
-                $('#feedingValidationAlertContainer').empty();
-            }
+            $('#feedingValidationAlertContainer').empty();
         });
 
-        // Clear errors on interaction
-        $('#newFeedingModal input, #newFeedingModal select').on('input change', function() {
+        function loadShiftsToToggles() {
+            $.getJSON('../controllers/settingsoperations.php?action=getfeedingshifts', function(data) {
+                let html = '';
+                if (data && data.length > 0) {
+                    data.forEach(shift => {
+                        // Extract only the name (remove any prefix like "3 AM - ")
+                        let shiftName = shift.schedulename;
+                        if (shiftName.includes(' - ')) {
+                            shiftName = shiftName.split(' - ')[1];
+                        }
+                        html += `<button type="button" class="btn shift-toggle-btn flex-grow-1" data-value="${shift.id}">${shiftName}</button>`;
+                    });
+                }
+                // Preserve the hidden input
+                const hiddenInput = $('#modalShiftSelect').detach();
+                $('#modalShiftToggles').html(html).append(hiddenInput);
+            });
+        }
+
+        // Clear errors/success on interaction
+        $('#newFeedingModal input, #newFeedingModal select, #newFeedingModal textarea').on('input change', function(e) {
+            // Only clear if the change was triggered by a real user interaction
+            // This prevents programmatic resets (trigger('change')) from clearing success messages
+            if (!e.originalEvent && e.type === 'change') return; 
+
             $(this).css('border-color', '#e2e8f0');
             $(`#error-${$(this).attr('id')}`).hide();
             
@@ -1157,12 +1238,20 @@ body.dark-theme .feeding-table tr:hover {
             }
         });
 
+
+
         $('#modalPenSelect').on('change', function() {
             const penid = $(this).val();
+            if (!penid) {
+                $('#modalAnimalList').html('<div class="d-flex flex-column align-items-center justify-content-center h-100 py-5 text-center px-4"><span class="material-symbols-outlined text-muted mb-3" style="font-size: 3rem; opacity: 0.2;">groups</span><p class="text-muted small italic mb-0">Identification ledger will populate once a pen is selected.</p></div>');
+                return;
+            }
             getAnimalsByPenList(penid, $('#modalAnimalList'));
         });
 
-        $('#saveFeedingBtn').on('click', function() {
+        $('#saveFeedingBtn').off('click').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const btn = $(this);
             const date = $('#modalFeedingDate').val();
             const penid = $('#modalPenSelect').val();
@@ -1178,48 +1267,44 @@ body.dark-theme .feeding-table tr:hover {
             $('.form-control').css('border-color', '#e2e8f0');
             $('.invalid-feedback-custom').hide();
 
-            // Validation
-            let errors = [];
+            // Sequential Validation (One field at a time)
             if (!date) { 
-                errors.push("Please select a feeding date."); 
                 $('#modalFeedingDate').css('border-color', '#ef4444');
                 $('#error-modalFeedingDate').text("Please select a date").show();
+                alertContainer.html(showAlert('info', "Please select a feeding date.", 1));
+                $('#modalFeedingDate').focus();
+                $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                return;
             }
             if (!penid) { 
-                errors.push("Please select a target pen."); 
                 $('#modalPenSelect').css('border-color', '#ef4444');
                 $('#error-modalPenSelect').text("Please select a pen").show();
+                alertContainer.html(showAlert('info', "Please select a target pen.", 1));
+                $('#modalPenSelect').focus();
+                $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                return;
             }
             if (!shiftid) { 
-                errors.push("Please select a feeding shift."); 
                 $('#error-modalShiftSelect').text("Please select a shift").show();
+                alertContainer.html(showAlert('info', "Please select a feeding shift.", 1));
+                $('#modalShiftToggles').focus();
+                $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                return;
             }
             if (!feedId) { 
-                errors.push("Please select a feed or ration."); 
                 $('#modalFeedId').css('border-color', '#ef4444');
                 $('#error-modalFeedId').text("Selection is required").show();
+                alertContainer.html(showAlert('info', "Please select a feed or ration.", 1));
+                $('#modalFeedId').focus();
+                $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
+                return;
             }
             if (!weight || weight <= 0) { 
-                errors.push("Please enter the total weight."); 
                 $('#modalFeedingWeight').css('border-color', '#ef4444');
                 $('#error-modalFeedingWeight').text("Please enter a valid weight").show();
-            }
-
-            if (errors.length > 0) {
-                // Use showAlert plugin to get formatted HTML but prevent it from showing in the global container by passing 1
-                const detailedMessage = errors.join("<br/>");
-                const alertHtml = showAlert('info', detailedMessage, 1);
-                alertContainer.html(alertHtml);
-                
-                // Focus first error
-                if (!date) $('#modalFeedingDate').focus();
-                else if (!penid) $('#modalPenSelect').focus();
-                else if (!feedtype) $('#modalFeedType').focus();
-                else if (!weight || weight <= 0) $('#modalFeedingWeight').focus();
-                
-                // Scroll to top of modal to see the alerts
+                alertContainer.html(showAlert('info', "Please enter the total weight.", 1));
+                $('#modalFeedingWeight').focus();
                 $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
-                
                 return;
             }
 
@@ -1253,22 +1338,29 @@ body.dark-theme .feeding-table tr:hover {
                     const res = JSON.parse(response);
                     if (res.status === 'success') {
                         // Success notification inside modal above feeding date
-                        const successHtml = showAlert('info', res.message, 1);
+                        const successHtml = showAlert('success', res.message, 1);
                         alertContainer.html(successHtml);
 
-                        // Clear fields for new entry
+                        // Clear fields for new entry (except shift)
                         $('#modalPenSelect').val('').trigger('change');
                         $('#modalFeedId').val('');
                         $('#modalFeedingWeight').val('');
                         $('#modalFeedingNotes').val('');
+                        // Preserve shift for rapid entry
                         
                         // Clear animal list to default state
                         $('#modalAnimalList').html('<div class="d-flex flex-column align-items-center justify-content-center h-100 py-5 text-center px-4"><span class="material-symbols-outlined text-muted mb-3" style="font-size: 3rem; opacity: 0.2;">groups</span><p class="text-muted small italic mb-0">Identification ledger will populate once a pen is selected.</p></div>');
 
+                        // Refresh table and stats
+                        table.ajax.reload();
+                        loadDashboardStats();
+                        loadWeeklyConsumption();
+
                         // Scroll to top
                         $('#newFeedingModal .overflow-auto').animate({ scrollTop: 0 }, 300);
                     } else {
-                        showAlert('danger', res.message);
+                        const errorHtml = showAlert('danger', res.message, 1);
+                        alertContainer.html(errorHtml);
                     }
                 } catch (e) {
                     console.error(response);

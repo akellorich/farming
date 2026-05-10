@@ -47,7 +47,7 @@ $(document).ready(function() {
 
         // Mobile Sidebar
         if ($(window).width() < 992) {
-            if (!$(e.target).closest('.sidebar, #mobileMenuBtn').length) {
+            if (!$(e.target).closest('.sidebar, #mobileMenuBtn, #sidebarToggle').length) {
                 $('.sidebar').removeClass('mobile-show');
             }
         }

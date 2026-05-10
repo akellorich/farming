@@ -362,9 +362,9 @@ body.dark-theme .status-recovering {
 }
 
 .modal-form-area {
-    flex: 1;
+    flex: 0 1 auto;
     padding: 2.5rem;
-    max-height: 90vh;
+    max-height: 85vh; /* Allow it to grow but leave some margin */
     overflow-y: auto;
 }
 
@@ -453,8 +453,8 @@ body.dark-theme .status-recovering {
         flex-direction: column;
         border-radius: 1rem;
         max-width: 95%;
-        height: 90vh !important;
-        max-height: 90vh !important;
+        height: auto !important;
+        max-height: 95vh !important;
     }
     .modal-form-area {
         height: 100% !important;

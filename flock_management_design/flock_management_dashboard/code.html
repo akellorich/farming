@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PoultryPro - Flock Management Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#717a6d",
+                    "background": "#fbf9f8",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf9f8",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary-fixed-variant": "#334d37",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#b1ceb2",
+                    "primary-container": "#1b5e20",
+                    "surface-variant": "#e4e2e1",
+                    "secondary-container": "#c9e7ca",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-container-high": "#eae8e7",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#dcd9d9",
+                    "surface-tint": "#2a6b2c",
+                    "tertiary-container": "#4d5449",
+                    "on-tertiary-container": "#c1c8ba",
+                    "on-secondary-container": "#4e6952",
+                    "primary-fixed": "#acf4a4",
+                    "tertiary": "#363d33",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#4a654e",
+                    "on-tertiary-fixed": "#171d14",
+                    "on-surface-variant": "#41493e",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#fbf9f8",
+                    "on-secondary-fixed": "#07200e",
+                    "inverse-primary": "#91d78a",
+                    "primary-fixed-dim": "#91d78a",
+                    "on-primary-fixed": "#002203",
+                    "secondary-fixed": "#cceacd",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#c2c9bb",
+                    "primary": "#00450d",
+                    "surface-container": "#f0eded",
+                    "tertiary-fixed": "#dee5d6",
+                    "on-primary-container": "#90d689",
+                    "surface-container-low": "#f5f3f3",
+                    "on-surface": "#1b1c1c",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed-variant": "#0c5216",
+                    "on-tertiary-fixed-variant": "#42493e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin": "32px",
+                    "base": "8px",
+                    "md": "24px",
+                    "xl": "64px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "h1": ["Manrope"],
+                    "label-bold": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "display": ["Manrope"]
+            },
+            "fontSize": {
+                    "h1": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-icon { font-variation-settings: 'FILL' 1; }
+        body { background-color: #F9FBF9; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r border-stone-200 bg-[#F9FBF9] flex flex-col p-4 space-y-2 z-50">
+<div class="flex items-center space-x-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">agriculture</span>
+</div>
+<div>
+<h1 class="text-xl font-extrabold text-[#1B5E20] tracking-tight leading-none">PoultryPro</h1>
+<p class="text-[10px] uppercase tracking-widest text-outline font-bold mt-1">Modern Agrarian Ops</p>
+</div>
+</div>
+<nav class="space-y-1 flex-grow">
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-[#1B5E20] font-bold bg-[#1B5E20]/5 rounded-lg transition-transform scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-label-md">Flock Management</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">grass</span>
+<span class="font-label-md">Feed Management</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">vaccines</span>
+<span class="font-label-md">Health &amp; Vaccination</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label-md">Production</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md">Sales</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-stone-200">
+<a class="flex items-center space-x-3 px-4 py-3 text-stone-500 hover:bg-[#1B5E20]/5 hover:text-[#1B5E20] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 right-0 bg-white/80 backdrop-blur-md border-b border-stone-100 flex items-center justify-between px-8 py-3 w-full z-40 shadow-sm">
+<div class="flex items-center space-x-4">
+<span class="text-lg font-bold text-[#1B5E20] font-h2">Flock Management Overview</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/30 cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-stone-500 mr-2">location_on</span>
+<span class="font-label-md text-stone-600">Kiambu Central Farm</span>
+<span class="material-symbols-outlined text-stone-400 ml-1">expand_more</span>
+</div>
+<div class="relative cursor-pointer hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-white text-[10px] flex items-center justify-center rounded-full border-2 border-white">2</span>
+</div>
+<div class="flex items-center space-x-3 border-l border-stone-100 pl-6 cursor-pointer">
+<img alt="User Profile" class="w-8 h-8 rounded-full border-2 border-primary-container/20" data-alt="A professional close-up portrait of a modern Kenyan agricultural manager in a high-tech poultry facility. He is smiling warmly, wearing a clean, green collared shirt. The lighting is soft and natural, emphasizing the professional and clean aesthetic of a modern agrarian operations environment. The background is slightly blurred, showing a clean white laboratory-style office space with a hint of emerald green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYveeUghSIc8r1JqrBUXj2QA2ux_ziDAGADyuO8SAuLf2lZt1nMD74lup5ULcijK0wZcYr7CmATqAdOlmES-sZrkfsUXcHQ_Krg7h6-FP3WZyTuvksETlDCbgUKf_YKwXaSFoSFbwSIJcF0FC7QKpHcsILQyblUNibGIDSqlOTadw36ScF5LisXiZRQzGcXm1hRKpFgVU7hBKvuE2boGqwrvNRztLDiteCFkqENUyuuOTS3Z7vy9pIWwhetDFHLjpskQyDKGAfnsJm"/>
+<div class="text-right">
+<p class="font-label-bold text-on-surface">John Kamau</p>
+<p class="text-[10px] text-outline font-medium">Farm Administrator</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-margin space-y-gutter">
+<!-- Critical Alerts Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-error-container/20 border border-error/10 p-md rounded-xl flex items-start space-x-4 shadow-[0px_4px_20px_rgba(186,26,26,0.05)]">
+<div class="p-2 bg-error-container rounded-lg text-on-error-container">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<h4 class="font-h3 text-on-error-container text-sm mb-1">High Mortality in House C</h4>
+<p class="text-body-sm text-on-error-container/80">A spike of 2.5% mortality recorded in the last 24 hours. Immediate bio-security check required.</p>
+</div>
+</div>
+<div class="bg-primary-container/5 border border-primary-container/10 p-md rounded-xl flex items-start space-x-4 shadow-[0px_4px_20px_rgba(27,94,32,0.05)]">
+<div class="p-2 bg-secondary-container rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined">error</span>
+</div>
+<div>
+<h4 class="font-h3 text-on-secondary-container text-sm mb-1">Overcrowding Alert</h4>
+<p class="text-body-sm text-on-secondary-container/80">House B density is exceeding recommended levels. Consider transferring 150 birds to House D.</p>
+</div>
+</div>
+</section>
+<!-- Summary Cards Bento Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] hover:shadow-[0px_20px_40px_rgba(27,94,32,0.10)] transition-all duration-300 group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-bold text-outline uppercase">Total Flocks</p>
+<span class="material-symbols-outlined text-primary-container/40 group-hover:text-primary-container transition-colors">layers</span>
+</div>
+<p class="font-display text-primary">12</p>
+<div class="mt-4 flex items-center text-primary-container">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+<span class="text-xs font-bold">+2 from last month</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] hover:shadow-[0px_20px_40px_rgba(27,94,32,0.10)] transition-all duration-300 group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-bold text-outline uppercase">Total Birds</p>
+<span class="material-symbols-outlined text-primary-container/40 group-hover:text-primary-container transition-colors">flight</span>
+</div>
+<p class="font-display text-primary">5,400</p>
+<div class="mt-4 flex items-center text-primary-container">
+<span class="material-symbols-outlined text-sm mr-1">monitoring</span>
+<span class="text-xs font-bold">Stable capacity</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] hover:shadow-[0px_20px_40px_rgba(27,94,32,0.10)] transition-all duration-300 group">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-bold text-outline uppercase">Active Batches</p>
+<span class="material-symbols-outlined text-primary-container/40 group-hover:text-primary-container transition-colors">cycle</span>
+</div>
+<p class="font-display text-primary">8</p>
+<div class="mt-4 flex items-center text-secondary">
+<span class="material-symbols-outlined text-sm mr-1">schedule</span>
+<span class="text-xs font-bold">2 maturing soon</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] hover:shadow-[0px_20px_40px_rgba(27,94,32,0.10)] transition-all duration-300 group border-b-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<p class="font-label-bold text-outline uppercase">Mortality Rate</p>
+<span class="material-symbols-outlined text-error/40 group-hover:text-error transition-colors">heart_broken</span>
+</div>
+<p class="font-display text-primary">1.2%</p>
+<div class="mt-4 flex items-center text-error">
+<span class="material-symbols-outlined text-sm mr-1">arrow_upward</span>
+<span class="text-xs font-bold">0.4% spike (last 48h)</span>
+</div>
+</div>
+</section>
+<!-- Flock List Table Section -->
+<section class="bg-white rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] overflow-hidden">
+<!-- Table Toolbar -->
+<div class="p-6 border-b border-stone-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-container/20 text-body-sm transition-all" placeholder="Search by Flock ID or Breed..." type="text"/>
+</div>
+<div class="flex items-center space-x-3">
+<button class="flex items-center space-x-2 px-4 py-2 border border-outline-variant text-on-surface-variant rounded-xl font-label-md hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span>Filters</span>
+</button>
+<button class="flex items-center space-x-2 px-6 py-2 bg-primary-container text-on-primary rounded-xl font-label-md shadow-md hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>Add New Flock</span>
+</button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-outline">
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Flock ID</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Type</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Breed</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Age</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Total Birds</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">House</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-bold uppercase text-[11px] tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<!-- Row 1 -->
+<tr class="hover:bg-[#1B5E20]/5 transition-colors group">
+<td class="px-6 py-4 font-label-bold text-primary">FLK-001</td>
+<td class="px-6 py-4 text-body-sm">Layers</td>
+<td class="px-6 py-4 text-body-sm font-medium">ISA Brown</td>
+<td class="px-6 py-4 text-body-sm">45 days</td>
+<td class="px-6 py-4 text-body-sm">500</td>
+<td class="px-6 py-4 text-body-sm">House A</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-secondary-container/30 text-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mr-2 animate-pulse"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end space-x-2 opacity-40 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors" title="View"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors" title="Edit"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-error transition-colors" title="Delete"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#1B5E20]/5 transition-colors group">
+<td class="px-6 py-4 font-label-bold text-primary">FLK-004</td>
+<td class="px-6 py-4 text-body-sm">Broilers</td>
+<td class="px-6 py-4 text-body-sm font-medium">Cobb 500</td>
+<td class="px-6 py-4 text-body-sm">32 days</td>
+<td class="px-6 py-4 text-body-sm">1,200</td>
+<td class="px-6 py-4 text-body-sm">House C</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-secondary-container/30 text-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mr-2"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end space-x-2 opacity-40 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-error transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#1B5E20]/5 transition-colors group">
+<td class="px-6 py-4 font-label-bold text-primary">FLK-007</td>
+<td class="px-6 py-4 text-body-sm">Layers</td>
+<td class="px-6 py-4 text-body-sm font-medium">Hy-Line Silver</td>
+<td class="px-6 py-4 text-body-sm">12 days</td>
+<td class="px-6 py-4 text-body-sm">800</td>
+<td class="px-6 py-4 text-body-sm">House B</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-primary-container/10 text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-outline mr-2"></span>
+                                        Quarantine
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end space-x-2 opacity-40 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-error transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-[#1B5E20]/5 transition-colors group">
+<td class="px-6 py-4 font-label-bold text-primary">FLK-002</td>
+<td class="px-6 py-4 text-body-sm">Kienyeji</td>
+<td class="px-6 py-4 text-body-sm font-medium">KARI Improved</td>
+<td class="px-6 py-4 text-body-sm">60 days</td>
+<td class="px-6 py-4 text-body-sm">300</td>
+<td class="px-6 py-4 text-body-sm">House D</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-secondary-container/30 text-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mr-2"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end space-x-2 opacity-40 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">visibility</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:bg-white rounded-lg text-stone-500 hover:text-error transition-colors"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-6 border-t border-stone-100 flex items-center justify-between">
+<p class="text-body-sm text-outline">Showing <span class="font-bold text-on-surface">1-4</span> of 12 flocks</p>
+<div class="flex items-center space-x-2">
+<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary-container text-on-primary font-label-bold">1</button>
+<button class="w-10 h-10 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low font-label-bold">2</button>
+<button class="w-10 h-10 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container-low font-label-bold">3</button>
+<button class="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Bottom Context Cards -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 bg-white rounded-xl p-md shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<h3 class="font-h3 text-on-surface mb-6">Population Trend</h3>
+<div class="h-64 bg-surface-container-low rounded-xl flex items-end justify-between px-8 py-4 relative overflow-hidden">
+<!-- Simulated Chart -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
+<div class="w-8 bg-primary rounded-t-lg h-[40%]" title="Week 1: 4200"></div>
+<div class="w-8 bg-primary rounded-t-lg h-[45%]" title="Week 2: 4400"></div>
+<div class="w-8 bg-primary rounded-t-lg h-[55%]" title="Week 3: 4800"></div>
+<div class="w-8 bg-primary rounded-t-lg h-[70%]" title="Week 4: 5100"></div>
+<div class="w-8 bg-primary rounded-t-lg h-[65%]" title="Week 5: 4950"></div>
+<div class="w-8 bg-primary-container rounded-t-lg h-[85%]" title="Current: 5400"></div>
+<div class="absolute bottom-0 left-0 right-0 h-px bg-outline-variant/30"></div>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-md shadow-xl flex flex-col justify-between relative overflow-hidden">
+<!-- Decor -->
+<div class="absolute top-[-50px] right-[-50px] w-48 h-48 bg-white/5 rounded-full"></div>
+<div>
+<h4 class="font-label-bold text-on-primary/70 uppercase tracking-widest mb-2">Resource Status</h4>
+<p class="font-h2 leading-tight">Bio-Security Level: Optimal</p>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-xs font-label-bold">FEED STOCK (LAYERS)</span>
+<span class="text-xs font-label-bold">82%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-white h-full w-[82%]"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-xs font-label-bold">WATER CONSUMPTION</span>
+<span class="text-xs font-label-bold">NORMAL</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-primary-fixed h-full w-[60%]"></div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 bg-white text-primary font-label-bold rounded-xl hover:bg-opacity-90 transition-all">
+                        Run Health Audit
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Action Button Contextual (Show only on top-level management) -->
+<div class="fixed bottom-margin right-margin">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform">add</span>
+</button>
+</div>
+</body></html>

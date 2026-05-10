@@ -1,15 +1,16 @@
+window.jukamNavigationLoaded = true;
 $(document).ready(function() {
     // Navigation Item Click Handler
-    $('.nav-item').on('click', function(e) {
+    $('.nav-item, .nav-link').on('click', function(e) {
         if ($(this).attr('href') === '#') {
             e.preventDefault();
-            $('.nav-item').removeClass('active');
-            $(this).addClass('active');
+            $('.nav-item, .nav-link').removeClass('active bg-success-light text-success font-weight-bold');
+            $(this).addClass('active bg-success-light text-success font-weight-bold');
         }
     });
 
     // Sidebar Close on Mobile Link Click
-    $('.nav-item').on('click', function() {
+    $('.nav-item, .nav-link').on('click', function() {
         if($(window).width() < 992) {
             $('.sidebar').removeClass('mobile-show');
         }

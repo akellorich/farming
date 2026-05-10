@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "tertiary": "#363d33",
+                    "outline": "#717a6d",
+                    "tertiary-fixed-dim": "#c2c9bb",
+                    "surface-container-low": "#f5f3f3",
+                    "surface-tint": "#2a6b2c",
+                    "inverse-primary": "#91d78a",
+                    "primary": "#00450d",
+                    "on-tertiary-fixed": "#171d14",
+                    "on-secondary-fixed-variant": "#334d37",
+                    "surface-container-high": "#eae8e7",
+                    "on-tertiary-container": "#c1c8ba",
+                    "on-secondary-fixed": "#07200e",
+                    "on-primary-fixed": "#002203",
+                    "tertiary-container": "#4d5449",
+                    "surface": "#fbf9f8",
+                    "secondary": "#4a654e",
+                    "on-secondary-container": "#4e6952",
+                    "on-surface": "#1b1c1c",
+                    "primary-fixed-dim": "#91d78a",
+                    "background": "#fbf9f8",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e4e2e1",
+                    "secondary-fixed": "#cceacd",
+                    "on-background": "#1b1c1c",
+                    "on-tertiary-fixed-variant": "#42493e",
+                    "primary-fixed": "#acf4a4",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-variant": "#e4e2e1",
+                    "surface-container": "#f0eded",
+                    "surface-bright": "#fbf9f8",
+                    "on-primary-container": "#90d689",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#1b5e20",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-surface-variant": "#41493e",
+                    "secondary-fixed-dim": "#b1ceb2",
+                    "secondary-container": "#c9e7ca",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#303030",
+                    "on-primary-fixed-variant": "#0c5216",
+                    "surface-dim": "#dcd9d9",
+                    "tertiary-fixed": "#dee5d6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "lg": "40px",
+                    "xs": "4px",
+                    "md": "24px",
+                    "gutter": "24px",
+                    "xl": "64px",
+                    "margin": "32px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "display": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "h1": ["Manrope"],
+                    "label-bold": ["Manrope"],
+                    "label-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "1", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .modal-blur-bg {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased overflow-hidden">
+<!-- Background Layer: Dashboard Content (Simulated for the backdrop) -->
+<div class="flex h-screen w-full">
+<!-- SideNavBar Shared Component (Inactive State) -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 h-screen w-64 border-r border-emerald-100/50 bg-[#F9FBF9] font-['Manrope'] text-sm tracking-tight">
+<div class="p-8">
+<span class="text-xl font-black text-emerald-900">KukuSmart</span>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Poultry Management</p>
+</div>
+<nav class="space-y-1 px-4 py-6">
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">reorder</span> Flock Management
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">monitoring</span> Production Tracking
+                </a>
+<a class="text-emerald-700 font-bold bg-emerald-50 rounded-lg px-4 py-3 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">grass</span> Feed Management
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">vaccines</span> Health &amp; Vaccination
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">payments</span> Sales
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span> Reports
+                </a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-margin">
+<!-- TopNavBar Shared Component -->
+<header class="flex justify-between items-center w-full px-8 py-3 h-16 bg-white/80 backdrop-blur-md font-['Manrope'] antialiased border-b border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)] sticky top-0 z-40">
+<div class="font-bold text-emerald-800 text-lg">Flock Selector</div>
+<div class="flex items-center gap-4">
+<div class="bg-emerald-50/50 px-4 py-2 rounded-lg cursor-pointer flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-800">calendar_today</span>
+<span class="text-emerald-900 font-medium text-sm">Date Picker</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer">notifications</span>
+<img alt="Farmer Profile" class="w-10 h-10 rounded-full border-2 border-emerald-100" data-alt="A professional headshot of a middle-aged farmer with a friendly expression, set against a blurred background of a modern sunlit poultry barn. The lighting is soft and natural, emphasizing a sense of expert agricultural knowledge. The overall tone is professional and agrarian, fitting a high-end poultry management software profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqS8bAig0uYBWP26sVmSrmbzXdv-9urHNMi9InX0XbMlCLeIVmWFr6LRrRJ3izw6WZLMssXYn3r56K5QeRea6BXOMIhbP03R4koRMggi2iMnudED72zbkx1-zjSXQn2pqoTq7Y_-vkrKbqYaqaiKCUORWff5I0Sg4J5dH_egGYBZ44q55cZ9HrtyrZgFwj0NfpGZ8NWMjFwM-qNFp0_yL1YR7PwPkVhHHHawzVTuyoT6KN9er3yi6s2-rCf5QAnOid4NbyGfi0-fbv"/>
+</div>
+</header>
+<!-- Dashboard Mockup Content -->
+<div class="mt-8">
+<h1 class="font-h1 text-h1 text-primary">Feed Management</h1>
+<div class="grid grid-cols-12 gap-gutter mt-8">
+<!-- Metrics Bento -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-2 gap-gutter">
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<p class="text-body-sm font-body-sm text-outline mb-2">Total Feed Consumption</p>
+<div class="flex items-end gap-2">
+<span class="font-display text-display text-primary">1,240</span>
+<span class="text-secondary font-bold pb-2">kg</span>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<p class="text-body-sm font-body-sm text-outline mb-2">Current Inventory</p>
+<div class="flex items-end gap-2">
+<span class="font-display text-display text-primary">450</span>
+<span class="text-secondary font-bold pb-2">Bags</span>
+</div>
+</div>
+</div>
+<!-- Recent Image/Activity -->
+<div class="col-span-12 lg:col-span-4 h-full">
+<div class="bg-white rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] overflow-hidden h-full">
+<img class="w-full h-full object-cover opacity-80" data-alt="Close up of golden poultry feed mash being poured into a modern feeder inside a clean, well-lit barn. The warm, natural light highlights the texture of the grain. The scene is calm and industrial yet organic, emphasizing the quality of nutrition in a high-tech farming operation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeAJv4qSmjsT9TOT73R2t7Af-ImdRufN_SfP5iZCxNyPyl7RtlX-T1_r3VqHMx9Hi_emMpuRkKKZmKlrJgcfyDGDCJCS22C8sngTmJl9WGNe-xGcTZ9g9ETw8aHKr6st-TCYWtIHL-UZU0LE9zAuxZ0C25ivSF0gy9KjlC302NnfCEtB5Ae4ZkSnnwWTBn7l9Ir_bMkOdMQjSmrzzM8QwThJ4lqYMR3m0S3kJCe4W2MRXX47tgGke7LYCS2lMJF7XMKbJZ7Pj43je6"/>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] mt-gutter p-md">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-h3 text-primary">Recent Feed Logs</h3>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-xl font-label-bold text-label-bold hover:bg-emerald-900 transition-colors">NEW ENTRY</button>
+</div>
+<div class="w-full h-64 border-t border-surface-container"></div>
+</div>
+</div>
+</main>
+</div>
+<!-- MODAL OVERLAY -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-md bg-emerald-950/20 modal-blur-bg">
+<!-- Modal Container -->
+<div class="bg-white w-full max-w-2xl rounded-[24px] shadow-[0px_20px_40px_rgba(27,94,32,0.15)] overflow-hidden flex flex-col max-h-[921px] relative">
+<!-- Modal Header -->
+<div class="px-xl py-lg flex justify-between items-center border-b border-surface-container-low">
+<div>
+<h2 class="font-h2 text-h2 text-primary">Add Feed Entry</h2>
+<p class="text-body-sm font-body-sm text-outline mt-1">Record a new feed purchase or distribution event.</p>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors z-10">
+<span class="material-symbols-outlined text-outline">close</span>
+</button>
+</div>
+<!-- Modal Content (Scrollable) -->
+<div class="px-xl py-lg overflow-y-auto space-y-gutter">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Date Input -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-primary uppercase">Date</label>
+<div class="relative">
+<input class="w-full px-md py-sm rounded-xl border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md font-body-md" type="text" value="Oct 24, 2023"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+</div>
+</div>
+<!-- Flock Selection -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-primary uppercase">Flock</label>
+<select class="w-full px-md py-sm rounded-xl border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md font-body-md appearance-none">
+<option>Barn 04 - Sector B</option>
+<option>Barn 01 - Hatchery</option>
+<option>Barn 03 - Free Range</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-end">
+<!-- Feed Type -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-primary uppercase">Feed Type</label>
+<select class="w-full px-md py-sm rounded-xl border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md font-body-md appearance-none">
+<option>Layers Mash</option>
+<option>Broiler Starter</option>
+<option>Finisher Crumble</option>
+</select>
+</div>
+<!-- Quantity Input Container moved here for the same row -->
+<!-- Quantity Input -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-primary uppercase">Quantity</label>
+<div class="relative">
+<input class="w-full px-md py-sm rounded-xl border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md font-body-md" placeholder="0.00" step="0.01" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-outline font-body-md pointer-events-none">kg</span>
+</div>
+</div></div>
+<!-- High Priority Input Section -->
+<!-- Notes Textarea -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-primary uppercase">Notes</label>
+<textarea class="w-full px-md py-sm rounded-xl border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-body-md font-body-md" placeholder="Add any specific observations or details..." rows="3"></textarea>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="px-xl py-lg bg-surface-container-lowest border-t border-surface-container flex flex-col md:flex-row justify-end gap-md">
+<button class="px-xl py-5 rounded-xl font-label-bold text-label-bold text-primary hover:bg-emerald-50 transition-all cursor-pointer active:scale-95 duration-200 font-black border border-outline/30">CANCEL</button>
+<button class="px-xl py-5 bg-primary text-on-primary rounded-xl font-label-bold text-label-bold hover:bg-emerald-900 shadow-lg shadow-primary/20 transition-all cursor-pointer active:scale-95 duration-200 font-black">SAVE ENTRY</button>
+</div>
+</div>
+</div>
+</body></html>

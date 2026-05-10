@@ -2071,3 +2071,55 @@ function getinsurancecompaniesselect(obj) {
         }
     );
 }
+
+/**
+ * Poultry Dropdown Population Functions
+ */
+
+function getpoultrybirdtypes(obj) {
+    $.getJSON("../controllers/poultrysettingsoperations.php", { action: 'getbirdtypes' }, (data) => {
+        let options = '<option value="" disabled selected>Select bird type...</option>';
+        if (Array.isArray(data)) {
+            data.forEach(type => {
+                options += `<option value="${type.typeid}">${type.typename}</option>`;
+            });
+        }
+        obj.html(options);
+    });
+}
+
+function getpoultryflockstages(obj) {
+    $.getJSON("../controllers/poultrysettingsoperations.php", { action: 'getflockstages' }, (data) => {
+        let options = '<option value="" disabled selected>Select flock stage...</option>';
+        if (Array.isArray(data)) {
+            data.forEach(stage => {
+                options += `<option value="${stage.stageid}">${stage.stagename}</option>`;
+            });
+        }
+        obj.html(options);
+    });
+}
+
+function getpoultrybreeds(obj) {
+    $.getJSON("../controllers/poultrysettingsoperations.php", { action: 'getbreeds' }, (data) => {
+        let options = '<option value="" disabled selected>Select breed...</option>';
+        if (Array.isArray(data)) {
+            data.forEach(breed => {
+                options += `<option value="${breed.breedid}">${breed.breedname}</option>`;
+            });
+        }
+        obj.html(options);
+    });
+}
+
+function getpoultryhouses(obj) {
+    $.getJSON("../controllers/poultrysettingsoperations.php", { action: 'gethouses' }, (data) => {
+        let options = '<option value="" disabled selected>Select house...</option>';
+        if (Array.isArray(data)) {
+            data.forEach(house => {
+                options += `<option value="${house.houseid}">${house.housename} (${house.capacity} birds)</option>`;
+            });
+        }
+        obj.html(options);
+    });
+}

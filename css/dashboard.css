@@ -54,12 +54,18 @@ h1, h2, h3, h4, .font-headline {
 .main-content {
     margin-left: 256px;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 72px 0.5rem 2rem; /* Reduced sides from 1rem */
+    padding: 80px 1.5rem 2rem; /* Increased top and horizontal padding for cleaner bento layout */
+}
+@media (max-width: 991.98px) {
+    .main-content {
+        margin-left: 0 !important;
+        padding: 80px 1rem 1rem; /* Consistent tablet padding */
+    }
 }
 @media (max-width: 575.98px) {
     .main-content {
         margin-left: 0 !important;
-        padding: 72px 0.4rem 1rem; /* Reduced from 0.75rem */
+        padding: 80px 1rem 1rem; /* Increased for mobile consistency */
     }
     .mb-5, .mb-3 {
         margin-bottom: 0.75rem !important; /* 50% Reduction from current */

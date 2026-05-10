@@ -38,6 +38,10 @@ CREATE TABLE `animals` (
   `deletedby` int(11) DEFAULT NULL,
   `datedeleted` datetime DEFAULT NULL,
   `reasondeleted` text DEFAULT NULL,
+  `is_insured` tinyint(1) DEFAULT 0,
+  `insurance_company_id` int(11) DEFAULT NULL,
+  `insuranceamount` decimal(15,2) DEFAULT 0.00,
+  `isactive` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tagid` (`tagid`),
   KEY `fkanimalbreed` (`breedid`),
@@ -45,6 +49,8 @@ CREATE TABLE `animals` (
   KEY `fkanimallineage` (`damid`),
   KEY `fkanimalsaddedby` (`addedby`),
   KEY `fkanimalsdeletedby` (`deletedby`),
+  KEY `fk_animal_insurance` (`insurance_company_id`),
+  CONSTRAINT `fk_animal_insurance` FOREIGN KEY (`insurance_company_id`) REFERENCES `insurancecompanies` (`id`) ON DELETE SET NULL,
   CONSTRAINT `fkanimalbreed` FOREIGN KEY (`breedid`) REFERENCES `breeds` (`id`),
   CONSTRAINT `fkanimallineage` FOREIGN KEY (`damid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fkanimalpen` FOREIGN KEY (`penid`) REFERENCES `pens` (`id`),
@@ -54,23 +60,23 @@ CREATE TABLE `animals` (
 
 /*Data for the table `animals` */
 
-insert  into `animals`(`id`,`tagid`,`designatedname`,`breedid`,`penid`,`damid`,`birthdate`,`initialweight`,`registrationsource`,`purchaseprice`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,'JK-2022-001','Daisy',1,2,NULL,'2022-03-15',35.50,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL),
-(2,'JK-2022-002','Bella',2,2,NULL,'2022-04-10',32.00,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL),
-(3,'JK-2023-045','Luna',1,3,1,'2023-11-20',38.00,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL),
-(4,'JK-PUR-001','Goldie',3,2,NULL,'2021-06-05',450.00,'External Purchase',1200.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL),
-(5,'JK-2024-012','Molly',4,3,2,'2024-01-05',30.50,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL),
-(6,'JK-2024-00005','Wanjiku',1,2,NULL,'2020-05-15',450.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(7,'JK-2024-00006','Muthoni',2,2,NULL,'2021-03-10',420.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(8,'JK-2024-00007','Akinyi',4,5,NULL,'2019-11-20',480.00,'',0.00,'Dry',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(9,'JK-2024-00008','Nekesa',1,1,NULL,'2020-08-05',460.00,'',0.00,'Pregnant',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(10,'JK-2024-00009','Zawadi',3,2,NULL,'2022-01-12',380.00,'',0.00,'Active',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(11,'JK-2024-00010','Zuhura',2,4,NULL,'2021-06-25',410.00,'',0.00,'Sick',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(12,'JK-2024-00011','Amani',4,2,NULL,'2020-12-30',440.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(13,'JK-2024-00012','Mumbi',1,5,NULL,'2019-09-15',495.00,'',0.00,'Dry',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(14,'JK-2024-00013','Njeri',3,1,NULL,'2021-02-20',430.00,'',0.00,'Pregnant',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(15,'JK-2024-00014','Atieno',5,2,NULL,'2022-04-10',350.00,'',0.00,'Active',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL),
-(16,'JK-2026-00015','Test',6,3,8,'2026-05-04',50.00,'Born on Farm',0.00,'Dry',5,'2026-05-04 11:54:39',0,NULL,NULL,NULL);
+insert  into `animals`(`id`,`tagid`,`designatedname`,`breedid`,`penid`,`damid`,`birthdate`,`initialweight`,`registrationsource`,`purchaseprice`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`is_insured`,`insurance_company_id`,`insuranceamount`,`isactive`) values 
+(1,'JK-2022-001','Daisy',1,2,NULL,'2022-03-15',35.50,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL,1,1,150000.00,1),
+(2,'JK-2022-002','Bella',2,2,NULL,'2022-04-10',32.00,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL,1,1,150000.00,1),
+(3,'JK-2023-045','Luna',1,3,1,'2023-11-20',38.00,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL,1,2,125000.00,1),
+(4,'JK-PUR-001','Goldie',3,2,NULL,'2021-06-05',450.00,'External Purchase',1200.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL,1,2,125000.00,1),
+(5,'JK-2024-012','Molly',4,3,2,'2024-01-05',30.50,'Born on Farm',0.00,'Active',5,'2026-05-03 18:08:33',0,NULL,NULL,NULL,1,3,140000.00,1),
+(6,'JK-2024-00005','Wanjiku',1,2,NULL,'2020-05-15',450.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,1,2,125000.00,1),
+(7,'JK-2024-00006','Muthoni',2,2,NULL,'2021-03-10',420.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,1,2,125000.00,1),
+(8,'JK-2024-00007','Akinyi',4,5,NULL,'2019-11-20',480.00,'',0.00,'Dry',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,1,3,140000.00,1),
+(9,'JK-2024-00008','Nekesa',1,1,NULL,'2020-08-05',460.00,'',0.00,'Pregnant',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(10,'JK-2024-00009','Zawadi',3,2,NULL,'2022-01-12',380.00,'',0.00,'Active',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(11,'JK-2024-00010','Zuhura',2,4,NULL,'2021-06-25',410.00,'',0.00,'Sick',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(12,'JK-2024-00011','Amani',4,2,NULL,'2020-12-30',440.00,'',0.00,'Lactating',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(13,'JK-2024-00012','Mumbi',1,5,NULL,'2019-09-15',495.00,'',0.00,'Dry',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(14,'JK-2024-00013','Njeri',3,1,NULL,'2021-02-20',430.00,'',0.00,'Pregnant',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(15,'JK-2024-00014','Atieno',5,2,NULL,'2022-04-10',350.00,'',0.00,'Active',5,'2026-05-04 11:51:12',0,NULL,NULL,NULL,0,NULL,0.00,1),
+(16,'JK-2026-00015','Test',6,3,8,'2026-05-04',50.00,'Born on Farm',0.00,'Dry',5,'2026-05-04 11:54:39',0,NULL,NULL,NULL,0,NULL,0.00,1);
 
 /*Table structure for table `audittrail` */
 
@@ -87,7 +93,7 @@ CREATE TABLE `audittrail` (
   `updatedvalues` mediumtext DEFAULT NULL,
   `branchid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2365 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2408 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `audittrail` */
 
@@ -2453,7 +2459,50 @@ insert  into `audittrail`(`id`,`timestamp`,`userid`,`operation`,`narration`,`pla
 (2361,'2026-05-06 10:59:07',5,'Insert','Logged health record for animal: JK-2022-001','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":6,\"animalid\":1,\"diseaseid\":7,\"status\":\"Recovering\"}',NULL),
 (2362,'2026-05-06 11:10:18',5,'Insert','Logged health record for animal: JK-2022-002','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":7,\"animalid\":2,\"diseaseid\":7,\"status\":\"Recovering\"}',NULL),
 (2363,'2026-05-06 11:13:55',5,'Insert','Logged health record for animal: JK-2024-00005','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":8,\"animalid\":6,\"diseaseid\":8,\"status\":\"Recovering\"}',NULL),
-(2364,'2026-05-06 11:16:51',5,'Insert','Logged health record for animal: JK-2024-00006','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":9,\"animalid\":7,\"diseaseid\":2,\"status\":\"Recovering\"}',NULL);
+(2364,'2026-05-06 11:16:51',5,'Insert','Logged health record for animal: JK-2024-00006','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\":9,\"animalid\":7,\"diseaseid\":2,\"status\":\"Recovering\"}',NULL),
+(2365,'2026-05-07 14:32:42',5,'Update','Updated Company Details','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"companyname\": \"JUKAM Dairy Limited\", \"taxregno\": \"TRN-88291-JK\", \"emailaddress\": \"admin@jukamdairy.co.ke\"}','{\"companyname\": \"JUKAM Dairy Limited\", \"taxregno\": \"TRN-88291-JK\", \"emailaddress\": \"admin@jukamdairy.co.ke\"}',NULL),
+(2366,'2026-05-08 20:01:35',1,'Insert','Added Poultry Breed: Test','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"4\", \"breedname\": \"Test\", \"category\": \"Layers\", \"status\": \"Active\"}',NULL),
+(2367,'2026-05-09 10:17:28',1,'Update','Updated Poultry Breed: Cobb 5000','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"breedname\": \"Cobb 500\", \"category\": \"Broilers\", \"status\": \"Active\"}','{\"id\": \"2\", \"breedname\": \"Cobb 5000\", \"category\": \"Broilers\", \"status\": \"Active\"}',NULL),
+(2368,'2026-05-09 10:17:43',1,'Update','Updated Bird Type: Broiler','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"typename\": \"Broilers\"}','{\"id\": \"2\", \"typename\": \"Broiler\"}',NULL),
+(2369,'2026-05-09 10:17:52',1,'Update','Updated Bird Type: Broilers','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"typename\": \"Broiler\"}','{\"id\": \"2\", \"typename\": \"Broilers\"}',NULL),
+(2370,'2026-05-09 10:19:39',1,'Update','Updated Poultry House: House A','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"housename\": \"House A\"}','{\"id\": \"1\", \"housename\": \"House A\"}',NULL),
+(2371,'2026-05-09 10:19:52',1,'Update','Updated Flock Stage: Chicks','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"stagename\": \"Chick\"}','{\"id\": \"1\", \"stagename\": \"Chicks\"}',NULL),
+(2372,'2026-05-09 10:20:00',1,'Update','Updated Flock Stage: Chick','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"stagename\": \"Chicks\"}','{\"id\": \"1\", \"stagename\": \"Chick\"}',NULL),
+(2373,'2026-05-09 10:21:56',1,'Update','Updated Poultry House: House A','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"housename\": \"House A\"}','{\"id\": \"1\", \"housename\": \"House A\"}',NULL),
+(2374,'2026-05-09 10:22:33',1,'Insert','Registered Poultry House: House C','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"4\", \"housename\": \"House C\"}',NULL),
+(2375,'2026-05-09 10:22:46',1,'Insert','Registered Poultry House: House C','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"5\", \"housename\": \"House C\"}',NULL),
+(2376,'2026-05-09 12:13:05',1,'Delete','Deleted Poultry Breed ID: 4','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(2377,'2026-05-09 12:19:08',1,'Insert','Added Bird Type: Test','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"4\", \"typename\": \"Test\"}',NULL),
+(2378,'2026-05-09 12:19:20',1,'Delete','Deleted Bird Type ID: 4','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(2379,'2026-05-09 12:19:45',1,'Insert','Added Flock Stage: Test Flock','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"id\": \"4\", \"stagename\": \"Test Flock\"}',NULL),
+(2380,'2026-05-09 12:20:01',1,'Delete','Deleted Flock Stage ID: 4','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(2381,'2026-05-09 12:20:14',1,'Delete','Deleted Poultry House ID: 5','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(2382,'2026-05-10 13:49:38',5,'Insert','Logged feeding session (Ration: Test) for Pen ID: 4','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"8\", \"logdate\": \"2013-12-02\", \"shiftid\": \"2\", \"penid\": \"4\", \"feed_source_type\": \"Ration\", \"feed_id\": \"3\", \"feedname\": \"Test\", \"quantitykg\": \"200.00\"}',NULL),
+(2383,'2026-05-10 14:26:37',5,'Insert','Logged feeding session (Feed: Calf Starter Pellets) for Pen ID: 2','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"9\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"2\", \"feed_source_type\": \"Feed\", \"feed_id\": \"14\", \"feedname\": \"Calf Starter Pellets\", \"quantitykg\": \"200.00\"}',NULL),
+(2384,'2026-05-10 14:33:12',5,'Insert','Logged feeding session (Ration: Test) for Pen ID: 4','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"10\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"4\", \"feed_source_type\": \"Ration\", \"feed_id\": \"3\", \"feedname\": \"Test\", \"quantitykg\": \"30.00\"}',NULL),
+(2385,'2026-05-10 14:34:06',5,'Insert','Logged feeding session (Ration: Test) for Pen ID: 3','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"11\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"3\", \"feed_source_type\": \"Ration\", \"feed_id\": \"3\", \"feedname\": \"Test\", \"quantitykg\": \"120.00\"}',NULL),
+(2386,'2026-05-10 14:36:14',5,'Insert','Logged feeding session (Ration: Test) for Pen ID: 5','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"12\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"5\", \"feed_source_type\": \"Ration\", \"feed_id\": \"3\", \"feedname\": \"Test\", \"quantitykg\": \"25.20\"}',NULL),
+(2387,'2026-05-10 14:38:55',5,'Insert','Logged feeding session (Feed: Calf Starter Pellets) for Pen ID: 6','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"13\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"6\", \"feed_source_type\": \"Feed\", \"feed_id\": \"14\", \"feedname\": \"Calf Starter Pellets\", \"quantitykg\": \"42.00\"}',NULL),
+(2388,'2026-05-10 14:43:33',5,'Insert','Logged feeding session (Feed: Calf Starter Pellets) for Pen ID: 3','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"14\", \"logdate\": \"2026-05-10\", \"shiftid\": \"3\", \"penid\": \"3\", \"feed_source_type\": \"Feed\", \"feed_id\": \"14\", \"feedname\": \"Calf Starter Pellets\", \"quantitykg\": \"60.00\"}',NULL),
+(2389,'2026-05-10 14:45:17',5,'Insert','Logged health record for animal: JK-2022-001','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\":10,\"animalid\":1,\"diseaseid\":7,\"status\":\"Completed\"}',NULL),
+(2390,'2026-05-10 16:18:12',5,'Update','Updated Poultry House: House C','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"housename\": \"House C\"}','{\"id\": \"4\", \"housename\": \"House C\"}',NULL),
+(2391,'2026-05-10 16:25:04',5,'Update','Updated Poultry House: House A','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"housename\": \"House A\", \"capacity\": 0}','{\"id\": \"1\", \"housename\": \"House A\", \"capacity\": \"1000\"}',NULL),
+(2392,'2026-05-10 16:26:27',5,'Update','Updated Poultry House: House B','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"housename\": \"House B\", \"capacity\": 0}','{\"id\": \"2\", \"housename\": \"House B\", \"capacity\": \"1500\"}',NULL),
+(2393,'2026-05-10 16:28:03',5,'Update','Updated Poultry House: House C','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"housename\": \"House C\", \"capacity\": 0}','{\"id\": \"4\", \"housename\": \"House C\", \"capacity\": \"800\"}',NULL),
+(2394,'2026-05-10 16:28:30',5,'Update','Updated Poultry House: Quarantine Pen','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"housename\": \"Quarantine Pen\", \"capacity\": 0}','{\"id\": \"3\", \"housename\": \"Quarantine Pen\", \"capacity\": \"40\"}',NULL),
+(2395,'2026-05-10 16:49:03',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"3\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2396,'2026-05-10 16:49:04',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"4\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2397,'2026-05-10 16:49:05',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"5\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2398,'2026-05-10 16:49:05',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"6\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2399,'2026-05-10 16:49:15',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"7\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2400,'2026-05-10 16:52:16',5,'Insert','Created Feed Formulation: Test fromulation','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"8\", \"formulationname\": \"Test fromulation\"}',NULL),
+(2401,'2026-05-10 16:53:31',5,'Insert','Recorded New Disease: Fowl Typhoid','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}',NULL,'{\"id\": \"4\", \"diseasename\": \"Fowl Typhoid\"}',NULL),
+(2402,'2026-05-10 17:07:53',5,'Update','Updated Disease: Fowl Pox','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"name\": \"Fowl Pox\"}','{\"id\": \"3\", \"name\": \"Fowl Pox\"}',NULL),
+(2403,'2026-05-10 17:08:19',5,'Update','Updated Mortality Reason: Disease Outbreak','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"reasonlabel\": \"Disease Outbreak\"}','{\"id\": \"2\", \"reasonlabel\": \"Disease Outbreak\"}',NULL),
+(2404,'2026-05-10 17:08:20',5,'Update','Updated Mortality Reason: Disease Outbreak','{\"browser\":\"Safari\",\"browser_version\":\"16.0\",\"os_platform\":\"mac\",\"device\":\"Mobile\"}','{\"reasonlabel\": \"Disease Outbreak\"}','{\"id\": \"2\", \"reasonlabel\": \"Disease Outbreak\"}',NULL),
+(2405,'2026-05-10 18:54:49',5,'Delete','Deleted Disease ID: 7','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(2406,'2026-05-10 20:19:02',5,'Insert','Registered Poultry Flock: FL-2026-001','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"flockid\": \"1\", \"flockno\": \"FL-2026-001\", \"name\": \"Q1 2026 Layers Batch\"}',NULL),
+(2407,'2026-05-10 20:25:50',5,'Insert','Recorded Mortality for Flock: FL-2026-001 (Count: 5)','{\"browser\":\"Chrome\",\"browser_version\":\"147.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,'{\"flockno\": \"FL-2026-001\", \"count\": \"5\", \"reason\": \"injury\"}',NULL);
 
 /*Table structure for table `breeds` */
 
@@ -2522,7 +2571,7 @@ CREATE TABLE `companydetails` (
 /*Data for the table `companydetails` */
 
 insert  into `companydetails`(`id`,`companyname`,`taxregno`,`incorporationdate`,`emailaddress`,`physicaladdress`,`postaladdress`,`mobileno`,`logopath`,`addedby`,`dateadded`,`lastupdated`,`updatedby`) values 
-(1,'JUKAM Dairy Limited','TRN-88291-JK','2018-05-12','admin@jukamdairy.co.ke','Plot 45, Green Valley Industrial Estate, Sector 7, Rift Valley District','P.O. Box 7721, Nakuru Central','+254 722 000 999','images/logo.png',5,'2026-05-03 19:10:08','2026-05-04 08:01:02',5);
+(1,'JUKAM Dairy Limited','TRN-88291-JK','2018-05-12','admin@jukamdairy.co.ke','Plot 45, Green Valley Industrial Estate, Sector 7, Rift Valley District','P.O. Box 7721, Nakuru Central','+254 722 000 999','images/logo.png',5,'2026-05-03 19:10:08','2026-05-07 14:32:42',5);
 
 /*Table structure for table `countries` */
 
@@ -2750,7 +2799,7 @@ CREATE TABLE `feedingloganimals` (
   KEY `fk_feedinglog_animal` (`animalid`),
   CONSTRAINT `fk_feedinglog_animal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fk_feedinglog_master` FOREIGN KEY (`logid`) REFERENCES `feedinglogs` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `feedingloganimals` */
 
@@ -2760,7 +2809,25 @@ insert  into `feedingloganimals`(`id`,`logid`,`animalid`) values
 (3,6,9),
 (4,6,14),
 (5,7,9),
-(6,7,14);
+(6,7,14),
+(7,8,11),
+(8,9,1),
+(9,9,2),
+(10,9,6),
+(11,9,7),
+(12,9,10),
+(13,9,12),
+(14,9,15),
+(15,9,4),
+(16,10,11),
+(17,11,3),
+(18,11,5),
+(19,11,16),
+(20,12,8),
+(21,12,13),
+(22,14,3),
+(23,14,5),
+(24,14,16);
 
 /*Table structure for table `feedinglogs` */
 
@@ -2791,7 +2858,7 @@ CREATE TABLE `feedinglogs` (
   CONSTRAINT `fkfeedinglogsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkfeedingpen` FOREIGN KEY (`penid`) REFERENCES `pens` (`id`),
   CONSTRAINT `fkfeedingshift` FOREIGN KEY (`shiftid`) REFERENCES `feedingshifts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `feedinglogs` */
 
@@ -2802,7 +2869,14 @@ insert  into `feedinglogs`(`id`,`logdate`,`shiftid`,`penid`,`feed_source_type`,`
 (4,'2026-05-02',3,2,'Feed',NULL,'Dairy Meal',80.00,'Evening concentrate',5,'2026-05-03 18:08:34',0,NULL,NULL,NULL),
 (5,'2026-05-05',3,5,'Feed',NULL,'3',200.00,'',5,'2026-05-05 14:40:51',0,NULL,NULL,NULL),
 (6,'2026-05-05',3,1,'Feed',5,'Dewormer (1L)',42.00,'',5,'2026-05-05 17:24:23',0,NULL,NULL,NULL),
-(7,'2026-05-05',3,1,'Ration',3,'Test',30.00,'',5,'2026-05-05 17:28:41',0,NULL,NULL,NULL);
+(7,'2026-05-05',3,1,'Ration',3,'Test',30.00,'',5,'2026-05-05 17:28:41',0,NULL,NULL,NULL),
+(8,'2013-12-02',2,4,'Ration',3,'Test',200.00,'',5,'2026-05-10 13:49:38',0,NULL,NULL,NULL),
+(9,'2026-05-10',3,2,'Feed',14,'Calf Starter Pellets',200.00,'This is a test entry',5,'2026-05-10 14:26:37',0,NULL,NULL,NULL),
+(10,'2026-05-10',3,4,'Ration',3,'Test',30.00,'',5,'2026-05-10 14:33:12',0,NULL,NULL,NULL),
+(11,'2026-05-10',3,3,'Ration',3,'Test',120.00,'Test entry',5,'2026-05-10 14:34:06',0,NULL,NULL,NULL),
+(12,'2026-05-10',3,5,'Ration',3,'Test',25.20,'This is a test ',5,'2026-05-10 14:36:14',0,NULL,NULL,NULL),
+(13,'2026-05-10',3,6,'Feed',14,'Calf Starter Pellets',42.00,'',5,'2026-05-10 14:38:55',0,NULL,NULL,NULL),
+(14,'2026-05-10',3,3,'Feed',14,'Calf Starter Pellets',60.00,'This is a test entry',5,'2026-05-10 14:43:33',0,NULL,NULL,NULL);
 
 /*Table structure for table `feedingshifts` */
 
@@ -2921,7 +2995,7 @@ CREATE TABLE `healthlogs` (
   CONSTRAINT `fkhealthlogsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkhealthlogsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkhealthvet` FOREIGN KEY (`veterinarianid`) REFERENCES `veterinarians` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `healthlogs` */
 
@@ -2934,7 +3008,39 @@ insert  into `healthlogs`(`id`,`logdate`,`animalid`,`diseaseid`,`diagnosis`,`tre
 (6,'0000-00-00',1,7,'Test entry','Abtibacterial tablets admionistered','Responding well','Recovering',4,NULL,NULL,5,'2026-05-06 10:59:07',0,NULL,NULL,NULL),
 (7,'2026-05-06',2,7,'This is a test entry','Antibiotic given','This was a test entry','Recovering',2,NULL,NULL,5,'2026-05-06 11:10:18',0,NULL,NULL,NULL),
 (8,'2026-05-06',6,8,'Another test entry','Antibiotic given, other medicines to follow','This is a test','Recovering',3,NULL,NULL,5,'2026-05-06 11:13:55',0,NULL,NULL,NULL),
-(9,'2026-05-06',7,2,'This is a test entry','Antibiotic given, other medicines to follow','This is a test. Another test','Recovering',3,NULL,NULL,5,'2026-05-06 11:16:51',0,NULL,NULL,NULL);
+(9,'2026-05-06',7,2,'This is a test entry','Antibiotic given, other medicines to follow','This is a test. Another test','Recovering',3,NULL,NULL,5,'2026-05-06 11:16:51',0,NULL,NULL,NULL),
+(10,'2026-05-10',1,7,'This is a test entry','Antibiotic given','Test','Completed',4,NULL,NULL,5,'2026-05-10 14:45:17',0,NULL,NULL,NULL);
+
+/*Table structure for table `insurancecompanies` */
+
+DROP TABLE IF EXISTS `insurancecompanies`;
+
+CREATE TABLE `insurancecompanies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `registrationno` varchar(50) NOT NULL,
+  `companyname` varchar(100) NOT NULL,
+  `contacts` varchar(255) DEFAULT NULL,
+  `contactperson` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `registrationno` (`registrationno`),
+  KEY `companyname` (`companyname`),
+  KEY `registrationno_2` (`registrationno`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `insurancecompanies` */
+
+insert  into `insurancecompanies`(`id`,`registrationno`,`companyname`,`contacts`,`contactperson`,`email`,`address`,`isactive`,`created_at`,`updated_at`,`created_by`) values 
+(1,'IRA/01/2024','CIC Insurance Group','+254 703 099 120','John Kamau','livestock@cic.co.ke','CIC Plaza, Mara Road, Upperhill, Nairobi',1,'2026-05-07 16:51:03','2026-05-07 16:51:03',1),
+(2,'IRA/05/2024','APA Insurance','+254 20 286 2000','Sarah Wanjiku','agri-support@apainsurance.org','Apollo Centre, Ring Road Parklands, Nairobi',1,'2026-05-07 16:51:03','2026-05-07 16:51:03',1),
+(3,'IRA/09/2024','Britam Holdings','+254 703 094 000','Michael Omondi','agri-biz@britam.com','Britam Tower, Upperhill, Nairobi',1,'2026-05-07 16:51:03','2026-05-07 16:51:03',1),
+(4,'IRA/12/2024','Old Mutual Kenya','+254 711 010 000','Faith Mutua','insurance@oldmutualkenya.com','Old Mutual Tower, Upperhill, Nairobi',1,'2026-05-07 16:51:03','2026-05-07 16:51:03',1),
+(5,'IRA/15/2024','GA Insurance','+254 709 626 000','David Kiprono','agri.dept@gainsh.com','GA Insurance House, Ralph Bunche Road, Nairobi',1,'2026-05-07 16:51:03','2026-05-07 16:51:03',1);
 
 /*Table structure for table `inventorycategories` */
 
@@ -2988,6 +3094,8 @@ CREATE TABLE `inventoryitems` (
   `current_stock` decimal(15,2) DEFAULT 0.00,
   `unitprice` decimal(15,2) DEFAULT 0.00,
   `reorderlevel` decimal(15,2) DEFAULT 0.00,
+  `currentstock` decimal(15,2) DEFAULT 0.00,
+  `maxstock` decimal(15,2) DEFAULT 0.00,
   `itemtype` enum('Ingredient','Product') DEFAULT 'Ingredient',
   `is_feed` tinyint(1) DEFAULT 0,
   `description` text DEFAULT NULL,
@@ -3012,21 +3120,21 @@ CREATE TABLE `inventoryitems` (
 
 /*Data for the table `inventoryitems` */
 
-insert  into `inventoryitems`(`id`,`categoryid`,`itemcode`,`itemname`,`uom`,`current_stock`,`unitprice`,`reorderlevel`,`itemtype`,`is_feed`,`description`,`addedby`,`dateadded`,`updatedby`,`lastupdated`,`deleted`,`deletedby`,`datedeleted`) values 
-(1,1,'FEED-100','Dairy Meal 50kg','Bag',0.00,2450.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(2,1,'FEED-101','Maize Germ','Bag',0.00,1800.00,20.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(3,1,'FEED-102','Hay Bales (Rhodes)','Pcs',0.00,350.00,50.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(4,2,'MED-001','Penicillin Vials','Vials',0.00,450.00,5.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(5,2,'MED-002','Dewormer (1L)','Litre',0.00,1200.00,2.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(6,2,'MED-003','Foot & Mouth Vaccine','Vials',0.00,2500.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(7,3,'EQP-050','Milking Bucket','Pcs',0.00,3500.00,1.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(8,3,'EQP-051','Wheelbarrow','Pcs',0.00,4800.00,1.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(9,4,'BLD-001','Bamburi Cement 50kg','Bag',0.00,950.00,5.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(10,4,'BLD-002','Iron Sheets (G30)','Pcs',0.00,1200.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(11,5,'CLN-001','Dairy Sanitizer (5L)','Jerrycan',0.00,1850.00,3.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL),
-(12,5,'CLN-002','Milking Salve','Kg',0.00,350.00,5.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(13,6,'SUP-200','Mineral Lick Blocks','Pcs',0.00,850.00,10.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
-(14,6,'SUP-201','Calf Starter Pellets','Bag',0.00,2800.00,5.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-05 16:24:49',0,NULL,NULL);
+insert  into `inventoryitems`(`id`,`categoryid`,`itemcode`,`itemname`,`uom`,`current_stock`,`unitprice`,`reorderlevel`,`currentstock`,`maxstock`,`itemtype`,`is_feed`,`description`,`addedby`,`dateadded`,`updatedby`,`lastupdated`,`deleted`,`deletedby`,`datedeleted`) values 
+(1,1,'FEED-100','Dairy Meal 50kg','Bag',0.00,2450.00,10.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(2,1,'FEED-101','Maize Germ','Bag',0.00,1800.00,20.00,382.65,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(3,1,'FEED-102','Hay Bales (Rhodes)','Pcs',0.00,350.00,50.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(4,2,'MED-001','Penicillin Vials','Vials',0.00,450.00,5.00,698.57,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(5,2,'MED-002','Dewormer (1L)','Litre',0.00,1200.00,2.00,544.90,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(6,2,'MED-003','Foot & Mouth Vaccine','Vials',0.00,2500.00,10.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(7,3,'EQP-050','Milking Bucket','Pcs',0.00,3500.00,1.00,428.79,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(8,3,'EQP-051','Wheelbarrow','Pcs',0.00,4800.00,1.00,309.26,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(9,4,'BLD-001','Bamburi Cement 50kg','Bag',0.00,950.00,5.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(10,4,'BLD-002','Iron Sheets (G30)','Pcs',0.00,1200.00,10.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(11,5,'CLN-001','Dairy Sanitizer (5L)','Jerrycan',0.00,1850.00,3.00,859.93,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL),
+(12,5,'CLN-002','Milking Salve','Kg',0.00,350.00,5.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(13,6,'SUP-200','Mineral Lick Blocks','Pcs',0.00,850.00,10.00,0.00,0.00,'Ingredient',0,NULL,NULL,'2026-05-04 17:07:46',NULL,NULL,0,NULL,NULL),
+(14,6,'SUP-201','Calf Starter Pellets','Bag',0.00,2800.00,5.00,771.89,1000.00,'Ingredient',1,NULL,NULL,'2026-05-04 17:07:46',NULL,'2026-05-07 15:57:43',0,NULL,NULL);
 
 /*Table structure for table `inventoryreceiptdetails` */
 
@@ -3115,7 +3223,7 @@ CREATE TABLE `milkcollection` (
   CONSTRAINT `fkmilkcollectionanimal` FOREIGN KEY (`animalid`) REFERENCES `animals` (`id`),
   CONSTRAINT `fkmilkcollectiondeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkmilkcollectionschedule` FOREIGN KEY (`scheduleid`) REFERENCES `milkingschedules` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `milkcollection` */
 
@@ -3129,7 +3237,8 @@ insert  into `milkcollection`(`id`,`logdate`,`scheduleid`,`animalid`,`quantityli
 (7,'2026-05-04',1,11,13.80,1.0300,NULL,5,'2026-05-04 11:51:13',0,NULL,NULL,NULL),
 (8,'2026-05-04',1,6,25.00,1.0300,'None, everything is ok',5,'2026-05-04 12:29:38',0,NULL,NULL,NULL),
 (9,'2026-05-04',1,6,25.00,1.0300,'None, everything is ok',5,'2026-05-04 12:30:08',0,NULL,NULL,NULL),
-(10,'2026-05-06',1,7,20.00,1.0300,NULL,5,'2026-05-06 18:28:41',0,NULL,NULL,NULL);
+(10,'2026-05-06',1,7,20.00,1.0300,NULL,5,'2026-05-06 18:28:41',0,NULL,NULL,NULL),
+(11,'2026-05-10',3,6,15.80,1.0300,'Everything Ok',5,'2026-05-10 14:30:34',0,NULL,NULL,NULL);
 
 /*Table structure for table `milkingschedules` */
 
@@ -3158,6 +3267,44 @@ insert  into `milkingschedules`(`id`,`schedulename`,`starttime`,`addedby`,`datea
 (1,'3 AM','03:00:00',5,'2026-05-03 18:08:26',0,NULL,NULL,NULL),
 (2,'11 AM','11:00:00',5,'2026-05-03 18:08:26',0,NULL,NULL,NULL),
 (3,'4 PM','16:00:00',5,'2026-05-03 18:08:26',0,NULL,NULL,NULL);
+
+/*Table structure for table `mixedfeeddetails` */
+
+DROP TABLE IF EXISTS `mixedfeeddetails`;
+
+CREATE TABLE `mixedfeeddetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mixedfeedid` int(11) NOT NULL,
+  `inventoryitemid` int(11) NOT NULL,
+  `quantity` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mixedfeedid` (`mixedfeedid`),
+  KEY `inventoryitemid` (`inventoryitemid`),
+  CONSTRAINT `mixedfeeddetails_ibfk_1` FOREIGN KEY (`mixedfeedid`) REFERENCES `mixedfeeds` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `mixedfeeddetails_ibfk_2` FOREIGN KEY (`inventoryitemid`) REFERENCES `inventoryitems` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `mixedfeeddetails` */
+
+/*Table structure for table `mixedfeeds` */
+
+DROP TABLE IF EXISTS `mixedfeeds`;
+
+CREATE TABLE `mixedfeeds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feedmixid` int(11) NOT NULL,
+  `mixdate` datetime NOT NULL DEFAULT current_timestamp(),
+  `totalweight` decimal(10,2) NOT NULL,
+  `createdby` int(11) NOT NULL,
+  `platform` varchar(50) DEFAULT 'Web',
+  PRIMARY KEY (`id`),
+  KEY `feedmixid` (`feedmixid`),
+  KEY `createdby` (`createdby`),
+  CONSTRAINT `mixedfeeds_ibfk_1` FOREIGN KEY (`feedmixid`) REFERENCES `feedmix` (`id`),
+  CONSTRAINT `mixedfeeds_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `mixedfeeds` */
 
 /*Table structure for table `objects` */
 
@@ -3282,6 +3429,454 @@ insert  into `pens`(`id`,`penname`,`pentype`,`capacity`,`locationcluster`,`added
 (4,'Isolation Unit','Isolation',5,'West Sector - Restricted',5,'2026-05-03 18:08:32',0,NULL,NULL,NULL),
 (5,'Dry Cow Block B','Dry Cow',30,'South Sector - Block 3',5,'2026-05-03 18:08:32',0,NULL,NULL,NULL),
 (6,'Test Pen','Maternity',20,'Secto1-A',5,'2026-05-04 09:25:35',0,NULL,NULL,NULL);
+
+/*Table structure for table `poultry_birdtype_vaccinations` */
+
+DROP TABLE IF EXISTS `poultry_birdtype_vaccinations`;
+
+CREATE TABLE `poultry_birdtype_vaccinations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `birdtypeid` int(11) NOT NULL,
+  `minage` int(11) NOT NULL,
+  `maxage` int(11) NOT NULL,
+  `diseaseid` int(11) NOT NULL,
+  `narration` text DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `dateadded` datetime DEFAULT current_timestamp(),
+  `deleted` tinyint(4) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultry_birdtype_vaccinations` */
+
+insert  into `poultry_birdtype_vaccinations`(`id`,`birdtypeid`,`minage`,`maxage`,`diseaseid`,`narration`,`addedby`,`dateadded`,`deleted`) values 
+(17,1,1,7,5,'1st week New castle and I/B',1,'2026-05-10 18:59:16',0),
+(18,1,8,14,6,'2nd week 1st Gumboro',1,'2026-05-10 18:59:16',0),
+(19,1,15,21,6,'3rd week 2nd Gumboro',1,'2026-05-10 18:59:16',0),
+(20,1,22,28,5,'4th week repeat Newcastle (Plain)',1,'2026-05-10 18:59:16',0),
+(21,1,50,56,8,'8th week (deworm)',1,'2026-05-10 18:59:16',0),
+(22,1,57,63,5,'9th N/castle with I/B',1,'2026-05-10 18:59:16',0),
+(23,1,78,84,4,'12th week fowltyphoid',1,'2026-05-10 18:59:16',0);
+
+/*Table structure for table `poultry_flock_vaccination_schedule` */
+
+DROP TABLE IF EXISTS `poultry_flock_vaccination_schedule`;
+
+CREATE TABLE `poultry_flock_vaccination_schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `flockid` int(11) NOT NULL,
+  `diseaseid` int(11) NOT NULL,
+  `scheduledate` date NOT NULL,
+  `status` varchar(50) DEFAULT 'Pending',
+  `narration` text DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `fk_vax_flock` (`flockid`),
+  KEY `fk_vax_disease` (`diseaseid`),
+  CONSTRAINT `fk_vax_disease` FOREIGN KEY (`diseaseid`) REFERENCES `poultrydiseases` (`diseaseid`),
+  CONSTRAINT `fk_vax_flock` FOREIGN KEY (`flockid`) REFERENCES `poultryflocks` (`flockid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultry_flock_vaccination_schedule` */
+
+insert  into `poultry_flock_vaccination_schedule`(`id`,`flockid`,`diseaseid`,`scheduledate`,`status`,`narration`,`addedby`,`createdat`,`deleted`) values 
+(1,1,5,'2026-05-11','Pending','1st week New castle and I/B',5,'2026-05-10 20:19:02',0),
+(2,1,6,'2026-05-18','Pending','2nd week 1st Gumboro',5,'2026-05-10 20:19:02',0),
+(3,1,6,'2026-05-25','Pending','3rd week 2nd Gumboro',5,'2026-05-10 20:19:02',0),
+(4,1,5,'2026-06-01','Pending','4th week repeat Newcastle (Plain)',5,'2026-05-10 20:19:02',0),
+(5,1,8,'2026-06-29','Pending','8th week (deworm)',5,'2026-05-10 20:19:02',0),
+(6,1,5,'2026-07-06','Pending','9th N/castle with I/B',5,'2026-05-10 20:19:02',0),
+(7,1,4,'2026-07-27','Pending','12th week fowltyphoid',5,'2026-05-10 20:19:02',0);
+
+/*Table structure for table `poultry_mortality` */
+
+DROP TABLE IF EXISTS `poultry_mortality`;
+
+CREATE TABLE `poultry_mortality` (
+  `mortalityid` int(11) NOT NULL AUTO_INCREMENT,
+  `flockid` int(11) NOT NULL,
+  `mortalitydate` date NOT NULL,
+  `count` int(11) NOT NULL,
+  `reason` varchar(100) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`mortalityid`),
+  KEY `fk_mortality_flock` (`flockid`),
+  CONSTRAINT `fk_mortality_flock` FOREIGN KEY (`flockid`) REFERENCES `poultryflocks` (`flockid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultry_mortality` */
+
+insert  into `poultry_mortality`(`mortalityid`,`flockid`,`mortalitydate`,`count`,`reason`,`notes`,`addedby`,`createdat`,`deleted`) values 
+(1,1,'2026-05-10',5,'injury','',5,'2026-05-10 20:25:50',0);
+
+/*Table structure for table `poultrybirdtypes` */
+
+DROP TABLE IF EXISTS `poultrybirdtypes`;
+
+CREATE TABLE `poultrybirdtypes` (
+  `typeid` int(11) NOT NULL AUTO_INCREMENT,
+  `typename` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `maturityperiod` int(11) DEFAULT 130,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`typeid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultrybirdtypes` */
+
+insert  into `poultrybirdtypes`(`typeid`,`typename`,`description`,`maturityperiod`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Layers','Birds raised specifically for egg production.',130,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Broilers','Birds raised specifically for meat production.',130,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Kienyeji','Indigenous or improved indigenous breeds.',130,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'Test','This is a test',130,1,1,1,'2026-05-09 12:19:20','This was a test','2026-05-09 12:19:08'),
+(5,'Layers','Birds raised specifically for egg production.',130,5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(6,'Broilers','Birds raised specifically for meat production.',130,5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(7,'Kienyeji','Indigenous or improved indigenous breeds.',130,5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultrybreeds` */
+
+DROP TABLE IF EXISTS `poultrybreeds`;
+
+CREATE TABLE `poultrybreeds` (
+  `breedid` int(11) NOT NULL AUTO_INCREMENT,
+  `breedname` varchar(100) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `notes` text DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'Active',
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`breedid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultrybreeds` */
+
+insert  into `poultrybreeds`(`breedid`,`breedname`,`category`,`notes`,`status`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'ISA Brown','Layers','Excellent egg production, friendly temperament.','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Cobb 5000','Broilers','World\'s most efficient broiler.','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Kuroiler','Kienyeji','High growth rate and egg production.','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'Test','Layers','','Active',1,1,1,'2026-05-09 12:13:05','This was a test','2026-05-08 20:01:35'),
+(5,'ISA Brown','Layers','Excellent egg production, friendly temperament.','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(6,'Cobb 500','Broilers','World\'s most efficient broiler.','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(7,'Kuroiler','Kienyeji','High growth rate and egg production.','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultrydiseases` */
+
+DROP TABLE IF EXISTS `poultrydiseases`;
+
+CREATE TABLE `poultrydiseases` (
+  `diseaseid` int(11) NOT NULL AUTO_INCREMENT,
+  `diseasename` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `typeid` int(11) DEFAULT NULL,
+  `severity` varchar(50) DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`diseaseid`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultrydiseases` */
+
+insert  into `poultrydiseases`(`diseaseid`,`diseasename`,`description`,`typeid`,`severity`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Newcastle Disease','Highly contagious viral disease.',NULL,'Critical',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Coccidiosis','Parasitic disease of the intestinal tract.',NULL,'High',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Fowl Pox','Slow-spreading viral disease.',2,'Medium',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'Fowl Typhoid','',NULL,'Medium',5,0,NULL,NULL,NULL,'2026-05-10 16:53:31'),
+(5,'New castle & I/B',NULL,NULL,NULL,1,0,NULL,NULL,NULL,'2026-05-10 18:48:57'),
+(6,'Gumboro',NULL,NULL,NULL,1,0,NULL,NULL,NULL,'2026-05-10 18:48:57'),
+(7,'Fowlpox',NULL,NULL,NULL,1,1,5,'2026-05-10 18:54:49','Test entry','2026-05-10 18:48:57'),
+(8,'Deworming',NULL,NULL,NULL,1,0,NULL,NULL,NULL,'2026-05-10 18:48:57'),
+(9,'Newcastle Disease','Highly contagious viral disease.',NULL,'Critical',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(10,'Coccidiosis','Parasitic disease of the intestinal tract.',NULL,'High',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(11,'Fowl Pox','Slow-spreading viral disease.',NULL,'Medium',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultrydiseasetypes` */
+
+DROP TABLE IF EXISTS `poultrydiseasetypes`;
+
+CREATE TABLE `poultrydiseasetypes` (
+  `typeid` int(11) NOT NULL AUTO_INCREMENT,
+  `typename` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`typeid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultrydiseasetypes` */
+
+insert  into `poultrydiseasetypes`(`typeid`,`typename`,`description`,`addedby`,`deleted`,`createdat`) values 
+(1,'Viral',NULL,5,0,'2026-05-10 16:57:44'),
+(2,'Bacterial',NULL,5,0,'2026-05-10 16:57:44'),
+(3,'Parasitic',NULL,5,0,'2026-05-10 16:57:44'),
+(4,'Fungal',NULL,5,0,'2026-05-10 16:57:44'),
+(5,'Nutritional',NULL,5,0,'2026-05-10 16:57:44');
+
+/*Table structure for table `poultryflocks` */
+
+DROP TABLE IF EXISTS `poultryflocks`;
+
+CREATE TABLE `poultryflocks` (
+  `flockid` int(11) NOT NULL AUTO_INCREMENT,
+  `flockno` varchar(50) NOT NULL,
+  `flockname` varchar(100) NOT NULL,
+  `birdtypeid` int(11) NOT NULL,
+  `stageid` int(11) NOT NULL,
+  `breedid` int(11) NOT NULL,
+  `source` varchar(50) DEFAULT 'supplier',
+  `arrivaldate` date NOT NULL,
+  `maturitydate` date DEFAULT NULL,
+  `initialcount` int(11) NOT NULL,
+  `currentcount` int(11) NOT NULL,
+  `houseid` int(11) NOT NULL,
+  `notes` text DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'Active',
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`flockid`),
+  UNIQUE KEY `flockno` (`flockno`),
+  KEY `fk_flock_birdtype` (`birdtypeid`),
+  KEY `fk_flock_stage` (`stageid`),
+  KEY `fk_flock_breed` (`breedid`),
+  KEY `fk_flock_house` (`houseid`),
+  KEY `fk_flock_addedby` (`addedby`),
+  CONSTRAINT `fk_flock_addedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
+  CONSTRAINT `fk_flock_birdtype` FOREIGN KEY (`birdtypeid`) REFERENCES `poultrybirdtypes` (`typeid`),
+  CONSTRAINT `fk_flock_breed` FOREIGN KEY (`breedid`) REFERENCES `poultrybreeds` (`breedid`),
+  CONSTRAINT `fk_flock_house` FOREIGN KEY (`houseid`) REFERENCES `poultryhouses` (`houseid`),
+  CONSTRAINT `fk_flock_stage` FOREIGN KEY (`stageid`) REFERENCES `poultryflockstages` (`stageid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryflocks` */
+
+insert  into `poultryflocks`(`flockid`,`flockno`,`flockname`,`birdtypeid`,`stageid`,`breedid`,`source`,`arrivaldate`,`maturitydate`,`initialcount`,`currentcount`,`houseid`,`notes`,`status`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'FL-2026-001','Q1 2026 Layers Batch',1,1,1,'supplier','2026-05-10','2026-09-17',500,495,4,'This is a test entry','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:19:02');
+
+/*Table structure for table `poultryflockstages` */
+
+DROP TABLE IF EXISTS `poultryflockstages`;
+
+CREATE TABLE `poultryflockstages` (
+  `stageid` int(11) NOT NULL AUTO_INCREMENT,
+  `stagename` varchar(100) NOT NULL,
+  `birdtype` varchar(100) NOT NULL,
+  `duration` varchar(100) DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`stageid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryflockstages` */
+
+insert  into `poultryflockstages`(`stageid`,`stagename`,`birdtype`,`duration`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Chick','Layers','0 - 8 Weeks',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Grower','Layers','9 - 18 Weeks',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Layer','Layers','19+ Weeks',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'Test Flock','Layers','0-8 weeks',1,1,1,'2026-05-09 12:20:01','This was a test flock','2026-05-09 12:19:45'),
+(5,'Chick','Layers','0 - 8 Weeks',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(6,'Grower','Layers','9 - 18 Weeks',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(7,'Layer','Layers','19+ Weeks',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultryformulationingredients` */
+
+DROP TABLE IF EXISTS `poultryformulationingredients`;
+
+CREATE TABLE `poultryformulationingredients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `formulationid` int(11) NOT NULL,
+  `itemid` int(11) NOT NULL,
+  `quantity` decimal(10,2) NOT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `formulationid` (`formulationid`),
+  CONSTRAINT `poultryformulationingredients_ibfk_1` FOREIGN KEY (`formulationid`) REFERENCES `poultryformulations` (`formulationid`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryformulationingredients` */
+
+insert  into `poultryformulationingredients`(`id`,`formulationid`,`itemid`,`quantity`,`createdat`) values 
+(1,1,1,50.00,'2026-05-08 19:22:40'),
+(2,2,1,75.00,'2026-05-08 19:22:40'),
+(3,3,1,1.00,'2026-05-10 16:49:03'),
+(4,4,1,1.00,'2026-05-10 16:49:04'),
+(5,5,1,1.00,'2026-05-10 16:49:05'),
+(6,6,1,1.00,'2026-05-10 16:49:05'),
+(7,7,1,1.00,'2026-05-10 16:49:15'),
+(8,8,1,1.00,'2026-05-10 16:52:16'),
+(9,1,1,50.00,'2026-05-10 20:33:44'),
+(10,2,1,75.00,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultryformulations` */
+
+DROP TABLE IF EXISTS `poultryformulations`;
+
+CREATE TABLE `poultryformulations` (
+  `formulationid` int(11) NOT NULL AUTO_INCREMENT,
+  `formulationname` varchar(100) NOT NULL,
+  `birdtype` varchar(50) DEFAULT NULL,
+  `growthstage` varchar(50) DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`formulationid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryformulations` */
+
+insert  into `poultryformulations`(`formulationid`,`formulationname`,`birdtype`,`growthstage`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Starter Mix','Broilers','Chicks',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Finisher Mix','Broilers','Growers',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:49:03'),
+(4,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:49:04'),
+(5,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:49:05'),
+(6,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:49:05'),
+(7,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:49:15'),
+(8,'Test fromulation','Layers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 16:52:16'),
+(9,'Starter Mix','Broilers','Chicks',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(10,'Finisher Mix','Broilers','Growers',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultryhouses` */
+
+DROP TABLE IF EXISTS `poultryhouses`;
+
+CREATE TABLE `poultryhouses` (
+  `houseid` int(11) NOT NULL AUTO_INCREMENT,
+  `housename` varchar(100) NOT NULL,
+  `capacity` int(11) DEFAULT 0,
+  `description` text DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'Active',
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`houseid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryhouses` */
+
+insert  into `poultryhouses`(`houseid`,`housename`,`capacity`,`description`,`status`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'House A',1000,'','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'House B',1500,'','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Quarantine Pen',40,'','Active',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'House C',800,'','Active',1,0,NULL,NULL,NULL,'2026-05-09 10:22:33'),
+(5,'House C',0,'','Active',1,1,1,'2026-05-09 12:20:14','This was repeated','2026-05-09 10:22:46'),
+(6,'House A',0,'Main layer facility','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(7,'House B',0,'Broiler facility','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(8,'Quarantine Pen',0,'For new or sick birds','Active',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
+
+/*Table structure for table `poultryinventorycategories` */
+
+DROP TABLE IF EXISTS `poultryinventorycategories`;
+
+CREATE TABLE `poultryinventorycategories` (
+  `categoryid` int(11) NOT NULL AUTO_INCREMENT,
+  `categorycode` varchar(50) NOT NULL,
+  `categoryname` varchar(100) NOT NULL,
+  `prefix` varchar(20) DEFAULT NULL,
+  `currentno` int(11) DEFAULT 1,
+  `padzeros` tinyint(1) DEFAULT 1,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`categoryid`),
+  UNIQUE KEY `categorycode` (`categorycode`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryinventorycategories` */
+
+insert  into `poultryinventorycategories`(`categoryid`,`categorycode`,`categoryname`,`prefix`,`currentno`,`padzeros`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'CAT001','Feeds','FEED-',100,1,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'CAT002','Vaccines','VAC-',50,1,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'CAT003','Supplements','SUPP-',20,1,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40');
+
+/*Table structure for table `poultryinventoryitems` */
+
+DROP TABLE IF EXISTS `poultryinventoryitems`;
+
+CREATE TABLE `poultryinventoryitems` (
+  `itemid` int(11) NOT NULL AUTO_INCREMENT,
+  `itemname` varchar(100) NOT NULL,
+  `itemcode` varchar(50) NOT NULL,
+  `categoryid` int(11) DEFAULT NULL,
+  `unit` varchar(50) DEFAULT NULL,
+  `isfeed` tinyint(1) DEFAULT 0,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`itemid`),
+  UNIQUE KEY `itemcode` (`itemcode`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultryinventoryitems` */
+
+insert  into `poultryinventoryitems`(`itemid`,`itemname`,`itemcode`,`categoryid`,`unit`,`isfeed`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Chick Mash','FEED-001',1,'Bag',1,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Gumboro Vaccine','VAC-001',2,'Vial',0,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Vitamin Premix','SUPP-001',3,'kg',0,5,0,NULL,NULL,NULL,'2026-05-08 19:22:40');
+
+/*Table structure for table `poultrymortalityreasons` */
+
+DROP TABLE IF EXISTS `poultrymortalityreasons`;
+
+CREATE TABLE `poultrymortalityreasons` (
+  `reasonid` int(11) NOT NULL AUTO_INCREMENT,
+  `reasonlabel` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  `reasondeleted` text DEFAULT NULL,
+  `createdat` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`reasonid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `poultrymortalityreasons` */
+
+insert  into `poultrymortalityreasons`(`reasonid`,`reasonlabel`,`description`,`addedby`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`,`createdat`) values 
+(1,'Predation','Loss due to predators like mongoose or hawks.',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(2,'Disease Outbreak','Loss due to identified disease.',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(3,'Heat Stress','Loss due to high environmental temperatures.',5,0,NULL,NULL,NULL,'2026-05-08 19:22:40'),
+(4,'Predation','Loss due to predators like mongoose or hawks.',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(5,'Disease Outbreak','Loss due to identified disease.',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44'),
+(6,'Heat Stress','Loss due to high environmental temperatures.',5,0,NULL,NULL,NULL,'2026-05-10 20:33:44');
 
 /*Table structure for table `productionlogs` */
 
@@ -3417,7 +4012,7 @@ CREATE TABLE `serials` (
   UNIQUE KEY `document` (`document`),
   KEY `fkserialsaddedby` (`addedby`),
   CONSTRAINT `fkserialsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `serials` */
 
@@ -3425,7 +4020,8 @@ insert  into `serials`(`id`,`document`,`prefix`,`currentno`,`addedby`,`dateadded
 (1,'Animal Tag','JK-{{year}}-',16,5,'2026-05-04 10:14:46'),
 (2,'Supplier','SUP-{{year}}-',1,5,'2026-05-04 16:40:44'),
 (4,'feedmix','FEED-2026',1,5,'2026-05-04 23:28:35'),
-(5,'Veterinarian Registration','VET-',1,5,'2026-05-06 08:17:34');
+(5,'Veterinarian Registration','VET-',1,5,'2026-05-06 08:17:34'),
+(6,'Poultry Flock','FL-{{year}}-',2,5,'2026-05-10 19:57:25');
 
 /*Table structure for table `smslogs` */
 
@@ -3610,6 +4206,7 @@ CREATE TABLE `vaccinations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `animalid` int(11) NOT NULL,
   `scheduleid` int(11) DEFAULT NULL,
+  `diseaseid` int(11) DEFAULT NULL,
   `vaccinationdate` date NOT NULL,
   `vaccinename` varchar(100) DEFAULT NULL,
   `productused` varchar(100) DEFAULT NULL,
@@ -3634,13 +4231,33 @@ CREATE TABLE `vaccinations` (
   CONSTRAINT `fkvaccinationsaddedby` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`),
   CONSTRAINT `fkvaccinationsched` FOREIGN KEY (`scheduleid`) REFERENCES `vaccinationschedules` (`id`),
   CONSTRAINT `fkvaccinationsdeletedby` FOREIGN KEY (`deletedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `vaccinations` */
 
-insert  into `vaccinations`(`id`,`animalid`,`scheduleid`,`vaccinationdate`,`vaccinename`,`productused`,`batchno`,`dosage`,`administeredby`,`notes`,`record_type`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,1,1,'2026-04-03',NULL,'Aftovax','BN-4552','2ml','Dr. Kamau',NULL,'Scheduled','2026-10-30',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL),
-(2,2,2,'2026-04-18',NULL,'Blanthrax','BN-1022','2ml','Dr. Sarah',NULL,'Scheduled','2027-05-03',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL);
+insert  into `vaccinations`(`id`,`animalid`,`scheduleid`,`diseaseid`,`vaccinationdate`,`vaccinename`,`productused`,`batchno`,`dosage`,`administeredby`,`notes`,`record_type`,`nextdue`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
+(1,1,1,NULL,'2026-04-03',NULL,'Aftovax','BN-4552','2ml','Dr. Kamau',NULL,'Scheduled','2026-10-30',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL),
+(2,2,2,NULL,'2026-04-18',NULL,'Blanthrax','BN-1022','2ml','Dr. Sarah',NULL,'Scheduled','2027-05-03',5,'2026-05-03 18:08:37',0,NULL,NULL,NULL),
+(4,1,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(5,2,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(6,6,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(7,7,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(8,10,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(9,12,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(10,15,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(11,4,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(12,9,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(13,14,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(14,1,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(15,2,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(16,6,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(17,7,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(18,10,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(19,12,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(20,15,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(21,4,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(22,9,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL),
+(23,14,1,0,'2026-05-07',NULL,'Test Vaccine','BN-2024-VV-01','2','1','','Scheduled',NULL,5,'2026-05-07 10:50:18',0,NULL,NULL,NULL);
 
 /*Table structure for table `vaccinationschedules` */
 
@@ -3674,7 +4291,7 @@ CREATE TABLE `vaccinationschedules` (
 /*Data for the table `vaccinationschedules` */
 
 insert  into `vaccinationschedules`(`id`,`diseaseid`,`penids`,`scheduledate`,`scheduletime`,`repeat_annually`,`notes`,`description`,`status`,`addedby`,`dateadded`,`deleted`,`deletedby`,`datedeleted`,`reasondeleted`) values 
-(1,1,'[\"1\", \"2\"]','2026-05-01','08:00:00',1,'Routine vaccination for FMD.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
+(1,1,'[\"1\", \"2\"]','2026-05-01','08:00:00',1,'Routine vaccination for FMD.',NULL,'completed',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
 (2,2,'[\"3\"]','2026-05-04','10:00:00',0,'Quarterly Anthrax vaccination.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
 (3,3,'[\"1\", \"4\", \"5\"]','2026-05-06','09:30:00',1,'Ongoing Brucellosis screening and vaccination.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
 (4,4,'[\"2\"]','2026-05-09','11:00:00',0,'BVD initial dose for calves.',NULL,'pending',1,'2026-05-06 15:31:40',0,NULL,NULL,NULL),
@@ -3761,6 +4378,31 @@ BEGIN
     SET $final_prefix = REPLACE($prefix, '{{year}}', $year);
 
     SET $formatted_no = LPAD($currentno, 4, '0');
+    
+    RETURN CONCAT($final_prefix, $formatted_no);
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_generateflockid` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_generateflockid` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_generateflockid`() RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+    READS SQL DATA
+BEGIN
+    DECLARE $prefix VARCHAR(50);
+    DECLARE $currentno INT;
+    DECLARE $year VARCHAR(4);
+    DECLARE $final_prefix VARCHAR(50);
+    DECLARE $formatted_no VARCHAR(10);
+
+    SELECT `prefix`, `currentno` INTO $prefix, $currentno 
+    FROM `serials` WHERE `document` = 'Poultry Flock';
+    
+    SET $year = YEAR(CURDATE());
+    SET $final_prefix = REPLACE($prefix, '{{year}}', $year);
+    SET $formatted_no = LPAD($currentno, 3, '0');
     
     RETURN CONCAT($final_prefix, $formatted_no);
 END */$$
@@ -4234,6 +4876,28 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_deleteinsurancecompany` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteinsurancecompany` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteinsurancecompany`(
+    IN `$id` INT,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(50)
+)
+BEGIN
+    DECLARE v_companyname VARCHAR(100);
+    SELECT `companyname` INTO v_companyname FROM `insurancecompanies` WHERE `id` = `$id`;
+    
+    UPDATE `insurancecompanies` SET `isactive` = 0 WHERE `id` = `$id`;
+    
+    INSERT INTO `audittrail` (`userid`, `activity`, `platform`)
+    VALUES (`$userid`, CONCAT('DELETE INSURANCE COMPANY: ', v_companyname), `$platform`);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_deleteinventorycategory` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteinventorycategory` */;
@@ -4331,6 +4995,196 @@ BEGIN
     
     COMMIT;
     SELECT 1 AS `success`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultrybirdtype` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultrybirdtype` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultrybirdtype`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultrybirdtypes 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE typeid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Bird Type ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultrybreed` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultrybreed` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultrybreed`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultrybreeds 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE breedid = $id;
+    
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Poultry Breed ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultrydisease` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultrydisease` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultrydisease`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultrydiseases 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE diseaseid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Disease ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultryflockstage` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultryflockstage` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultryflockstage`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultryflockstages 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE stageid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Flock Stage ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultryformulation` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultryformulation` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultryformulation`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultryformulations 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE formulationid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Formulation ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultryhouse` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultryhouse` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultryhouse`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultryhouses 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE houseid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Poultry House ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultryinventorycategory` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultryinventorycategory` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultryinventorycategory`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultryinventorycategories 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE categoryid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Inventory Category ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultryinventoryitem` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultryinventoryitem` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultryinventoryitem`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultryinventoryitems 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE itemid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Inventory Item ID: ', $id), $platform);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_deletepoultrymortalityreason` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepoultrymortalityreason` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepoultrymortalityreason`(
+    IN $id INT,
+    IN $userid INT,
+    IN $reason TEXT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    UPDATE poultrymortalityreasons 
+    SET deleted = 1, deletedby = $userid, datedeleted = NOW(), reasondeleted = $reason
+    WHERE reasonid = $id;
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (NOW(), $userid, 'Delete', CONCAT('Deleted Mortality Reason ID: ', $id), $platform);
 END */$$
 DELIMITER ;
 
@@ -4451,6 +5305,31 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getactivehealthschedules` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getactivehealthschedules` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getactivehealthschedules`(
+    IN `$type` VARCHAR(20)
+)
+BEGIN
+    IF `$type` = 'vaccination' THEN
+        SELECT s.id, d.diseasename as title, s.scheduledate, s.diseaseid 
+        FROM vaccinationschedules s 
+        JOIN diseases d ON s.diseaseid = d.id 
+        WHERE s.deleted = 0 AND s.status != 'Completed'
+        ORDER BY s.scheduledate ASC;
+    ELSE
+        SELECT s.id, s.schedulename as title, s.scheduledate 
+        FROM dewormingschedules s 
+        WHERE s.deleted = 0 AND s.status != 'Completed'
+        ORDER BY s.scheduledate ASC;
+    END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getallsettings` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getallsettings` */;
@@ -4515,20 +5394,13 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getanimals`()
 BEGIN
-    SELECT 
-        a.*, 
-        b.`breedname`, 
-        p.`penname`,
-        m.`designatedname` AS `mothername`,
-        CONCAT(u.`firstname`, ' ', u.`lastname`) AS `addedbyname`,
-        COALESCE((SELECT SUM(`quantitylitres`) FROM `milkcollection` WHERE `animalid` = a.`id` AND `logdate` = CURDATE() AND `deleted` = 0), 0) AS `yield`
+    SELECT a.*, b.breedname, p.penname, ic.companyname AS insurance_company
     FROM `animals` a
-    LEFT JOIN `breeds` b ON a.`breedid` = b.`id`
-    LEFT JOIN `pens` p ON a.`penid` = p.`id`
-    LEFT JOIN `animals` m ON a.`damid` = m.`id`
-    LEFT JOIN `user` u ON a.`addedby` = u.`userid`
-    WHERE a.`deleted` = 0
-    ORDER BY a.`tagid`;
+    LEFT JOIN `breeds` b ON a.breedid = b.id
+    LEFT JOIN `pens` p ON a.penid = p.id
+    LEFT JOIN `insurancecompanies` ic ON a.insurance_company_id = ic.id
+    WHERE a.isactive = 1
+    ORDER BY a.tagid ASC;
 END */$$
 DELIMITER ;
 
@@ -4554,6 +5426,45 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getanimalsbyschedule` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getanimalsbyschedule` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getanimalsbyschedule`(
+    IN `$scheduleid` INT,
+    IN `$type` VARCHAR(20)
+)
+BEGIN
+    IF `$scheduleid` = 0 OR `$scheduleid` IS NULL THEN
+        SELECT a.id, a.tagid, a.designatedname, p.penname 
+        FROM animals a 
+        JOIN pens p ON a.penid = p.id 
+        WHERE a.deleted = 0 
+        ORDER BY p.penname, a.tagid;
+    ELSE
+        SET @penids = '';
+        IF `$type` = 'vaccination' THEN
+            SELECT penids INTO @penids FROM vaccinationschedules WHERE id = `$scheduleid`;
+        ELSE
+            SELECT penids INTO @penids FROM dewormingschedules WHERE id = `$scheduleid`;
+        END IF;
+
+        IF @penids IS NOT NULL AND @penids <> '' AND @penids <> '[]' THEN
+            SELECT a.id, a.tagid, a.designatedname, p.penname 
+            FROM animals a 
+            JOIN pens p ON a.penid = p.id 
+            WHERE (JSON_CONTAINS(@penids, CAST(a.penid AS CHAR)) OR JSON_CONTAINS(@penids, JSON_QUOTE(CAST(a.penid AS CHAR))))
+            AND a.deleted = 0
+            ORDER BY p.penname, a.tagid;
+        ELSE
+            SELECT a.id, a.tagid, a.designatedname, p.penname FROM animals a LIMIT 0;
+        END IF;
+    END IF;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getbreeddetails` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getbreeddetails` */;
@@ -4566,13 +5477,33 @@ DELIMITER $$
 BEGIN
     SELECT 
         b.*, 
-        c.`countryname`, 
-        CONCAT(u.`firstname`, ' ', u.`lastname`) AS `addedbyname`
-    FROM `breeds` b
-    LEFT JOIN `countries` c ON b.`originid` = c.`id`
-    LEFT JOIN `user` u ON b.`addedby` = u.`userid`
-    WHERE b.`id` = `$id` 
-    AND b.`deleted` = 0;
+        c.countryname, 
+        CONCAT(u.firstname, ' ', u.lastname) AS addedbyname,
+        (SELECT COUNT(*) FROM animals a WHERE a.breedid = b.id AND a.deleted = 0) AS totalcount,
+        COALESCE((
+            SELECT AVG(mc.quantitylitres) 
+            FROM milkcollection mc 
+            JOIN animals a ON mc.animalid = a.id 
+            WHERE a.breedid = b.id AND mc.deleted = 0
+        ), 0) AS avg_actual_milking,
+        CASE 
+            WHEN b.avgmilking > 0 THEN 
+                LEAST(100, ROUND((COALESCE((
+                    SELECT AVG(mc.quantitylitres) 
+                    FROM milkcollection mc 
+                    JOIN animals a ON mc.animalid = a.id 
+                    WHERE a.breedid = b.id AND mc.deleted = 0
+                ), 0) / b.avgmilking) * 100, 1))
+            ELSE 0 
+        END AS efficiency,
+        CASE 
+            WHEN (SELECT COUNT(*) FROM healthlogs hl JOIN animals a ON hl.animalid = a.id WHERE a.breedid = b.id AND hl.status = 'Recovering' AND hl.deleted = 0) > 0 THEN 'GOOD'
+            ELSE 'OPTIMAL'
+        END AS health_status
+    FROM breeds b
+    LEFT JOIN countries c ON b.originid = c.id
+    LEFT JOIN user u ON b.addedby = u.userid
+    WHERE b.id = `$id` AND b.deleted = 0;
 END */$$
 DELIMITER ;
 
@@ -4586,13 +5517,34 @@ DELIMITER $$
 BEGIN
     SELECT 
         b.*, 
-        c.`countryname`, 
-        CONCAT(u.`firstname`, ' ', u.`lastname`) AS `addedbyname`
-    FROM `breeds` b
-    LEFT JOIN `countries` c ON b.`originid` = c.`id`
-    LEFT JOIN `user` u ON b.`addedby` = u.`userid`
-    WHERE b.`deleted` = 0
-    ORDER BY b.`breedname`;
+        c.countryname, 
+        CONCAT(u.firstname, ' ', u.lastname) AS addedbyname,
+        (SELECT COUNT(*) FROM animals a WHERE a.breedid = b.id AND a.deleted = 0) AS totalcount,
+        COALESCE((
+            SELECT AVG(mc.quantitylitres) 
+            FROM milkcollection mc 
+            JOIN animals a ON mc.animalid = a.id 
+            WHERE a.breedid = b.id AND mc.deleted = 0
+        ), 0) AS avg_actual_milking,
+        CASE 
+            WHEN b.avgmilking > 0 THEN 
+                LEAST(100, ROUND((COALESCE((
+                    SELECT AVG(mc.quantitylitres) 
+                    FROM milkcollection mc 
+                    JOIN animals a ON mc.animalid = a.id 
+                    WHERE a.breedid = b.id AND mc.deleted = 0
+                ), 0) / b.avgmilking) * 100, 1))
+            ELSE 0 
+        END AS efficiency,
+        CASE 
+            WHEN (SELECT COUNT(*) FROM healthlogs hl JOIN animals a ON hl.animalid = a.id WHERE a.breedid = b.id AND hl.status = 'Recovering' AND hl.deleted = 0) > 0 THEN 'GOOD'
+            ELSE 'OPTIMAL'
+        END AS health_status
+    FROM breeds b
+    LEFT JOIN countries c ON b.originid = c.id
+    LEFT JOIN user u ON b.addedby = u.userid
+    WHERE b.deleted = 0
+    ORDER BY b.breedname;
 END */$$
 DELIMITER ;
 
@@ -4667,6 +5619,21 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getdeworminghistory` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdeworminghistory` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdeworminghistory`()
+BEGIN
+    SELECT d.*, a.tagid, a.designatedname as animalname 
+    FROM deworming d
+    JOIN animals a ON d.animalid = a.id
+    ORDER BY d.dewormingdate DESC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getdewormingschedules` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getdewormingschedules` */;
@@ -4681,6 +5648,22 @@ BEGIN
     FROM `dewormingschedules` d
     WHERE d.deleted = 0
     ORDER BY d.scheduledate DESC, d.scheduletime DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getdewormingsummary` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdewormingsummary` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdewormingsummary`()
+BEGIN
+    SELECT 
+        (SELECT COUNT(DISTINCT animalid) * 100 / (SELECT COUNT(*) FROM animals WHERE deleted = 0) FROM deworming) as herd_coverage,
+        (SELECT COUNT(*) FROM deworming WHERE MONTH(dewormingdate) = MONTH(CURDATE()) AND YEAR(dewormingdate) = YEAR(CURDATE())) as completed_month,
+        (SELECT COUNT(*) FROM dewormingschedules WHERE scheduledate < CURDATE() AND status = 'Pending') as overdue,
+        (SELECT MIN(scheduledate) FROM dewormingschedules WHERE scheduledate >= CURDATE() AND status = 'Pending') as next_batch;
 END */$$
 DELIMITER ;
 
@@ -4719,6 +5702,18 @@ BEGIN
     LEFT JOIN `user` u ON d.`addedby` = u.`userid`
     WHERE d.`deleted` = 0
     ORDER BY d.`diseasename`;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getdistinctvaccines` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdistinctvaccines` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdistinctvaccines`()
+BEGIN
+    SELECT DISTINCT productused as product FROM vaccinations ORDER BY product ASC;
 END */$$
 DELIMITER ;
 
@@ -4817,17 +5812,59 @@ DELIMITER $$
 BEGIN
     IF $id = 0 THEN
         SELECT f.*, u.firstname as creator_name,
-        (SELECT COUNT(*) FROM feedmixdetails fd WHERE fd.feedmixid = f.id) as component_count
+        (SELECT COUNT(*) FROM feedmixdetails fd WHERE fd.feedmixid = f.id) as component_count,
+        (SELECT MAX(mixdate) FROM mixedfeeds mf WHERE mf.feedmixid = f.id) as last_mixed
         FROM feedmix f
         LEFT JOIN user u ON f.createdby = u.userid
         WHERE f.deleted = 0
         ORDER BY f.datecreated DESC;
     ELSE
-        SELECT f.*, u.firstname as creator_name
+        SELECT f.*, u.firstname as creator_name,
+        (SELECT MAX(mixdate) FROM mixedfeeds mf WHERE mf.feedmixid = f.id) as last_mixed
         FROM feedmix f
         LEFT JOIN user u ON f.createdby = u.userid
         WHERE f.id = $id AND f.deleted = 0;
     END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getfeedmixstats` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getfeedmixstats` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getfeedmixstats`()
+BEGIN
+    DECLARE $total_formulations INT;
+    DECLARE $active_batches INT;
+    DECLARE $most_used_ingredient VARCHAR(100);
+    DECLARE $avg_stock_status INT;
+
+    -- 1. Total Formulations
+    SELECT COUNT(*) INTO $total_formulations FROM feedmix WHERE deleted = 0;
+
+    -- 2. Active Batches (Mixing events in the last 30 days)
+    SELECT COUNT(*) INTO $active_batches FROM mixedfeeds WHERE mixdate >= DATE_SUB(NOW(), INTERVAL 30 DAY);
+
+    -- 3. Most Used Ingredient (by frequency in formulations)
+    SELECT i.itemname INTO $most_used_ingredient
+    FROM feedmixdetails fd
+    JOIN inventoryitems i ON fd.inventoryitemid = i.id
+    GROUP BY fd.inventoryitemid
+    ORDER BY COUNT(*) DESC
+    LIMIT 1;
+
+    -- 4. Simple Stock Status (Average of items that are marked as feed)
+    -- Assuming inventoryitems has an 'is_feed' or similar, otherwise just take all
+    SELECT IFNULL(ROUND(AVG(currentstock / IF(maxstock=0, 100, maxstock)) * 100), 0) INTO $avg_stock_status
+    FROM inventoryitems;
+
+    SELECT 
+        IFNULL($total_formulations, 0) as total_formulations,
+        IFNULL($active_batches, 0) as active_batches,
+        IFNULL($most_used_ingredient, 'N/A') as most_used_ingredient,
+        IFNULL($avg_stock_status, 0) as avg_stock_status;
 END */$$
 DELIMITER ;
 
@@ -4854,6 +5891,22 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_gethealthsummary` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_gethealthsummary` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gethealthsummary`()
+BEGIN
+    SELECT 
+        (SELECT COUNT(*) FROM healthlogs WHERE status != 'Completed' AND deleted = 0) as active_treatments,
+        (SELECT COUNT(DISTINCT diseaseid) FROM healthlogs WHERE status != 'Completed' AND deleted = 0) as active_conditions,
+        (SELECT COUNT(*) FROM healthlogs WHERE status = 'Quarantined' AND deleted = 0) as quarantine_cases,
+        (SELECT MIN(nextfollowup) FROM healthlogs WHERE nextfollowup >= CURDATE() AND deleted = 0) as next_vet_visit;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getinbuiltsystemuser` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getinbuiltsystemuser` */;
@@ -4865,6 +5918,18 @@ BEGIN
 		select * from `user`
 		where systemlabel='INBUILT SYSTEM ACCOUNT';
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getinsurancecompanies` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getinsurancecompanies` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getinsurancecompanies`()
+BEGIN
+    SELECT * FROM `insurancecompanies` WHERE `isactive` = 1 ORDER BY `companyname` ASC;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_getinventorycategories` */
@@ -5063,6 +6128,148 @@ BEGIN
         (SELECT COUNT(*) FROM `animals` a WHERE a.`penid` = p.`id` AND a.`deleted` = 0) as current_occupancy
     FROM `pens` p
     WHERE p.`deleted` = 0;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultrybirdtypes` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultrybirdtypes` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultrybirdtypes`()
+BEGIN
+    SELECT * FROM poultrybirdtypes WHERE deleted = 0 ORDER BY typename ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultrybreeds` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultrybreeds` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultrybreeds`()
+BEGIN
+    SELECT * FROM poultrybreeds WHERE deleted = 0 ORDER BY breedname ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultrydiseases` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultrydiseases` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultrydiseases`()
+BEGIN
+    SELECT * FROM poultrydiseases WHERE deleted = 0 ORDER BY diseasename ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultrydiseasetypes` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultrydiseasetypes` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultrydiseasetypes`()
+BEGIN
+                SELECT * FROM poultrydiseasetypes WHERE deleted = 0 ORDER BY typename ASC;
+            END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryflockstages` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryflockstages` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryflockstages`()
+BEGIN
+    SELECT * FROM poultryflockstages WHERE deleted = 0 ORDER BY stagename ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryformulationingredients` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryformulationingredients` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryformulationingredients`(IN $formulationid INT)
+BEGIN
+    SELECT fi.*, i.itemname, i.unit
+    FROM poultryformulationingredients fi
+    JOIN poultryinventoryitems i ON fi.itemid = i.itemid
+    WHERE fi.formulationid = $formulationid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryformulations` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryformulations` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryformulations`()
+BEGIN
+    SELECT * FROM poultryformulations WHERE deleted = 0 ORDER BY formulationname ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryhouses` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryhouses` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryhouses`()
+BEGIN
+    SELECT * FROM poultryhouses WHERE deleted = 0 ORDER BY housename ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryinventorycategories` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryinventorycategories` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryinventorycategories`()
+BEGIN
+    SELECT c.*, (SELECT COUNT(*) FROM poultryinventoryitems i WHERE i.categoryid = c.categoryid AND i.deleted = 0) as itemcount
+    FROM poultryinventorycategories c
+    WHERE c.deleted = 0
+    ORDER BY c.categoryname ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultryinventoryitems` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultryinventoryitems` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultryinventoryitems`()
+BEGIN
+    SELECT i.*, c.categoryname 
+    FROM poultryinventoryitems i
+    LEFT JOIN poultryinventorycategories c ON i.categoryid = c.categoryid
+    WHERE i.deleted = 0
+    ORDER BY i.itemname ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getpoultrymortalityreasons` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpoultrymortalityreasons` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpoultrymortalityreasons`()
+BEGIN
+    SELECT * FROM poultrymortalityreasons WHERE deleted = 0 ORDER BY reasonlabel ASC;
 END */$$
 DELIMITER ;
 
@@ -5291,6 +6498,62 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getupcomingdeworming` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getupcomingdeworming` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getupcomingdeworming`()
+BEGIN
+    SELECT ds.*, 
+           (SELECT GROUP_CONCAT(penname SEPARATOR ', ') 
+            FROM pens 
+            WHERE JSON_CONTAINS(ds.penids, CAST(id AS CHAR), '$') 
+               OR JSON_CONTAINS(ds.penids, JSON_QUOTE(CAST(id AS CHAR)), '$')) as penname
+    FROM dewormingschedules ds
+    WHERE ds.scheduledate >= CURDATE() AND ds.status = 'Pending'
+    ORDER BY ds.scheduledate ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getupcomingfollowups` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getupcomingfollowups` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getupcomingfollowups`()
+BEGIN
+    SELECT hl.*, a.tagid, a.designatedname as animalname, d.diseasename 
+    FROM healthlogs hl 
+    JOIN animals a ON hl.animalid = a.id 
+    LEFT JOIN diseases d ON hl.diseaseid = d.id
+    WHERE hl.nextfollowup >= CURDATE() AND hl.deleted = 0 
+    ORDER BY hl.nextfollowup ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_getupcomingvaccinations` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getupcomingvaccinations` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getupcomingvaccinations`()
+BEGIN
+    SELECT vs.*, d.diseasename as vaccine_name, 
+           (SELECT GROUP_CONCAT(penname SEPARATOR ', ') 
+            FROM pens 
+            WHERE JSON_CONTAINS(vs.penids, CAST(id AS CHAR), '$') 
+               OR JSON_CONTAINS(vs.penids, JSON_QUOTE(CAST(id AS CHAR)), '$')) as penname
+    FROM vaccinationschedules vs
+    JOIN diseases d ON vs.diseaseid = d.id
+    WHERE vs.scheduledate >= CURDATE() AND vs.status = 'Pending'
+    ORDER BY vs.scheduledate ASC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getuserbyid` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getuserbyid` */;
@@ -5416,6 +6679,24 @@ BEGIN
 	END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getvaccinationhistory` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getvaccinationhistory` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getvaccinationhistory`()
+BEGIN
+    SELECT v.*, a.tagid, a.designatedname as animalname, 
+           COALESCE(d.diseasename, v.vaccinename) as diseasename
+    FROM vaccinations v
+    JOIN animals a ON v.animalid = a.id
+    LEFT JOIN vaccinationschedules vs ON v.scheduleid = vs.id
+    LEFT JOIN diseases d ON (vs.diseaseid = d.id OR v.diseaseid = d.id)
+    ORDER BY v.vaccinationdate DESC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getvaccinationschedules` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getvaccinationschedules` */;
@@ -5435,6 +6716,22 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_getvaccinationsummary` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_getvaccinationsummary` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getvaccinationsummary`()
+BEGIN
+    SELECT 
+        (SELECT COUNT(DISTINCT animalid) * 100 / (SELECT COUNT(*) FROM animals WHERE deleted = 0) FROM vaccinations) as herd_immunity,
+        (SELECT COUNT(*) FROM vaccinations WHERE MONTH(vaccinationdate) = MONTH(CURDATE()) AND YEAR(vaccinationdate) = YEAR(CURDATE())) as completed_month,
+        (SELECT COUNT(*) FROM vaccinationschedules WHERE scheduledate < CURDATE() AND status = 'Pending') as overdue,
+        (SELECT MIN(scheduledate) FROM vaccinationschedules WHERE scheduledate >= CURDATE() AND status = 'Pending') as next_batch;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_getveterinarians` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_getveterinarians` */;
@@ -5444,73 +6741,6 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getveterinarians`()
 BEGIN
     SELECT * FROM `veterinarians` WHERE `deleted` = 0 ORDER BY `vetname` ASC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getactivehealthschedules` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getactivehealthschedules` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getactivehealthschedules`(
-    IN `$type` VARCHAR(20)
-)
-BEGIN
-    IF `$type` = 'vaccination' THEN
-        SELECT s.id, d.diseasename as title, s.scheduledate 
-        FROM vaccinationschedules s 
-        JOIN diseases d ON s.diseaseid = d.id 
-        WHERE s.deleted = 0 AND s.status != 'Completed'
-        ORDER BY s.scheduledate ASC;
-    ELSE
-        SELECT s.id,s.schedulename as title, s.scheduledate 
-        FROM dewormingschedules s 
-        -- JOIN diseases d ON s.diseaseid = d.id 
-        WHERE s.deleted = 0 AND s.status != 'Completed'
-        ORDER BY s.scheduledate ASC;
-    END IF;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getanimalsbyschedule` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getanimalsbyschedule` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getanimalsbyschedule`(
-    IN `$scheduleid` INT,
-    IN `$type` VARCHAR(20)
-)
-BEGIN
-    IF `$scheduleid` = 0 OR `$scheduleid` IS NULL THEN
-        
-        SELECT a.id, a.tagid, a.designatedname, p.penname 
-        FROM animals a 
-        JOIN pens p ON a.penid = p.id 
-        WHERE a.deleted = 0 
-        ORDER BY p.penname, a.tagid;
-    ELSE
-        
-        SET @penids = '';
-        IF `$type` = 'vaccination' THEN
-            SELECT penids INTO @penids FROM vaccinationschedules WHERE id = `$scheduleid`;
-        ELSE
-            SELECT penids INTO @penids FROM dewormingschedules WHERE id = `$scheduleid`;
-        END IF;
-
-        IF @penids IS NOT NULL AND @penids <> '' AND @penids <> '[]' THEN
-            SELECT a.id, a.tagid, a.designatedname, p.penname 
-            FROM animals a 
-            JOIN pens p ON a.penid = p.id 
-            WHERE (JSON_CONTAINS(@penids, CAST(a.penid AS CHAR)) OR JSON_CONTAINS(@penids, JSON_QUOTE(CAST(a.penid AS CHAR))))
-            AND a.deleted = 0
-            ORDER BY p.penname, a.tagid;
-        ELSE 
-            SELECT a.id, a.tagid, a.designatedname, p.penname FROM animals a LIMIT 0;
-        END IF;
-    END IF;
 END */$$
 DELIMITER ;
 
@@ -5555,7 +6785,6 @@ BEGIN
         SET i = i + 1;
     END WHILE;
 
-    -- Mark schedule as completed if applicable
     IF `$scheduleid` > 0 THEN
         UPDATE `dewormingschedules` SET `status` = 'Completed' WHERE `id` = `$scheduleid`;
     END IF;
@@ -5570,7 +6799,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_recordbulkvaccination`(
     IN `$scheduleid` INT,
-    IN `$animalids` JSON, -- Array of animal IDs
+    IN `$diseaseid` INT,
+    IN `$animalids` JSON,
     IN `$vaccinationdate` DATE,
     IN `$productused` VARCHAR(100),
     IN `$batchno` VARCHAR(50),
@@ -5595,18 +6825,75 @@ BEGIN
         SET `$animalid` = JSON_UNQUOTE(JSON_EXTRACT(`$animalids`, CONCAT('$[', i, ']')));
         
         INSERT INTO `vaccinations` (
-            `animalid`, `scheduleid`, `vaccinationdate`, `productused`, `batchno`, `dosage`, `administeredby`, `notes`, `record_type`, `addedby`
+            `animalid`, `scheduleid`, `diseaseid`, `vaccinationdate`, `productused`, `batchno`, `dosage`, `administeredby`, `notes`, `record_type`, `addedby`
         ) VALUES (
-            `$animalid`, `$scheduleid`, `$vaccinationdate`, `$productused`, `$batchno`, `$dosage`, `$administeredby`, `$notes`, `$rec_type`, `$userid`
+            `$animalid`, `$scheduleid`, `$diseaseid`, `$vaccinationdate`, `$productused`, `$batchno`, `$dosage`, `$administeredby`, `$notes`, `$rec_type`, `$userid`
         );
         
         SET i = i + 1;
     END WHILE;
 
-    -- Mark schedule as completed if applicable
     IF `$scheduleid` > 0 THEN
         UPDATE `vaccinationschedules` SET `status` = 'Completed' WHERE `id` = `$scheduleid`;
     END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_recordmixing` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_recordmixing` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_recordmixing`(
+    IN $feedmixid INT,
+    IN $batchweight DECIMAL(10,2),
+    IN $userid INT,
+    IN $platform VARCHAR(50)
+)
+BEGIN
+    DECLARE $mixedfeedid INT;
+    DECLARE $template_total_weight DECIMAL(10,2);
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    -- Get the total weight defined in the original formulation template
+    SELECT totalweight INTO $template_total_weight FROM feedmix WHERE id = $feedmixid;
+
+    IF $template_total_weight IS NULL OR $template_total_weight = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid formulation template or zero weight defined.';
+    END IF;
+
+    START TRANSACTION;
+    
+    -- 1. Insert into master event table
+    INSERT INTO mixedfeeds (feedmixid, mixdate, totalweight, createdby, platform)
+    VALUES ($feedmixid, CURRENT_TIMESTAMP, $batchweight, $userid, $platform);
+    
+    SET $mixedfeedid = LAST_INSERT_ID();
+    
+    -- 2. Insert into details table by calculating weights based on formulation ratios
+    -- Formula: (Ingredient Template Qty / Template Total Weight) * Batch Target Weight
+    INSERT INTO mixedfeeddetails (mixedfeedid, inventoryitemid, quantity)
+    SELECT 
+        $mixedfeedid, 
+        inventoryitemid, 
+        (quantity / $template_total_weight) * $batchweight
+    FROM feedmixdetails 
+    WHERE feedmixid = $feedmixid;
+    
+    -- 3. Record in Audit Trail
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform)
+    VALUES (CURRENT_TIMESTAMP, $userid, 'MIX_FEED', CONCAT('Performed batch mixing. Formulation ID: ', $feedmixid, ', Batch Weight: ', $batchweight, ' KG'), $platform);
+    
+    COMMIT;
+    
+    -- Return the new mixing record ID and success status
+    SELECT $mixedfeedid AS mixedfeedid, 'success' AS status;
 END */$$
 DELIMITER ;
 
@@ -5681,152 +6968,48 @@ DELIMITER $$
     IN `$penid` INT,
     IN `$damid` INT,
     IN `$birthdate` DATE,
-    IN `$initialweight` DECIMAL(10, 2),
+    IN `$initialweight` DECIMAL(10,2),
     IN `$registrationsource` VARCHAR(50),
-    IN `$purchaseprice` DECIMAL(15, 2),
-    IN `$status` VARCHAR(50),
-    IN `$autogen` TINYINT(1),
+    IN `$purchaseprice` DECIMAL(10,2),
+    IN `$status` VARCHAR(20),
+    IN `$autogen` TINYINT,
+    IN `$is_insured` TINYINT,
+    IN `$insurance_company_id` INT,
+    IN `$insuranceamount` DECIMAL(15,2),
     IN `$userid` INT,
-    IN `$platform` VARCHAR(1000)
+    IN `$platform` VARCHAR(50)
 )
 BEGIN
-    DECLARE `$originalvalues` MEDIUMTEXT DEFAULT '';
-    DECLARE `$updatedvalues` MEDIUMTEXT DEFAULT '';
-    
-    START TRANSACTION;
+    DECLARE v_action VARCHAR(50);
     
     IF `$id` = 0 THEN
-        -- Auto-generate Tag ID if requested
-        IF `$autogen` = 1 THEN
-            SET `$tagid` = fn_generateanimaltag();
-            -- Increment the serial number
-            UPDATE `serials` SET `currentno` = `currentno` + 1 WHERE `document` = 'Animal Tag';
-        END IF;
-
-        -- Insert new animal
-        INSERT INTO `animals` (
-            `tagid`, 
-            `designatedname`, 
-            `breedid`, 
-            `penid`, 
-            `damid`, 
-            `birthdate`, 
-            `initialweight`, 
-            `registrationsource`, 
-            `purchaseprice`, 
-            `status`, 
-            `addedby`, 
-            `dateadded`, 
-            `deleted`
-        )
-        VALUES (
-            `$tagid`, 
-            `$designatedname`, 
-            `$breedid`, 
-            `$penid`, 
-            `$damid`, 
-            `$birthdate`, 
-            `$initialweight`, 
-            `$registrationsource`, 
-            `$purchaseprice`, 
-            `$status`, 
-            `$userid`, 
-            NOW(), 
-            0
-        );
-        
+        INSERT INTO `animals` (`tagid`, `designatedname`, `breedid`, `penid`, `damid`, `birthdate`, `initialweight`, `registrationsource`, `purchaseprice`, `status`, `is_insured`, `insurance_company_id`, `insuranceamount`, `created_by`)
+        VALUES (`$tagid`, `$designatedname`, `$breedid`, `$penid`, `$damid`, `$birthdate`, `$initialweight`, `$registrationsource`, `$purchaseprice`, `$status`, `$is_insured`, `$insurance_company_id`, `$insuranceamount`, `$userid`);
         SET `$id` = LAST_INSERT_ID();
-        
-        -- Audit Trail for Insert
-        SET `$updatedvalues` = CONCAT(
-            '{"id":', `$id`, 
-            ',"tagid":"', `$tagid`, 
-            '","designatedname":"', IFNULL(`$designatedname`, ''), 
-            '","breedid":', IFNULL(`$breedid`, 'null'), 
-            ',"penid":', IFNULL(`$penid`, 'null'), 
-            ',"status":"', `$status`, 
-            '"}'
-        );
-        
-        INSERT INTO `audittrail` (
-            `timestamp`, 
-            `userid`, 
-            `operation`, 
-            `narration`, 
-            `platform`, 
-            `updatedvalues`
-        )
-        VALUES (
-            NOW(), 
-            `$userid`, 
-            'Insert', 
-            CONCAT('Registered new animal: ', `$tagid`, ' (', IFNULL(`$designatedname`, 'Unnamed'), ')'), 
-            `$platform`, 
-            `$updatedvalues`
-        );
+        SET v_action = 'REGISTER ANIMAL';
     ELSE
-        -- Capture original values for audit trail before update
-        SELECT CONCAT(
-            '{"id":', `id`, 
-            ',"tagid":"', `tagid`, 
-            '","designatedname":"', IFNULL(`designatedname`, ''), 
-            '","breedid":', IFNULL(`breedid`, 'null'), 
-            ',"penid":', IFNULL(`penid`, 'null'), 
-            ',"status":"', `status`, 
-            '"}'
-        ) INTO `$originalvalues`
-        FROM `animals` 
-        WHERE `id` = `$id`;
-        
-        -- Update existing animal
         UPDATE `animals` 
-        SET `tagid` = `$tagid`, 
-            `designatedname` = `$designatedname`, 
-            `breedid` = `$breedid`, 
-            `penid` = `$penid`, 
-            `damid` = `$damid`, 
-            `birthdate` = `$birthdate`, 
-            `initialweight` = `$initialweight`, 
-            `registrationsource` = `$registrationsource`, 
-            `purchaseprice` = `$purchaseprice`, 
-            `status` = `$status`
+        SET `tagid` = `$tagid`,
+            `designatedname` = `$designatedname`,
+            `breedid` = `$breedid`,
+            `penid` = `$penid`,
+            `damid` = `$damid`,
+            `birthdate` = `$birthdate`,
+            `initialweight` = `$initialweight`,
+            `registrationsource` = `$registrationsource`,
+            `purchaseprice` = `$purchaseprice`,
+            `status` = `$status`,
+            `is_insured` = `$is_insured`,
+            `insurance_company_id` = `$insurance_company_id`,
+            `insuranceamount` = `$insuranceamount`
         WHERE `id` = `$id`;
-        
-        -- Audit Trail for Update
-        SET `$updatedvalues` = CONCAT(
-            '{"id":', `$id`, 
-            ',"tagid":"', `$tagid`, 
-            '","designatedname":"', IFNULL(`$designatedname`, ''), 
-            '","breedid":', IFNULL(`$breedid`, 'null'), 
-            ',"penid":', IFNULL(`$penid`, 'null'), 
-            ',"status":"', `$status`, 
-            '"}'
-        );
-        
-        INSERT INTO `audittrail` (
-            `timestamp`, 
-            `userid`, 
-            `operation`, 
-            `narration`, 
-            `platform`, 
-            `originalvalues`, 
-            `updatedvalues`
-        )
-        VALUES (
-            NOW(), 
-            `$userid`, 
-            'Update', 
-            CONCAT('Updated animal details: ', `$tagid`), 
-            `$platform`, 
-            `$originalvalues`, 
-            `$updatedvalues`
-        );
+        SET v_action = 'UPDATE ANIMAL DETAILS';
     END IF;
     
-    COMMIT;
+    INSERT INTO `audittrail` (`userid`, `activity`, `platform`)
+    VALUES (`$userid`, CONCAT(v_action, ': ', `$tagid`, ' (', `$designatedname`, ')'), `$platform`);
     
-    -- Return the ID of the saved animal
-    SELECT `$id` AS `animalid`;
+    SELECT `$id` AS animalid;
 END */$$
 DELIMITER ;
 
@@ -6543,6 +7726,50 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_saveinsurancecompany` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveinsurancecompany` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveinsurancecompany`(
+    IN `$id` INT,
+    IN `$registrationno` VARCHAR(50),
+    IN `$companyname` VARCHAR(100),
+    IN `$contacts` VARCHAR(255),
+    IN `$contactperson` VARCHAR(100),
+    IN `$email` VARCHAR(100),
+    IN `$address` TEXT,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(50)
+)
+BEGIN
+    DECLARE v_action VARCHAR(50);
+    
+    IF `$id` = 0 THEN
+        INSERT INTO `insurancecompanies` (`registrationno`, `companyname`, `contacts`, `contactperson`, `email`, `address`, `created_by`)
+        VALUES (`$registrationno`, `$companyname`, `$contacts`, `$contactperson`, `$email`, `$address`, `$userid`);
+        SET `$id` = LAST_INSERT_ID();
+        SET v_action = 'CREATE INSURANCE COMPANY';
+    ELSE
+        UPDATE `insurancecompanies` 
+        SET `registrationno` = `$registrationno`,
+            `companyname` = `$companyname`,
+            `contacts` = `$contacts`,
+            `contactperson` = `$contactperson`,
+            `email` = `$email`,
+            `address` = `$address`
+        WHERE `id` = `$id`;
+        SET v_action = 'UPDATE INSURANCE COMPANY';
+    END IF;
+    
+    INSERT INTO `audittrail` (`userid`, `activity`, `platform`)
+    VALUES (`$userid`, CONCAT(v_action, ': ', `$companyname`, ' (', `$registrationno`, ')'), `$platform`);
+    
+    SELECT `$id` AS insuranceid;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_saveinventorycategory` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_saveinventorycategory` */;
@@ -6620,6 +7847,8 @@ DELIMITER $$
     IN `$uom` VARCHAR(50),
     IN `$unitprice` DECIMAL(15, 2),
     IN `$reorderlevel` DECIMAL(15, 2),
+    IN `$currentstock` DECIMAL(15, 2),
+    IN `$maxstock` DECIMAL(15, 2),
     IN `$itemtype` VARCHAR(50),
     IN `$is_feed` TINYINT(1),
     IN `$description` TEXT,
@@ -6627,28 +7856,17 @@ DELIMITER $$
     IN `$platform` VARCHAR(1000)
 )
 BEGIN
-    DECLARE `$originalvalues` MEDIUMTEXT DEFAULT '';
-    DECLARE `$updatedvalues` MEDIUMTEXT DEFAULT '';
-    
     START TRANSACTION;
     
     IF `$id` = 0 THEN
         INSERT INTO `inventoryitems` (
-            `categoryid`, `itemcode`, `itemname`, `uom`, `unitprice`, `reorderlevel`, `itemtype`, `is_feed`, `description`, `addedby`
+            `categoryid`, `itemcode`, `itemname`, `uom`, `unitprice`, `reorderlevel`, `currentstock`, `maxstock`, `itemtype`, `is_feed`, `description`, `addedby`
         )
         VALUES (
-            `$categoryid`, `$itemcode`, `$itemname`, `$uom`, `$unitprice`, `$reorderlevel`, `$itemtype`, `$is_feed`, `$description`, `$userid`
+            `$categoryid`, `$itemcode`, `$itemname`, `$uom`, `$unitprice`, `$reorderlevel`, `$currentstock`, `$maxstock`, `$itemtype`, `$is_feed`, `$description`, `$userid`
         );
         SET `$id` = LAST_INSERT_ID();
-        
-        SET `$updatedvalues` = JSON_OBJECT('id', `$id`, 'itemcode', `$itemcode`, 'itemname', `$itemname`, 'is_feed', `$is_feed`);
-        
-        INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `updatedvalues`)
-        VALUES (NOW(), `$userid`, 'Insert', CONCAT('Provisioned Inventory Item: ', `$itemname`), `$platform`, `$updatedvalues`);
     ELSE
-        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`, 'is_feed', `is_feed`) INTO `$originalvalues` 
-        FROM `inventoryitems` WHERE `id` = `$id`;
-        
         UPDATE `inventoryitems`
         SET `categoryid` = `$categoryid`,
             `itemcode` = `$itemcode`,
@@ -6656,18 +7874,14 @@ BEGIN
             `uom` = `$uom`,
             `unitprice` = `$unitprice`,
             `reorderlevel` = `$reorderlevel`,
+            `currentstock` = `$currentstock`,
+            `maxstock` = `$maxstock`,
             `itemtype` = `$itemtype`,
             `is_feed` = `$is_feed`,
             `description` = `$description`,
             `updatedby` = `$userid`,
             `lastupdated` = NOW()
         WHERE `id` = `$id`;
-        
-        SELECT JSON_OBJECT('itemcode', `itemcode`, 'itemname', `itemname`, 'is_feed', `is_feed`) INTO `$updatedvalues` 
-        FROM `inventoryitems` WHERE `id` = `$id`;
-        
-        INSERT INTO `audittrail` (`timestamp`, `userid`, `operation`, `narration`, `platform`, `originalvalues`, `updatedvalues`)
-        VALUES (NOW(), `$userid`, 'Update', CONCAT('Updated Inventory Item: ', `$itemname`), `$platform`, `$originalvalues`, `$updatedvalues`);
     END IF;
     
     COMMIT;
@@ -6850,6 +8064,581 @@ BEGIN
             `locationcluster` = `$locationcluster`
         WHERE `id` = `$id`;
     END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrybirdtype` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrybirdtype` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrybirdtype`(
+    IN $id INT,
+    IN $typename VARCHAR(100),
+    IN $description TEXT,
+    IN $maturityperiod INT,
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultrybirdtypes (typename, description, maturityperiod, addedby)
+        VALUES ($typename, $description, $maturityperiod, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'typename', $typename, 'maturityperiod', $maturityperiod);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Added Bird Type: ', $typename), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('typename', typename, 'maturityperiod', maturityperiod) INTO $originalvalues 
+        FROM poultrybirdtypes WHERE typeid = $id;
+        UPDATE poultrybirdtypes 
+        SET typename = $typename, description = $description, maturityperiod = $maturityperiod
+        WHERE typeid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'typename', $typename, 'maturityperiod', $maturityperiod);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Bird Type: ', $typename), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS typeid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrybreed` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrybreed` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrybreed`(
+    IN $id INT,
+    IN $breedname VARCHAR(100),
+    IN $category VARCHAR(50),
+    IN $notes TEXT,
+    IN $status VARCHAR(50),
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultrybreeds (breedname, category, notes, status, addedby)
+        VALUES ($breedname, $category, $notes, $status, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'breedname', $breedname, 'category', $category, 'status', $status);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Added Poultry Breed: ', $breedname), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('breedname', breedname, 'category', category, 'status', status) INTO $originalvalues 
+        FROM poultrybreeds WHERE breedid = $id;
+        UPDATE poultrybreeds 
+        SET breedname = $breedname, category = $category, notes = $notes, status = $status
+        WHERE breedid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'breedname', $breedname, 'category', $category, 'status', $status);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Poultry Breed: ', $breedname), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS breedid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrydisease` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrydisease` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrydisease`(
+    IN $id INT,
+    IN $diseasename VARCHAR(100),
+    IN $description TEXT,
+    IN $severity VARCHAR(50),
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultrydiseases (diseasename, description, severity, addedby)
+        VALUES ($diseasename, $description, $severity, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'diseasename', $diseasename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Recorded New Disease: ', $diseasename), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('diseasename', diseasename) INTO $originalvalues 
+        FROM poultrydiseases WHERE diseaseid = $id;
+        UPDATE poultrydiseases 
+        SET diseasename = $diseasename, description = $description, severity = $severity
+        WHERE diseaseid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'diseasename', $diseasename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Disease: ', $diseasename), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS diseaseid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrydiseasetype` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrydiseasetype` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrydiseasetype`(
+                IN $id INT,
+                IN $typename VARCHAR(100),
+                IN $description TEXT,
+                IN $userid INT
+            )
+BEGIN
+                IF $id = 0 THEN
+                    INSERT INTO poultrydiseasetypes (typename, description, addedby)
+                    VALUES ($typename, $description, $userid);
+                ELSE
+                    UPDATE poultrydiseasetypes SET typename = $typename, description = $description WHERE typeid = $id;
+                END IF;
+            END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryflock` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryflock` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryflock`(
+    IN `$id` INT,
+    IN `$flockno` VARCHAR(50),
+    IN `$flockname` VARCHAR(100),
+    IN `$birdtypeid` INT,
+    IN `$stageid` INT,
+    IN `$breedid` INT,
+    IN `$source` VARCHAR(50),
+    IN `$arrivaldate` DATE,
+    IN `$initialcount` INT,
+    IN `$houseid` INT,
+    IN `$notes` TEXT,
+    IN `$generate_vax` TINYINT,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(50)
+)
+BEGIN
+    DECLARE `$actual_flockid` INT;
+    DECLARE `$generated_flockno` VARCHAR(50) DEFAULT '';
+    DECLARE `$maturityperiod` INT DEFAULT 130;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    -- Fetch maturity period for the bird type
+    SELECT COALESCE(maturityperiod, 130) INTO `$maturityperiod` 
+    FROM poultrybirdtypes 
+    WHERE typeid = `$birdtypeid`;
+
+    START TRANSACTION;
+
+    IF `$id` = 0 THEN
+        -- Check for duplicate Flock ID if manual entry
+        IF `$flockno` != '[AUTO]' AND `$flockno` != '' THEN
+            IF EXISTS (SELECT 1 FROM `poultryflocks` WHERE `flockno` = `$flockno` AND `deleted` = 0) THEN
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Duplicate Flock ID: The provided Flock ID is already in use.';
+            END IF;
+        END IF;
+
+        -- Handle Auto-ID
+        IF `$flockno` = '[AUTO]' OR `$flockno` = '' THEN
+            SET `$generated_flockno` = fn_generateflockid();
+            -- Update serials
+            UPDATE `serials` SET `currentno` = `currentno` + 1 WHERE `document` = 'Poultry Flock';
+        ELSE
+            SET `$generated_flockno` = `$flockno`;
+        END IF;
+
+        INSERT INTO `poultryflocks` (
+            `flockno`, `flockname`, `birdtypeid`, `stageid`, `breedid`, 
+            `source`, `arrivaldate`, `maturitydate`, `initialcount`, `currentcount`, `houseid`, `notes`, `addedby`
+        ) VALUES (
+            `$generated_flockno`, `$flockname`, `$birdtypeid`, `$stageid`, `$breedid`, 
+            `$source`, `$arrivaldate`, DATE_ADD(`$arrivaldate`, INTERVAL `$maturityperiod` DAY), `$initialcount`, `$initialcount`, `$houseid`, `$notes`, `$userid`
+        );
+        
+        SET `$actual_flockid` = LAST_INSERT_ID();
+
+        -- Create Vaccination Schedule based on bird type protocols (ONLY IF REQUESTED)
+        IF `$generate_vax` = 1 THEN
+            INSERT INTO `poultry_flock_vaccination_schedule` (`flockid`, `diseaseid`, `scheduledate`, `narration`, `addedby`)
+            SELECT 
+                `$actual_flockid`, 
+                `diseaseid`, 
+                DATE_ADD(`$arrivaldate`, INTERVAL `minage` DAY), 
+                `narration`, 
+                `$userid`
+            FROM `poultry_birdtype_vaccinations`
+            WHERE `birdtypeid` = `$birdtypeid` AND `deleted` = 0;
+        END IF;
+
+        -- Audit Trail
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), `$userid`, 'Insert', CONCAT('Registered Poultry Flock: ', `$generated_flockno`), `$platform`, 
+                JSON_OBJECT('flockid', `$actual_flockid`, 'flockno', `$generated_flockno`, 'name', `$flockname`));
+    ELSE
+        -- Update existing flock
+        UPDATE `poultryflocks` SET 
+            `flockname` = `$flockname`,
+            `stageid` = `$stageid`,
+            `houseid` = `$houseid`,
+            `notes` = `$notes`,
+            `maturitydate` = DATE_ADD(`arrivaldate`, INTERVAL `$maturityperiod` DAY) -- Recalculate in case bird type changed
+        WHERE `flockid` = `$id`;
+        
+        SET `$actual_flockid` = `$id`;
+        
+        -- Audit Trail
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), `$userid`, 'Update', CONCAT('Updated Poultry Flock ID: ', `$id`), `$platform`, 
+                JSON_OBJECT('flockid', `$id`, 'name', `$flockname`));
+    END IF;
+
+    COMMIT;
+    
+    SELECT `$actual_flockid` AS flockid, `$generated_flockno` AS flockno;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryflockstage` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryflockstage` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryflockstage`(
+    IN $id INT,
+    IN $stagename VARCHAR(100),
+    IN $birdtype VARCHAR(100),
+    IN $duration VARCHAR(100),
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultryflockstages (stagename, birdtype, duration, addedby)
+        VALUES ($stagename, $birdtype, $duration, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'stagename', $stagename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Added Flock Stage: ', $stagename), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('stagename', stagename) INTO $originalvalues 
+        FROM poultryflockstages WHERE stageid = $id;
+        UPDATE poultryflockstages 
+        SET stagename = $stagename, birdtype = $birdtype, duration = $duration
+        WHERE stageid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'stagename', $stagename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Flock Stage: ', $stagename), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS stageid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryformulation` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryformulation` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryformulation`(
+    IN $id INT,
+    IN $formulationname VARCHAR(100),
+    IN $birdtype VARCHAR(50),
+    IN $growthstage VARCHAR(50),
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultryformulations (formulationname, birdtype, growthstage, addedby)
+        VALUES ($formulationname, $birdtype, $growthstage, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'formulationname', $formulationname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Created Feed Formulation: ', $formulationname), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('formulationname', formulationname) INTO $originalvalues 
+        FROM poultryformulations WHERE formulationid = $id;
+        UPDATE poultryformulations 
+        SET formulationname = $formulationname, birdtype = $birdtype, growthstage = $growthstage
+        WHERE formulationid = $id;
+        DELETE FROM poultryformulationingredients WHERE formulationid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'formulationname', $formulationname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Feed Formulation: ', $formulationname), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id as formulationid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryformulationingredient` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryformulationingredient` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryformulationingredient`(
+    IN $formulationid INT,
+    IN $itemid INT,
+    IN $quantity DECIMAL(10,2)
+)
+BEGIN
+    INSERT INTO poultryformulationingredients (formulationid, itemid, quantity)
+    VALUES ($formulationid, $itemid, $quantity);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryhouse` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryhouse` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryhouse`(
+    IN $id INT,
+    IN $housename VARCHAR(100),
+    IN $description TEXT,
+    IN $status VARCHAR(50),
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultryhouses (housename, description, status, addedby)
+        VALUES ($housename, $description, $status, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'housename', $housename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Registered Poultry House: ', $housename), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('housename', housename) INTO $originalvalues 
+        FROM poultryhouses WHERE houseid = $id;
+        UPDATE poultryhouses 
+        SET housename = $housename, description = $description, status = $status
+        WHERE houseid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'housename', $housename);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Poultry House: ', $housename), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS houseid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryinventorycategory` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryinventorycategory` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryinventorycategory`(
+    IN $id INT,
+    IN $categorycode VARCHAR(50),
+    IN $categoryname VARCHAR(100),
+    IN $prefix VARCHAR(20),
+    IN $currentno INT,
+    IN $padzeros TINYINT,
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultryinventorycategories (categorycode, categoryname, prefix, currentno, padzeros, addedby)
+        VALUES ($categorycode, $categoryname, $prefix, $currentno, $padzeros, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'categoryname', $categoryname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Created Inventory Category: ', $categoryname), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('categoryname', categoryname) INTO $originalvalues 
+        FROM poultryinventorycategories WHERE categoryid = $id;
+        UPDATE poultryinventorycategories 
+        SET categorycode = $categorycode, categoryname = $categoryname, prefix = $prefix, currentno = $currentno, padzeros = $padzeros
+        WHERE categoryid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'categoryname', $categoryname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Inventory Category: ', $categoryname), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS categoryid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultryinventoryitem` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultryinventoryitem` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultryinventoryitem`(
+    IN $id INT,
+    IN $itemname VARCHAR(100),
+    IN $itemcode VARCHAR(50),
+    IN $categoryid INT,
+    IN $unit VARCHAR(50),
+    IN $isfeed TINYINT,
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultryinventoryitems (itemname, itemcode, categoryid, unit, isfeed, addedby)
+        VALUES ($itemname, $itemcode, $categoryid, $unit, $isfeed, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'itemname', $itemname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Provisioned Inventory Item: ', $itemname), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('itemname', itemname) INTO $originalvalues 
+        FROM poultryinventoryitems WHERE itemid = $id;
+        UPDATE poultryinventoryitems 
+        SET itemname = $itemname, itemcode = $itemcode, categoryid = $categoryid, unit = $unit, isfeed = $isfeed
+        WHERE itemid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'itemname', $itemname);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Inventory Item: ', $itemname), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS itemid;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrymortality` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrymortality` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrymortality`(
+    IN `$flockno` VARCHAR(50),
+    IN `$mortalitydate` DATE,
+    IN `$count` INT,
+    IN `$reason` VARCHAR(100),
+    IN `$notes` TEXT,
+    IN `$userid` INT,
+    IN `$platform` VARCHAR(1000)
+)
+BEGIN
+    DECLARE `$actual_flockid` INT;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        RESIGNAL;
+    END;
+
+    START TRANSACTION;
+
+    -- Get actual flock ID from flockno
+    SELECT `flockid` INTO `$actual_flockid` FROM `poultryflocks` WHERE `flockno` = `$flockno` AND `deleted` = 0;
+    
+    IF `$actual_flockid` IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid Flock ID: The provided Flock ID does not exist.';
+    END IF;
+
+    -- Insert mortality record
+    INSERT INTO `poultry_mortality` (
+        `flockid`, `mortalitydate`, `count`, `reason`, `notes`, `addedby`
+    ) VALUES (
+        `$actual_flockid`, `$mortalitydate`, `$count`, `$reason`, `$notes`, `$userid`
+    );
+
+    -- Update current count in flock table
+    UPDATE `poultryflocks` 
+    SET `currentcount` = `currentcount` - `$count` 
+    WHERE `flockid` = `$actual_flockid`;
+
+    -- Audit Trail
+    INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+    VALUES (NOW(), `$userid`, 'Insert', CONCAT('Recorded Mortality for Flock: ', `$flockno`, ' (Count: ', `$count`, ')'), `$platform`, 
+            JSON_OBJECT('flockno', `$flockno`, 'count', `$count`, 'reason', `$reason`));
+
+    COMMIT;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_savepoultrymortalityreason` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepoultrymortalityreason` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepoultrymortalityreason`(
+    IN $id INT,
+    IN $reasonlabel VARCHAR(100),
+    IN $description TEXT,
+    IN $userid INT,
+    IN $platform VARCHAR(1000)
+)
+BEGIN
+    DECLARE $originalvalues MEDIUMTEXT DEFAULT '';
+    DECLARE $updatedvalues MEDIUMTEXT DEFAULT '';
+    
+    START TRANSACTION;
+    IF $id = 0 THEN
+        INSERT INTO poultrymortalityreasons (reasonlabel, description, addedby)
+        VALUES ($reasonlabel, $description, $userid);
+        SET $id = LAST_INSERT_ID();
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'reasonlabel', $reasonlabel);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, updatedvalues)
+        VALUES (NOW(), $userid, 'Insert', CONCAT('Added Mortality Reason: ', $reasonlabel), $platform, $updatedvalues);
+    ELSE
+        SELECT JSON_OBJECT('reasonlabel', reasonlabel) INTO $originalvalues 
+        FROM poultrymortalityreasons WHERE reasonid = $id;
+        UPDATE poultrymortalityreasons 
+        SET reasonlabel = $reasonlabel, description = $description
+        WHERE reasonid = $id;
+        SET $updatedvalues = JSON_OBJECT('id', $id, 'reasonlabel', $reasonlabel);
+        INSERT INTO audittrail (timestamp, userid, operation, narration, platform, originalvalues, updatedvalues)
+        VALUES (NOW(), $userid, 'Update', CONCAT('Updated Mortality Reason: ', $reasonlabel), $platform, $originalvalues, $updatedvalues);
+    END IF;
+    COMMIT;
+    SELECT $id AS reasonid;
 END */$$
 DELIMITER ;
 

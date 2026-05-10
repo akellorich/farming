@@ -492,4 +492,21 @@
     font-family: 'Manrope', sans-serif;
     color: #64748b;
     font-weight: 500;
-}
+/* --- Global Modal Header Refinements --- */
+.modal-branding-column h2,
+.modal-side-panel h2,
+.v-modal-form-area h2,
+.animal-modal-container h2,
+.modal-title,
+.modal-title-label,
+.modal-branding-content h2,
+.v-modal-wrapper h2 {
+    color: #3e2723 !important;
+}
+
+/* Ensure icons next to titles follow suit if they are intended to be part of the header */
+.modal-branding-content .material-symbols-outlined,
+.modal-side-panel .material-symbols-outlined {
+    color: #3e2723 !important;
+    opacity: 0.9;
+}}

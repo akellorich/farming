@@ -84,5 +84,10 @@ class treatment extends db {
         $sql = "CALL sp_getdistinctvaccines()";
         return $this->getJSON($sql);
     }
+
+    public function getDistinctDewormers() {
+        $sql = "CALL sp_getdistinctdewormers()";
+        return $this->getJSON($sql);
+    }
 }
 ?>

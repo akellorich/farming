@@ -34,50 +34,50 @@
 <main class="main-content">
     <!-- Hero Summary Section -->
     <div class="row mb-2">
-        <div class="col-6 col-lg-3 mb-4">
+        <div class="col-6 col-md-3 mb-4">
             <div class="stats-card botanical-shadow">
                 <span class="material-symbols-outlined bg-icon" style="color: var(--primary);">cruelty_free</span>
                 <p class="stats-label">Total Animals</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline">1,248</h3>
-                    <span class="stats-trend text-success mb-2 ml-2">+12%</span>
+                    <h3 class="stats-value font-headline" id="total_animals_val">1,248</h3>
+                    <span class="stats-trend text-success mb-2 ml-2" id="animal_trend">+12%</span>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">
                         <span>Herd Health</span>
-                        <span class="text-success">84%</span>
+                        <span class="text-success" id="herd_health_perc">84%</span>
                     </div>
                     <div class="progress-custom">
-                        <div class="progress-bar-custom" style="width: 84%; background-color: var(--primary);"></div>
+                        <div class="progress-bar-custom" id="herd_health_bar" style="width: 84%; background-color: var(--primary);"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6 col-lg-3 mb-4">
+        <div class="col-6 col-md-3 mb-4">
             <div class="stats-card botanical-shadow">
                 <span class="material-symbols-outlined bg-icon" style="color: var(--primary);">water_drop</span>
                 <p class="stats-label">Daily Yield</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline">8,420</h3>
+                    <h3 class="stats-value font-headline" id="daily_yield_val">8,420</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">Liters</span>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">
                         <span>Daily Goal</span>
-                        <span class="text-primary">92%</span>
+                        <span class="text-primary" id="yield_goal_perc">92%</span>
                     </div>
                     <div class="progress-custom">
-                        <div class="progress-bar-custom" style="width: 92%;"></div>
+                        <div class="progress-bar-custom" id="yield_goal_bar" style="width: 92%;"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6 col-lg-3 mb-4">
+        <div class="col-6 col-md-3 mb-4">
             <div class="stats-card botanical-shadow">
                 <span class="material-symbols-outlined bg-icon" style="color: var(--secondary);">warning</span>
                 <p class="stats-label">Stock Alerts</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline" style="color: var(--secondary);">04</h3>
+                    <h3 class="stats-value font-headline" id="stock_alerts_val" style="color: var(--secondary);">04</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">Low items</span>
                 </div>
                 <div class="mt-3">
@@ -90,12 +90,12 @@
             </div>
         </div>
 
-        <div class="col-6 col-lg-3 mb-4">
+        <div class="col-6 col-md-3 mb-4">
             <div class="stats-card botanical-shadow">
                 <span class="material-symbols-outlined bg-icon" style="color: var(--error);">emergency</span>
                 <p class="stats-label">Health Incidents</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline" style="color: var(--error);">02</h3>
+                    <h3 class="stats-value font-headline" id="health_incidents_val" style="color: var(--error);">02</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">New today</span>
                 </div>
                 <div class="mt-3">
@@ -111,7 +111,7 @@
     <!-- Main Bento Grid -->
     <div class="row">
         <!-- Production Trends Chart -->
-        <div class="col-lg-8 mb-4">
+        <div class="col-md-8 mb-4">
             <div class="stats-card botanical-shadow h-100 p-4">
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <div>
@@ -128,60 +128,11 @@
         </div>
 
         <!-- Recent Activity -->
-        <div class="col-lg-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="stats-card botanical-shadow">
                 <h5 class="font-headline font-weight-bold mb-4" style="font-size: 1.1rem;">Recent Activity</h5>
-                <div class="d-flex flex-column gap-4">
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: var(--tertiary-fixed); color: var(--on-tertiary-fixed);">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span>
-                        </div>
-                        <div class="activity-content">
-                            <p class="small font-weight-bold">Morning Milking Complete</p>
-                            <p class="text-muted" style="font-size: 11px;">Sector B successfully processed 320 cows.</p>
-                            <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">2 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #ffdfa0; color: #261a00;">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">medication</span>
-                        </div>
-                        <div class="activity-content">
-                            <p class="small font-weight-bold">Health Check Logged</p>
-                            <p class="text-muted" style="font-size: 11px;">Cow #2481 scheduled for vet visit.</p>
-                            <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">4 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #acf4a4; color: #002203;">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">shopping_cart</span>
-                        </div>
-                        <div class="activity-content">
-                            <p class="small font-weight-bold">Inventory Update</p>
-                            <p class="text-muted" style="font-size: 11px;">500kg Premium Feed delivered to Silo 1.</p>
-                            <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">Yesterday</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #deede0; color: #132113;">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">cleaning_services</span>
-                        </div>
-                        <div class="activity-content">
-                            <p class="small font-weight-bold">Silo Maintenance</p>
-                            <p class="text-muted" style="font-size: 11px;">Silo 2 scheduled cleaning completed successfully.</p>
-                            <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">Yesterday</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #ffdad6; color: #ba1a1a;">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">emergency</span>
-                        </div>
-                        <div class="activity-content">
-                            <p class="small font-weight-bold">Urgent Vet Call</p>
-                            <p class="text-muted" style="font-size: 11px;">Dr. Mwaura attended to emergency in Sick Bay.</p>
-                            <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">2 days ago</p>
-                        </div>
-                    </div>
+                <div class="d-flex flex-column gap-4" id="recent_activity_list">
+                    <!-- Dynamic Activity Items -->
                 </div>
                 <button class="btn btn-outline-success w-100 mt-4 font-weight-bold" style="font-size: 10px; text-transform: uppercase;">
                     View All Activity
@@ -193,46 +144,20 @@
     <!-- Secondary Bento Grid -->
     <div class="row">
         <!-- Low Stock Inventory -->
-        <div class="col-lg-6 mb-4">
+        <div class="col-md-6 mb-4">
             <div class="stats-card botanical-shadow p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="font-headline font-weight-bold mb-0" style="font-size: 1.1rem;">Low Stock Inventory</h5>
                     <span class="material-symbols-outlined text-warning">inventory</span>
                 </div>
-                <div class="low-stock-list mt-2">
-                    <div class="low-stock-item d-flex justify-content-between align-items-center mb-3 p-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="material-symbols-outlined text-warning" style="font-size: 20px;">grain</span>
-                            <div>
-                                <p class="small font-weight-bold mb-0">Protein Supplement A</p>
-                                <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Feed Stock</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="small font-weight-bold mb-0 text-error">120 kg</p>
-                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Critical Level</p>
-                        </div>
-                    </div>
-                    
-                    <div class="low-stock-item d-flex justify-content-between align-items-center mb-3 p-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="material-symbols-outlined text-warning" style="font-size: 20px;">vaccines</span>
-                            <div>
-                                <p class="small font-weight-bold mb-0">Antibiotic Vaccine (V2)</p>
-                                <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Medical</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="small font-weight-bold mb-0 text-warning">42 Units</p>
-                            <p class="text-muted mb-0" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">Reorder Soon</p>
-                        </div>
-                    </div>
+                <div class="low-stock-list mt-2" id="low_stock_list">
+                    <!-- Dynamic Low Stock Items -->
                 </div>
             </div>
         </div>
 
         <!-- Health Surveillance -->
-        <div class="col-lg-6 mb-4">
+        <div class="col-md-6 mb-4">
             <div class="stats-card botanical-shadow h-100 p-4">
                 <div class="d-flex justify-content-between align-items-start mb-0 mb-md-2">
                     <div>
@@ -244,13 +169,13 @@
                 <div class="row mt-2 mt-md-4">
                     <div class="col-6 col-md-6 pr-1 pr-md-2 mb-0">
                         <div class="health-card-inner h-100">
-                            <h2 class="font-headline text-success mb-2">98.2%</h2>
+                            <h2 class="font-headline text-success mb-2" id="vaccination_rate">0%</h2>
                             <p class="text-muted mb-0" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">Vaccination Rate</p>
                         </div>
                     </div>
                     <div class="col-6 col-md-6 pl-1 pl-md-2">
                         <div class="health-card-inner h-100">
-                            <h2 class="font-headline text-error mb-2">03</h2>
+                            <h2 class="font-headline text-error mb-2" id="active_quarantines">00</h2>
                             <p class="text-muted mb-0" style="font-size: 10px; font-weight: 500; text-transform: uppercase;">Active Quarantines</p>
                         </div>
                     </div>
@@ -260,10 +185,6 @@
     </div>
 </main>
 
-<!-- FAB -->
-<button class="fab botanical-shadow">
-    <span class="material-symbols-outlined" style="font-size: 2rem;">add</span>
-</button>
 
     <!-- Scripts Area -->
     <script src="plugins/jquery-3.6.1.js"></script>
@@ -276,77 +197,199 @@
 
     <script>
     $(document).ready(function() {
-        // ApexCharts - Production Trend
-        var yieldData = [7200, 7800, 7400, 8500, 7900, 7100, 7600];
-        var qualityData = [4.2, 4.3, 4.1, 4.5, 4.2, 4.1, 4.3];
+        var chart;
+        var yieldData = [];
+        var qualityData = [];
+        var trendLabels = [];
 
-        var options = {
-            series: [{
-                name: 'Milk Yield',
-                data: yieldData
-            }],
-            chart: {
-                type: 'area',
-                height: 380,
-                toolbar: { show: false },
-                zoom: { enabled: false },
-                fontFamily: 'Plus Jakarta Sans, sans-serif'
-            },
-            colors: ['#206223'],
-            dataLabels: { 
-                enabled: true,
-                offsetY: -10,
-                style: {
-                    fontSize: '10px',
-                    fontFamily: 'Plus Jakarta Sans',
-                    colors: ['#064e3b']
-                },
-                formatter: function(val) { return val.toLocaleString() + (val < 10 ? '%' : '') }
-            },
-            stroke: { curve: 'smooth', width: 3 },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.45,
-                    opacityTo: 0.05,
-                    stops: [20, 100]
-                }
-            },
-            xaxis: {
-                categories: [1, 2, 3, 4, 5, 6, 7],
-                labels: { 
-                    style: { colors: '#64748b', fontSize: '10px', fontWeight: 600 },
-                    formatter: function(val) { return 'Day ' + val }
-                },
-                axisBorder: { show: false },
-                axisTicks: { show: false }
-            },
-            yaxis: {
-                labels: { 
-                    style: { colors: '#64748b', fontSize: '10px' },
-                    formatter: function(val) { return val.toLocaleString() + (val < 10 ? '%' : '') }
-                }
-            },
-            annotations: {
-                yaxis: [{
-                    y: 8000,
-                    borderColor: '#ba1a1a',
-                    borderWidth: 1,
-                    strokeDashArray: 4,
-                    label: {
-                        borderColor: '#ba1a1a',
-                        style: { color: '#fff', background: '#ba1a1a', fontSize: '9px', fontWeight: 700 },
-                        text: 'DAILY TARGET (8kL)'
+        function timeAgo(date) {
+            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+            let interval = Math.floor(seconds / 31536000);
+            if (interval > 1) return interval + " years ago";
+            interval = Math.floor(seconds / 2592000);
+            if (interval > 1) return interval + " months ago";
+            interval = Math.floor(seconds / 86400);
+            if (interval > 1) return interval + " days ago";
+            interval = Math.floor(seconds / 3600);
+            if (interval > 1) return interval + " hours ago";
+            interval = Math.floor(seconds / 60);
+            if (interval > 1) return interval + " minutes ago";
+            return Math.floor(seconds) + " seconds ago";
+        }
+
+        function loadDashboardStats() {
+            $.get('controllers/dashboardoperations.php', { action: 'getstats' }, function(data) {
+                try {
+                    const stats = JSON.parse(data);
+                    
+                    // Populate Cards
+                    $('#total_animals_val').text(stats.total_animals.toLocaleString());
+                    $('#animal_trend').text(stats.animal_trend);
+                    $('#herd_health_perc').text(stats.herd_health + '%');
+                    $('#herd_health_bar').css('width', stats.herd_health + '%');
+                    
+                    $('#daily_yield_val').text(stats.daily_yield);
+                    $('#yield_goal_perc').text(stats.yield_goal_perc + '%');
+                    $('#yield_goal_bar').css('width', stats.yield_goal_perc + '%');
+                    
+                    $('#stock_alerts_val').text(stats.stock_alerts);
+                    $('#health_incidents_val').text(stats.health_incidents);
+
+                    // Health Surveillance
+                    if (stats.vaccination_rate !== undefined) {
+                        $('#vaccination_rate').text(stats.vaccination_rate + '%');
                     }
-                }]
-            },
-            grid: { borderColor: '#f1f1f1', strokeDashArray: 4 },
-            tooltip: { theme: 'light', x: { show: true } }
-        };
+                    if (stats.active_quarantines !== undefined) {
+                        $('#active_quarantines').text(stats.active_quarantines);
+                    }
 
-        var chart = new ApexCharts(document.querySelector("#milkChart"), options);
-        chart.render();
+                    // Update Chart Data
+                    if (stats.trends) {
+                        yieldData = stats.trends.yields;
+                        qualityData = stats.trends.densities;
+                        trendLabels = stats.trends.labels;
+                        
+                        // Initialize or Update Chart
+                        if (!chart) {
+                            initChart();
+                        } else {
+                            chart.updateOptions({
+                                xaxis: { categories: trendLabels }
+                            });
+                            // Default to yield view
+                            chart.updateSeries([{
+                                name: 'Milk Yield',
+                                data: yieldData
+                            }]);
+                        }
+                    }
+
+                    // Populate Recent Activity
+                    if (stats.activities) {
+                        let activityHtml = '';
+                        stats.activities.forEach(item => {
+                            let icon = 'info';
+                            let bgColor = '#deede0';
+                            let textColor = '#132113';
+
+                            const op = (item.title || '').toLowerCase();
+                            if(op.includes('insert')) { icon = 'add_circle'; bgColor = '#acf4a4'; textColor = '#002203'; }
+                            else if(op.includes('update')) { icon = 'edit'; bgColor = '#ffdfa0'; textColor = '#261a00'; }
+                            else if(op.includes('delete')) { icon = 'delete'; bgColor = '#ffdad6'; textColor = '#ba1a1a'; }
+
+                            activityHtml += `
+                                <div class="activity-item">
+                                    <div class="activity-icon" style="background-color: ${bgColor}; color: ${textColor};">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">${icon}</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="small font-weight-bold">${item.title || 'System Action'}</p>
+                                        <p class="text-muted" style="font-size: 11px;">${item.narration || ''}</p>
+                                        <p class="text-muted mt-1" style="font-size: 9px; font-weight: 600; text-transform: uppercase; opacity: 0.6;">${timeAgo(item.timestamp)}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#recent_activity_list').html(activityHtml);
+                    }
+
+                    // Populate Low Stock
+                    if (stats.low_stock) {
+                        let stockHtml = '';
+                        stats.low_stock.forEach(item => {
+                            const isCritical = item.status.includes('CRITICAL');
+                            const statusColor = isCritical ? 'text-error' : 'text-warning';
+                            const badgeClass = isCritical ? 'badge-danger' : 'badge-warning';
+                            const iconClass = item.icon || 'inventory_2';
+                            
+                            stockHtml += `
+                                <div class="low-stock-item d-flex justify-content-between align-items-center mb-1 py-2 px-0">
+                                    <div class="d-flex align-items-center gap-4">
+                                        <span class="material-symbols-outlined text-warning" style="font-size: 24px;">${iconClass}</span>
+                                        <div>
+                                            <p class="small mb-0" style="font-size: 0.85rem; font-weight: 500;">${item.name}</p>
+                                            <p class="text-muted mb-0" style="font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">${item.category}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right d-flex flex-column align-items-end">
+                                        <p class="small mb-1 ${statusColor}" style="font-size: 0.85rem; font-weight: 600;">${item.stock} ${item.uom}</p>
+                                        <span class="badge badge-pill ${badgeClass}" style="font-size: 7px; font-weight: 600; padding: 0.3rem 0.75rem; text-transform: uppercase;">${item.status}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        if(stockHtml === '') {
+                            stockHtml = '<p class="text-muted small text-center py-4">All stock levels are healthy.</p>';
+                        }
+                        $('#low_stock_list').html(stockHtml);
+                    }
+
+                } catch(e) {
+                    console.error("Error parsing stats data", e, data);
+                }
+            });
+        }
+
+        loadDashboardStats();
+
+        function initChart() {
+            var options = {
+                series: [{
+                    name: 'Milk Yield',
+                    data: yieldData
+                }],
+                chart: {
+                    type: 'area',
+                    height: 380,
+                    toolbar: { show: false },
+                    zoom: { enabled: false },
+                    fontFamily: 'Plus Jakarta Sans, sans-serif'
+                },
+                colors: ['#206223'],
+                dataLabels: { 
+                    enabled: true,
+                    offsetY: -10,
+                    style: {
+                        fontSize: '10px',
+                        fontFamily: 'Plus Jakarta Sans',
+                        colors: ['#064e3b']
+                    },
+                    formatter: function(val) { return val.toLocaleString() + (val < 10 ? '' : '') }
+                },
+                stroke: { curve: 'smooth', width: 3 },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.45,
+                        opacityTo: 0.05,
+                        stops: [20, 100]
+                    }
+                },
+                xaxis: {
+                    categories: trendLabels,
+                    labels: { 
+                        style: { colors: '#64748b', fontSize: '10px', fontWeight: 600 }
+                    },
+                    axisBorder: { show: false },
+                    axisTicks: { show: false }
+                },
+                yaxis: {
+                    labels: { 
+                        style: { colors: '#64748b', fontSize: '10px' },
+                        formatter: function(val) { return val.toLocaleString() + (val < 10 ? '' : '') }
+                    }
+                },
+                grid: { borderColor: '#f1f1f1', strokeDashArray: 4 },
+                tooltip: { theme: 'light', x: { show: true } }
+            };
+
+            const milkChartEl = document.querySelector("#milkChart");
+            if (milkChartEl) {
+                chart = new ApexCharts(milkChartEl, options);
+                chart.render();
+            }
+        }
 
         // Chart Toggle Logic
         $('.btn-chart-toggle').on('click', function() {
@@ -360,43 +403,11 @@
                     name: 'Milk Yield',
                     data: yieldData
                 }]);
-                
-                chart.updateOptions({
-                    annotations: {
-                        yaxis: [{
-                            y: 8000,
-                            borderColor: '#ba1a1a',
-                            borderWidth: 1,
-                            strokeDashArray: 4,
-                            label: {
-                                borderColor: '#ba1a1a',
-                                style: { color: '#fff', background: '#ba1a1a', fontSize: '9px', fontWeight: 700 },
-                                text: 'DAILY TARGET (8kL)'
-                            }
-                        }]
-                    }
-                });
             } else {
                 chart.updateSeries([{
                     name: 'Milk Quality',
                     data: qualityData
                 }]);
-                
-                chart.updateOptions({
-                    annotations: {
-                        yaxis: [{
-                            y: 4.2,
-                            borderColor: '#ba1a1a',
-                            borderWidth: 1,
-                            strokeDashArray: 4,
-                            label: {
-                                borderColor: '#ba1a1a',
-                                style: { color: '#fff', background: '#ba1a1a', fontSize: '9px', fontWeight: 700 },
-                                text: 'QUALITY TARGET (4.2%)'
-                            }
-                        }]
-                    }
-                });
             }
         });
     });

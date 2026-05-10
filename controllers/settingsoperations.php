@@ -35,6 +35,10 @@
         echo $settings->getMilkingSchedules();
     }
 
+    if ($action == 'getfeedingshifts') {
+        echo $settings->getFeedingShifts();
+    }
+
     // --- POST ACTIONS ---
     if ($action == 'savecompanydetails') {
         $companyname = $_POST['companyname'] ?? '';

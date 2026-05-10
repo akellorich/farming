@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KukuSmart | Feed Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "tertiary": "#363d33",
+                      "outline": "#717a6d",
+                      "tertiary-fixed-dim": "#c2c9bb",
+                      "surface-container-low": "#f5f3f3",
+                      "surface-tint": "#2a6b2c",
+                      "inverse-primary": "#91d78a",
+                      "primary": "#00450d",
+                      "on-tertiary-fixed": "#171d14",
+                      "on-secondary-fixed-variant": "#334d37",
+                      "surface-container-high": "#eae8e7",
+                      "on-tertiary-container": "#c1c8ba",
+                      "on-secondary-fixed": "#07200e",
+                      "on-primary-fixed": "#002203",
+                      "tertiary-container": "#4d5449",
+                      "surface": "#fbf9f8",
+                      "secondary": "#4a654e",
+                      "on-secondary-container": "#4e6952",
+                      "on-surface": "#1b1c1c",
+                      "primary-fixed-dim": "#91d78a",
+                      "background": "#fbf9f8",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e4e2e1",
+                      "secondary-fixed": "#cceacd",
+                      "on-background": "#1b1c1c",
+                      "on-tertiary-fixed-variant": "#42493e",
+                      "primary-fixed": "#acf4a4",
+                      "inverse-on-surface": "#f2f0f0",
+                      "surface-variant": "#e4e2e1",
+                      "surface-container": "#f0eded",
+                      "surface-bright": "#fbf9f8",
+                      "on-primary-container": "#90d689",
+                      "outline-variant": "#c0c9bb",
+                      "on-secondary": "#ffffff",
+                      "primary-container": "#1b5e20",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#41493e",
+                      "secondary-fixed-dim": "#b1ceb2",
+                      "secondary-container": "#c9e7ca",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#303030",
+                      "on-primary-fixed-variant": "#0c5216",
+                      "surface-dim": "#dcd9d9",
+                      "tertiary-fixed": "#dee5d6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "2xl": "1rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "lg": "40px",
+                      "xs": "4px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "xl": "64px",
+                      "margin": "32px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "h3": ["Manrope"],
+                      "h2": ["Manrope"],
+                      "display": ["Manrope"],
+                      "body-sm": ["Manrope"],
+                      "h1": ["Manrope"],
+                      "label-bold": ["Manrope"],
+                      "label-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "h1": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "label-md": ["12px", {"lineHeight": "1", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #F9FBF9; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); }
+        .custom-shadow { shadow-[0px_10px_30px_rgba(27,94,32,0.05)] }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 flex flex-col h-full z-50 h-screen w-64 border-r border-emerald-100/50 dark:border-emerald-900/20 bg-[#F9FBF9]">
+<div class="px-8 py-8">
+<h1 class="text-xl font-black text-emerald-900 dark:text-emerald-100 font-display">KukuSmart</h1>
+<p class="text-xs font-medium text-slate-500 uppercase tracking-widest mt-1">Poultry Management</p>
+</div>
+<nav class="space-y-1 px-4 py-2">
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-body-md">Dashboard</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">reorder</span>
+<span class="text-sm font-body-md">Flock Management</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-body-md">Production Tracking</span>
+</a>
+<!-- ACTIVE TAB -->
+<a class="text-emerald-700 font-bold bg-emerald-50 rounded-lg px-4 py-3 flex items-center gap-3 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grass</span>
+<span class="text-sm font-body-md">Feed Management</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">vaccines</span>
+<span class="text-sm font-body-md">Health &amp; Vaccination</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-body-md">Sales</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-body-md">Reports</span>
+</a>
+<a class="text-slate-600 font-medium px-4 py-3 flex items-center gap-3 hover:bg-emerald-50/50 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-6">
+<div class="bg-emerald-900 rounded-2xl p-4 text-white">
+<p class="text-[10px] font-bold uppercase tracking-wider opacity-60">System Health</p>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></div>
+<span class="text-xs font-semibold">Active Monitoring</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar Shell -->
+<header class="sticky top-0 z-40 w-full px-8 py-3 h-16 bg-white/80 backdrop-blur-md border-b border-emerald-50 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100">
+<span class="material-symbols-outlined text-emerald-800 text-sm">home_storage</span>
+<select class="bg-transparent border-none focus:ring-0 text-sm font-bold text-emerald-900 appearance-none pr-6 cursor-pointer">
+<option>Layer Flock #02 - Barn A</option>
+<option>Layer Flock #03 - Barn B</option>
+</select>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-4 py-2 rounded-xl text-slate-600">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+<span class="text-sm font-semibold">Oct 24, 2023</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2 bg-secondary-container text-emerald-900 text-sm font-bold rounded-xl hover:bg-emerald-100 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                    Manage Feed Stock
+                </button>
+<button class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-xl hover:shadow-lg transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                    Add Feed Entry
+                </button>
+<div class="w-px h-8 bg-emerald-100 mx-2"></div>
+<button class="p-2 text-slate-500 hover:text-emerald-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="Farmer Profile" class="w-8 h-8 rounded-full border-2 border-emerald-100 object-cover" data-alt="A professional headshot of a smiling male farm manager in his late 40s wearing a clean denim shirt. The lighting is bright and natural, suggesting an outdoor setting with blurred green agricultural fields in the background. The photo is high-resolution, captured with a shallow depth of field to emphasize the friendly and experienced expression of the farmer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbboD8mf9vThL3YJ59-zQ2CbjAdpvFwGK0yy-DtWgwRxiHdKPi2qfYTcB2Km6gP83CVyMTDqhkwLozSG5B1v8DoONtne8SL6JB-pubI3fB4rhk7AcPU-CC1JMYuWhof5LVf7BTdaTw4Vm5ugwcfQUjc4ym8svCbWTnHYWeO40CiFQtBmm16vaTbDNCN1KNGA6_ulBp3yPrs_hLleOQ01yFH6627ImBPRB9gYNRn9c-fv2tRsibDF-R7KkYqf6cDns-0ZucTSI_C0kn"/>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Feed Consumed -->
+<div class="bg-white p-6 rounded-2xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] border border-white">
+<div class="flex justify-between items-start">
+<span class="text-slate-500 text-sm font-body-sm">Feed Consumed Today</span>
+<div class="bg-emerald-50 p-2 rounded-lg">
+<span class="material-symbols-outlined text-emerald-700 text-sm">scale</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="text-3xl font-display text-emerald-900">320</span>
+<span class="text-emerald-600 font-bold ml-1">kg</span>
+</div>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-emerald-500 text-xs">trending_up</span>
+<span class="text-xs text-emerald-600 font-bold">+2.4% vs yesterday</span>
+</div>
+</div>
+<!-- KPI: Feed per Bird -->
+<div class="bg-primary text-white p-6 rounded-2xl shadow-xl border border-primary relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start">
+<span class="opacity-80 text-sm font-body-sm">Feed per Bird</span>
+<span class="bg-white/20 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest">Primary KPI</span>
+</div>
+<div class="mt-4">
+<span class="text-3xl font-display">110</span>
+<span class="opacity-80 font-bold ml-1">g</span>
+</div>
+<div class="mt-2 flex items-center gap-2">
+<div class="bg-white/20 px-3 py-1 rounded-full flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
+<span class="text-xs font-bold">Good</span>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-9xl">analytics</span>
+</div>
+</div>
+<!-- Total Stock -->
+<div class="bg-white p-6 rounded-2xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] border border-white">
+<div class="flex justify-between items-start">
+<span class="text-slate-500 text-sm font-body-sm">Total Feed Stock</span>
+<div class="bg-emerald-50 p-2 rounded-lg">
+<span class="material-symbols-outlined text-emerald-700 text-sm">inventory</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="text-3xl font-display text-emerald-900">4,250</span>
+<span class="text-emerald-600 font-bold ml-1">kg</span>
+</div>
+<div class="mt-2">
+<div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-3/4"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-1 font-bold">75% Capacity Remaining</p>
+</div>
+</div>
+<!-- Feed Cost -->
+<div class="bg-white p-6 rounded-2xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] border border-white">
+<div class="flex justify-between items-start">
+<span class="text-slate-500 text-sm font-body-sm">Feed Cost Today</span>
+<div class="bg-orange-50 p-2 rounded-lg">
+<span class="material-symbols-outlined text-orange-700 text-sm">payments</span>
+</div>
+</div>
+<div class="mt-4">
+<span class="text-sm font-bold text-slate-400 align-top mt-1 inline-block">KSh</span>
+<span class="text-3xl font-display text-emerald-900 ml-1">22,400</span>
+</div>
+<div class="mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-error text-xs">trending_up</span>
+<span class="text-xs text-error font-bold">+5.1% price shift</span>
+</div>
+</div>
+</div>
+<!-- Main Workspace Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Quick Entry & History -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<!-- Quick Feed Entry Panel -->
+<div class="bg-white rounded-2xl p-8 border border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 bg-emerald-900 rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<div>
+<h2 class="text-xl font-h2 text-emerald-900">Quick Feed Entry</h2>
+<p class="text-sm text-slate-500 font-body-sm">Record daily consumption for the active flock.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-600 uppercase tracking-wider">Feed Type</label>
+<select class="w-full border-slate-200 rounded-xl px-4 py-3 focus:border-primary focus:ring-primary text-sm font-medium">
+<option>Layers Mash</option>
+<option>Growers Mash</option>
+<option>Kienyeji Mix</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-600 uppercase tracking-wider">Quantity (kg)</label>
+<input class="w-full border-slate-200 rounded-xl px-4 py-3 focus:border-primary focus:ring-primary text-sm font-medium" placeholder="0.00" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-600 uppercase tracking-wider">Cost per Kg (KSh)</label>
+<input class="w-full border-slate-200 rounded-xl px-4 py-3 focus:border-primary focus:ring-primary text-sm font-medium" type="number" value="70.00"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Total Cost (KSh)</label>
+<div class="w-full bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3 flex items-center">
+<span class="text-emerald-900 font-display text-lg">0.00</span>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="px-8 py-3 bg-emerald-900 text-white font-bold rounded-xl hover:scale-[1.02] transition-transform active:scale-95 duration-200">
+                                Submit Record
+                            </button>
+</div>
+</div>
+<!-- Feed History Table -->
+<div class="bg-white rounded-2xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)] border border-white overflow-hidden">
+<div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center">
+<h3 class="text-lg font-h3 text-emerald-900">Feed Consumption History</h3>
+<button class="text-emerald-700 text-sm font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Export Report
+                            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50/50 border-b border-slate-100">
+<tr>
+<th class="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Flock ID</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Qty (kg)</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Cost (KSh)</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">g/Bird</th>
+<th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-emerald-50/30 transition-colors">
+<td class="px-8 py-4 text-sm font-medium text-slate-900">Oct 23, 2023</td>
+<td class="px-4 py-4 text-sm text-slate-600">L-203A</td>
+<td class="px-4 py-4"><span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded uppercase">Layers Mash</span></td>
+<td class="px-4 py-4 text-sm font-bold">315.0</td>
+<td class="px-4 py-4 text-sm">22,050</td>
+<td class="px-4 py-4 text-sm text-emerald-700 font-bold">109g</td>
+<td class="px-4 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 hover:text-emerald-700"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-1 hover:text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-emerald-50/30 transition-colors">
+<td class="px-8 py-4 text-sm font-medium text-slate-900">Oct 22, 2023</td>
+<td class="px-4 py-4 text-sm text-slate-600">L-203A</td>
+<td class="px-4 py-4"><span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded uppercase">Layers Mash</span></td>
+<td class="px-4 py-4 text-sm font-bold">310.0</td>
+<td class="px-4 py-4 text-sm">21,700</td>
+<td class="px-4 py-4 text-sm text-emerald-700 font-bold">108g</td>
+<td class="px-4 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 hover:text-emerald-700"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-1 hover:text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-emerald-50/30 transition-colors">
+<td class="px-8 py-4 text-sm font-medium text-slate-900">Oct 21, 2023</td>
+<td class="px-4 py-4 text-sm text-slate-600">L-203A</td>
+<td class="px-4 py-4"><span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded uppercase">Layers Mash</span></td>
+<td class="px-4 py-4 text-sm font-bold">325.0</td>
+<td class="px-4 py-4 text-sm">22,750</td>
+<td class="px-4 py-4 text-sm text-emerald-700 font-bold">112g</td>
+<td class="px-4 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 hover:text-emerald-700"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-1 hover:text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-4 bg-slate-50/50 flex justify-center">
+<button class="text-xs font-bold text-slate-500 hover:text-emerald-900 uppercase tracking-widest">Load Previous Records</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Panels & Insights -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Feed Stock Inventory -->
+<div class="bg-white rounded-2xl p-6 border border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-h3 text-emerald-900">Stock Inventory</h3>
+<span class="material-symbols-outlined text-slate-400">inventory_2</span>
+</div>
+<div class="space-y-6">
+<!-- Stock Item 1 -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="font-bold text-slate-700">Layers Mash</span>
+<span class="text-slate-500">2,800 / 4,000 kg</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-[70%]"></div>
+</div>
+<p class="text-[10px] text-emerald-600 font-bold uppercase">Optimal Level</p>
+</div>
+<!-- Stock Item 2 (Low Stock Warning) -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="font-bold text-slate-700">Growers Mash</span>
+<span class="text-slate-500">450 / 2,000 kg</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[22.5%]"></div>
+</div>
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+<p class="text-[10px] font-bold uppercase">Low Stock Alert</p>
+</div>
+</div>
+<!-- Stock Item 3 -->
+<div class="space-y-2">
+<div class="flex justify-between text-sm">
+<span class="font-bold text-slate-700">Kienyeji Mix</span>
+<span class="text-slate-500">1,000 / 1,500 kg</span>
+</div>
+<div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-[66%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 border-2 border-emerald-100 rounded-xl text-emerald-700 font-bold text-sm hover:bg-emerald-50 transition-colors">
+                            Order Feed Supplies
+                        </button>
+</div>
+<!-- Insights & Alerts Panel -->
+<div class="bg-white rounded-2xl p-6 border border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<h3 class="font-h3 text-emerald-900 mb-6">Efficiency Insights</h3>
+<div class="space-y-4">
+<!-- Insight Normal -->
+<div class="flex gap-4 p-4 rounded-xl bg-emerald-50 border border-emerald-100/50">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-emerald-600 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-emerald-900">Normal Feed Efficiency</h4>
+<p class="text-xs text-emerald-700/80 mt-1">FCR is within target range for 24-week layers.</p>
+</div>
+</div>
+<!-- Insight Attention -->
+<div class="flex gap-4 p-4 rounded-xl bg-orange-50 border border-orange-100/50">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-orange-600 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-lg">trending_up</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-orange-900">Rising Feed Cost</h4>
+<p class="text-xs text-orange-700/80 mt-1">Market price for premium mash increased by 4.2% this week.</p>
+</div>
+</div>
+<!-- Insight Critical -->
+<div class="flex gap-4 p-4 rounded-xl bg-red-50 border border-red-100/50">
+<div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-red-600 shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-red-900">Critical Stock Level</h4>
+<p class="text-xs text-red-700/80 mt-1">Growers Mash will be depleted in 48 hours at current consumption.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Charts Section (Full Width) -->
+<div class="col-span-12 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Daily Consumption Trend -->
+<div class="bg-white rounded-2xl p-8 border border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)] h-80 relative flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-emerald-900">Consumption Trend (7d)</h3>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1">
+<div class="w-3 h-3 rounded-full bg-emerald-600"></div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Actual</span>
+</div>
+<div class="flex items-center gap-1 ml-3">
+<div class="w-3 h-3 rounded-full bg-slate-200"></div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Target</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="flex-grow flex items-end justify-between gap-2 px-2 relative">
+<div class="absolute inset-0 flex flex-col justify-between py-2 pointer-events-none">
+<div class="border-t border-slate-100 w-full h-0"></div>
+<div class="border-t border-slate-100 w-full h-0"></div>
+<div class="border-t border-slate-100 w-full h-0"></div>
+</div>
+<div class="w-full flex items-end justify-around h-48 relative z-10">
+<!-- Chart Bars/Lines Mockup -->
+<div class="h-32 w-12 bg-emerald-100/50 rounded-t-lg border-x border-t border-emerald-200 flex flex-col justify-end items-center relative group">
+<div class="h-28 w-6 bg-emerald-600 rounded-t-sm mb-0"></div>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-400">MON</span>
+</div>
+<div class="h-36 w-12 bg-emerald-100/50 rounded-t-lg border-x border-t border-emerald-200 flex flex-col justify-end items-center relative">
+<div class="h-32 w-6 bg-emerald-600 rounded-t-sm mb-0"></div>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-400">TUE</span>
+</div>
+<div class="h-28 w-12 bg-emerald-100/50 rounded-t-lg border-x border-t border-emerald-200 flex flex-col justify-end items-center relative">
+<div class="h-24 w-6 bg-emerald-600 rounded-t-sm mb-0"></div>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-400">WED</span>
+</div>
+<div class="h-40 w-12 bg-emerald-100/50 rounded-t-lg border-x border-t border-emerald-200 flex flex-col justify-end items-center relative">
+<div class="h-36 w-6 bg-emerald-600 rounded-t-sm mb-0"></div>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-400">THU</span>
+</div>
+<div class="h-44 w-12 bg-emerald-100/50 rounded-t-lg border-x border-t border-emerald-200 flex flex-col justify-end items-center relative">
+<div class="h-40 w-6 bg-emerald-600 rounded-t-sm mb-0"></div>
+<span class="absolute -bottom-6 text-[10px] font-bold text-slate-400">FRI</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cost Over Time -->
+<div class="bg-white rounded-2xl p-8 border border-emerald-50 shadow-[0px_10px_30px_rgba(27,94,32,0.05)] h-80 relative overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-h3 text-emerald-900">Monthly Cost Comparison</h3>
+<span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded">Last 4 Months</span>
+</div>
+<div class="flex flex-col h-full justify-around pb-8">
+<!-- Monthly Row -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold text-slate-500">
+<span>OCTOBER</span>
+<span>KSh 627,200</span>
+</div>
+<div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden">
+<div class="bg-orange-400 h-full w-[85%]"></div>
+</div>
+</div>
+<!-- Monthly Row -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold text-slate-500">
+<span>SEPTEMBER</span>
+<span>KSh 580,400</span>
+</div>
+<div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-[78%]"></div>
+</div>
+</div>
+<!-- Monthly Row -->
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold text-slate-500">
+<span>AUGUST</span>
+<span>KSh 595,000</span>
+</div>
+<div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-[80%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

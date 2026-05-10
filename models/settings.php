@@ -87,6 +87,11 @@ class settings extends db {
         $sql = "SELECT id, schedulename, starttime FROM milkingschedules WHERE deleted = 0";
         return $this->getJSON($sql);
     }
+
+    public function getFeedingShifts() {
+        $sql = "SELECT id, shiftname as schedulename, starttime FROM feedingshifts WHERE deleted = 0 ORDER BY starttime ASC";
+        return $this->getJSON($sql);
+    }
 }
 
 ?>

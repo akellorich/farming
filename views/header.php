@@ -1,101 +1,144 @@
-<!-- Header -->
-<header class="top-header">
+<?php
+/**
+ * Unified Header Component
+ * styling matches Botanical design system
+ */
+$current_page = basename($_SERVER['PHP_SELF']);
+$nav_context = $nav_context ?? 'dairy';
+
+// Page configuration map
+$page_config = [
+    // Dairy Pages
+    'dashboard.php' => ['label' => 'Dashboard', 'icon' => 'speed'],
+    'animals.php' => ['label' => 'Animals', 'icon' => 'pets'],
+    'production_overview.php' => ['label' => 'Production', 'icon' => 'water_drop'],
+    'feeding_overview.php' => ['label' => 'Feeding', 'icon' => 'wheat'],
+    'health_records_overview.php' => ['label' => 'Health', 'icon' => 'medical_services'],
+    'schedules_overview.php' => ['label' => 'Health', 'icon' => 'medical_services'],
+    'inventory_overview.php' => ['label' => 'Inventory', 'icon' => 'inventory_2'],
+    'reports_overview.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'milk_production_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'health_records_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'vaccination_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'deworming_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'animal_health_card.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'birthing_breeding_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'stock_level_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    'herd_feeding_report.php' => ['label' => 'Reports', 'icon' => 'analytics'],
+    
+    // Poultry Pages
+    'flock_overview.php' => ['label' => 'Overview', 'icon' => 'speed'],
+    'flocks.php' => ['label' => 'Flock Management', 'icon' => 'layers'],
+    'poultry_feeding.php' => ['label' => 'Feeding Records', 'icon' => 'wheat'],
+    'egg_collection.php' => ['label' => 'Egg Collection', 'icon' => 'egg'],
+    'poultry_health.php' => ['label' => 'Health Tracking', 'icon' => 'medical_services'],
+    'poultry_inventory.php' => ['label' => 'Resource Stock', 'icon' => 'inventory_2'],
+    'poultry_reports.php' => ['label' => 'Performance Reports', 'icon' => 'analytics'],
+    'poultrysettings.php' => ['label' => 'Settings', 'icon' => 'settings'],
+    
+    // Shared / Admin
+    'users_manager.php' => ['label' => 'Users', 'icon' => 'group'],
+    'settings.php' => ['label' => 'Settings', 'icon' => 'settings'],
+    'finance.php' => ['label' => 'Finance', 'icon' => 'account_balance_wallet']
+];
+
+$current_config = $page_config[$current_page] ?? ['label' => 'Farm Management', 'icon' => 'agriculture'];
+?>
+
+<header class="top-header bg-white border-bottom d-flex align-items-center justify-content-between px-3 px-md-4 py-2 z-40 shadow-sm transition-all duration-300" style="height: 64px; border-color: rgba(0,0,0,0.05) !important;">
     <div id="alert-container" style="position: fixed; top: 70px; right: 20px; z-index: 2000; width: 300px;"></div>
-    <div class="header-left d-flex align-items-center">
-        <?php
-            $current_page = basename($_SERVER['PHP_SELF']);
-            $page_info = [
-                'dashboard.php' => ['label' => 'Dashboard', 'icon' => 'fa-tachometer-alt'],
-                'animals.php' => ['label' => 'Livestock', 'icon' => 'fa-paw'],
-                'production_overview.php' => ['label' => 'Milk Production', 'icon' => 'fa-tint'],
-                'feeding_overview.php' => ['label' => 'Feeding', 'icon' => 'fa-wheat'],
-                'health_records_overview.php' => ['label' => 'Health Registry', 'icon' => 'fa-medkit'],
-                'schedules_overview.php' => ['label' => 'Health Schedules', 'icon' => 'fa-calendar-check'],
-                'inventory_overview.php' => ['label' => 'Inventory', 'icon' => 'fa-boxes'],
-                'reports_overview.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'milk_production_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'health_records_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'vaccination_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'deworming_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'animal_health_card.php' => ['label' => 'Reports', 'icon' => 'fa-chart-line'],
-                'birthing_breeding_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'stock_level_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'herd_feeding_report.php' => ['label' => 'Reports Manager', 'icon' => 'fa-chart-line'],
-                'finance.php' => ['label' => 'Finance', 'icon' => 'fa-wallet'],
-                'users.php' => ['label' => 'Users Manager', 'icon' => 'fa-users'],
-                'users_manager.php' => ['label' => 'Users Manager', 'icon' => 'fa-users'],
-                'settings.php' => ['label' => 'Settings', 'icon' => 'fa-cog']
-            ];
-            $current_info = $page_info[$current_page] ?? ['label' => 'Jukam Farm', 'icon' => 'fa-tractor'];
-        ?>
-        <button class="header-icon-btn d-lg-none mr-2" id="mobileMenuBtn">
-            <span class="material-symbols-outlined">menu</span>
+    
+    <div class="d-flex align-items-center flex-grow-1 header-left-container">
+        <!-- Sidebar Toggle -->
+        <button class="menu-toggle mr-2 mr-md-3" id="sidebarToggle">
+            <span class="material-symbols-outlined" style="font-size: 24px;">menu</span>
         </button>
-        <button class="header-icon-btn mr-3 d-none d-lg-flex" id="sidebarToggle">
-            <span class="material-symbols-outlined hamburger-icon">menu</span>
-        </button>
-        <div class="search-wrapper d-none d-lg-flex">
-            <div class="d-flex align-items-center" style="color: #065f46; font-size: 1.1rem; gap: 0.5rem;">
-                <i class="fal <?php echo $current_info['icon']; ?>"></i>
-                <span><?php echo $current_info['label']; ?></span>
-            </div>
+
+        <!-- Dynamic Page Label -->
+        <div class="d-none d-lg-flex align-items-center mr-4" style="color: #065f46;">
+            <span class="material-symbols-outlined mr-2" style="font-size: 22px; font-variation-settings: 'FILL' 1;"><?php echo $current_config['icon']; ?></span>
+            <span class="font-weight-bold" style="font-size: 16px; letter-spacing: -0.01em;"><?php echo $current_config['label']; ?></span>
         </div>
-        <div class="search-container ml-4">
-            <span class="material-symbols-outlined search-icon">search</span>
-            <input type="text" class="search-input" placeholder="Search records...">
+
+        <!-- Search Bar -->
+        <div class="header-search-container">
+            <div class="search-input-wrapper">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" placeholder="Search records...">
+            </div>
         </div>
     </div>
-    
-    <div class="header-actions">
-        <button class="header-icon-btn" id="themeToggleBtn">
-            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+
+    <div class="d-flex align-items-center header-right-actions">
+        <!-- Theme Toggle -->
+        <button class="btn btn-icon-header text-muted rounded-circle" id="themeToggleBtn">
+            <span class="material-symbols-outlined" id="themeIcon" style="font-size: 22px;">dark_mode</span>
         </button>
-        <div class="position-relative">
-            <button class="header-icon-btn" id="notificationBtn">
-                <span class="material-symbols-outlined">notifications</span>
-                <span class="notification-badge">3</span>
+
+        <!-- Notification System -->
+        <div class="dropdown position-relative">
+            <button class="btn btn-icon-header text-muted rounded-circle position-relative" id="notificationBtn">
+                <span class="material-symbols-outlined" style="font-size: 22px;">notifications</span>
+                <span class="position-absolute bg-danger text-white d-flex align-items-center justify-content-center rounded-circle border border-white" style="width: 15px; height: 15px; top: 1px; right: 1px; font-size: 8px; font-weight: 700;">3</span>
             </button>
-            <div class="notification-popup-menu" id="notificationMenu">
-                <div class="notification-header">
-                    <p class="mb-0">Notifications</p>
-                    <span class="badge badge-pill badge-light text-success" style="font-size: 10px; font-weight: 400;">3 NEW</span>
+            
+            <!-- Notification Dropdown -->
+            <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg rounded-2xl p-0 d-none notification-popup-menu" id="notificationMenu" style="width: 320px; overflow: hidden; right: 0; margin-top: 0;">
+                <div class="p-3 border-bottom d-flex justify-content-between align-items-center notification-header">
+                    <p class="font-weight-bold mb-0" style="font-size: 14px;">Notifications</p>
+                    <span class="badge badge-pill badge-success px-2 py-1" style="font-size: 10px; font-weight: 500;">3 NEW</span>
                 </div>
-                <div class="notification-list">
-                    <a href="#" class="notification-item">
-                        <div class="notif-icon bg-success-light text-success">
-                            <span class="material-symbols-outlined">water_drop</span>
+                <div class="notification-list" style="max-height: 360px; overflow-y: auto;">
+                    <div class="dropdown-item d-flex align-items-start p-3 border-bottom border-light">
+                        <div class="rounded-circle bg-success-light text-success d-flex align-items-center justify-content-center mr-3" style="width: 40px; height: 40px; min-width: 40px;">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">water_drop</span>
                         </div>
-                        <div class="notif-content">
-                            <p class="notif-title">Milk Production</p>
-                            <p class="notif-desc">Daily yield goal of 8,500L has been successfully achieved today...</p>
+                        <div class="overflow-hidden flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <p class="mb-0 font-weight-bold text-dark" style="font-size: 13px;">Production Alert</p>
+                                <p class="mb-0 text-muted" style="font-size: 9px; opacity: 0.7;">13:24</p>
+                            </div>
+                            <p class="mb-0 text-muted text-truncate" style="font-size: 11px;">Target yield achieved for Sector B...</p>
                         </div>
-                    </a>
-                    <a href="#" class="notification-item">
-                        <div class="notif-icon bg-warning-light text-warning">
-                            <span class="material-symbols-outlined">warning</span>
+                    </div>
+                    <div class="dropdown-item d-flex align-items-start p-3">
+                        <div class="rounded-circle bg-warning-light text-warning d-flex align-items-center justify-content-center mr-3" style="width: 40px; height: 40px; min-width: 40px;">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">warning</span>
                         </div>
-                        <div class="notif-content">
-                            <p class="notif-title">Stock Alert</p>
-                            <p class="notif-desc">Protein Supplement A is below critical levels in Silo 1...</p>
+                        <div class="overflow-hidden flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <p class="mb-0 font-weight-bold text-dark" style="font-size: 13px;">Inventory Level</p>
+                                <p class="mb-0 text-muted" style="font-size: 9px; opacity: 0.7;">09-May-2026 12:45</p>
+                            </div>
+                            <p class="mb-0 text-muted text-truncate" style="font-size: 11px;">Feed stock is below critical threshold...</p>
                         </div>
-                    </a>
-                    <a href="#" class="notification-item">
-                        <div class="notif-icon bg-error-light text-error">
-                            <span class="material-symbols-outlined">emergency</span>
-                        </div>
-                        <div class="notif-content">
-                            <p class="notif-title">Health Incident</p>
-                            <p class="notif-desc">Cow #2481 requires urgent veterinary attention in Sick Bay...</p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
-                <div class="notification-footer">
-                    <a href="#" class="text-success small">VIEW ALL NOTIFICATIONS</a>
+                <div class="p-2 bg-light d-flex justify-content-center notification-footer">
+                    <button class="btn btn-link btn-sm text-success text-uppercase" style="font-size: 10px; letter-spacing: 0.05em; text-decoration: none; white-space: nowrap; font-weight: 500;">View All</button>
                 </div>
             </div>
         </div>
-        <button class="header-icon-btn">
-            <span class="material-symbols-outlined">settings</span>
+
+        <!-- Quick Access / Settings -->
+        <button class="btn btn-icon-header text-muted rounded-circle">
+            <span class="material-symbols-outlined" style="font-size: 22px;">settings</span>
         </button>
     </div>
 </header>
+
+<style>
+    .bg-success-light { background-color: rgba(220, 252, 231, 0.6) !important; }
+    .bg-warning-light { background-color: rgba(255, 193, 7, 0.1) !important; }
+    .text-warning { color: #f59e0b !important; }
+    
+    #notificationMenu.show {
+        display: block !important;
+        animation: headerSlideDown 0.2s ease-out;
+    }
+
+    @keyframes headerSlideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

@@ -29,12 +29,13 @@ $base_path = '../';
 </head>
 <body>
 
-<?php include 'navigation.php'; ?>
+<?php 
+$nav_context = 'dairy';
+include 'navigation.php'; 
+?>
 
 <?php include 'header.php'; ?>
 
-<!-- Modular Modals (Lock/Password) -->
-<?php include 'modals.php'; ?>
 
 <!-- Main Content -->
 <main class="main-content">
@@ -45,16 +46,16 @@ $base_path = '../';
                 <span class="material-symbols-outlined bg-icon" style="color: var(--primary);">cruelty_free</span>
                 <p class="stats-label">Total Animals</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline">1,248</h3>
-                    <span class="stats-trend text-success mb-2 ml-2">+12%</span>
+                    <h3 class="stats-value font-headline" id="total_animals_val">1,248</h3>
+                    <span class="stats-trend text-success mb-2 ml-2" id="animal_trend">+12%</span>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">
                         <span>Herd Health</span>
-                        <span class="text-success">84%</span>
+                        <span class="text-success" id="herd_health_perc">84%</span>
                     </div>
                     <div class="progress-custom">
-                        <div class="progress-bar-custom" style="width: 84%; background-color: var(--primary);"></div>
+                        <div class="progress-bar-custom" id="herd_health_bar" style="width: 84%; background-color: var(--primary);"></div>
                     </div>
                 </div>
             </div>
@@ -64,16 +65,16 @@ $base_path = '../';
                 <span class="material-symbols-outlined bg-icon" style="color: var(--primary);">water_drop</span>
                 <p class="stats-label">Daily Yield</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline">8,420</h3>
+                    <h3 class="stats-value font-headline" id="daily_yield_val">8,420</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">Liters</span>
                 </div>
                 <div class="mt-3">
                     <div class="d-flex justify-content-between mb-1" style="font-size: 10px; font-weight: 700; text-transform: uppercase;">
                         <span>Daily Goal</span>
-                        <span class="text-primary">92%</span>
+                        <span class="text-primary" id="yield_goal_perc">92%</span>
                     </div>
                     <div class="progress-custom">
-                        <div class="progress-bar-custom" style="width: 92%;"></div>
+                        <div class="progress-bar-custom" id="yield_goal_bar" style="width: 92%;"></div>
                     </div>
                 </div>
             </div>
@@ -83,7 +84,7 @@ $base_path = '../';
                 <span class="material-symbols-outlined bg-icon" style="color: var(--secondary);">warning</span>
                 <p class="stats-label">Stock Alerts</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline" style="color: var(--secondary);">04</h3>
+                    <h3 class="stats-value font-headline" id="stock_alerts_val" style="color: var(--secondary);">04</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">Low items</span>
                 </div>
                 <div class="mt-3">
@@ -101,7 +102,7 @@ $base_path = '../';
                 <span class="material-symbols-outlined bg-icon" style="color: var(--error);">emergency</span>
                 <p class="stats-label">Health Incidents</p>
                 <div class="d-flex align-items-end gap-2">
-                    <h3 class="stats-value font-headline" style="color: var(--error);">02</h3>
+                    <h3 class="stats-value font-headline" id="health_incidents_val" style="color: var(--error);">02</h3>
                     <span class="stats-trend text-muted mb-2 ml-2 font-weight-normal">New today</span>
                 </div>
                 <div class="mt-3">
@@ -278,6 +279,27 @@ $base_path = '../';
 
     <script>
     $(document).ready(function() {
+        function loadDashboardStats() {
+            $.get('controllers/dashboardoperations.php', { action: 'getstats' }, function(data) {
+                const stats = JSON.parse(data);
+                
+                // Populate Cards
+                $('#total_animals_val').text(stats.total_animals.toLocaleString());
+                $('#animal_trend').text(stats.animal_trend);
+                $('#herd_health_perc').text(stats.herd_health + '%');
+                $('#herd_health_bar').css('width', stats.herd_health + '%');
+                
+                $('#daily_yield_val').text(stats.daily_yield);
+                $('#yield_goal_perc').text(stats.yield_goal_perc + '%');
+                $('#yield_goal_bar').css('width', stats.yield_goal_perc + '%');
+                
+                $('#stock_alerts_val').text(stats.stock_alerts);
+                $('#health_incidents_val').text(stats.health_incidents);
+            });
+        }
+
+        loadDashboardStats();
+
         // ApexCharts - Production Trend
         var yieldData = [7200, 7800, 7400, 8500, 7900, 7100, 7600];
         var qualityData = [4.2, 4.3, 4.1, 4.5, 4.2, 4.1, 4.3];

@@ -80,8 +80,8 @@
             <div class="form-wrapper">
                 <div class="form-header text-center">
                     <img src="images/logo.png" alt="Logo">
-                    <h1 class="portal-title">Dairy Management Portal</h1>
-                    <p class="mb-5">Enter your credentials to manage your herd assets.</p>
+                    <h1 class="portal-title">Farm Management Portal</h1>
+                    <p class="mb-5">Enter your credentials to manage your assets.</p>
                 </div>
 
                 <div id="alert-container"></div>
@@ -117,10 +117,13 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="rememberMe">
-                            <label class="custom-control-label text-muted" for="rememberMe"
-                                style="text-transform: none; font-size: 0.85rem;">Remember Me</label>
+                        <div class="d-flex align-items-center">
+                            <label class="toggle-switch mr-2 mb-0">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <label for="rememberMe" class="text-muted mb-0"
+                                style="text-transform: none; font-size: 0.85rem; cursor: pointer;">Remember Me</label>
                         </div>
                         <a href="#" class="font-weight-bold" style="color: var(--primary); font-size: 0.85rem;">Forgot
                             Password?</a>

@@ -988,7 +988,7 @@ input:checked + .slider:before {
 
     .v-modal-container {
         flex-direction: column !important;
-        min-height: 90vh !important;
+        min-height: auto !important;
         max-height: 95vh;
         overflow-y: auto;
     }

@@ -203,7 +203,22 @@ $(document).ready(function() {
         } else if (tab === 'deworming') {
             fetchDewormingSummary();
             fetchUpcomingDeworming();
+            const dewormingAnimalFilter = $('#dewormingAnimalFilter');
+            getanimals(dewormingAnimalFilter, 'all', 'All Animals');
+            fetchDewormerTypes();
         }
+    }
+
+    function fetchDewormerTypes() {
+        $.getJSON('../controllers/treatmentoperations.php', { action: 'getdistinctdewormers' }, function(data) {
+            const $filter = $('#dewormingTypeFilter');
+            $filter.html('<option value="">All Dewormers</option>');
+            if (data && data.length > 0) {
+                data.forEach(item => {
+                    $filter.append(`<option value="${item.product}">${item.product}</option>`);
+                });
+            }
+        });
     }
 
     function fetchVaccineTypes() {
@@ -451,8 +466,10 @@ $(document).ready(function() {
 
     // Filter Event Listeners
     $animalFilter.on('change', function() {
-        table.column(0).search(this.value).draw();
-        updatePagination();
+        if (currentTab === 'health') {
+            table.column(0).search(this.value).draw();
+            updatePagination();
+        }
     });
 
     $conditionFilter.on('change', function() {
@@ -470,10 +487,56 @@ $(document).ready(function() {
         updatePagination();
     });
 
+    // Vaccination Filters
+    $(document).on('change', '#vaccineAnimalFilter', function() {
+        table.column(0).search(this.value).draw();
+        updatePagination();
+    });
+
+    $(document).on('change', '#vaccineTypeFilter', function() {
+        table.column(4).search(this.value).draw();
+        updatePagination();
+    });
+
+    $(document).on('keyup', '#vaccineSearch', function() {
+        table.search(this.value).draw();
+        updatePagination();
+    });
+
+    // Deworming Filters
+    $(document).on('change', '#dewormingAnimalFilter', function() {
+        table.column(0).search(this.value).draw();
+        updatePagination();
+    });
+
+    $(document).on('change', '#dewormingTypeFilter', function() {
+        table.column(3).search(this.value).draw();
+        updatePagination();
+    });
+
+    $(document).on('keyup', '#dewormingSearch', function() {
+        table.search(this.value).draw();
+        updatePagination();
+    });
+
     // Reset Filters
     $refreshFiltersBtn.on('click', function() {
         $animalFilter.add($conditionFilter).add($dateRangeFilter).add($statusFilter).val('');
         $healthSearch.val('');
+        table.search('').columns().search('').draw();
+        updatePagination();
+    });
+
+    $(document).on('click', '#refreshVaccineFilters, #refreshVaccineFiltersDesktop', function() {
+        $('#vaccineAnimalFilter, #vaccineTypeFilter').val('');
+        $('#vaccineSearch').val('');
+        table.search('').columns().search('').draw();
+        updatePagination();
+    });
+
+    $(document).on('click', '#refreshDewormingFilters, #refreshDewormingFiltersDesktop', function() {
+        $('#dewormingAnimalFilter, #dewormingTypeFilter').val('');
+        $('#dewormingSearch').val('');
         table.search('').columns().search('').draw();
         updatePagination();
     });
@@ -501,9 +564,23 @@ $(document).ready(function() {
         $healthRecordModal.addClass('show');
         $('.main-content, .sidebar, .top-header').addClass('modal-blur');
         
-        // Initialize Datepicker
-        setDatePicker($logDate, true);
-        setDatePicker($nextFollowup, false, true);
+        // Initialize Flatpickr
+        flatpickr("#logdate", {
+            dateFormat: "d-M-Y",
+            maxDate: "today",
+            disableMobile: "true",
+            onClose: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).blur();
+            }
+        });
+        flatpickr("#nextfollowup", {
+            dateFormat: "d-M-Y",
+            minDate: "today",
+            disableMobile: "true",
+            onClose: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).blur();
+            }
+        });
 
         // Load animals, diseases and veterinarians
         getanimals($animalId);
@@ -677,7 +754,14 @@ $(document).ready(function() {
         $('.rv-type-label:first').addClass('active').css('color', '#166534');
         $('#rv_scheduleid').prop('disabled', true).html('<option value="0">Choose from schedules...</option>');
         
-        setDatePicker($('#rv_date'), true);
+        flatpickr("#rv_date", {
+            dateFormat: "d-M-Y",
+            maxDate: "today",
+            disableMobile: "true",
+            onClose: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).blur();
+            }
+        });
         getveterinariansselect($('#rv_administered_by'));
         getdiseases($('#rv_diseaseid'));
         
@@ -707,7 +791,14 @@ $(document).ready(function() {
         $('.rd-type-label:first').addClass('active').css('color', '#d97706');
         $('#rd_scheduleid').prop('disabled', true).html('<option value="0">Choose from schedules...</option>');
         
-        setDatePicker($('#rd_date'), true);
+        flatpickr("#rd_date", {
+            dateFormat: "d-M-Y",
+            maxDate: "today",
+            disableMobile: "true",
+            onClose: function(selectedDates, dateStr, instance) {
+                $(instance.altInput || instance.input).blur();
+            }
+        });
         getveterinariansselect($('#rd_administered_by'));
         
         $.getJSON("../controllers/treatmentoperations.php", { action: 'getanimalsbyschedule', scheduleid: 0, type: 'deworming' }, (data) => {

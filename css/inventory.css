@@ -1180,7 +1180,7 @@
     .add-category-container {
         flex-direction: column;
         height: auto;
-        max-height: 90vh;
+        max-height: 95vh;
         overflow-y: auto;
     }
 

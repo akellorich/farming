@@ -3,6 +3,7 @@
  * Handles: Session Locking, Change Password, Logout
  */
 
+window.jukamAuthLoaded = true;
 $(document).ready(function() {
     // Lock Screen Elements
     const lockOverlay = $('#lockScreenOverlay');

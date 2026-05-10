@@ -74,4 +74,8 @@ if ($action == 'getupcomingvaccinations') {
 if ($action == 'getdistinctvaccines') {
     echo $treatment->getDistinctVaccines();
 }
+
+if ($action == 'getdistinctdewormers') {
+    echo $treatment->getDistinctDewormers();
+}
 ?>

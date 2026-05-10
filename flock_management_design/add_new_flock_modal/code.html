@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add/Edit Flock - PoultryPro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#717a6d",
+                    "background": "#fbf9f8",
+                    "inverse-surface": "#303030",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf9f8",
+                    "outline-variant": "#c0c9bb",
+                    "on-secondary-fixed-variant": "#334d37",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#b1ceb2",
+                    "primary-container": "#1b5e20",
+                    "surface-variant": "#e4e2e1",
+                    "secondary-container": "#c9e7ca",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f2f0f0",
+                    "surface-container-high": "#eae8e7",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e2e1",
+                    "on-tertiary-container": "#c1c8ba",
+                    "on-secondary-container": "#4e6952",
+                    "primary-fixed": "#acf4a4",
+                    "tertiary": "#363d33",
+                    "on-surface-variant": "#41493e",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#91d78a",
+                    "primary": "#00450d",
+                    "on-surface": "#1b1c1c",
+                    "on-background": "#1b1c1c",
+                    "on-primary-fixed-variant": "#0c5216"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin": "32px",
+                    "base": "8px",
+                    "md": "24px",
+                    "xl": "64px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "h1": ["Manrope"],
+                    "label-bold": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-md": ["Manrope"],
+                    "h3": ["Manrope"],
+                    "body-sm": ["Manrope"],
+                    "h2": ["Manrope"],
+                    "display": ["Manrope"]
+            },
+            "fontSize": {
+                    "h1": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-bold": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "display": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-hidden">
+<!-- Page Content (Blurred in background) -->
+<div class="flex h-screen blur-sm pointer-events-none scale-100 transition-all">
+<!-- Sidebar -->
+<aside class="docked left-0 h-screen w-64 border-r border-stone-200 bg-[#F9FBF9] flex flex-col p-4 space-y-2 shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<div class="mb-8 px-2">
+<h1 class="text-xl font-extrabold text-[#1B5E20] tracking-tight">PoultryPro</h1>
+<p class="text-[10px] text-stone-500 font-medium">Modern Agrarian Ops</p>
+</div>
+<nav class="space-y-1">
+<div class="text-[#1B5E20] font-bold bg-[#1B5E20]/5 rounded-lg flex items-center gap-3 px-4 py-3">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-bold text-body-sm">Flock Management</span>
+</div>
+<div class="text-stone-500 hover:text-[#1B5E20] hover:bg-[#1B5E20]/5 transition-colors rounded-lg flex items-center gap-3 px-4 py-3">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-bold text-body-sm">Dashboard</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col bg-background">
+<header class="flex items-center justify-between px-8 py-3 w-full border-b border-stone-100 bg-white/80 backdrop-blur-md shadow-sm">
+<h2 class="text-lg font-bold text-[#1B5E20]">Poultry Management System</h2>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-stone-600">notifications</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaZSOjMZSrmKyPJAz6lHUQ0qvD26uW53b6GsE5xaYNfbOM2SpOEZleLB_BfjMYhfwqnZ3W024dSmSDYKh0lBEypgXYmDhfx1ZidGMXukHVD4EOn8VID85yKjls5SoGCxVHqh1KjQXOHOeFdqtA5QtJFRogKyTGoWtC6JQd_H3Fa2mPl2zzPjuV1OctjubeJmRh5d11e_n0k-T_iDUXhmpg7af5TdGzyK2W4iGgIu2zOECSj5PY37RR13Pv0yD_vRJseknwMfto4KLq"/>
+</div>
+</div>
+</header>
+<div class="p-margin grid grid-cols-12 gap-gutter">
+<!-- Placeholder Cards to simulate UI -->
+<div class="col-span-12 bg-white p-md rounded-xl shadow-[0px_10px_30px_rgba(27,94,32,0.05)]">
+<div class="h-64 w-full bg-stone-50 rounded-lg animate-pulse"></div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-gutter bg-on-surface/20 backdrop-blur-sm">
+<!-- Add/Edit Flock Modal Container -->
+<div class="relative w-full max-w-2xl bg-white rounded-xl shadow-[0px_20px_40px_rgba(27,94,32,0.10)] overflow-hidden flex flex-col max-h-[921px]">
+<!-- Modal Header -->
+<div class="px-md py-6 border-b border-stone-100 flex justify-between items-center bg-white sticky top-0 z-10">
+<div>
+<h2 class="font-h2 text-h2 text-primary">Register New Flock</h2>
+<p class="font-body-sm text-body-sm text-outline">Enter flock details to initialize production tracking</p>
+</div>
+<button class="p-2 hover:bg-stone-50 rounded-full transition-colors text-stone-400">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Content (Scrollable) -->
+<div class="p-md overflow-y-auto">
+<form class="space-y-6">
+<!-- Top Section: Core Details -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Flock Name/ID -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Flock Name/ID</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none" placeholder="e.g. FL-2024-001" type="text"/>
+</div>
+<!-- Bird Type -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Bird Type</label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none bg-white">
+<option value="layers">Layers</option>
+<option value="broilers">Broilers</option>
+<option value="kienyeji">Kienyeji</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Middle Section: Origin & Arrival -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Breed</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none" placeholder="e.g. ISA Brown" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Source</label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none bg-white">
+<option value="supplier">Supplier</option>
+<option value="hatchery">Hatchery</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">expand_more</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Arrival Date</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none" type="date"/>
+</div>
+</div>
+<!-- Logistic Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Initial Bird Count</label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none" placeholder="0" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 text-xs font-bold">UNITS</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Assigned House/Pen</label>
+<div class="relative">
+<select class="w-full appearance-none px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none bg-white">
+<option value="house-a">Barn House Alpha</option>
+<option value="house-b">Barn House Beta</option>
+<option value="pen-1">Quarantine Pen 01</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">location_on</span>
+</div>
+</div>
+</div>
+<!-- Notes Section -->
+<div class="space-y-xs">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Notes &amp; Special Requirements</label>
+<textarea class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md outline-none resize-none" placeholder="Add any specific details regarding health status, transport conditions, or special care instructions..." rows="3"></textarea>
+</div>
+<!-- Visual Context Image -->
+<div class="relative rounded-xl overflow-hidden h-32 group">
+<img class="w-full h-full object-cover" data-alt="A professional, brightly lit poultry farm interior with modern ventilation systems and clean wooden nesting boxes. The atmosphere is serene and highly organized, emphasizing biosecurity and animal welfare. The lighting is soft and natural, highlighting the textures of light-colored wood and metal equipment in a modern agrarian style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3z_OEkzbeoSDEvI3VJfMi2vp4hEb5LWmVOoDDx0SfxJcNrt-7rIfDT4O7S2pPbbwjvoSTBAO7HOoLd-4Z2AoR-yZlmncHZKXyecfdLTZFB4W_NkfD4ZiSr1Y8Fu-0-9dpcHfJEOXJXegsni_idJgtzXE2-2v8UQGNAYxKHLFymalRX5czWblJyAjY4VkC-o6Gswf_gxF64WkciZseBARHkoNBrH41pjFPge6rmKRShGi2Qbw6JEWaBgCNDpViCW7OLy50KFogD5Q7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex items-end p-4">
+<p class="text-white text-[10px] font-bold uppercase tracking-widest opacity-80">Biosecurity Level: Standard Ops</p>
+</div>
+</div>
+</form>
+</div>
+<!-- Modal Footer -->
+<div class="px-md py-6 border-t border-stone-100 flex items-center justify-end gap-4 bg-stone-50/50">
+<button class="px-6 py-3 rounded-xl font-h3 text-body-sm text-primary hover:bg-primary/5 transition-all">
+                    Cancel
+                </button>
+<button class="px-8 py-3 rounded-xl font-h3 text-body-sm bg-primary-container text-white shadow-lg hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                    Save Flock
+                </button>
+</div>
+</div>
+</div>
+</body></html>
