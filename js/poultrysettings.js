@@ -238,6 +238,7 @@ $(document).ready(function() {
                         <td class="font-weight-bold">${item.stagename}</td>
                         <td>${item.birdtype}</td>
                         <td>${item.duration}</td>
+                        <td class="font-weight-bold text-success">${item.feedquantity || 140}g</td>
                         <td class="text-right">${getActionMenu(item.stageid, 'flock-stage')}</td>
                     </tr>
                 `;
@@ -459,6 +460,7 @@ $(document).ready(function() {
                 $form.find('[name="stage_name"]').val(record.stagename);
                 $form.find('[name="bird_type"]').val(record.birdtype);
                 $form.find('[name="duration"]').val(record.duration);
+                $form.find('[name="feed_quantity"]').val(record.feedquantity || 140);
                 break;
             case 'houses':
                 $modal = $('#addHouseModal'); $form = $('#addHouseForm');

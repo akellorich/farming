@@ -21,7 +21,7 @@ $nav_context = 'poultry'; // Forces the poultry-specific sidebar
     <link rel="stylesheet" href="<?php echo $base_path; ?>css/dashboard.css">
     <link rel="stylesheet" href="<?php echo $base_path; ?>css/header.css">
     <link rel="stylesheet" href="<?php echo $base_path; ?>css/navigation.css">
-    <link rel="stylesheet" href="<?php echo $base_path; ?>css/alert.css">
+    <link rel="stylesheet" href="<?php echo $base_path; ?>plugins/alert/alert.css">
     <link rel="stylesheet" href="<?php echo $base_path; ?>plugins/datatables/datatables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
@@ -137,7 +137,7 @@ $nav_context = 'poultry'; // Forces the poultry-specific sidebar
     <script src="<?php echo $base_path; ?>plugins/jquery-ui.js"></script>
     <script src="<?php echo $base_path; ?>plugins/popper.js"></script>
     <script src="<?php echo $base_path; ?>plugins/bootstrap.js"></script>
-    <script src="<?php echo $base_path; ?>plugins/alert.js"></script>
+    <script src="<?php echo $base_path; ?>plugins/alert/alert.js"></script>
     <script src="<?php echo $base_path; ?>js/functions.js?v=<?php echo time(); ?>"></script>
     
     <!-- Data Visualisation & Tables -->

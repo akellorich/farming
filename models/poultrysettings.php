@@ -92,8 +92,9 @@ class PoultrySettings extends db {
 
         $birdtype = str_replace("'", "''", $data['bird_type']);
         $duration = str_replace("'", "''", $data['duration']);
+        $feedquantity = (int)($data['feed_quantity'] ?? 140);
 
-        $sql = "CALL sp_savepoultryflockstage({$id}, '{$stagename}', '{$birdtype}', '{$duration}', {$this->userid}, '{$this->platform}')";
+        $sql = "CALL sp_savepoultryflockstage({$id}, '{$stagename}', '{$birdtype}', '{$duration}', {$feedquantity}, {$this->userid}, '{$this->platform}')";
         return $this->getData($sql) ? ['status' => 'success', 'message' => 'Flock stage saved successfully'] : ['status' => 'error', 'message' => 'Failed to save flock stage'];
     }
 
@@ -146,8 +147,9 @@ class PoultrySettings extends db {
         $categoryid = (int)$data['category_id'];
         $unit = str_replace("'", "''", $data['unit']);
         $isfeed = isset($data['is_feed']) ? 1 : 0;
+        $reorderlevel = (float)($data['reorder_level'] ?? 0);
 
-        $sql = "CALL sp_savepoultryinventoryitem({$id}, '{$itemname}', '{$itemcode}', {$categoryid}, '{$unit}', {$isfeed}, {$this->userid}, '{$this->platform}')";
+        $sql = "CALL sp_savepoultryinventoryitem({$id}, '{$itemname}', '{$itemcode}', {$categoryid}, '{$unit}', {$isfeed}, {$reorderlevel}, {$this->userid}, '{$this->platform}')";
         return $this->getData($sql) ? ['status' => 'success', 'message' => 'Inventory item saved successfully'] : ['status' => 'error', 'message' => 'Failed to save item'];
     }
 

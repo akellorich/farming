@@ -396,10 +396,10 @@ $nav_context = 'poultry'; // Set context for sidebar
                             <div class="rounded-xl d-flex align-items-center justify-content-center bg-success-light" style="width: 48px; height: 48px;">
                                 <span class="material-symbols-outlined text-success" style="font-size: 24px;">inventory_2</span>
                             </div>
-                            <span class="badge badge-pill bg-success-light text-success px-2 py-1" style="font-size: 10px; font-weight: 700;">+4.2%</span>
+                            <span class="badge badge-pill bg-success-light text-success px-2 py-1" style="font-size: 10px; font-weight: 700;">Live</span>
                         </div>
                         <p class="text-muted mb-1 font-weight-medium" style="font-size: 13px;">Total Eggs Collected</p>
-                        <h3 class="font-weight-bold text-dark mb-1" style="font-size: 32px; letter-spacing: -0.03em;">12,480</h3>
+                        <h3 id="total_collected_count" class="font-weight-bold text-dark mb-1" style="font-size: 32px; letter-spacing: -0.03em;">0</h3>
                         <p class="text-muted mb-0" style="font-size: 10px; opacity: 0.7;">Today's collection status</p>
                     </div>
                 </div>
@@ -412,8 +412,8 @@ $nav_context = 'poultry'; // Set context for sidebar
                             </div>
                         </div>
                         <p class="text-muted mb-1 font-weight-medium" style="font-size: 13px;">Production Rate</p>
-                        <h3 class="font-weight-bold text-dark mb-1" style="font-size: 32px; letter-spacing: -0.03em;">94.8<span class="small font-weight-normal" style="font-size: 20px;">%</span></h3>
-                        <p class="text-success font-weight-bold mb-0" style="font-size: 10px;">Optimal range achieved</p>
+                        <h3 id="production_rate_display" class="font-weight-bold text-dark mb-1" style="font-size: 32px; letter-spacing: -0.03em;">0<span class="small font-weight-normal" style="font-size: 20px;">%</span></h3>
+                        <p class="text-success font-weight-bold mb-0" style="font-size: 10px;">Daily efficiency index</p>
                     </div>
                 </div>
                 <!-- Good Eggs -->
@@ -425,11 +425,11 @@ $nav_context = 'poultry'; // Set context for sidebar
                             </div>
                         </div>
                         <p class="text-muted mb-1 font-weight-medium" style="font-size: 13px;">Good Eggs</p>
-                        <h3 class="font-weight-bold text-dark mb-2" style="font-size: 32px; letter-spacing: -0.03em;">12,256</h3>
+                        <h3 id="good_eggs_display" class="font-weight-bold text-dark mb-2" style="font-size: 32px; letter-spacing: -0.03em;">0</h3>
                         <div class="w-100 bg-light rounded-pill mb-3" style="height: 8px; overflow: hidden;">
-                            <div class="h-100" style="width: 90%; background: #00450d !important;"></div>
+                            <div id="good_eggs_progress" class="h-100" style="width: 0%; background: #00450d !important; transition: width 0.5s ease;"></div>
                         </div>
-                        <p class="text-muted mb-0" style="font-size: 10px; opacity: 0.7;">High quality yield maintained</p>
+                        <p class="text-muted mb-0" style="font-size: 10px; opacity: 0.7;">High quality yield</p>
                     </div>
                 </div>
                 <!-- Broken Eggs -->
@@ -439,11 +439,11 @@ $nav_context = 'poultry'; // Set context for sidebar
                             <div class="rounded-xl d-flex align-items-center justify-content-center bg-danger-light" style="width: 48px; height: 48px;">
                                 <span class="material-symbols-outlined text-danger" style="font-size: 24px;">broken_image</span>
                             </div>
-                            <span class="badge badge-pill bg-danger-light text-danger px-2 py-1" style="font-size: 10px; font-weight: 700;">Alert</span>
+                            <span id="broken_alert_badge" class="badge badge-pill bg-danger-light text-danger px-2 py-1 d-none" style="font-size: 10px; font-weight: 700;">Alert</span>
                         </div>
                         <p class="text-muted mb-1 font-weight-medium" style="font-size: 13px;">Broken Eggs</p>
-                        <h3 class="font-weight-bold text-danger mb-1" style="font-size: 32px; letter-spacing: -0.03em;">224</h3>
-                        <p class="text-danger mb-0" style="font-size: 10px; opacity: 0.8;">1.8% of daily total</p>
+                        <h3 id="broken_eggs_display" class="font-weight-bold text-danger mb-1" style="font-size: 32px; letter-spacing: -0.03em;">0</h3>
+                        <p id="broken_percent_text" class="text-danger mb-0" style="font-size: 10px; opacity: 0.8;">0% of daily total</p>
                     </div>
                 </div>
             </div>
@@ -457,112 +457,20 @@ $nav_context = 'poultry'; // Set context for sidebar
                                 View Archive <span class="material-symbols-outlined" style="font-size: 14px;">arrow_forward</span>
                             </button>
                         </div>
-                        <div class="table-responsive px-2">
-                            <table class="table table-hover mb-0 table-poultry">
-                                <thead>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
                                     <tr>
-                                        <th class="border-0 py-3" style="width: 160px;">Time (Shift)</th>
-                                        <th class="border-0 py-3">Qty</th>
-                                        <th class="border-0 py-3">Broken</th>
-                                        <th class="border-0 py-3 d-none d-md-table-cell">Collector</th>
-                                        <th class="border-0 py-3 status-col d-none d-md-table-cell">Status</th>
-                                        <th class="border-0 py-3 text-right">Actions</th>
+                                        <th class="border-0 py-3 px-4" style="font-size: 11px; letter-spacing: 0.05em; width: 220px;">TIME (SHIFT)</th>
+                                        <th class="border-0 py-3 text-center" style="font-size: 11px; letter-spacing: 0.05em; width: 100px;">QTY</th>
+                                        <th class="border-0 py-3 text-center" style="font-size: 11px; letter-spacing: 0.05em; width: 100px;">BROKEN</th>
+                                        <th class="border-0 py-3 d-none d-md-table-cell" style="font-size: 11px; letter-spacing: 0.05em;">COLLECTOR</th>
+                                        <th class="border-0 py-3 text-center d-none d-md-table-cell" style="font-size: 11px; letter-spacing: 0.05em; width: 120px;">STATUS</th>
+                                        <th class="border-0 py-3 text-right px-4" style="font-size: 11px; letter-spacing: 0.05em; width: 80px;">ACTIONS</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="py-3 font-weight-bold text-dark">06:30 AM (Morning)</td>
-                                        <td class="py-3 text-muted">4,120</td>
-                                        <td class="py-3 text-danger font-weight-bold">58</td>
-                                        <td class="py-3 text-muted d-none d-md-table-cell">Samuel Mwangi</td>
-                                        <td class="py-3 status-col d-none d-md-table-cell">
-                                            <span class="badge badge-pill bg-success-light text-success px-3 py-1" style="font-size: 10px;">Verified</span>
-                                        </td>
-                                        <td class="px-4 py-3 text-right">
-                                            <div class="dropdown">
-                                                <button class="action-btn ml-auto border-0" data-toggle="dropdown">
-                                                    <span class="material-symbols-outlined" style="font-size: 18px;">more_vert</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg rounded-xl py-2">
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-success">verified</span> Approve Record
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-info">visibility</span> View Details
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined">edit</span> Edit Entry
-                                                    </a>
-                                                    <div class="dropdown-divider mx-3"></div>
-                                                    <a class="dropdown-item text-danger" href="#">
-                                                        <span class="material-symbols-outlined">delete</span> Delete
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 font-weight-bold text-dark">11:00 AM (Mid)</td>
-                                        <td class="py-3 text-muted">3,850</td>
-                                        <td class="py-3 text-danger font-weight-bold">82</td>
-                                        <td class="py-3 text-muted d-none d-md-table-cell">Grace Adhiambo</td>
-                                        <td class="py-3 status-col d-none d-md-table-cell">
-                                            <span class="badge badge-pill bg-success-light text-success px-3 py-1" style="font-size: 10px;">Verified</span>
-                                        </td>
-                                        <td class="px-4 py-3 text-right">
-                                            <div class="dropdown">
-                                                <button class="action-btn ml-auto border-0" data-toggle="dropdown">
-                                                    <span class="material-symbols-outlined" style="font-size: 18px;">more_vert</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg rounded-xl py-2">
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-success">verified</span> Approve Record
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-info">visibility</span> View Details
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined">edit</span> Edit Entry
-                                                    </a>
-                                                    <div class="dropdown-divider mx-3"></div>
-                                                    <a class="dropdown-item text-danger" href="#">
-                                                        <span class="material-symbols-outlined">delete</span> Delete
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="py-3 font-weight-bold text-dark">03:45 PM (Afternoon)</td>
-                                        <td class="py-3 text-muted">4,510</td>
-                                        <td class="py-3 text-danger font-weight-bold">84</td>
-                                        <td class="py-3 text-muted d-none d-md-table-cell">John Kariuki</td>
-                                        <td class="py-3 status-col d-none d-md-table-cell">
-                                            <span class="badge badge-pill bg-info-light text-info px-3 py-1" style="font-size: 10px; font-weight: 700;">In Review</span>
-                                        </td>
-                                        <td class="px-4 py-3 text-right">
-                                            <div class="dropdown">
-                                                <button class="action-btn ml-auto border-0" data-toggle="dropdown">
-                                                    <span class="material-symbols-outlined" style="font-size: 18px;">more_vert</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-lg rounded-xl py-2">
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-success">verified</span> Approve Record
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined text-info">visibility</span> View Details
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <span class="material-symbols-outlined">edit</span> Edit Entry
-                                                    </a>
-                                                    <div class="dropdown-divider mx-3"></div>
-                                                    <a class="dropdown-item text-danger" href="#">
-                                                        <span class="material-symbols-outlined">delete</span> Delete
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="dailyCollectionLogTable" style="font-size: 13px;">
+                                    <!-- Populated via AJAX -->
                                 </tbody>
                             </table>
                         </div>
@@ -679,6 +587,7 @@ $nav_context = 'poultry'; // Set context for sidebar
                             </header>
 
                             <form id="eggCollectionForm">
+                                <div id="collectionNotification" class="mb-3"></div>
                                 <div class="form-row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
                                         <label class="text-uppercase font-weight-bold text-muted mb-2" style="font-size: 11px; letter-spacing: 0.05em;">Collection Date</label>
@@ -689,38 +598,18 @@ $nav_context = 'poultry'; // Set context for sidebar
                                     </div>
                                     <div class="col-md-6">
                                         <label class="text-uppercase font-weight-bold text-muted mb-2" style="font-size: 11px; letter-spacing: 0.05em;">Flock Selection</label>
-                                        <select class="custom-form-input appearance-none">
-                                            <option>Loman Brown - Batch 22</option>
-                                            <option>Hy-Line Silver - Batch 19</option>
-                                            <option>ISA Brown - Batch 04</option>
+                                        <select id="collection_flock_id" class="custom-form-input appearance-none flock-select">
+                                            <option value="" disabled selected>Loading flocks...</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="text-uppercase font-weight-bold text-muted mb-2" style="font-size: 11px; letter-spacing: 0.05em;">Shift Selection</label>
-                                    <div class="d-flex gap-3 shift-radio-group">
-                                        <label class="shift-option">
-                                            <input type="radio" name="shift" value="morning" checked>
-                                            <div class="shift-card">
-                                                <div class="text-uppercase font-weight-bold opacity-60 mb-1" style="font-size: 9px;">Morning</div>
-                                                <div class="font-weight-bold" style="font-size: 16px;">06:30 AM</div>
-                                            </div>
-                                        </label>
-                                        <label class="shift-option">
-                                            <input type="radio" name="shift" value="midday">
-                                            <div class="shift-card">
-                                                <div class="text-uppercase font-weight-bold opacity-60 mb-1" style="font-size: 9px;">Midday</div>
-                                                <div class="font-weight-bold" style="font-size: 16px;">11:00 AM</div>
-                                            </div>
-                                        </label>
-                                        <label class="shift-option">
-                                            <input type="radio" name="shift" value="evening">
-                                            <div class="shift-card">
-                                                <div class="text-uppercase font-weight-bold opacity-60 mb-1" style="font-size: 9px;">Evening</div>
-                                                <div class="font-weight-bold" style="font-size: 16px;">03:45 PM</div>
-                                            </div>
-                                        </label>
+                                    <div class="d-flex gap-3 shift-radio-group shift-container">
+                                        <div class="text-center w-100 py-3 text-muted">
+                                            <div class="spinner-border spinner-border-sm mr-2"></div> Loading shifts...
+                                        </div>
                                     </div>
                                 </div>
 
@@ -729,19 +618,19 @@ $nav_context = 'poultry'; // Set context for sidebar
                                         <label class="text-uppercase font-weight-bold text-muted mb-2 d-flex align-items-center gap-2" style="font-size: 11px; letter-spacing: 0.05em;">
                                             Good Eggs <span class="material-symbols-outlined text-success" style="font-size: 14px;">check_circle</span>
                                         </label>
-                                        <input type="number" class="custom-form-input text-dark font-weight-bold" style="font-size: 18px;" placeholder="0">
+                                        <input type="number" id="good_eggs" class="custom-form-input text-dark font-weight-bold" style="font-size: 18px;" placeholder="0">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="text-uppercase font-weight-bold text-muted mb-2 d-flex align-items-center gap-2" style="font-size: 11px; letter-spacing: 0.05em;">
                                             Broken/Bad Eggs <span class="material-symbols-outlined text-danger" style="font-size: 14px;">report</span>
                                         </label>
-                                        <input type="number" class="custom-form-input text-dark font-weight-bold" style="font-size: 18px;" placeholder="0">
+                                        <input type="number" id="broken_eggs" class="custom-form-input text-dark font-weight-bold" style="font-size: 18px;" placeholder="0">
                                     </div>
                                 </div>
 
                                 <div class="mb-5">
                                     <label class="text-uppercase font-weight-bold text-muted mb-2" style="font-size: 11px; letter-spacing: 0.05em;">Narration/Notes</label>
-                                    <textarea class="custom-form-input" rows="3" style="resize: none;" placeholder="Optional notes regarding shell quality or barn conditions..."></textarea>
+                                    <textarea id="narration" class="custom-form-input" rows="3" style="resize: none;" placeholder="Optional notes regarding shell quality or barn conditions..."></textarea>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-end mt-4">
@@ -769,9 +658,237 @@ $nav_context = 'poultry'; // Set context for sidebar
     <!-- Modular UI Scripts -->
     <script src="<?php echo $base_path; ?>js/navigation.js"></script>
     <script src="<?php echo $base_path; ?>js/header.js"></script>
+    <script src="<?php echo $base_path; ?>plugins/alert/alert.js"></script>
 
     <script>
     $(document).ready(function() {
+        loadCollectionShifts();
+        loadLayerFlocks();
+        loadEggStats();
+        loadCollectionLog();
+
+        function loadCollectionLog() {
+            const $tbody = $('#dailyCollectionLogTable');
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=getcollectionlog',
+                type: 'GET',
+                success: function(response) {
+                    try {
+                        const logs = JSON.parse(response);
+                        let html = '';
+                        if (logs.length === 0) {
+                            html = '<tr><td colspan="6" class="text-center py-5 text-muted">No collection records for today</td></tr>';
+                        } else {
+                            logs.forEach(l => {
+                                html += `
+                                    <tr>
+                                        <td class="align-middle py-3 px-4">
+                                            <div class="font-weight-bold text-dark mb-0">${l.shift_time} (${l.shiftname})</div>
+                                        </td>
+                                        <td class="align-middle text-center text-muted font-weight-medium">${parseInt(l.totalqty).toLocaleString()}</td>
+                                        <td class="align-middle text-center text-danger font-weight-bold">${parseInt(l.brokencount).toLocaleString()}</td>
+                                        <td class="align-middle d-none d-md-table-cell">
+                                            <div class="text-muted">${l.collector}</div>
+                                        </td>
+                                        <td class="align-middle text-center d-none d-md-table-cell">
+                                            <span class="badge badge-pill bg-success-light text-success px-3 py-1" style="font-size: 10px; font-weight: 600;">Verified</span>
+                                        </td>
+                                        <td class="align-middle text-right py-3 px-4">
+                                            <button class="btn btn-icon-round border-0 bg-transparent">
+                                                <span class="material-symbols-outlined text-muted" style="font-size: 18px;">more_vert</span>
+                                            </button>
+                                        </td>
+                                    </tr>`;
+                            });
+                        }
+                        $tbody.html(html);
+                    } catch (e) {
+                        $tbody.html('<tr><td colspan="6" class="text-center py-5 text-danger">Error loading logs</td></tr>');
+                    }
+                }
+            });
+        }
+
+        function loadEggStats() {
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=geteggstats',
+                type: 'GET',
+                success: function(response) {
+                    try {
+                        const res = JSON.parse(response);
+                        if (res.status === 'success') {
+                            const d = res.data;
+                            $('#total_collected_count').text(d.total_collected.toLocaleString());
+                            $('#production_rate_display').html(`${d.production_rate}<span class="small font-weight-normal" style="font-size: 20px;">%</span>`);
+                            $('#good_eggs_display').text(d.good_eggs.toLocaleString());
+                            $('#broken_eggs_display').text(d.broken_eggs.toLocaleString());
+                            $('#good_eggs_progress').css('width', d.good_percent + '%');
+                            $('#broken_percent_text').text(`${d.broken_percent}% of daily total`);
+                            
+                            // Show alert if breakage > 2%
+                            if (parseFloat(d.broken_percent) > 2) {
+                                $('#broken_alert_badge').removeClass('d-none');
+                            } else {
+                                $('#broken_alert_badge').addClass('d-none');
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Stats Load Error:", e);
+                    }
+                }
+            });
+        }
+
+        function loadLayerFlocks() {
+            const $select = $('#collection_flock_id');
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=getlayerflocks',
+                type: 'GET',
+                success: function(response) {
+                    try {
+                        const flocks = JSON.parse(response);
+                        let html = '';
+                        if (flocks.length === 0) {
+                            html = '<option value="" disabled selected>No layer flocks found...</option>';
+                        } else {
+                            html = '<option value="" disabled selected>Select production flock...</option>';
+                            flocks.forEach(f => {
+                                html += `<option value="${f.flockid}">${f.flockno} (${f.breedname} - ${f.stagename})</option>`;
+                            });
+                        }
+                        $select.html(html);
+                    } catch (e) {
+                        $select.html('<option value="" disabled>Error loading flocks</option>');
+                    }
+                }
+            });
+        }
+
+        function loadCollectionShifts() {
+            const $container = $('.shift-container');
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=getcollectionshifts',
+                type: 'GET',
+                success: function(response) {
+                    try {
+                        const shifts = JSON.parse(response);
+                        let html = '';
+                        shifts.forEach(s => {
+                            html += `
+                                <label class="shift-option">
+                                    <input type="radio" name="shift" value="${s.shiftid}" ${s.is_default == 1 ? 'checked' : ''}>
+                                    <div class="shift-card">
+                                        <div class="text-uppercase font-weight-bold opacity-60 mb-1" style="font-size: 9px;">${s.shiftname}</div>
+                                        <div class="font-weight-bold" style="font-size: 16px;">${s.formatted_time}</div>
+                                    </div>
+                                </label>`;
+                        });
+                        $container.html(html);
+                    } catch (e) {
+                        $container.html('<div class="text-center w-100 py-3 text-danger small">Error loading shifts</div>');
+                    }
+                }
+            });
+        }
+
+        function showNotification(message, type = 'info') {
+            const $notif = $('#collectionNotification');
+            $notif.html(showAlert(type, message, 1)).fadeIn();
+        }
+
+        $('#eggCollectionForm').on('submit', function(e) {
+            e.preventDefault();
+            const $btn = $(this).find('button[type="submit"]');
+            const $notif = $('#collectionNotification');
+            
+            // 1. Validate Date
+            const date = $('#collection_date').val();
+            if (!date) {
+                showNotification("Please select a collection date.");
+                $('#collection_date').focus();
+                return;
+            }
+
+            // 2. Validate Flock
+            const flockId = $('#collection_flock_id').val();
+            if (!flockId) {
+                showNotification("Please select a production flock.");
+                $('#collection_flock_id').focus();
+                return;
+            }
+
+            // 3. Validate Shift
+            const shiftId = $('input[name="shift"]:checked').val();
+            if (!shiftId) {
+                showNotification("Please select a collection shift.");
+                return;
+            }
+
+            // 4. Validate Good Eggs
+            const goodEggs = $('#good_eggs').val();
+            if (goodEggs === '' || parseInt(goodEggs) < 0) {
+                showNotification("Please enter a valid count for good eggs (minimum 0).");
+                $('#good_eggs').focus();
+                return;
+            }
+
+            // 5. Validate Broken Eggs
+            const brokenEggs = $('#broken_eggs').val();
+            if (brokenEggs === '' || parseInt(brokenEggs) < 0) {
+                showNotification("Please enter a valid count for broken eggs (minimum 0).");
+                $('#broken_eggs').focus();
+                return;
+            }
+
+            // All valid - Save
+            $notif.hide();
+            $btn.prop('disabled', true).html('<div class="spinner-border spinner-border-sm mr-2"></div> Saving...');
+
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=saveeggcollection',
+                type: 'POST',
+                data: {
+                    flock_id: flockId,
+                    collection_date: date,
+                    shift_id: shiftId,
+                    good_eggs: goodEggs,
+                    broken_eggs: brokenEggs,
+                    narration: $('#narration').val()
+                },
+                success: function(response) {
+                    try {
+                        const res = JSON.parse(response);
+                        if (res.status === 'success') {
+                            showNotification(res.message, 'success');
+                            
+                            // Reset production fields and flock, but keep date and shift
+                            $('#good_eggs').val('');
+                            $('#broken_eggs').val('');
+                            $('#narration').val('');
+                            $('#collection_flock_id').val('').trigger('change');
+                            
+                            // Refresh Stats, Log & Chart
+                            loadEggStats();
+                            loadCollectionLog();
+                            loadWeeklyChart();
+                            
+                            // Clear notification after 4 seconds
+                            setTimeout(() => $notif.fadeOut(), 4000);
+                        } else {
+                            showNotification(res.message, 'danger');
+                        }
+                    } catch (e) {
+                        showNotification("System error occurred while saving.", 'danger');
+                    }
+                    $btn.prop('disabled', false).html('<span class="material-symbols-outlined mr-2" style="font-size: 18px; font-variation-settings: \'FILL\' 1;">save</span> Save Record');
+                },
+                error: function() {
+                    showNotification("Network error occurred. Please check your connection.", 'danger');
+                    $btn.prop('disabled', false).html('<span class="material-symbols-outlined mr-2" style="font-size: 18px; font-variation-settings: \'FILL\' 1;">save</span> Save Record');
+                }
+            });
+        });
+
         // Modal Blur Logic
         $('#logCollectionModal').on('show.bs.modal', function() {
             $('body').addClass('modal-open');
@@ -789,74 +906,114 @@ $nav_context = 'poultry'; // Set context for sidebar
             defaultDate: "today"
         });
 
-        var options = {
-            series: [{
-                name: 'Actual Production',
-                data: [85, 90, 94, 78, 88, 92, 96]
-            }, {
-                name: 'Target (92%)',
-                data: [92, 92, 92, 92, 92, 92, 92]
-            }],
-            chart: {
-                height: 350,
-                type: 'area',
-                toolbar: {
-                    show: false
-                },
-                fontFamily: 'Manrope, sans-serif'
-            },
-            colors: ['#206223', '#ba1a1a'],
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.3,
-                    opacityTo: 0.05,
-                    stops: [0, 90, 100]
-                }
-            },
-            xaxis: {
-                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                axisBorder: {
-                    show: false
-                },
-                axisTicks: {
-                    show: false
-                }
-            },
-            yaxis: {
-                min: 60,
-                max: 100,
-                tickAmount: 4
-            },
-            grid: {
-                borderColor: '#f1f1f1',
-                strokeDashArray: 4,
-                xaxis: {
-                    lines: {
-                        show: true
+        function loadWeeklyChart() {
+            $.ajax({
+                url: base_path + 'controllers/poultryflockoperations.php?action=getweeklyprodchart',
+                type: 'GET',
+                success: function(response) {
+                    try {
+                        const res = JSON.parse(response);
+                        if (res.status === 'success') {
+                            renderProductionChart(res.categories, res.rates, res.target);
+                        }
+                    } catch (e) {
+                        console.error("Chart Load Error:", e);
                     }
                 }
-            },
-            legend: {
-                show: false
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
-            },
-        };
+            });
+        }
 
-        var chart = new ApexCharts(document.querySelector("#productionChart"), options);
-        chart.render();
+        let prodChart = null;
+
+        function renderProductionChart(categories, rates, target) {
+            const options = {
+                series: [{
+                    name: 'Actual Rate',
+                    data: rates
+                }],
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    toolbar: { show: false },
+                    zoom: { enabled: false },
+                    fontFamily: 'Inter, sans-serif'
+                },
+                colors: ['#206223'],
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.45,
+                        opacityTo: 0.05,
+                        stops: [20, 100]
+                    }
+                },
+                xaxis: {
+                    categories: categories,
+                    axisBorder: { show: false },
+                    axisTicks: { show: false },
+                    labels: {
+                        style: {
+                            colors: '#64748b',
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    min: 0,
+                    max: 100,
+                    tickAmount: 5,
+                    labels: {
+                        formatter: (val) => val + "%",
+                        style: {
+                            colors: '#64748b',
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                grid: {
+                    borderColor: '#f1f5f9',
+                    strokeDashArray: 4,
+                    padding: { left: 20, right: 20 }
+                },
+                annotations: {
+                    yaxis: [{
+                        y: target,
+                        borderColor: '#ef4444',
+                        label: {
+                            borderColor: '#ef4444',
+                            style: {
+                                color: '#fff',
+                                background: '#ef4444',
+                                fontSize: '10px',
+                                fontWeight: 700
+                            },
+                            text: `TARGET (${target}%)`
+                        }
+                    }]
+                },
+                tooltip: {
+                    theme: 'light',
+                    y: {
+                        formatter: (val) => val + "%"
+                    }
+                }
+            };
+
+            if (prodChart) {
+                prodChart.updateOptions(options);
+            } else {
+                prodChart = new ApexCharts(document.querySelector("#productionChart"), options);
+                prodChart.render();
+            }
+        }
+
+        loadWeeklyChart();
     });
     </script>
 

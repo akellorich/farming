@@ -164,9 +164,15 @@
                             <option value="Kienyeji">Kienyeji</option>
                         </select>
                     </div>
-                    <div class="form-group mb-0">
-                        <label class="form-label-premium">Duration (Weeks)</label>
-                        <input type="text" class="form-control-premium w-100" placeholder="e.g. 8-18 Weeks" name="duration" required>
+                    <div class="form-row mb-0">
+                        <div class="form-group col-6 mb-0">
+                            <label class="form-label-premium">Duration (Weeks)</label>
+                            <input type="text" class="form-control-premium w-100" placeholder="e.g. 8-18 Weeks" name="duration" required>
+                        </div>
+                        <div class="form-group col-6 mb-0">
+                            <label class="form-label-premium">Feed Qty (g)</label>
+                            <input type="number" class="form-control-premium w-100" placeholder="140" name="feed_quantity" value="140" required min="1">
+                        </div>
                     </div>
                 </form>
             </div>

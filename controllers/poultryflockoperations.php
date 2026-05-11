@@ -21,6 +21,10 @@ switch ($action) {
     case 'savemortality':
         echo json_encode($flockModel->saveMortality($_POST));
         break;
+
+    case 'savefeeding':
+        echo json_encode($flockModel->saveFeeding($_POST));
+        break;
     
     case 'getstats':
         echo json_encode($flockModel->getDashboardStats());
@@ -28,6 +32,47 @@ switch ($action) {
     
     case 'getpopulationtrend':
         echo json_encode($flockModel->getPopulationTrend());
+        break;
+
+    case 'getfeedingstats':
+        echo json_encode($flockModel->getFeedingDashboardStats());
+        break;
+
+    case 'getfeedinghistory':
+        $limit = $_GET['limit'] ?? 10;
+        echo $flockModel->getFeedingHistory($limit);
+        break;
+
+    case 'getinventorystatus':
+        echo $flockModel->getInventoryStatus();
+        break;
+
+    case 'getfeedingcharts':
+        echo json_encode($flockModel->getFeedingChartsData());
+        break;
+
+    case 'getcollectionshifts':
+        echo $flockModel->getCollectionShifts();
+        break;
+
+    case 'getlayerflocks':
+        echo $flockModel->getLayerFlocks();
+        break;
+
+    case 'saveeggcollection':
+        echo json_encode($flockModel->saveEggCollection($_POST));
+        break;
+
+    case 'geteggstats':
+        echo json_encode($flockModel->getEggCollectionStats());
+        break;
+
+    case 'getcollectionlog':
+        echo $flockModel->getDailyEggCollectionLog();
+        break;
+
+    case 'getweeklyprodchart':
+        echo json_encode($flockModel->getWeeklyProductionChartData());
         break;
 
     default:

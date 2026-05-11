@@ -252,6 +252,7 @@ $nav_context = 'poultry';
                                         <th>Stage Name</th>
                                         <th>Target Bird Type</th>
                                         <th>Duration (Approx)</th>
+                                        <th>Feed Qty (g)</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </thead>
