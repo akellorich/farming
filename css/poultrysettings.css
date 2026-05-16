@@ -102,6 +102,17 @@ body.sidebar-collapsed .main-content { margin-left: 80px; }
     font-size: 14px;
 }
 
+/* Hide Horizontal Scrollbars globally for tables while keeping scroll functionality */
+.table-responsive {
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
 .btn-add-premium {
     background: var(--primary-dark);
     color: white;
@@ -167,7 +178,8 @@ body.sidebar-collapsed .main-content { margin-left: 80px; }
 
 /* Backdrop Blur Effect */
 body.modal-open .main-content,
-body.modal-open .sidebar {
+body.modal-open .sidebar,
+body.modal-open .top-header {
     filter: blur(4px);
     pointer-events: none;
     transition: filter 0.3s ease;

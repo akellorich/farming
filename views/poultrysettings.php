@@ -64,6 +64,7 @@ $nav_context = 'poultry';
                     <button class="settings-tab-btn" data-tab="formulation">Feed Formulation</button>
                     <button class="settings-tab-btn" data-tab="diseases">Diseases</button>
                     <button class="settings-tab-btn" data-tab="mortality">Mortality Reasons</button>
+                    <button class="settings-tab-btn" data-tab="distribution-points">Distribution Points</button>
                 </div>
                 <button class="tabs-scroll-btn right" id="tabs-scroll-right">
                     <span class="material-symbols-outlined">chevron_right</span>
@@ -599,6 +600,37 @@ $nav_context = 'poultry';
                         </div>
                     </div>
                 </div>
+
+                <!-- Section: Distribution Points -->
+                <div class="settings-tab-content" id="tab-distribution-points" style="display: none;">
+                    <div class="premium-card">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="h6 font-weight-bold mb-0">Poultry Distribution Hubs</h3>
+                            <button class="btn-add-premium" id="addHubBtn">
+                                <span class="material-symbols-outlined mr-2" style="font-size: 18px;">add</span>
+                                Add Hub
+                            </button>
+                        </div>
+                        <div class="table-alert-area"></div>
+                        <div class="table-responsive">
+                            <table class="table table-premium mb-0" id="distributionPointsTable" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Hub Name</th>
+                                        <th>Location</th>
+                                        <th>Contact Person</th>
+                                        <th>Contact Phone</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Data -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>

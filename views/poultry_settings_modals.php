@@ -613,3 +613,53 @@
         </div>
     </div>
 </div>
+
+<!-- Modal: Add Distribution Hub -->
+<div class="modal fade" id="addDistributionPointModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-2xl overflow-hidden">
+            <div class="modal-header-premium">
+                <div class="d-flex align-items-center">
+                    <div class="modal-icon-box">
+                        <span class="material-symbols-outlined">hub</span>
+                    </div>
+                    <div>
+                        <h4 class="h5 font-weight-bold mb-0">Add Distribution Hub</h4>
+                        <p class="text-muted small mb-0">Register a new delivery point for eggs.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link text-muted p-0" data-dismiss="modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body-premium">
+                <div class="notification-area mb-3"></div>
+                <form id="addHubForm" novalidate>
+                    <input type="hidden" name="id" value="0">
+                    <div class="form-group mb-4">
+                        <label class="form-label-premium">Hub Name</label>
+                        <input type="text" class="form-control-premium w-100" placeholder="e.g. City Market Hub" name="pointname" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label-premium">Location / Area</label>
+                        <input type="text" class="form-control-premium w-100" placeholder="e.g. Nairobi CBD" name="location">
+                    </div>
+                    <div class="form-row mb-0">
+                        <div class="form-group col-md-6 mb-0">
+                            <label class="form-label-premium">Contact Person</label>
+                            <input type="text" class="form-control-premium w-100" placeholder="Name" name="contactperson">
+                        </div>
+                        <div class="form-group col-md-6 mb-0">
+                            <label class="form-label-premium">Contact Phone</label>
+                            <input type="text" class="form-control-premium w-100" placeholder="Phone" name="contactphone">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer-premium">
+                <button type="button" class="btn btn-cancel-premium" data-dismiss="modal">Cancel</button>
+                <button type="submit" form="addHubForm" class="btn btn-add-premium">Save Hub</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,11 @@
-const validationanchor = $(".validation")
 const toggle = $("#nav-toggle")
-// toggle.prop("checked",true)
 let serverdate
 
 function getserverdate() {
     const dfd = $.Deferred()
+    const endpoint = window.location.pathname.includes('/views/') ? "../controllers/settingsoperations.php" : "controllers/settingsoperations.php";
     $.get(
-        "../controllers/settingsoperations.php",
+        endpoint,
         {
             getserverdate: true
         },
@@ -17,8 +16,6 @@ function getserverdate() {
     )
     return dfd.promise()
 }
-
-
 
 function setactivemenu(menu) {
     menu.addClass("active")
@@ -32,34 +29,80 @@ const patterns = {
     pinno: /[A-Z]{1}\d{9}[A-Z]{1}/
 }
 
-validationanchor.on("click", function (e) {
-    const objectcode = $(this).attr("data-id"),
-        pagetonavigate = $(this).attr("href")
-    e.preventDefault()
-    validateuserprivilege(objectcode).done(function (data) {
-        if (data == 0) {
-            bootbox.alert({
-                message: `<i class="fal fa-exclamation-triangle fa-3x fa-fw text-danger"></i>Sorry. Your are not authorized to perform this operation.`,
-            })
-        } else {
-            window.location.href = pagetonavigate
+// Global State for Privileges
+window.jukamUserPrivileges = [];
+
+function fetchLoggedUserPrivileges() {
+    const endpoint = window.location.pathname.includes('/views/') ? "../controllers/useroperations.php" : "controllers/useroperations.php";
+    return $.getJSON(endpoint, { getuserprivileges: true })
+        .done((data) => {
+            window.jukamUserPrivileges = Array.isArray(data) ? data : [];
+        });
+}
+
+// Initial Fetch
+fetchLoggedUserPrivileges();
+
+// Global Privilege Validation Listener
+$(document).on("click", "[data-validationid]", function (e) {
+    const $this = $(this);
+    const objectcode = $this.attr("data-validationid");
+
+    // Check if we already passed a real-time check for this specific click
+    if ($this.data("privilege-passed")) {
+        return true;
+    }
+
+    // Always perform a real-time AJAX check as requested by the user
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    checkPrivilege(objectcode, () => {
+        // Success! Set flag and trigger the native click to ensure navigation and full bubbling
+        $this.data("privilege-passed", true);
+        
+        if ($this[0]) {
+            $this[0].click();
         }
-    })
-})
+        
+        // Clean up flag after a short delay
+        setTimeout(() => $this.removeData("privilege-passed"), 100);
+    });
+
+    return false;
+});
+
+function showAccessDenied() {
+    $('#accessDeniedOverlay').fadeIn(300);
+    $('body').css('overflow', 'hidden');
+}
+
+function hideAccessDenied() {
+    $('#accessDeniedOverlay').fadeOut(200, function () {
+        $('body').css('overflow', 'auto');
+    });
+}
+
+$(document).on('click', '#accessDeniedClose', function () {
+    hideAccessDenied();
+});
+
+// Close on backdrop click
+$(document).on('click', '#accessDeniedOverlay', function (e) {
+    if ($(e.target).is('#accessDeniedOverlay')) {
+        hideAccessDenied();
+    }
+});
 
 function validateuserprivilege(objectcode) {
+    // Keeping this for backward compatibility if needed elsewhere
     const dfd = $.Deferred();
-    $.post(
-        "../controllers/useroperations.php",
-        {
-            getuserprivilege: true,
-            objectcode
-        },
-        function (data) {
-            dfd.resolve(data)
-        }
-    )
-    return dfd.promise()
+    const isAllowed = window.jukamUserPrivileges.some(p =>
+        (p.objectcode == objectcode || parseInt(p.objectcode, 16) == parseInt(objectcode, 16)) &&
+        p.allowed == 1
+    );
+    dfd.resolve(isAllowed ? 1 : 0);
+    return dfd.promise();
 }
 
 function validatefielddata(validatevalue, format) {
@@ -96,33 +139,50 @@ const titletext = titleCase(fileName.split(".")[0].replace(/-/g, " ").replace(/_
 // $(".sidebar-brand h2").text(titletext) 
 
 // System Name
-titletag.text("GuardsApp - " + titletext)
+titletag.text("Farm App " + titletext)
 
 if (fileName != "index.html" && fileName != "index.php" && fileName != "") {
     getloggedinuser()
 }
 
 function getloggedinuser() {
-    const username = $("#loggedinuser")
-    // const role=$(".role")
-    // const image=$(".profilephoto")
+    const endpoint = window.location.pathname.includes('/views/') ? "../controllers/useroperations.php" : "controllers/useroperations.php";
 
     $.getJSON(
-        "../controllers/useroperations.php",
+        endpoint,
         {
             getloggedinuser: true
         },
         (data) => {
-            // console.log(data)   
-            if (isJsonObject(data)) {
-                username.html(`${data.firstname} ${data.middlename}`)
-                // role.html(data.systemadmin==1?'Admin Account':'User Account')
-                // image.attr("src","../images/blankavatar.jpg")
-            } else {
-                window.location.href = "../index.php"
+            if (isJsonObject(data) && data.username) {
+                const fullname = `${data.firstname} ${data.lastname}`;
+                const rolename = data.rolename || data.category || 'General';
+
+                // Update Sidebar
+                const fullDisplayName = `${data.firstname} ${data.middlename || ''} ${data.lastname}`.trim() || data.username;
+                $("#loggedinuser, #user-display-name").html(fullDisplayName);
+                $(".user-info .small").html(fullDisplayName);
+                $(".user-info .text-muted, #user-display-role").html(rolename);
+
+                // Update Modals (Lock Screen & Password Change)
+                $(".lock-name, .summary-name").html(fullname);
+                $(".lock-title, .summary-role").html(rolename);
+
+                // Update Photos
+                if (data.profilephoto) {
+                    let photoPath = data.profilephoto;
+                    photoPath = photoPath.replace(/^(\.\.\/)+/, '');
+                    const basePath = window.location.pathname.includes('/views/') ? "../" : "";
+                    const fullPhotoPath = basePath + photoPath;
+
+                    $(".user-avatar, .lock-avatar, .summary-avatar").attr("src", fullPhotoPath);
+                }
+            } else if (!window.location.pathname.endsWith('index.php')) {
+                const basePath = window.location.pathname.includes('/views/') ? "../" : "";
+                window.location.href = basePath + "index.php";
             }
         }
-    )
+    );
 }
 
 
@@ -142,7 +202,7 @@ function getcountries(obj, option = 'all') {
     $.getJSON(
         "../controllers/countryoperations.php",
         {
-           getcountries:true
+            getcountries: true
         },
         (data) => {
             let results = "";
@@ -158,18 +218,18 @@ function getcountries(obj, option = 'all') {
 }
 
 function getIngredients(targetSelect, selectedValue = '') {
-    $.getJSON("../controllers/inventoryoperations.php?action=getitems", function(response) {
+    $.getJSON("../controllers/inventoryoperations.php?action=getitems", function (response) {
         let options = '<option value="" disabled selected>Select Ingredient</option>';
         if (response && response.length > 0) {
             // Filter out only items that are ingredients
             const ingredients = response.filter(item => item.itemtype && item.itemtype.toLowerCase() === 'ingredient');
-            ingredients.forEach(function(item) {
+            ingredients.forEach(function (item) {
                 const selected = (selectedValue == item.id) ? "selected" : "";
                 options += `<option value="${item.id}" ${selected}>${item.itemname}</option>`;
             });
         }
         $(targetSelect).html(options);
-    }).fail(function() {
+    }).fail(function () {
         console.error("Failed to load ingredients.");
         $(targetSelect).html('<option value="" disabled>Error loading</option>');
     });
@@ -257,12 +317,12 @@ function getsmsproviders(obj) {
             let defaultId = 0;
             data.forEach((provider) => {
                 results += `<option value='${provider.id}' ${provider.isdefault == 1 ? 'selected' : ''}>${provider.providername}</option>`;
-                if(provider.isdefault == 1) defaultId = provider.id;
+                if (provider.isdefault == 1) defaultId = provider.id;
             });
             obj.html(results);
-            
+
             // Trigger load for the default/selected provider
-            if(typeof loadSMSSettings === 'function') {
+            if (typeof loadSMSSettings === 'function') {
                 loadSMSSettings(obj.val());
             }
         }
@@ -450,7 +510,8 @@ function getproperties(obj, option = 'all') {
 }
 
 function sanitizestring(str) {
-    return str == '' ? str : str.replace("'", "''").trim()
+    if (typeof str !== 'string') return str;
+    return str == '' ? str : str.replace(/'/g, "''").trim()
 }
 
 
@@ -1769,6 +1830,33 @@ $("body").on("load", () => {
 // }
 
 
+function checkPrivilege(objectcode, callback) {
+    if (!objectcode || objectcode === "") {
+        callback();
+        return;
+    }
+
+    const endpoint = window.location.pathname.includes('/views/') ? "../controllers/useroperations.php" : "controllers/useroperations.php";
+
+    $.getJSON(endpoint, {
+        checkprivilege: true,
+        objectcode: objectcode
+    }, (data) => {
+        console.log("Privilege Status for " + objectcode + ":", data.allowed);
+        if (data.allowed === false) {
+            showAccessDenied();
+            // Log Access Denied event
+            $.post(endpoint, {
+                logaccessdenied: true,
+                objectcode: objectcode
+            });
+        } else {
+            callback();
+        }
+    });
+}
+
+
 function validateuserrecruitmentapproval(levelid, unitid) {
     const dfd = $.Deferred()
     $.getJSON(
@@ -1882,7 +1970,7 @@ function getpens(obj) {
 
                 const occupancyPercent = pen.capacity > 0 ? (pen.current_occupancy / pen.capacity) * 100 : 0;
                 let statusBadge = '';
-                
+
                 if (occupancyPercent >= 100) {
                     statusBadge = `<span class="badge badge-pill py-1 px-3 d-inline-flex align-items-center" style="background-color: #fecaca; color: #991b1b; font-size: 10px; font-weight: 700; letter-spacing: 0.05em;">
                                     <span class="mr-1" style="width: 5px; height: 5px; background: #b91c1c; border-radius: 50%;"></span> OVER CAPACITY
@@ -1966,15 +2054,15 @@ function getpenscheckboxes(container) {
 
 function getanimals(obj, status = 'all', option = 'choose') {
     const $target = (typeof obj === 'string') ? $('#' + obj) : $(obj);
-    
+
     $.getJSON("../controllers/animaloperations.php", { action: 'getanimals' }, (data) => {
         let animals = data;
-        
+
         // Filter by status if provided and not 'all'
         if (status !== 'all') {
             animals = animals.filter(animal => animal.status.toLowerCase() === status.toLowerCase());
         }
-        
+
         let options = (option === 'all' || option === 'All Animals') ? '<option value="">All Animals</option>' : '<option value="" disabled selected>Choose an animal</option>';
         animals.forEach(animal => {
             options += `<option value="${animal.id}">${animal.tagid} (${animal.designatedname || 'Unnamed'})</option>`;

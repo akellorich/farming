@@ -30,6 +30,16 @@ $(document).ready(function() {
     loadInventoryCategories();
     loadDiseaseTypes();
 
+    $('#addHubBtn').on('click', function() {
+        const $modal = $('#addDistributionPointModal');
+        const $form = $('#addHubForm');
+        $modal.find('h4').text('Add Distribution Hub');
+        $form[0].reset();
+        $form.find('[name="id"]').val(0);
+        $modal.find('.notification-area').empty();
+        $modal.modal('show');
+    });
+
     function loadInventoryCategories() {
         $.ajax({
             url: '../controllers/poultrysettingsoperations.php?action=getinventorycategories',
@@ -160,6 +170,9 @@ $(document).ready(function() {
             case 'formulation': action = 'getformulations'; break;
             case 'diseases': action = 'getdiseases'; break;
             case 'mortality': action = 'getmortalityreasons'; break;
+            case 'distribution-points': 
+                fetchDistributionHubs();
+                return;
         }
 
         if (!action) return;
@@ -172,12 +185,31 @@ $(document).ready(function() {
             type: 'GET',
             success: function(response) {
                 try {
-                    const data = JSON.parse(response);
+                    const data = typeof response === 'string' ? JSON.parse(response) : response;
                     tabDataCache[tab] = data; 
                     if (tab === 'inventory') allInventoryItems = data; 
                     renderTable(tab, data, $tbody, $card);
                 } catch (e) {
-                    console.error("Parse Error:", e, response);
+                    console.error("Parse Error for " + tab + ":", e, response);
+                }
+            }
+        });
+    }
+
+    function fetchDistributionHubs() {
+        const $tbody = $('#tab-distribution-points').find('tbody');
+        const $card = $('#tab-distribution-points').find('.premium-card');
+
+        $.ajax({
+            url: '../controllers/poultrydistributionoperations.php?action=getpoints',
+            type: 'GET',
+            success: function(response) {
+                try {
+                    const data = typeof response === 'string' ? JSON.parse(response) : response;
+                    tabDataCache['distribution-points'] = data;
+                    renderTable('distribution-points', data, $tbody, $card);
+                } catch (e) {
+                    console.error("Parse Error for distribution-points:", e, response);
                 }
             }
         });
@@ -292,6 +324,16 @@ $(document).ready(function() {
                         <td class="text-right">${getActionMenu(item.formulationid, 'formulation')}</td>
                     </tr>
                 `;
+            } else if (tab === 'distribution-points') {
+                row = `
+                    <tr>
+                        <td class="font-weight-bold">${item.pointname}</td>
+                        <td>${item.location || '-'}</td>
+                        <td>${item.contactperson || '-'}</td>
+                        <td>${item.contactphone || '-'}</td>
+                        <td class="text-right">${getActionMenu(item.pointid, 'distribution-points')}</td>
+                    </tr>
+                `;
             }
             $tbody.append(row);
         });
@@ -305,7 +347,8 @@ $(document).ready(function() {
             'inventory': '#inventoryTable',
             'formulation': '#formulationTable',
             'diseases': '#diseasesTable',
-            'mortality': '#mortalityTable'
+            'mortality': '#mortalityTable',
+            'distribution-points': '#distributionPointsTable'
         };
 
         const targetSelector = tableIdMap[tab];
@@ -401,7 +444,7 @@ $(document).ready(function() {
         const data = tabDataCache[tab];
         if (!data) return;
 
-        const record = data.find(r => (r.breedid || r.typeid || r.stageid || r.houseid || r.itemid || r.categoryid || r.diseaseid || r.reasonid || r.formulationid) == id);
+        const record = data.find(r => (r.breedid || r.typeid || r.stageid || r.houseid || r.itemid || r.categoryid || r.diseaseid || r.reasonid || r.formulationid || r.pointid) == id);
         if (!record) return;
 
         let $modal, $form;
@@ -497,6 +540,15 @@ $(document).ready(function() {
                 $form.find('[name="reason_label"]').val(record.reasonlabel);
                 $form.find('[name="description"]').val(record.description);
                 break;
+            case 'distribution-points':
+                $modal = $('#addDistributionPointModal'); $form = $('#addHubForm');
+                $modal.find('h4').text('Edit Distribution Hub');
+                $form.find('[name="id"]').val(record.pointid);
+                $form.find('[name="pointname"]').val(record.pointname);
+                $form.find('[name="location"]').val(record.location);
+                $form.find('[name="contactperson"]').val(record.contactperson);
+                $form.find('[name="contactphone"]').val(record.contactphone);
+                break;
         }
 
         if ($modal) {
@@ -512,8 +564,8 @@ $(document).ready(function() {
         $('#delete-reason').val('');
         $('#deleteConfirmModal').find('.notification-area').empty();
         
-        const record = tabDataCache[tab].find(r => (r.breedid || r.typeid || r.stageid || r.houseid || r.itemid || r.categoryid || r.diseaseid || r.reasonid || r.formulationid) == id);
-        const name = record ? (record.breedname || record.typename || record.stagename || record.housename || record.itemname || record.diseasename || record.reasonlabel || record.formulationname) : 'this record';
+        const record = tabDataCache[tab].find(r => (r.breedid || r.typeid || r.stageid || r.houseid || r.itemid || r.categoryid || r.diseaseid || r.reasonid || r.formulationid || r.pointid) == id);
+        const name = record ? (record.breedname || record.typename || record.stagename || record.housename || record.itemname || record.diseasename || record.reasonlabel || record.formulationname || record.pointname) : 'this record';
         
         $('#delete-modal-subtitle').html(`Confirm deletion of <strong>${name}</strong>`);
         $('#deleteConfirmModal').modal('show');
@@ -541,6 +593,7 @@ $(document).ready(function() {
             case 'diseases': action = 'deletedisease'; break;
             case 'mortality': action = 'deletemortalityreason'; break;
             case 'formulation': action = 'deleteformulation'; break;
+            case 'distribution-points': action = 'deletepoint'; break;
         }
 
         if (!action) return;
@@ -706,6 +759,9 @@ $(document).ready(function() {
         const $form = $(this);
         const formId = $form.attr('id');
         if (!formId || (!formId.startsWith('add') && formId !== 'addItemForm')) return;
+        
+        // Handle Hub Button specially since it might not be inside a modal in some contexts, 
+        // but here it follows the pattern.
 
         let isValid = true;
         const $modal = $form.closest('.modal');
@@ -735,12 +791,16 @@ $(document).ready(function() {
         else if (formId === 'addDiseaseForm') action = 'savedisease';
         else if (formId === 'addMortalityReasonForm') action = 'savemortalityreason';
         else if (formId === 'addFormulationForm') action = 'saveformulation';
+        else if (formId === 'addHubForm') action = 'savepoint';
 
         if (!action) return;
 
+        let controllerUrl = '../controllers/poultrysettingsoperations.php?action=' + action;
+        if (formId === 'addHubForm') controllerUrl = '../controllers/poultrydistributionoperations.php?action=' + action;
+
         const formData = new FormData(this);
         $.ajax({
-            url: '../controllers/poultrysettingsoperations.php?action=' + action,
+            url: controllerUrl,
             type: 'POST',
             data: formData,
             processData: false,

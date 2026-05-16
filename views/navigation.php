@@ -46,6 +46,10 @@
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('egg_collection.php', $current_page); ?>">egg</span>
                     <span>Egg Collection</span>
                 </a>
+                <a href="poultry_distribution_overview.php" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('poultry_distribution_overview.php', $current_page); ?>" style="font-size: 14px;">
+                    <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('poultry_distribution_overview.php', $current_page); ?>">directions_boat</span>
+                    <span>Distribution</span>
+                </a>
                 <a href="poultry_health.php" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('poultry_health.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('poultry_health.php', $current_page); ?>">medical_services</span>
                     <span>Health Tracking</span>
@@ -60,35 +64,39 @@
                 </a>
             <?php else: ?>
                 <!-- Dairy Navigation Items (Default) -->
-                <a href="<?php echo ($base_path ?? '') . 'dashboard.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('dashboard.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/dashboard.php'; ?>" data-validationid="0x1001" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('dashboard.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('dashboard.php', $current_page); ?>">speed</span>
                     <span>Dashboard</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/animals.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('animals.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/animals.php'; ?>" data-validationid="0x1101" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('animals.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('animals.php', $current_page); ?>">pets</span>
                     <span>Animals</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/production_overview.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('production_overview.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/production_overview.php'; ?>" data-validationid="0x1201" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('production_overview.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('production_overview.php', $current_page); ?>">water_drop</span>
                     <span>Production</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/feeding_overview.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('feeding_overview.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/distributionoverview.php'; ?>" data-validationid="0x1204" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('distributionoverview.php', $current_page); ?>" style="font-size: 14px;">
+                    <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('distributionoverview.php', $current_page); ?>">directions_boat</span>
+                    <span>Distribution</span>
+                </a>
+                <a href="<?php echo ($base_path ?? '') . 'views/feeding_overview.php'; ?>" data-validationid="0x1301" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('feeding_overview.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('feeding_overview.php', $current_page); ?>">wheat</span>
                     <span>Feeding</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/health_records_overview.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive(['health_records_overview.php', 'schedules_overview.php'], $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/health_records_overview.php'; ?>" data-validationid="0x1401" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive(['health_records_overview.php', 'schedules_overview.php'], $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings(['health_records_overview.php', 'schedules_overview.php'], $current_page); ?>">medical_services</span>
                     <span>Health</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/inventory_overview.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('inventory_overview.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/inventory_overview.php'; ?>" data-validationid="0x1501" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('inventory_overview.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('inventory_overview.php', $current_page); ?>">inventory_2</span>
                     <span>Inventory</span>
                 </a>
-                <a href="<?php echo ($base_path ?? '') . 'views/reports_overview.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive(['reports_overview.php', 'milk_production_report.php', 'health_records_report.php', 'vaccination_report.php', 'deworming_report.php', 'animal_health_card.php', 'birthing_breeding_report.php', 'stock_level_report.php', 'herd_feeding_report.php'], $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/reports_overview.php'; ?>" data-validationid="0x1601" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive(['reports_overview.php', 'milk_production_report.php', 'health_records_report.php', 'vaccination_report.php', 'deworming_report.php', 'animal_health_card.php', 'birthing_breeding_report.php', 'stock_level_report.php', 'herd_feeding_report.php'], $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('reports_overview.php', $current_page); ?>">analytics</span>
                     <span>Reports</span>
                 </a>
-                <a href="#" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('finance.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="#" data-validationid="0x1701" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('finance.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('finance.php', $current_page); ?>">account_balance_wallet</span>
                     <span>Finance</span>
                 </a>
@@ -96,14 +104,14 @@
 
             <!-- Common Divider Items -->
             <div class="pt-3 mt-3 border-top border-light">
-                <a href="<?php echo ($base_path ?? '') . 'views/users_manager.php'; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('users_manager.php', $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/users_manager.php'; ?>" data-validationid="0x1801" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive('users_manager.php', $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings('users_manager.php', $current_page); ?>">group</span>
                     <span>Users</span>
                 </a>
                 <?php 
                     $settings_page = ($nav_context === 'poultry') ? 'poultrysettings.php' : 'settings.php';
                 ?>
-                <a href="<?php echo ($base_path ?? '') . 'views/' . $settings_page; ?>" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive($settings_page, $current_page); ?>" style="font-size: 14px;">
+                <a href="<?php echo ($base_path ?? '') . 'views/' . $settings_page; ?>" data-validationid="0x1901" class="nav-link d-flex align-items-center mb-1 rounded-xl px-4 py-3 transition-all <?php echo isActive($settings_page, $current_page); ?>" style="font-size: 14px;">
                     <span class="material-symbols-outlined mr-3" style="font-size: 22px; <?php echo getIconSettings($settings_page, $current_page); ?>">settings</span>
                     <span>Settings</span>
                 </a>
@@ -114,10 +122,27 @@
     <!-- Profile Card -->
     <div class="mt-auto position-relative">
         <button class="user-profile-btn botanical-shadow d-flex align-items-center" id="userMenuBtn">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKv6UhRkhViIP3Lc_sEtl_CrVj20_Rf1BVquxC5jY17a2K3bUbRCUoNIP6gt5kWuyqv7CA4j0MmsqDjnx_bwqY4iAa8tH0ZT-qcICKUBIuADOUAG8jK3McNhfJC6s1VVgPNkqnVnVfjL8Efeb_Rd2k6UPjJlhyz1ThZIxNSnZ_OWAUcFyiVeSmymtJ_qUch5Gks0MYdRgSte-J5S6OMx4s1-y471x7fh91ekDaeAY1Sh9Z5rShfmOKPVlIbLJi8_Lb4dGazC0_5D_I" alt="User" class="user-avatar">
+            <?php 
+                $photo = $_SESSION['profilephoto'] ?? '';
+                if (empty($photo)) {
+                    $photo = ($base_path ?? '') . 'images/blankavatar.jpg';
+                } else {
+                    // Remove leading ../ if present since we are relative to root or using base_path
+                    $photo = ltrim($photo, './');
+                    $photo = ($base_path ?? '') . $photo;
+                }
+            ?>
+            <img src="<?php echo $photo; ?>" alt="User" class="user-avatar">
             <div class="user-info">
-                <p class="font-headline font-weight-bold small mb-0">James Kamau</p>
-                <p class="font-headline text-muted mb-0" style="font-size: 8px; text-transform: uppercase;">General Manager</p>
+                <p class="font-headline font-weight-bold small mb-0" id="user-display-name">
+                    <?php 
+                        $fullName = trim(($_SESSION['firstname'] ?? '') . ' ' . ($_SESSION['middlename'] ?? '') . ' ' . ($_SESSION['lastname'] ?? ''));
+                        echo !empty($fullName) ? $fullName : ($_SESSION['username'] ?? 'User');
+                    ?>
+                </p>
+                <p class="font-headline text-muted mb-0" id="user-display-role" style="font-size: 8px; text-transform: uppercase;">
+                    <?php echo $_SESSION['rolename'] ?? ($_SESSION['category'] ?? 'General'); ?>
+                </p>
             </div>
             <span class="material-symbols-outlined user-chevron ml-auto">expand_less</span>
         </button>
@@ -162,6 +187,7 @@
                 clearInterval(checkDependencies);
                 
                 var basePath = '<?php echo $base_path ?? ""; ?>';
+                window.mustChangePassword = <?php echo isset($_SESSION['must_change_password']) && $_SESSION['must_change_password'] ? 'true' : 'false'; ?>;
                 
                 // Ensure navigation.js is loaded for the popup toggle
                 if (!window.jukamNavigationLoaded && !$('script[src*="navigation.js"]').length) {
